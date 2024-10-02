@@ -23,21 +23,45 @@ public class listaProdutos extends javax.swing.JFrame {
         jlbl_produtos = new javax.swing.JLabel();
         jlbl_pedidos = new javax.swing.JLabel();
         jlbl_relatorios = new javax.swing.JLabel();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1366, 768));
 
-        jlbl_clientes.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1366, 768));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1366, 768));
+
+        jlbl_clientes.setBackground(new java.awt.Color(153, 204, 255));
+        jlbl_clientes.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_clientes.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_clientes.setText("CLIENTES");
 
-        jlbl_produtos.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jlbl_produtos.setBackground(new java.awt.Color(153, 204, 255));
+        jlbl_produtos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_produtos.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_produtos.setText("PRODUTOS");
 
-        jlbl_pedidos.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jlbl_pedidos.setBackground(new java.awt.Color(153, 204, 255));
+        jlbl_pedidos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_pedidos.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_pedidos.setText("PEDIDOS");
 
-        jlbl_relatorios.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jlbl_relatorios.setBackground(new java.awt.Color(153, 204, 255));
+        jlbl_relatorios.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_relatorios.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_relatorios.setText("RELATÓRIOS");
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -45,12 +69,13 @@ public class listaProdutos extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlbl_clientes)
+                    .addComponent(jlbl_produtos)
                     .addComponent(jlbl_pedidos)
-                    .addComponent(jlbl_relatorios)
-                    .addComponent(jlbl_produtos))
-                .addContainerGap(672, Short.MAX_VALUE))
+                    .addComponent(jlbl_relatorios))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1132, Short.MAX_VALUE)
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -63,7 +88,9 @@ public class listaProdutos extends javax.swing.JFrame {
                 .addComponent(jlbl_pedidos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbl_relatorios)
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(358, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -116,6 +143,7 @@ public class listaProdutos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel jlbl_clientes;
     private javax.swing.JLabel jlbl_pedidos;
