@@ -26,6 +26,8 @@ public class listaProdutos extends javax.swing.JFrame {
         jLayeredPane1 = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setFocusCycleRoot(false);
+        setIconImages(null);
         setSize(new java.awt.Dimension(1366, 768));
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
@@ -90,7 +92,7 @@ public class listaProdutos extends javax.swing.JFrame {
                 .addComponent(jlbl_relatorios)
                 .addGap(18, 18, 18)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(358, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
