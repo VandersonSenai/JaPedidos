@@ -41,22 +41,22 @@ public class listaProdutos extends javax.swing.JFrame {
 
         jlbl_clientes.setBackground(new java.awt.Color(153, 204, 255));
         jlbl_clientes.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_clientes.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_clientes.setText("CLIENTES");
 
         jlbl_produtos.setBackground(new java.awt.Color(153, 204, 255));
         jlbl_produtos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+<<<<<<< HEAD
+=======
         jlbl_produtos.setForeground(new java.awt.Color(255, 255, 255));
+>>>>>>> 7e0ff4963e0a0fb428eab6269748242d388bf450
         jlbl_produtos.setText("PRODUTOS");
 
         jlbl_pedidos.setBackground(new java.awt.Color(153, 204, 255));
         jlbl_pedidos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_pedidos.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_pedidos.setText("PEDIDOS");
 
         jlbl_relatorios.setBackground(new java.awt.Color(153, 204, 255));
         jlbl_relatorios.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_relatorios.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_relatorios.setText("RELATÓRIOS");
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
