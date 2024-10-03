@@ -24,6 +24,9 @@ public class listaProdutos extends javax.swing.JFrame {
         jlbl_pedidos = new javax.swing.JLabel();
         jlbl_relatorios = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtbl_lista_produtos = new javax.swing.JTable();
+        jbtn_novo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFocusCycleRoot(false);
@@ -40,6 +43,10 @@ public class listaProdutos extends javax.swing.JFrame {
 
         jlbl_produtos.setBackground(new java.awt.Color(153, 204, 255));
         jlbl_produtos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+<<<<<<< HEAD
+=======
+        jlbl_produtos.setForeground(new java.awt.Color(255, 255, 255));
+>>>>>>> 7e0ff4963e0a0fb428eab6269748242d388bf450
         jlbl_produtos.setText("PRODUTOS");
 
         jlbl_pedidos.setBackground(new java.awt.Color(153, 204, 255));
@@ -61,34 +68,99 @@ public class listaProdutos extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        jtbl_lista_produtos.setBackground(new java.awt.Color(153, 204, 255));
+        jtbl_lista_produtos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jtbl_lista_produtos.setForeground(new java.awt.Color(255, 255, 255));
+        jtbl_lista_produtos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                { new Integer(1), "BOLINHA DE QUEIJO", "ALIMENTO",  new Double(0.75), "UND",  new Boolean(true)},
+                { new Integer(2), "COXINHA DE FRANGO", "ALIMENTO",  new Double(0.75), "UND",  new Boolean(true)},
+                { new Integer(3), "KIBE DE CARNE", "ALIMENTO",  new Double(0.65), "UND",  new Boolean(true)},
+                { new Integer(4), "RISSOLE DE PIZZA", "ALIMENTO",  new Double(0.65), "UND",  new Boolean(true)},
+                { new Integer(5), "RISSOLE DE CAMARÃO", "ALIMENTO",  new Double(0.75), "UND",  new Boolean(true)},
+                { new Integer(6), "MINI CHURROS", "ALIMENTO",  new Double(0.55), "UND",  new Boolean(true)},
+                { new Integer(7), "ENROLADO DE SALSICHA ", "ALIMENTO",  new Double(0.55), "UND",  new Boolean(true)}
+            },
+            new String [] {
+                "Codigo", "Descrição", "Categoria", "P. Venda", "Unidade ", "Ativo"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jtbl_lista_produtos);
+        if (jtbl_lista_produtos.getColumnModel().getColumnCount() > 0) {
+            jtbl_lista_produtos.getColumnModel().getColumn(0).setResizable(false);
+            jtbl_lista_produtos.getColumnModel().getColumn(0).setPreferredWidth(60);
+            jtbl_lista_produtos.getColumnModel().getColumn(1).setResizable(false);
+            jtbl_lista_produtos.getColumnModel().getColumn(1).setPreferredWidth(350);
+            jtbl_lista_produtos.getColumnModel().getColumn(2).setResizable(false);
+            jtbl_lista_produtos.getColumnModel().getColumn(2).setPreferredWidth(90);
+            jtbl_lista_produtos.getColumnModel().getColumn(3).setResizable(false);
+            jtbl_lista_produtos.getColumnModel().getColumn(3).setPreferredWidth(60);
+            jtbl_lista_produtos.getColumnModel().getColumn(4).setResizable(false);
+            jtbl_lista_produtos.getColumnModel().getColumn(4).setPreferredWidth(55);
+            jtbl_lista_produtos.getColumnModel().getColumn(5).setResizable(false);
+            jtbl_lista_produtos.getColumnModel().getColumn(5).setPreferredWidth(40);
+        }
+
+        jbtn_novo.setText("jButton1");
+        jbtn_novo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtn_novoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlbl_clientes)
-                    .addComponent(jlbl_produtos)
-                    .addComponent(jlbl_pedidos)
-                    .addComponent(jlbl_relatorios))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1132, Short.MAX_VALUE)
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlbl_clientes)
+                            .addComponent(jlbl_produtos)
+                            .addComponent(jlbl_pedidos)
+                            .addComponent(jlbl_relatorios))
+                        .addGap(111, 111, 111)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(367, 367, 367)
+                        .addComponent(jbtn_novo)))
+                .addGap(565, 565, 565)
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(152, 152, 152)
-                .addComponent(jlbl_clientes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlbl_produtos)
-                .addGap(4, 4, 4)
-                .addComponent(jlbl_pedidos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlbl_relatorios)
-                .addGap(18, 18, 18)
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(224, 224, 224)
+                        .addComponent(jlbl_clientes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlbl_produtos)
+                        .addGap(4, 4, 4)
+                        .addComponent(jlbl_pedidos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlbl_relatorios)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 118, Short.MAX_VALUE)
+                .addComponent(jbtn_novo)
+                .addGap(61, 61, 61)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(195, 195, 195))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -104,6 +176,10 @@ public class listaProdutos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtn_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_novoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtn_novoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,9 +219,12 @@ public class listaProdutos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbtn_novo;
     private javax.swing.JLabel jlbl_clientes;
     private javax.swing.JLabel jlbl_pedidos;
     private javax.swing.JLabel jlbl_produtos;
     private javax.swing.JLabel jlbl_relatorios;
+    private javax.swing.JTable jtbl_lista_produtos;
     // End of variables declaration//GEN-END:variables
 }
