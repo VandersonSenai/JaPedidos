@@ -27,6 +27,8 @@ public class listaProdutos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbl_lista_produtos = new javax.swing.JTable();
         jbtn_novo = new javax.swing.JButton();
+        jbtn_excluir = new javax.swing.JButton();
+        jbtn_salvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFocusCycleRoot(false);
@@ -109,10 +111,24 @@ public class listaProdutos extends javax.swing.JFrame {
             jtbl_lista_produtos.getColumnModel().getColumn(5).setPreferredWidth(40);
         }
 
-        jbtn_novo.setText("jButton1");
+        jbtn_novo.setText("NOVO");
         jbtn_novo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_novoActionPerformed(evt);
+            }
+        });
+
+        jbtn_excluir.setText("Excluir");
+        jbtn_excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtn_excluirActionPerformed(evt);
+            }
+        });
+
+        jbtn_salvar.setText("Salvar");
+        jbtn_salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtn_salvarActionPerformed(evt);
             }
         });
 
@@ -129,12 +145,16 @@ public class listaProdutos extends javax.swing.JFrame {
                             .addComponent(jlbl_produtos)
                             .addComponent(jlbl_pedidos)
                             .addComponent(jlbl_relatorios))
-                        .addGap(111, 111, 111)
+                        .addGap(103, 103, 103)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(367, 367, 367)
-                        .addComponent(jbtn_novo)))
-                .addGap(565, 565, 565)
+                        .addGap(337, 337, 337)
+                        .addComponent(jbtn_novo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(76, 76, 76)
+                        .addComponent(jbtn_excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75)
+                        .addComponent(jbtn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(573, 573, 573)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -147,27 +167,29 @@ public class listaProdutos extends javax.swing.JFrame {
                         .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(224, 224, 224)
-                        .addComponent(jlbl_clientes)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlbl_produtos)
-                        .addGap(4, 4, 4)
-                        .addComponent(jlbl_pedidos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlbl_relatorios)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 118, Short.MAX_VALUE)
-                .addComponent(jbtn_novo)
-                .addGap(61, 61, 61)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(195, 195, 195))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jlbl_clientes)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jlbl_produtos)
+                                .addGap(4, 4, 4)
+                                .addComponent(jlbl_pedidos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jlbl_relatorios)))))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtn_novo)
+                    .addComponent(jbtn_excluir)
+                    .addComponent(jbtn_salvar))
+                .addContainerGap(283, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1634, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,6 +202,14 @@ public class listaProdutos extends javax.swing.JFrame {
     private void jbtn_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_novoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtn_novoActionPerformed
+
+    private void jbtn_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_excluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtn_excluirActionPerformed
+
+    private void jbtn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_salvarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtn_salvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,7 +250,9 @@ public class listaProdutos extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbtn_excluir;
     private javax.swing.JButton jbtn_novo;
+    private javax.swing.JButton jbtn_salvar;
     private javax.swing.JLabel jlbl_clientes;
     private javax.swing.JLabel jlbl_pedidos;
     private javax.swing.JLabel jlbl_produtos;
