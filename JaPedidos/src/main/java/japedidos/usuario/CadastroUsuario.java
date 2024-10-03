@@ -26,21 +26,120 @@ public class CadastroUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jpnl_cadastro = new javax.swing.JPanel();
+        jlbl_login = new javax.swing.JLabel();
+        jlbl_senha = new javax.swing.JLabel();
+        jlbl_banco = new javax.swing.JLabel();
+        jtxtf_login = new javax.swing.JTextField();
+        jpwf_senha = new javax.swing.JPasswordField();
+        jtxtf_banco = new javax.swing.JTextField();
+        jbtn_prosseguir = new javax.swing.JButton();
+        jbtn_cancelar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(640, 480));
+        setResizable(false);
+        setSize(new java.awt.Dimension(640, 480));
+
+        jpnl_cadastro.setPreferredSize(new java.awt.Dimension(640, 480));
+
+        jlbl_login.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jlbl_login.setText("Login");
+
+        jlbl_senha.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jlbl_senha.setText("Senha");
+
+        jlbl_banco.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jlbl_banco.setText("Banco");
+
+        jtxtf_login.setText("admin");
+
+        jpwf_senha.setText("admin");
+        jpwf_senha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jpwf_senhaActionPerformed(evt);
+            }
+        });
+
+        jtxtf_banco.setText("localhost:3306/japedidos");
+        jtxtf_banco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtf_bancoActionPerformed(evt);
+            }
+        });
+
+        jbtn_prosseguir.setText("Prosseguir");
+
+        jbtn_cancelar.setText("Cancelar");
+
+        javax.swing.GroupLayout jpnl_cadastroLayout = new javax.swing.GroupLayout(jpnl_cadastro);
+        jpnl_cadastro.setLayout(jpnl_cadastroLayout);
+        jpnl_cadastroLayout.setHorizontalGroup(
+            jpnl_cadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnl_cadastroLayout.createSequentialGroup()
+                .addGap(196, 196, 196)
+                .addGroup(jpnl_cadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpnl_cadastroLayout.createSequentialGroup()
+                        .addComponent(jlbl_login)
+                        .addGap(21, 21, 21)
+                        .addComponent(jtxtf_login))
+                    .addGroup(jpnl_cadastroLayout.createSequentialGroup()
+                        .addComponent(jlbl_senha)
+                        .addGap(19, 19, 19)
+                        .addComponent(jpwf_senha))
+                    .addGroup(jpnl_cadastroLayout.createSequentialGroup()
+                        .addComponent(jlbl_banco)
+                        .addGap(18, 18, 18)
+                        .addComponent(jtxtf_banco))
+                    .addGroup(jpnl_cadastroLayout.createSequentialGroup()
+                        .addComponent(jbtn_prosseguir, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbtn_cancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)))
+                .addGap(202, 202, 202))
+        );
+        jpnl_cadastroLayout.setVerticalGroup(
+            jpnl_cadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnl_cadastroLayout.createSequentialGroup()
+                .addContainerGap(138, Short.MAX_VALUE)
+                .addGroup(jpnl_cadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlbl_login)
+                    .addComponent(jtxtf_login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(jpnl_cadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlbl_senha)
+                    .addComponent(jpwf_senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(jpnl_cadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlbl_banco)
+                    .addComponent(jtxtf_banco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53)
+                .addGroup(jpnl_cadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtn_prosseguir)
+                    .addComponent(jbtn_cancelar))
+                .addGap(131, 131, 131))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jpnl_cadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jpnl_cadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jtxtf_bancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_bancoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtf_bancoActionPerformed
+
+    private void jpwf_senhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpwf_senhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jpwf_senhaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +177,14 @@ public class CadastroUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jbtn_cancelar;
+    private javax.swing.JButton jbtn_prosseguir;
+    private javax.swing.JLabel jlbl_banco;
+    private javax.swing.JLabel jlbl_login;
+    private javax.swing.JLabel jlbl_senha;
+    private javax.swing.JPanel jpnl_cadastro;
+    private javax.swing.JPasswordField jpwf_senha;
+    private javax.swing.JTextField jtxtf_banco;
+    private javax.swing.JTextField jtxtf_login;
     // End of variables declaration//GEN-END:variables
 }
