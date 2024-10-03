@@ -27,6 +27,9 @@
   JSpinner           --> jspn_nome
   JButton            --> jbtn_nome
   JPasswordField     --> jpwf_nome
+  JTable	     --> jtbl_nome
+
+
 
 4 Passo:
 - construir objetos
