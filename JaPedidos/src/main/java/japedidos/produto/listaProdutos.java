@@ -45,10 +45,7 @@ public class listaProdutos extends javax.swing.JFrame {
 
         jlbl_produtos.setBackground(new java.awt.Color(153, 204, 255));
         jlbl_produtos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-<<<<<<< HEAD
-=======
         jlbl_produtos.setForeground(new java.awt.Color(255, 255, 255));
->>>>>>> 7e0ff4963e0a0fb428eab6269748242d388bf450
         jlbl_produtos.setText("PRODUTOS");
 
         jlbl_pedidos.setBackground(new java.awt.Color(153, 204, 255));
