@@ -1,5 +1,7 @@
 package japedidos.produto;
 
+import java.awt.Color;
+
 public class listaProdutos extends javax.swing.JFrame {
 
     /**
@@ -29,32 +31,47 @@ public class listaProdutos extends javax.swing.JFrame {
         jbtn_novo = new javax.swing.JButton();
         jbtn_excluir = new javax.swing.JButton();
         jbtn_salvar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFocusCycleRoot(false);
         setIconImages(null);
-        setSize(new java.awt.Dimension(1366, 768));
+        setMaximumSize(new java.awt.Dimension(1024, 576));
+        setSize(new java.awt.Dimension(1024, 576));
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
-        jPanel1.setMaximumSize(new java.awt.Dimension(1366, 768));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1366, 768));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1024, 576));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1024, 576));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1024, 576));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jlbl_clientes.setBackground(new java.awt.Color(153, 204, 255));
+        jlbl_clientes.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_clientes.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jlbl_clientes.setText("CLIENTES");
+        jPanel1.add(jlbl_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 190, -1, -1));
 
-        jlbl_produtos.setBackground(new java.awt.Color(153, 204, 255));
+        jlbl_produtos.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_produtos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_produtos.setForeground(new java.awt.Color(255, 255, 255));
+        jlbl_produtos.setForeground(new java.awt.Color(204, 204, 204));
         jlbl_produtos.setText("PRODUTOS");
+        jlbl_produtos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jlbl_produtosFocusGained(evt);
+            }
+        });
+        jPanel1.add(jlbl_produtos, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 230, -1, -1));
 
-        jlbl_pedidos.setBackground(new java.awt.Color(153, 204, 255));
+        jlbl_pedidos.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_pedidos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jlbl_pedidos.setText("PEDIDOS");
+        jPanel1.add(jlbl_pedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 270, -1, -1));
 
-        jlbl_relatorios.setBackground(new java.awt.Color(153, 204, 255));
+        jlbl_relatorios.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_relatorios.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jlbl_relatorios.setText("RELATÓRIOS");
+        jPanel1.add(jlbl_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 310, -1, -1));
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -66,6 +83,8 @@ public class listaProdutos extends javax.swing.JFrame {
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
+
+        jPanel1.add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1528, 127, -1, -1));
 
         jtbl_lista_produtos.setBackground(new java.awt.Color(153, 204, 255));
         jtbl_lista_produtos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -108,12 +127,15 @@ public class listaProdutos extends javax.swing.JFrame {
             jtbl_lista_produtos.getColumnModel().getColumn(5).setPreferredWidth(40);
         }
 
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(291, 224, 664, 208));
+
         jbtn_novo.setText("NOVO");
         jbtn_novo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_novoActionPerformed(evt);
             }
         });
+        jPanel1.add(jbtn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(337, 462, 139, -1));
 
         jbtn_excluir.setText("Excluir");
         jbtn_excluir.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +143,7 @@ public class listaProdutos extends javax.swing.JFrame {
                 jbtn_excluirActionPerformed(evt);
             }
         });
+        jPanel1.add(jbtn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(552, 462, 139, -1));
 
         jbtn_salvar.setText("Salvar");
         jbtn_salvar.addActionListener(new java.awt.event.ActionListener() {
@@ -128,65 +151,30 @@ public class listaProdutos extends javax.swing.JFrame {
                 jbtn_salvarActionPerformed(evt);
             }
         });
+        jPanel1.add(jbtn_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(766, 462, 139, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlbl_clientes)
-                            .addComponent(jlbl_produtos)
-                            .addComponent(jlbl_pedidos)
-                            .addComponent(jlbl_relatorios))
-                        .addGap(103, 103, 103)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(337, 337, 337)
-                        .addComponent(jbtn_novo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(76, 76, 76)
-                        .addComponent(jbtn_excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(75, 75, 75)
-                        .addComponent(jbtn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(573, 573, 573)
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(224, 224, 224)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jlbl_clientes)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jlbl_produtos)
-                                .addGap(4, 4, 4)
-                                .addComponent(jlbl_pedidos)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jlbl_relatorios)))))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbtn_novo)
-                    .addComponent(jbtn_excluir)
-                    .addComponent(jbtn_salvar))
-                .addContainerGap(283, Short.MAX_VALUE))
-        );
+        jButton1.setBackground(new java.awt.Color(255, 51, 51));
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setText("ZUADO");
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, -1, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/painel_comandos_esquerda_05x.png"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/background_produtos_075x.png"))); // NOI18N
+        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel3.setMaximumSize(new java.awt.Dimension(1024, 576));
+        jLabel3.setMinimumSize(new java.awt.Dimension(1024, 576));
+        jLabel3.setPreferredSize(new java.awt.Dimension(1024, 576));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1024, 576));
+        jLabel3.getAccessibleContext().setAccessibleParent(jLabel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1634, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,6 +186,7 @@ public class listaProdutos extends javax.swing.JFrame {
 
     private void jbtn_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_novoActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jbtn_novoActionPerformed
 
     private void jbtn_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_excluirActionPerformed
@@ -207,6 +196,11 @@ public class listaProdutos extends javax.swing.JFrame {
     private void jbtn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_salvarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtn_salvarActionPerformed
+
+    private void jlbl_produtosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jlbl_produtosFocusGained
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jlbl_produtosFocusGained
 
     /**
      * @param args the command line arguments
@@ -244,6 +238,9 @@ public class listaProdutos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
