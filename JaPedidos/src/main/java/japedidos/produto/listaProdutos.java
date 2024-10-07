@@ -20,20 +20,27 @@ public class listaProdutos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        jpnl_sideMenu = new javax.swing.JPanel();
         jlbl_clientes = new javax.swing.JLabel();
         jlbl_produtos = new javax.swing.JLabel();
         jlbl_pedidos = new javax.swing.JLabel();
         jlbl_relatorios = new javax.swing.JLabel();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
+        jpnl_img_etiqueta = new javax.swing.JLabel();
+        jpnl_background = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbl_lista_produtos = new javax.swing.JTable();
-        jbtn_novo = new javax.swing.JButton();
-        jbtn_excluir = new javax.swing.JButton();
-        jbtn_salvar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jpnl_btn_salvar = new javax.swing.JLabel();
+        jpnl_btn_excluir = new javax.swing.JLabel();
+        jpnl_background1 = new javax.swing.JLabel();
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/background_produtos_075x.png"))); // NOI18N
+        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel3.setMaximumSize(new java.awt.Dimension(1024, 576));
+        jLabel3.setMinimumSize(new java.awt.Dimension(1024, 576));
+        jLabel3.setPreferredSize(new java.awt.Dimension(1024, 576));
+        jLabel3.getAccessibleContext().setAccessibleParent(jpnl_img_etiqueta);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFocusCycleRoot(false);
@@ -47,10 +54,16 @@ public class listaProdutos extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(1024, 576));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jpnl_sideMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jpnl_sideMenu.setMaximumSize(new java.awt.Dimension(250, 576));
+        jpnl_sideMenu.setMinimumSize(new java.awt.Dimension(250, 576));
+        jpnl_sideMenu.setPreferredSize(new java.awt.Dimension(250, 576));
+        jpnl_sideMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jlbl_clientes.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_clientes.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jlbl_clientes.setText("CLIENTES");
-        jPanel1.add(jlbl_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 190, -1, -1));
+        jpnl_sideMenu.add(jlbl_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
 
         jlbl_produtos.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_produtos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
@@ -61,30 +74,32 @@ public class listaProdutos extends javax.swing.JFrame {
                 jlbl_produtosFocusGained(evt);
             }
         });
-        jPanel1.add(jlbl_produtos, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 230, -1, -1));
+        jpnl_sideMenu.add(jlbl_produtos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
 
         jlbl_pedidos.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_pedidos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jlbl_pedidos.setText("PEDIDOS");
-        jPanel1.add(jlbl_pedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 270, -1, -1));
+        jpnl_sideMenu.add(jlbl_pedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
 
         jlbl_relatorios.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_relatorios.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jlbl_relatorios.setText("RELATÓRIOS");
-        jPanel1.add(jlbl_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 310, -1, -1));
+        jpnl_sideMenu.add(jlbl_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, -1));
 
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        jpnl_img_etiqueta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/painel_comandos_esquerda_05x.png"))); // NOI18N
+        jpnl_img_etiqueta.setText("jLabel2");
+        jpnl_img_etiqueta.setMaximumSize(new java.awt.Dimension(250, 576));
+        jpnl_img_etiqueta.setMinimumSize(new java.awt.Dimension(250, 576));
+        jpnl_sideMenu.add(jpnl_img_etiqueta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 250, -1));
 
-        jPanel1.add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1528, 127, -1, -1));
+        jpnl_background.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jpnl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/background_produtos_075x.png"))); // NOI18N
+        jpnl_background.setToolTipText("");
+        jpnl_background.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jpnl_background.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jpnl_sideMenu.add(jpnl_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel1.add(jpnl_sideMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 576));
 
         jtbl_lista_produtos.setBackground(new java.awt.Color(153, 204, 255));
         jtbl_lista_produtos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -111,6 +126,8 @@ public class listaProdutos extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jtbl_lista_produtos.setMinimumSize(new java.awt.Dimension(90, 160));
+        jtbl_lista_produtos.setPreferredSize(new java.awt.Dimension(655, 204));
         jScrollPane1.setViewportView(jtbl_lista_produtos);
         if (jtbl_lista_produtos.getColumnModel().getColumnCount() > 0) {
             jtbl_lista_produtos.getColumnModel().getColumn(0).setResizable(false);
@@ -129,46 +146,18 @@ public class listaProdutos extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(291, 224, 664, 208));
 
-        jbtn_novo.setText("NOVO");
-        jbtn_novo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtn_novoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbtn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(337, 462, 139, -1));
+        jpnl_btn_salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/btn_excluir_padrao.png"))); // NOI18N
+        jPanel1.add(jpnl_btn_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 120, -1, -1));
 
-        jbtn_excluir.setText("Excluir");
-        jbtn_excluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtn_excluirActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbtn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(552, 462, 139, -1));
+        jpnl_btn_excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/btn_salvar_padrao.png"))); // NOI18N
+        jPanel1.add(jpnl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 70, -1, -1));
 
-        jbtn_salvar.setText("Salvar");
-        jbtn_salvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtn_salvarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbtn_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(766, 462, 139, -1));
-
-        jButton1.setBackground(new java.awt.Color(255, 51, 51));
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("ZUADO");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, -1, -1));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/painel_comandos_esquerda_05x.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/background_produtos_075x.png"))); // NOI18N
-        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel3.setMaximumSize(new java.awt.Dimension(1024, 576));
-        jLabel3.setMinimumSize(new java.awt.Dimension(1024, 576));
-        jLabel3.setPreferredSize(new java.awt.Dimension(1024, 576));
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1024, 576));
-        jLabel3.getAccessibleContext().setAccessibleParent(jLabel2);
+        jpnl_background1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jpnl_background1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/background_produtos_075x.png"))); // NOI18N
+        jpnl_background1.setToolTipText("");
+        jpnl_background1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jpnl_background1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jPanel1.add(jpnl_background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -183,19 +172,6 @@ public class listaProdutos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jbtn_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_novoActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jbtn_novoActionPerformed
-
-    private void jbtn_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_excluirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtn_excluirActionPerformed
-
-    private void jbtn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_salvarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtn_salvarActionPerformed
 
     private void jlbl_produtosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jlbl_produtosFocusGained
         // TODO add your handling code here:
@@ -238,19 +214,19 @@ public class listaProdutos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton jbtn_excluir;
-    private javax.swing.JButton jbtn_novo;
-    private javax.swing.JButton jbtn_salvar;
     private javax.swing.JLabel jlbl_clientes;
     private javax.swing.JLabel jlbl_pedidos;
     private javax.swing.JLabel jlbl_produtos;
     private javax.swing.JLabel jlbl_relatorios;
+    private javax.swing.JLabel jpnl_background;
+    private javax.swing.JLabel jpnl_background1;
+    private javax.swing.JLabel jpnl_btn_excluir;
+    private javax.swing.JLabel jpnl_btn_salvar;
+    private javax.swing.JLabel jpnl_img_etiqueta;
+    private javax.swing.JPanel jpnl_sideMenu;
     private javax.swing.JTable jtbl_lista_produtos;
     // End of variables declaration//GEN-END:variables
 }
