@@ -31,7 +31,6 @@ public class listaProdutos extends javax.swing.JFrame {
         jpnl_background = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbl_lista_produtos = new javax.swing.JTable();
-        jSeparator1 = new javax.swing.JSeparator();
         jpnl_btn_excluir = new javax.swing.JLabel();
         jpnl_btn_salvar = new javax.swing.JLabel();
         jpnl_btn_novo = new javax.swing.JLabel();
@@ -117,7 +116,7 @@ public class listaProdutos extends javax.swing.JFrame {
                 { new Integer(7), "ENROLADO DE SALSICHA ", "ALIMENTO",  new Double(0.55), "UND",  new Boolean(true)}
             },
             new String [] {
-                "Codigo", "Descrição", "Categoria", "P. Venda", "Unidade ", "Ativo"
+                "Codigo", "Descrição", "Categoria", "Valor(R$)", "Unidade ", "Ativo"
             }
         ) {
             Class[] types = new Class [] {
@@ -148,24 +147,21 @@ public class listaProdutos extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(291, 262, 664, 170));
 
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 120, 90));
-
         jpnl_btn_excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/btn_excluir_padrao.png"))); // NOI18N
-        jPanel1.add(jpnl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 130, -1, -1));
+        jPanel1.add(jpnl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 160, -1, -1));
 
         jpnl_btn_salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/btn_salvar_padrao.png"))); // NOI18N
-        jPanel1.add(jpnl_btn_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 220, -1, -1));
+        jPanel1.add(jpnl_btn_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 200, -1, -1));
 
         jpnl_btn_novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/btn_novo_padrao.png"))); // NOI18N
-        jPanel1.add(jpnl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 180, -1, -1));
+        jPanel1.add(jpnl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 120, -1, -1));
 
         jpnl_background1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jpnl_background1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/background_produtos_075x.png"))); // NOI18N
         jpnl_background1.setToolTipText("");
         jpnl_background1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jpnl_background1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jPanel1.add(jpnl_background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel1.add(jpnl_background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -225,7 +221,6 @@ public class listaProdutos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel jlbl_clientes;
     private javax.swing.JLabel jlbl_pedidos;
     private javax.swing.JLabel jlbl_produtos;
