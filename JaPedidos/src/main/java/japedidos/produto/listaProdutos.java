@@ -31,8 +31,10 @@ public class listaProdutos extends javax.swing.JFrame {
         jpnl_background = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbl_lista_produtos = new javax.swing.JTable();
-        jpnl_btn_salvar = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
         jpnl_btn_excluir = new javax.swing.JLabel();
+        jpnl_btn_salvar = new javax.swing.JLabel();
+        jpnl_btn_novo = new javax.swing.JLabel();
         jpnl_background1 = new javax.swing.JLabel();
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/background_produtos_075x.png"))); // NOI18N
@@ -144,13 +146,19 @@ public class listaProdutos extends javax.swing.JFrame {
             jtbl_lista_produtos.getColumnModel().getColumn(5).setPreferredWidth(40);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(291, 224, 664, 208));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(291, 262, 664, 170));
 
-        jpnl_btn_salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/btn_excluir_padrao.png"))); // NOI18N
-        jPanel1.add(jpnl_btn_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 120, -1, -1));
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 120, 90));
 
-        jpnl_btn_excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/btn_salvar_padrao.png"))); // NOI18N
-        jPanel1.add(jpnl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 70, -1, -1));
+        jpnl_btn_excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/btn_excluir_padrao.png"))); // NOI18N
+        jPanel1.add(jpnl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 130, -1, -1));
+
+        jpnl_btn_salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/btn_salvar_padrao.png"))); // NOI18N
+        jPanel1.add(jpnl_btn_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 220, -1, -1));
+
+        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/btn_novo_padrao.png"))); // NOI18N
+        jPanel1.add(jpnl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 180, -1, -1));
 
         jpnl_background1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jpnl_background1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/background_produtos_075x.png"))); // NOI18N
@@ -217,6 +225,7 @@ public class listaProdutos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel jlbl_clientes;
     private javax.swing.JLabel jlbl_pedidos;
     private javax.swing.JLabel jlbl_produtos;
@@ -224,6 +233,7 @@ public class listaProdutos extends javax.swing.JFrame {
     private javax.swing.JLabel jpnl_background;
     private javax.swing.JLabel jpnl_background1;
     private javax.swing.JLabel jpnl_btn_excluir;
+    private javax.swing.JLabel jpnl_btn_novo;
     private javax.swing.JLabel jpnl_btn_salvar;
     private javax.swing.JLabel jpnl_img_etiqueta;
     private javax.swing.JPanel jpnl_sideMenu;
