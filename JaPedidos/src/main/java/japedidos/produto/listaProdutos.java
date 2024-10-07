@@ -41,6 +41,8 @@ public class listaProdutos extends javax.swing.JFrame {
         jtxtf_valor = new javax.swing.JTextField();
         jcmb_categoria = new javax.swing.JComboBox<>();
         jcmb_und = new javax.swing.JComboBox<>();
+        jtxtf_valor1 = new javax.swing.JTextField();
+        jToolBar1 = new javax.swing.JToolBar();
         jpnl_btn_excluir = new javax.swing.JLabel();
         jpnl_btn_salvar = new javax.swing.JLabel();
         jpnl_btn_novo = new javax.swing.JLabel();
@@ -155,7 +157,7 @@ public class listaProdutos extends javax.swing.JFrame {
             jtbl_lista_produtos.getColumnModel().getColumn(5).setPreferredWidth(40);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(291, 262, 664, 170));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 270, 664, 170));
 
         jlbl_codigo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_codigo.setForeground(new java.awt.Color(0, 0, 0));
@@ -192,7 +194,7 @@ public class listaProdutos extends javax.swing.JFrame {
 
         jtxtf_valor.setBackground(new java.awt.Color(204, 204, 204));
         jtxtf_valor.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jtxtf_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 140, 90, 30));
+        jPanel1.add(jtxtf_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 660, 30));
 
         jcmb_categoria.setBackground(new java.awt.Color(204, 204, 204));
         jcmb_categoria.setForeground(new java.awt.Color(255, 255, 255));
@@ -203,6 +205,13 @@ public class listaProdutos extends javax.swing.JFrame {
         jcmb_und.setForeground(new java.awt.Color(255, 255, 255));
         jcmb_und.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALIMENTO", "REFRIGERANTE", "MOLHOS" }));
         jPanel1.add(jcmb_und, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, 140, 30));
+
+        jtxtf_valor1.setBackground(new java.awt.Color(204, 204, 204));
+        jtxtf_valor1.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(jtxtf_valor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 140, 90, 30));
+
+        jToolBar1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.white, java.awt.Color.darkGray, null));
+        jPanel1.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 120, 660, 2));
 
         jpnl_btn_excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/btn_excluir_padrao.png"))); // NOI18N
         jPanel1.add(jpnl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 180, -1, -1));
@@ -278,6 +287,7 @@ public class listaProdutos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JComboBox<String> jcmb_categoria;
     private javax.swing.JComboBox<String> jcmb_und;
     private javax.swing.JLabel jlbl_categoria;
@@ -300,5 +310,6 @@ public class listaProdutos extends javax.swing.JFrame {
     private javax.swing.JTextField jtxtf_categoria;
     private javax.swing.JTextField jtxtf_codigo1;
     private javax.swing.JTextField jtxtf_valor;
+    private javax.swing.JTextField jtxtf_valor1;
     // End of variables declaration//GEN-END:variables
 }
