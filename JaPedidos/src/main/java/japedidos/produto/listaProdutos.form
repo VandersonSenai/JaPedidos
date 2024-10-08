@@ -181,7 +181,7 @@
             <Component class="javax.swing.JLabel" name="jpnl_img_etiqueta">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\JaPedidos\JaPedidos\src\main\java\japedidos\imagens\painel_comandos_esquerda_05x.png"/>
+                  <Image iconType="2" name="C:\SENAI\TECHNIGHT\JaPedidos\JaPedidos\src\main\java\japedidos\imagens\painel_comandos_esquerda_05x.png"/>
                 </Property>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[250, 576]"/>
@@ -200,7 +200,7 @@
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\JaPedidos\JaPedidos\src\main\java\japedidos\imagens\background_produtos_075x.png"/>
+                  <Image iconType="2" name="C:\SENAI\TECHNIGHT\JaPedidos\JaPedidos\src\main\java\japedidos\imagens\background_produtos_075x.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
                 <Property name="verticalAlignment" type="int" value="1"/>
@@ -470,6 +470,21 @@
             </Constraint>
           </Constraints>
         </Component>
+        <Component class="javax.swing.JTextField" name="jtxtf_codigo1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="420" y="170" width="90" height="30"/>
+            </Constraint>
+          </Constraints>
+        </Component>
         <Component class="javax.swing.JTextField" name="jtxtf_categoria">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -572,7 +587,7 @@
         <Component class="javax.swing.JLabel" name="jpnl_btn_novo">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\JaPedidos\JaPedidos\src\main\java\japedidos\imagens\btn_novo_padrao.png"/>
+              <Image iconType="2" name="C:\SENAI\TECHNIGHT\JaPedidos\JaPedidos\src\main\java\japedidos\imagens\btn_novo_padrao.png"/>
             </Property>
           </Properties>
           <Events>
@@ -589,9 +604,13 @@
         <Component class="javax.swing.JLabel" name="jpnl_btn_excluir">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\JaPedidos\JaPedidos\src\main\java\japedidos\imagens\btn_excluir_padrao.png"/>
+              <Image iconType="2" name="C:\SENAI\TECHNIGHT\JaPedidos\JaPedidos\src\main\java\japedidos\imagens\btn_excluir_padrao.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jpnl_btn_excluirMousePressed"/>
+            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jpnl_btn_excluirMouseReleased"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="870" y="210" width="-1" height="-1"/>
@@ -601,9 +620,13 @@
         <Component class="javax.swing.JLabel" name="jpnl_btn_salvar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\JaPedidos\JaPedidos\src\main\java\japedidos\imagens\btn_salvar_padrao.png"/>
+              <Image iconType="2" name="C:\SENAI\TECHNIGHT\JaPedidos\JaPedidos\src\main\java\japedidos\imagens\btn_salvar_padrao.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jpnl_btn_salvarMousePressed"/>
+            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jpnl_btn_salvarMouseReleased"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="870" y="250" width="-1" height="-1"/>
@@ -614,7 +637,7 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\JaPedidos\JaPedidos\src\main\java\japedidos\imagens\background_produtos_075x.png"/>
+              <Image iconType="2" name="C:\SENAI\TECHNIGHT\JaPedidos\JaPedidos\src\main\java\japedidos\imagens\background_produtos_075x.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="verticalAlignment" type="int" value="1"/>
