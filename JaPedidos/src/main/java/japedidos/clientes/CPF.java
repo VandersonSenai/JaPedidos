@@ -23,10 +23,11 @@ public class CPF {
 	 * @param str String contendo a informação do CPF no formato numérico
 	 * ou com pontuação, contendo 11 dígitos ao total. 
 	 * @throws IllegalArgumentException se str for uma representação inválida de CPF.
+         * @throws NullPointerException se str for nulo.
 	 */
 	public CPF(String str) {
-		String numerico = toNumerico(str); // Retira pontuacao, se houver
-		if(!eValido(numerico)) {
+                String numerico = toNumerico(str); // Retira pontuacao, se houver
+		if(!eValido(numerico)) { 
 			throw new IllegalArgumentException("CPF invalido");
 		}
 		this.numerico = numerico;
@@ -35,10 +36,12 @@ public class CPF {
 	/** Retorna a informação do CPF no formato numérico (sem pontuação e
 	 * com espaços removidos). 
 	 * @return A representação de um CPF contendo apenas os 11 dígitos.*/
-	public final String validarCPF() {return this.numerico;}
-	
+        @Override
+	public final String toString() {return this.numerico;}
+        
 	// Converters
 	/** Converte str em uma String contendo apenas os dígitos presentes.
+         * Não realiza validação, apenas remove caracteres que não sejam entre 0-9.
 	 * @return String contendo apenas dígitos. Retorna null, se str for null.*/
 	public final static String toNumerico(String str) {
 		if(str == null) {
@@ -59,7 +62,7 @@ public class CPF {
 	}
 	
 	// Checkers
-	/** Valida uma representação numérica de CPF.
+	/** Valida uma String contendo apenas dígitos de um CPF.
 	 *  Para um CPF é considerado válido se conter 11 dígitos e se os dígitos 
 	 *  verificadores informados forem iguais aos obtidos aplicando o algoritmo 
 	 *  seguinte:
@@ -96,7 +99,7 @@ public class CPF {
 	 * @return false se str não contém um CPF válido.
 	 * @throws NullPointerException se str conter null.
 	 */
-	public final static boolean eValido(String str) { // Deve receber um cpf contendo somente os numeros
+	public final static boolean eValido(String str) {
 		if (str == null) {
 			throw new NullPointerException("String de verificacao nao pode ser null");
 		} else if (str.length() < TAM_CPF) {
@@ -107,8 +110,6 @@ public class CPF {
 		if (str.length() < TAM_CPF || str.length() > TAM_CPF) {
 			return false;
 		}
-		
-		//String strNumerico = toNumerico(str); // Garante conversao para String contendo somente com numeros
 		
 		for (int d=1; d <= DIG_VERIFICACAO; d++) { // Valida os digitos verificadores
 			short soma=0;
@@ -139,7 +140,7 @@ public class CPF {
 			return false;
 		}
 		
-		return this.equals(outroCPF.validarCPF());
+		return this.equals(outroCPF.toString());
 	}
 }
 
