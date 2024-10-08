@@ -217,6 +217,17 @@ public class listaProdutos extends javax.swing.JFrame {
         jPanel1.add(jtb_linha, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 658, 2));
 
         jpnl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_novo_padrao.png")); // NOI18N
+        jpnl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jpnl_btn_novoMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jpnl_btn_novoMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jpnl_btn_novoMouseReleased(evt);
+            }
+        });
         jPanel1.add(jpnl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 170, -1, -1));
 
         jpnl_btn_excluir.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_excluir_padrao.png")); // NOI18N
@@ -253,6 +264,22 @@ public class listaProdutos extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_jlbl_produtosFocusGained
+
+    private void jpnl_btn_novoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_novoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jpnl_btn_novoMousePressed
+
+    private void jpnl_btn_novoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_novoMouseClicked
+        // TODO add your handling code here:
+        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_novo_pressionado.png")); 
+
+    }//GEN-LAST:event_jpnl_btn_novoMouseClicked
+
+    private void jpnl_btn_novoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_novoMouseReleased
+        // TODO add your handling code here:
+        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_novo_padrao.png")); 
+
+    }//GEN-LAST:event_jpnl_btn_novoMouseReleased
 
     /**
      * @param args the command line arguments
