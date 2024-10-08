@@ -117,13 +117,9 @@ public class JFrame_CadastroUsuario extends javax.swing.JFrame {
         jpnl_cadastroLayout.setVerticalGroup(
             jpnl_cadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnl_cadastroLayout.createSequentialGroup()
-<<<<<<< HEAD:JaPedidos/src/main/java/japedidos/usuario/CadastroUsuario.java
                 .addContainerGap(69, Short.MAX_VALUE)
                 .addComponent(jpnl_btn_novo)
                 .addGap(52, 52, 52)
-=======
-                .addContainerGap(127, Short.MAX_VALUE)
->>>>>>> 49c93973be3150ee1be360e013b106c549d3087a:JaPedidos/src/main/java/japedidos/usuario/JFrame_CadastroUsuario.java
                 .addGroup(jpnl_cadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbl_login)
                     .addComponent(jtxtf_login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))

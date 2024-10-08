@@ -298,9 +298,9 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             jtbl_lista_produtos.getColumnModel().getColumn(5).setPreferredWidth(40);
         }
 
-<<<<<<< HEAD:JaPedidos/src/main/java/japedidos/produto/listaProdutos.java
+//<<<<<<< HEAD:JaPedidos/src/main/java/japedidos/produto/listaProdutos.java
         jpnl_corpo.add(jtbl_listaprodutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, 680, 170));
-=======
+//=======
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, 664, 170));
 
         jlbl_codigo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -395,7 +395,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jpnl_btn_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 250, -1, -1));
->>>>>>> 49c93973be3150ee1be360e013b106c549d3087a:JaPedidos/src/main/java/japedidos/produto/JFrame_ListaProdutos.java
+//>>>>>>> 49c93973be3150ee1be360e013b106c549d3087a:JaPedidos/src/main/java/japedidos/produto/JFrame_ListaProdutos.java
 
         jpnl_background1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jpnl_background1.setToolTipText("");
