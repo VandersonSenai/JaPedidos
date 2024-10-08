@@ -241,12 +241,12 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtb_linha1.setBackground(new java.awt.Color(255, 255, 255));
         jtb_linha1.setBorder(null);
         jtb_linha1.setForeground(new java.awt.Color(255, 255, 255));
-        jtb_linha.add(jtb_linha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 120, 4));
+        jtb_linha.add(jtb_linha1);
 
         jlbl_clientes1.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_clientes1.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jlbl_clientes1.setText("CLIENTES");
-        jtb_linha.add(jlbl_clientes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
+        jtb_linha.add(jlbl_clientes1);
 
         jlbl_produtos1.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_produtos1.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
@@ -257,21 +257,21 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                 jlbl_produtosFocusGained(evt);
             }
         });
-        jtb_linha.add(jlbl_produtos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
+        jtb_linha.add(jlbl_produtos1);
 
         jlbl_pedidos1.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_pedidos1.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jlbl_pedidos1.setText("PEDIDOS");
-        jtb_linha.add(jlbl_pedidos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
+        jtb_linha.add(jlbl_pedidos1);
 
         jlbl_relatorios1.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_relatorios1.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jlbl_relatorios1.setText("RELATÓRIOS");
-        jtb_linha.add(jlbl_relatorios1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, -1));
+        jtb_linha.add(jlbl_relatorios1);
 
         jpnl_img_etiqueta1.setMaximumSize(new java.awt.Dimension(250, 576));
         jpnl_img_etiqueta1.setMinimumSize(new java.awt.Dimension(250, 576));
-        jtb_linha.add(jpnl_img_etiqueta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 250, -1));
+        jtb_linha.add(jpnl_img_etiqueta1);
 
         jpnl_background2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jpnl_background2.setToolTipText("");
@@ -280,7 +280,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_background2.setMaximumSize(new java.awt.Dimension(1024, 576));
         jpnl_background2.setMinimumSize(new java.awt.Dimension(1024, 576));
         jpnl_background2.setPreferredSize(new java.awt.Dimension(1024, 576));
-        jtb_linha.add(jpnl_background2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jtb_linha.add(jpnl_background2);
 
         jpnl_corpo.add(jtb_linha, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 680, 2));
 
