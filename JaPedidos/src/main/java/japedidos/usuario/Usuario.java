@@ -48,17 +48,16 @@ public class Usuario {
      * com base em registro do banco de dados. Deverá ser invocado logo após a 
      * autenticação bem-sucedida do utilizador.
      * 
-     * @param id Int que representa a chave primária do do registro de usuário
-     * @param login String que identifica o usuário no software e é utilizado na
-     * autenticação
-     * @param tipo Usuario.Tipo que representa o tipo do usuário e especifica 
-     * suas permissões
+     * @param usuario objeto Usuario que representa o utilizador atual
      */
-    public static void carregarAtual(int id, String login, Usuario.Tipo tipo) {
+    public static void carregarAtual(Usuario usuario) {
         if(Usuario.atual != null) {
             throw new IllegalStateException("não é possível carregar outro usuário com um já carregado.");
         }
-        Usuario.atual = new Usuario(id, login, tipo);
+        if(usuario == null) {
+            throw new NullPointerException("Não é possivel carregar um usuário nulo.");
+        }
+        Usuario.atual = usuario;
     }
 }
 

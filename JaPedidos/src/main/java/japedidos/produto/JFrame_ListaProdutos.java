@@ -2,7 +2,7 @@ package japedidos.produto;
 
 import java.awt.Color;
 
-public class listaProdutos extends javax.swing.JFrame {
+public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     String diretorioBase = "C:\\SENAI\\TECHNIGHT\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\";
     String caminhoIcone = "";
@@ -10,7 +10,7 @@ public class listaProdutos extends javax.swing.JFrame {
     /**
      * Creates new form listaProdutos
      */
-    public listaProdutos() {
+    public JFrame_ListaProdutos() {
         initComponents();
     }
 
@@ -100,7 +100,6 @@ public class listaProdutos extends javax.swing.JFrame {
         jlbl_relatorios.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jlbl_relatorios.setText("RELATÓRIOS");
         jpnl_sideMenu.add(jlbl_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, -1));
-
         jpnl_img_etiqueta.setIcon(new javax.swing.ImageIcon("C:\\SENAI\\TECHNIGHT\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\painel_comandos_esquerda_05x.png")); // NOI18N
         jpnl_img_etiqueta.setMaximumSize(new java.awt.Dimension(250, 576));
         jpnl_img_etiqueta.setMinimumSize(new java.awt.Dimension(250, 576));
@@ -345,20 +344,23 @@ public class listaProdutos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(listaProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_ListaProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(listaProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_ListaProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(listaProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_ListaProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(listaProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_ListaProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new listaProdutos().setVisible(true);
+                new JFrame_ListaProdutos().setVisible(true);
             }
         });
     }
