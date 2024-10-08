@@ -26,77 +26,108 @@ public class cliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jFrame1 = new javax.swing.JFrame();
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLbl_Produto = new javax.swing.JLabel();
+        jLbl_Relatorio = new javax.swing.JLabel();
+        jLbl_pedido = new javax.swing.JLabel();
+        jLbl_Cliente = new javax.swing.JLabel();
+        jLbl_Filtro = new javax.swing.JLabel();
+        jLbl_novo = new javax.swing.JLabel();
+        jTxtFpesquisa = new javax.swing.JTextField();
+        jTxtFnomeFiltra = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLbl_LogoPaleta = new javax.swing.JLabel();
+        jLbl_Imagem = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
-        jFrame1.getContentPane().setLayout(jFrame1Layout);
-        jFrame1Layout.setHorizontalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jFrame1Layout.setVerticalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\f.oliveira\\Pictures\\Redimen\\painel_comandos_esquerda.png")); // NOI18N
-        jLabel2.setText("jLabel2");
-
-        jLabel5.setText("clientes");
-
-        jLabel6.setText("jLabel6");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel4.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jLabel4.setText("PRODUTOS");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(930, 320, 100, 30);
+        jLbl_Produto.setBackground(new java.awt.Color(255, 255, 255));
+        jLbl_Produto.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLbl_Produto.setText("PRODUTOS");
+        getContentPane().add(jLbl_Produto);
+        jLbl_Produto.setBounds(10, 210, 100, 20);
 
-        jLabel8.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel8.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jLabel8.setText("PEDIDOS");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(900, 360, 100, 30);
+        jLbl_Relatorio.setBackground(new java.awt.Color(0, 0, 0));
+        jLbl_Relatorio.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLbl_Relatorio.setText("RELATÓRIOS");
+        getContentPane().add(jLbl_Relatorio);
+        jLbl_Relatorio.setBounds(10, 190, 100, 20);
 
-        jLabel14.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel14.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jLabel14.setText("RELATÓRIOS");
-        getContentPane().add(jLabel14);
-        jLabel14.setBounds(950, 280, 100, 40);
+        jLbl_pedido.setBackground(new java.awt.Color(255, 255, 255));
+        jLbl_pedido.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLbl_pedido.setText("PEDIDOS");
+        getContentPane().add(jLbl_pedido);
+        jLbl_pedido.setBounds(10, 230, 90, 20);
 
-        jLabel18.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel18.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("CLIENTES");
-        getContentPane().add(jLabel18);
-        jLabel18.setBounds(910, 200, 100, 30);
+        jLbl_Cliente.setBackground(new java.awt.Color(255, 255, 255));
+        jLbl_Cliente.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLbl_Cliente.setForeground(new java.awt.Color(255, 255, 255));
+        jLbl_Cliente.setText("CLIENTES");
+        getContentPane().add(jLbl_Cliente);
+        jLbl_Cliente.setBounds(10, 170, 80, 20);
+
+        jLbl_Filtro.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLbl_Filtro.setText("FILTRO:");
+        getContentPane().add(jLbl_Filtro);
+        jLbl_Filtro.setBounds(600, 60, 90, 30);
+
+        jLbl_novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/btn_novo_padrao.png"))); // NOI18N
+        getContentPane().add(jLbl_novo);
+        jLbl_novo.setBounds(510, 50, 90, 40);
+
+        jTxtFpesquisa.setText("PESQUISAR.......");
+        jTxtFpesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtFpesquisaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTxtFpesquisa);
+        jTxtFpesquisa.setBounds(190, 50, 310, 40);
+
+        jTxtFnomeFiltra.setText("NOME ");
+        getContentPane().add(jTxtFnomeFiltra);
+        jTxtFnomeFiltra.setBounds(700, 50, 80, 40);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "CÓDIGO", "NOME DO CLIENTE", "TELEFONE"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Byte.class, java.lang.String.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable2);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(150, 120, 640, 310);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -112,22 +143,22 @@ public class cliente extends javax.swing.JFrame {
         getContentPane().add(jPanel2);
         jPanel2.setBounds(1150, 10, 220, 440);
 
-        jButton1.setText("CLIENTES");
-        getContentPane().add(jButton1);
-        jButton1.setBounds(900, 130, 90, 23);
+        jLbl_LogoPaleta.setBackground(new java.awt.Color(0, 102, 255));
+        jLbl_LogoPaleta.setIcon(new javax.swing.ImageIcon("C:\\Users\\f.oliveira\\Pictures\\Redimen\\painel_comandos_esquerda.png")); // NOI18N
+        getContentPane().add(jLbl_LogoPaleta);
+        jLbl_LogoPaleta.setBounds(0, 60, 153, 288);
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\f.oliveira\\Pictures\\Redimen\\background_clientes.png")); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 830, 450);
-
-        jLabel3.setBackground(new java.awt.Color(0, 102, 255));
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\f.oliveira\\Pictures\\Redimen\\painel_comandos_esquerda.png")); // NOI18N
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(1000, 20, 153, 288);
+        jLbl_Imagem.setBackground(new java.awt.Color(255, 255, 255));
+        jLbl_Imagem.setIcon(new javax.swing.ImageIcon("C:\\Users\\f.oliveira\\Pictures\\Redimen\\background_clientes.png")); // NOI18N
+        getContentPane().add(jLbl_Imagem);
+        jLbl_Imagem.setBounds(-10, -10, 900, 450);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTxtFpesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtFpesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtFpesquisaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,19 +196,20 @@ public class cliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JFrame jFrame1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLbl_Cliente;
+    private javax.swing.JLabel jLbl_Filtro;
+    private javax.swing.JLabel jLbl_Imagem;
+    private javax.swing.JLabel jLbl_LogoPaleta;
+    private javax.swing.JLabel jLbl_Produto;
+    private javax.swing.JLabel jLbl_Relatorio;
+    private javax.swing.JLabel jLbl_novo;
+    private javax.swing.JLabel jLbl_pedido;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTextField jTxtFnomeFiltra;
+    private javax.swing.JTextField jTxtFpesquisa;
     // End of variables declaration//GEN-END:variables
 }
