@@ -1,19 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package japedidos.clientes;
 
 /**
  *
  * @author f.oliveira
  */
-public class cliente extends javax.swing.JFrame {
+public class JFrame_Cliente extends javax.swing.JFrame {
 
     /**
      * Creates new form cliente
      */
-    public cliente() {
+    public JFrame_Cliente() {
         initComponents();
     }
 
@@ -144,12 +140,10 @@ public class cliente extends javax.swing.JFrame {
         jPanel2.setBounds(1150, 10, 220, 440);
 
         jLbl_LogoPaleta.setBackground(new java.awt.Color(0, 102, 255));
-        jLbl_LogoPaleta.setIcon(new javax.swing.ImageIcon("C:\\Users\\f.oliveira\\Pictures\\Redimen\\painel_comandos_esquerda.png")); // NOI18N
         getContentPane().add(jLbl_LogoPaleta);
-        jLbl_LogoPaleta.setBounds(0, 60, 153, 288);
+        jLbl_LogoPaleta.setBounds(0, 60, 153, 0);
 
         jLbl_Imagem.setBackground(new java.awt.Color(255, 255, 255));
-        jLbl_Imagem.setIcon(new javax.swing.ImageIcon("C:\\Users\\f.oliveira\\Pictures\\Redimen\\background_clientes.png")); // NOI18N
         getContentPane().add(jLbl_Imagem);
         jLbl_Imagem.setBounds(-10, -10, 900, 450);
 
@@ -177,20 +171,23 @@ public class cliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new cliente().setVisible(true);
+                new JFrame_Cliente().setVisible(true);
             }
         });
     }

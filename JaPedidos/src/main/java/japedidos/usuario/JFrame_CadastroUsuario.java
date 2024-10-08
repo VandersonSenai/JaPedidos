@@ -8,12 +8,12 @@ package japedidos.usuario;
  *
  * @author t.baiense
  */
-public class CadastroUsuario extends javax.swing.JFrame {
+public class JFrame_CadastroUsuario extends javax.swing.JFrame {
 
     /**
      * Creates new form CadastroUsuario
      */
-    public CadastroUsuario() {
+    public JFrame_CadastroUsuario() {
         initComponents();
     }
 
@@ -37,7 +37,6 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jbtn_cancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(640, 480));
         setResizable(false);
         setSize(new java.awt.Dimension(640, 480));
 
@@ -100,7 +99,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jpnl_cadastroLayout.setVerticalGroup(
             jpnl_cadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnl_cadastroLayout.createSequentialGroup()
-                .addContainerGap(138, Short.MAX_VALUE)
+                .addContainerGap(127, Short.MAX_VALUE)
                 .addGroup(jpnl_cadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbl_login)
                     .addComponent(jtxtf_login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -158,20 +157,23 @@ public class CadastroUsuario extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_CadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_CadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_CadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_CadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastroUsuario().setVisible(true);
+                new JFrame_CadastroUsuario().setVisible(true);
             }
         });
     }
