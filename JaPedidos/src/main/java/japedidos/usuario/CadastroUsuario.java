@@ -35,9 +35,9 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jtxtf_banco = new javax.swing.JTextField();
         jbtn_prosseguir = new javax.swing.JButton();
         jbtn_cancelar = new javax.swing.JButton();
+        jpnl_btn_novo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(640, 480));
         setResizable(false);
         setSize(new java.awt.Dimension(640, 480));
 
@@ -72,6 +72,19 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
         jbtn_cancelar.setText("Cancelar");
 
+        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\SENAI\\TECHNIGHT\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_novo_padrao.png")); // NOI18N
+        jpnl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jpnl_btn_novoMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jpnl_btn_novoMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jpnl_btn_novoMouseReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpnl_cadastroLayout = new javax.swing.GroupLayout(jpnl_cadastro);
         jpnl_cadastro.setLayout(jpnl_cadastroLayout);
         jpnl_cadastroLayout.setHorizontalGroup(
@@ -96,11 +109,17 @@ public class CadastroUsuario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbtn_cancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)))
                 .addGap(202, 202, 202))
+            .addGroup(jpnl_cadastroLayout.createSequentialGroup()
+                .addGap(275, 275, 275)
+                .addComponent(jpnl_btn_novo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpnl_cadastroLayout.setVerticalGroup(
             jpnl_cadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnl_cadastroLayout.createSequentialGroup()
-                .addContainerGap(138, Short.MAX_VALUE)
+                .addContainerGap(69, Short.MAX_VALUE)
+                .addComponent(jpnl_btn_novo)
+                .addGap(52, 52, 52)
                 .addGroup(jpnl_cadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbl_login)
                     .addComponent(jtxtf_login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -140,6 +159,23 @@ public class CadastroUsuario extends javax.swing.JFrame {
     private void jpwf_senhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpwf_senhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jpwf_senhaActionPerformed
+
+    private void jpnl_btn_novoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_novoMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jpnl_btn_novoMouseClicked
+
+    private void jpnl_btn_novoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_novoMousePressed
+        // TODO add your handling code here:
+        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\SENAI\\TECHNIGHT\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_novo_pressionado.png"));
+    }//GEN-LAST:event_jpnl_btn_novoMousePressed
+
+    private void jpnl_btn_novoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_novoMouseReleased
+        // TODO add your handling code here:
+        //jpnl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_novo_padrao.png"));
+        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\SENAI\\TECHNIGHT\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_novo_padrao.png"));
+
+    }//GEN-LAST:event_jpnl_btn_novoMouseReleased
 
     /**
      * @param args the command line arguments
@@ -182,6 +218,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jlbl_banco;
     private javax.swing.JLabel jlbl_login;
     private javax.swing.JLabel jlbl_senha;
+    private javax.swing.JLabel jpnl_btn_novo;
     private javax.swing.JPanel jpnl_cadastro;
     private javax.swing.JPasswordField jpwf_senha;
     private javax.swing.JTextField jtxtf_banco;

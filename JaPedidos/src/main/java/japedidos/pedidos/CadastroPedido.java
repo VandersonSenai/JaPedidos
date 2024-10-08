@@ -50,6 +50,7 @@ public class CadastroPedido extends javax.swing.JFrame {
         jTextField8 = new javax.swing.JTextField();
         jlbl_telefone7 = new javax.swing.JLabel();
         jlbl_telefone8 = new javax.swing.JLabel();
+        jpnl_btn_novo = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -207,6 +208,20 @@ public class CadastroPedido extends javax.swing.JFrame {
         jlbl_telefone8.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_telefone8.setText("DESTINATÁRIO");
         jPanel1.add(jlbl_telefone8, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 200, 160, 30));
+
+        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\SENAI\\TECHNIGHT\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_novo_padrao.png")); // NOI18N
+        jpnl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jpnl_btn_novoMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jpnl_btn_novoMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jpnl_btn_novoMouseReleased(evt);
+            }
+        });
+        jPanel1.add(jpnl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 420, -1, -1));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BOLINHA DE QUEIJO", "COXINHA DE FRANGO", "KIBE DE CARNE", "RISSOLE DE", "MINI CHURROS" }));
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, 190, -1));
@@ -367,6 +382,23 @@ public class CadastroPedido extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jpnl_btn_novoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_novoMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jpnl_btn_novoMouseClicked
+
+    private void jpnl_btn_novoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_novoMousePressed
+        // TODO add your handling code here:
+        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\SENAI\\TECHNIGHT\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_novo_pressionado.png"));
+    }//GEN-LAST:event_jpnl_btn_novoMousePressed
+
+    private void jpnl_btn_novoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_novoMouseReleased
+        // TODO add your handling code here:
+        //jpnl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_novo_padrao.png"));
+        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\SENAI\\TECHNIGHT\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_novo_padrao.png"));
+
+    }//GEN-LAST:event_jpnl_btn_novoMouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -451,6 +483,7 @@ public class CadastroPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jlbl_telefone9;
     private javax.swing.JLabel jpnl_background;
     private javax.swing.JLabel jpnl_background1;
+    private javax.swing.JLabel jpnl_btn_novo;
     private javax.swing.JLabel jpnl_img_etiqueta;
     private javax.swing.JPanel jpnl_sideMenu;
     private javax.swing.JTable jtbl_lista_produtos;
