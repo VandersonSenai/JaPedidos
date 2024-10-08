@@ -62,7 +62,16 @@ public class CadastroPedido extends javax.swing.JFrame {
         jTextField10 = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jlbl_telefone12 = new javax.swing.JLabel();
+        jlbl_telefone13 = new javax.swing.JLabel();
+        jlbl_telefone15 = new javax.swing.JLabel();
+        jTextField11 = new javax.swing.JTextField();
+        jTextField7 = new javax.swing.JTextField();
+        jComboBox3 = new javax.swing.JComboBox<>();
         jSpinner1 = new javax.swing.JSpinner();
+        jLabel1 = new javax.swing.JLabel();
+        jlbl_telefone14 = new javax.swing.JLabel();
+        jTextField12 = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -75,6 +84,7 @@ public class CadastroPedido extends javax.swing.JFrame {
         jPanel1.setMaximumSize(new java.awt.Dimension(1024, 576));
         jPanel1.setMinimumSize(new java.awt.Dimension(1024, 576));
         jPanel1.setPreferredSize(new java.awt.Dimension(1024, 576));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jpnl_sideMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jpnl_sideMenu.setMaximumSize(new java.awt.Dimension(250, 576));
@@ -121,106 +131,178 @@ public class CadastroPedido extends javax.swing.JFrame {
         jpnl_background.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jpnl_sideMenu.add(jpnl_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        jPanel1.add(jpnl_sideMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 576));
+
         jlbl_telefone.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_telefone.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_telefone.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_telefone.setText("TELEFONE");
+        jPanel1.add(jlbl_telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, -1, -1));
 
         jlbl_telefone1.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_telefone1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_telefone1.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_telefone1.setText("RUA");
+        jPanel1.add(jlbl_telefone1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, -1, -1));
 
         jlbl_telefone2.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_telefone2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_telefone2.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_telefone2.setText("DATA DE ENTREGA");
+        jlbl_telefone2.setText("DATA ENTREGA");
+        jPanel1.add(jlbl_telefone2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 140, 30));
 
         jTextField1.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 210, -1));
 
         jTextField2.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 120, -1));
 
         jTextField3.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 130, -1));
 
         jlbl_telefone3.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_telefone3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_telefone3.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_telefone3.setText("NOME");
+        jPanel1.add(jlbl_telefone3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 70, 130, -1));
 
         jTextField4.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, 300, -1));
 
         jlbl_telefone4.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_telefone4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_telefone4.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_telefone4.setText("BAIRRO");
+        jPanel1.add(jlbl_telefone4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, -1, -1));
 
         jTextField5.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 160, 140, -1));
 
         jlbl_telefone5.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_telefone5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_telefone5.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_telefone5.setText("CIDADE");
+        jPanel1.add(jlbl_telefone5, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 140, -1, -1));
 
         jTextField6.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 160, 210, -1));
 
         jlbl_telefone6.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_telefone6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_telefone6.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_telefone6.setText("UF");
+        jPanel1.add(jlbl_telefone6, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 140, -1, -1));
 
         jTextField8.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel1.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 230, 90, -1));
 
         jlbl_telefone7.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_telefone7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_telefone7.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_telefone7.setText("TIPO DE ENTREGA");
+        jlbl_telefone7.setText("TIPO DA ENTREGA");
+        jPanel1.add(jlbl_telefone7, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 60, -1, 30));
 
         jlbl_telefone8.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_telefone8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_telefone8.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_telefone8.setText("DESTINATÁRIO");
+        jPanel1.add(jlbl_telefone8, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 200, 160, 30));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BOLINHA DE QUEIJO", "COXINHA DE FRANGO", "KIBE DE CARNE", "RISSOLE DE", "MINI CHURROS" }));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, 190, -1));
 
         jButton1.setText("Incluir");
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 320, -1, -1));
 
         jButton2.setText("Pedidos em aberto");
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, -1, -1));
 
         jButton3.setText("Histórico de pedidos");
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 20, -1, -1));
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Envio", "Retirada no local" }));
+        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 90, 160, -1));
 
         jlbl_telefone9.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_telefone9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_telefone9.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_telefone9.setText("HORA DE ENTREGA");
+        jlbl_telefone9.setText("HORA ENTREGA");
+        jPanel1.add(jlbl_telefone9, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, -1, 30));
 
         jlbl_telefone10.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_telefone10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_telefone10.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_telefone10.setText("PRODUTO");
+        jPanel1.add(jlbl_telefone10, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, -1, 30));
 
         jTextField9.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel1.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 160, 140, -1));
 
         jlbl_telefone11.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_telefone11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_telefone11.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_telefone11.setText("QUANT.");
+        jPanel1.add(jlbl_telefone11, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 350, 80, 30));
 
         jTextField10.setText("UND");
+        jPanel1.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, 70, -1));
 
-        jButton5.setText("Incluir");
+        jButton5.setText("Criar pedido");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 530, 210, -1));
 
         jButton4.setText("Incluir pedido");
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, -1, -1));
+
+        jlbl_telefone12.setBackground(new java.awt.Color(0, 0, 0));
+        jlbl_telefone12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_telefone12.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_telefone12.setText("ESTADO INICIAL");
+        jPanel1.add(jlbl_telefone12, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 460, 150, 30));
+
+        jlbl_telefone13.setBackground(new java.awt.Color(0, 0, 0));
+        jlbl_telefone13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_telefone13.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_telefone13.setText("VALOR DA ENTREGA:");
+        jPanel1.add(jlbl_telefone13, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 470, 190, 30));
+
+        jlbl_telefone15.setBackground(new java.awt.Color(0, 0, 0));
+        jlbl_telefone15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_telefone15.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_telefone15.setText("DESCONTO APLICADO:");
+        jPanel1.add(jlbl_telefone15, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 500, 200, 30));
+
+        jTextField11.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel1.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 500, 120, -1));
+
+        jTextField7.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel1.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 470, 120, -1));
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Em aberto", "Aguardando pagamento", "Pago", "Em preparo/separação", "Aguardando envio/retirada", "Saiu para entrega", "Concluído", "Cancelado" }));
+        jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 490, 160, -1));
+        jPanel1.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 380, 90, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/Frame 79 (1).png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 70, -1, -1));
+
+        jlbl_telefone14.setBackground(new java.awt.Color(0, 0, 0));
+        jlbl_telefone14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_telefone14.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_telefone14.setText("VALOR TOTAL:");
+        jPanel1.add(jlbl_telefone14, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 530, 130, 30));
+
+        jTextField12.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel1.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 530, 120, -1));
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane2.setViewportView(jTextArea1);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 200, 260, 60));
 
         jtbl_lista_produtos.setBackground(new java.awt.Color(153, 204, 255));
         jtbl_lista_produtos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -251,200 +333,14 @@ public class CadastroPedido extends javax.swing.JFrame {
         jtbl_lista_produtos.setPreferredSize(new java.awt.Dimension(655, 204));
         jScrollPane1.setViewportView(jtbl_lista_produtos);
 
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 290, 440, 170));
+
         jpnl_background1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jpnl_background1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/background_pedidos.png"))); // NOI18N
         jpnl_background1.setToolTipText("");
         jpnl_background1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jpnl_background1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(330, 330, 330)
-                        .addComponent(jlbl_telefone5))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(230, 230, 230)
-                        .addComponent(jlbl_telefone2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addComponent(jlbl_telefone7))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(330, 330, 330)
-                        .addComponent(jlbl_telefone4))
-                    .addComponent(jpnl_sideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
-                        .addComponent(jButton3))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jlbl_telefone11, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(280, 280, 280)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jpnl_background1)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(410, 410, 410)
-                .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(430, 430, 430)
-                .addComponent(jButton5))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(410, 410, 410)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(410, 410, 410)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(890, 890, 890)
-                .addComponent(jButton1))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(290, 290, 290)
-                .addComponent(jlbl_telefone8))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(410, 410, 410)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(550, 550, 550)
-                .addComponent(jButton2))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(360, 360, 360)
-                .addComponent(jlbl_telefone1))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(340, 340, 340)
-                .addComponent(jlbl_telefone3))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(410, 410, 410)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(410, 410, 410)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(310, 310, 310)
-                .addComponent(jlbl_telefone))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(380, 380, 380)
-                .addComponent(jButton4))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(370, 370, 370)
-                .addComponent(jlbl_telefone6))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(710, 710, 710)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(710, 710, 710)
-                .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(610, 610, 610)
-                .addComponent(jlbl_telefone10))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(230, 230, 230)
-                .addComponent(jlbl_telefone9))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(190, 190, 190)
-                .addComponent(jlbl_telefone5)
-                .addGap(75, 75, 75)
-                .addComponent(jlbl_telefone2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jlbl_telefone7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(160, 160, 160)
-                .addComponent(jlbl_telefone4))
-            .addComponent(jpnl_sideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(160, 160, 160)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jButton3)
-                .addGap(263, 263, 263)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlbl_telefone11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(440, 440, 440)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jpnl_background1)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(220, 220, 220)
-                .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(530, 530, 530)
-                .addComponent(jButton5))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(190, 190, 190)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(300, 300, 300)
-                .addComponent(jButton1))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(410, 410, 410)
-                .addComponent(jlbl_telefone8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(250, 250, 250)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jButton2))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(250, 250, 250)
-                .addComponent(jlbl_telefone1))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addComponent(jlbl_telefone3))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(350, 350, 350)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(jlbl_telefone))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jButton4))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(220, 220, 220)
-                .addComponent(jlbl_telefone6))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(300, 300, 300)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(330, 330, 330)
-                .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(300, 300, 300)
-                .addComponent(jlbl_telefone10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(320, 320, 320)
-                .addComponent(jlbl_telefone9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jPanel1.add(jpnl_background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -456,7 +352,7 @@ public class CadastroPedido extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 464, Short.MAX_VALUE))
+                .addGap(0, 455, Short.MAX_VALUE))
         );
 
         pack();
@@ -514,6 +410,8 @@ public class CadastroPedido extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -521,11 +419,14 @@ public class CadastroPedido extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField11;
+    private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel jlbl_clientes;
@@ -536,6 +437,10 @@ public class CadastroPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jlbl_telefone1;
     private javax.swing.JLabel jlbl_telefone10;
     private javax.swing.JLabel jlbl_telefone11;
+    private javax.swing.JLabel jlbl_telefone12;
+    private javax.swing.JLabel jlbl_telefone13;
+    private javax.swing.JLabel jlbl_telefone14;
+    private javax.swing.JLabel jlbl_telefone15;
     private javax.swing.JLabel jlbl_telefone2;
     private javax.swing.JLabel jlbl_telefone3;
     private javax.swing.JLabel jlbl_telefone4;
