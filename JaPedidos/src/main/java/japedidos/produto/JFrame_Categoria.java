@@ -5,7 +5,10 @@
 package japedidos.produto;
 
 import japedidos.bd.BD;
-
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.JTable;
+import javax.swing.JOptionPane;
 /**
  *
  * @author thiago
@@ -17,16 +20,46 @@ public class JFrame_Categoria extends javax.swing.JFrame {
      */
     public JFrame_Categoria() {
         initComponents();
+        this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         jtbl_categoria.getModel().fillRows(BD.Categoria.selectAll());
+        
+        JTable table = jtbl_categoria.getJTable();
+        table.getSelectionModel().addListSelectionListener((e) -> {
+            int selRow = table.getSelectedRow();
+            if (selRow != -1) {
+                Categoria categoriaSelecionada = jtbl_categoria.getModel().getRow(selRow);
+                this.setFieldsInfo(categoriaSelecionada);
+            }
+        });
     }
     
-    private Categoria getInfo() {
+    private void clearFieldsInfo() {
+        jtxtf_id.setText(null);
+        jtxtf_nome.setText(null);
+        jtxtf_descricao.setText(null);
+    }
+    
+    private void setFieldsInfo(Categoria categoria) {
+        if (categoria == null) {
+            throw new NullPointerException();
+        }
+        
+        jtxtf_id.setText(String.valueOf(categoria.getId()));
+        jtxtf_nome.setText(categoria.getNome());
+        jtxtf_descricao.setText(categoria.getDescricao());
+    }
+    
+    private Categoria getFieldsInfo() {
         String nome = jtxtf_nome.getText().trim();
         String descricao = jtxtf_descricao.getText().trim();
         
+        if (nome.isEmpty()) {
+            return null;
+        }
+        
         Categoria categoria;
         try {
-            int id = Integer.parseInt(jtxtf_id.getText().trim());
+            int id = Integer.parseInt(jtxtf_id.getText().trim()); // Throw se id for vazio ou não-inteiro
             categoria = new Categoria(id, nome, descricao);
         } catch (NumberFormatException e) {
             categoria = new Categoria(nome, descricao);
@@ -53,6 +86,8 @@ public class JFrame_Categoria extends javax.swing.JFrame {
         jtxtf_descricao = new javax.swing.JTextField();
         jbtn_inserir = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Categoria");
@@ -78,8 +113,24 @@ public class JFrame_Categoria extends javax.swing.JFrame {
                 jbtn_inserirActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtn_inserir, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 350, -1, -1));
+        jPanel1.add(jbtn_inserir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, 110, -1));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 420, 460, 10));
+
+        jButton1.setText("Alterar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 360, 110, -1));
+
+        jButton2.setText("Excluir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(396, 360, 120, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,11 +148,38 @@ public class JFrame_Categoria extends javax.swing.JFrame {
 
     private void jbtn_inserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_inserirActionPerformed
         
-        Categoria newCategoria = this.getInfo();
-        BD.Categoria.insert(newCategoria);
-        jtbl_categoria.getModel().fillRows(BD.Categoria.selectAll());
+        Categoria newCategoria = this.getFieldsInfo();
+        if (BD.Categoria.insert(newCategoria) > 0) {
+            jtbl_categoria.refresh();
+            this.clearFieldsInfo();
+        }
     }//GEN-LAST:event_jbtn_inserirActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        if(BD.Categoria.update(this.getFieldsInfo()) == 0) {
+            JOptionPane.showMessageDialog(null, "O item especificado não foi encontrado.");
+            this.clearFieldsInfo();
+        } else {
+            jtbl_categoria.refresh();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        if (BD.Categoria.delete(this.getFieldsInfo()) == 0) {
+            JOptionPane.showMessageDialog(null, "Não é possível excluir o item novamente.");
+        } else {
+            jtbl_categoria.refresh();
+        }
+        
+        this.clearFieldsInfo();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    public int getSelectedRow() {
+        return jtbl_categoria.getJTable().getSelectedRow();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -138,6 +216,8 @@ public class JFrame_Categoria extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

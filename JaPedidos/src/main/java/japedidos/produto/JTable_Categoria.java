@@ -1,4 +1,5 @@
 package japedidos.produto;
+import japedidos.bd.BD;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.JPanel;
@@ -7,6 +8,9 @@ import javax.swing.JScrollPane;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+
 import japedidos.produto.Categoria;
 /**
  *
@@ -14,6 +18,7 @@ import japedidos.produto.Categoria;
  */
 public class JTable_Categoria extends JPanel{
     private CategoriaTableModel modelo;
+    private JTable table;
     
     public JTable_Categoria() {
         this(new CategoriaTableModel());
@@ -23,11 +28,21 @@ public class JTable_Categoria extends JPanel{
         super(new GridLayout(1, 0));
         this.modelo = model;
         final JTable table = new JTable(model);
+        this.table = table;
+        
         table.setPreferredScrollableViewportSize(new Dimension(200,300));
         table.setFillsViewportHeight(true);
         JScrollPane scrollPane = new JScrollPane(table);
         
         this.add(scrollPane);
+    }
+    
+    public void refresh() {
+        this.getModel().fillRows(BD.Categoria.selectAll());
+    }
+    
+    public JTable getJTable() {
+        return table;
     }
     
     public CategoriaTableModel getModel() {

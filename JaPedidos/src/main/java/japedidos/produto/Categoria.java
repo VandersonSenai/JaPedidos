@@ -24,13 +24,18 @@ public class Categoria {
     public Categoria(String nome, String descricao) {
         this(nome);
         
-        if(descricao.length() > 120) {
-            throw new IllegalArgumentException();
+        if (descricao != null) {
+            if(descricao.length() > 120) {
+                throw new IllegalArgumentException();
+            }
+
+            if (!descricao.isEmpty()) {
+                this.descricao = descricao;
+                return;
+            }
         }
         
-        if (!descricao.isEmpty()) {
-            this.descricao = descricao;
-        }
+        this.descricao = null;
     }
     
     public Categoria(String nome) {

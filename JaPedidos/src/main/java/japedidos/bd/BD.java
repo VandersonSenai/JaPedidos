@@ -43,20 +43,74 @@ public final class BD {
 //            if (c.getId() != -1) { // Categoria não pode ser existente
 //                throw new IllegalArgumentException();
 //            }
-            
-            try {
-                Connection conn = BD.getConnection();
-                PreparedStatement insert = conn.prepareStatement(String.format("INSERT INTO %s(nome, descricao) VALUES (?, ?)", TABLE));
-                insert.setString(1, c.getNome());
-                insert.setString(2, c.getDescricao());
-                int r = insert.executeUpdate();
-                
-                insert.close();
-                conn.close();
-                return r;
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de cadastro", JOptionPane.ERROR_MESSAGE);    
+            if (c.getId() == -1) { // Só cadastra se não houver id
+                try {
+                    Connection conn = BD.getConnection();
+                    PreparedStatement insert = conn.prepareStatement(String.format("INSERT INTO %s(nome, descricao) VALUES (?, ?)", TABLE));
+                    insert.setString(1, c.getNome());
+                    insert.setString(2, c.getDescricao());
+                    int r = insert.executeUpdate();
+
+                    insert.close();
+                    conn.close();
+                    return r;
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de cadastro", JOptionPane.ERROR_MESSAGE);    
+                }
             }
+            
+            return -1;
+        }
+        
+        public static int update(japedidos.produto.Categoria c) {
+            if (c == null) {
+                throw new NullPointerException();
+            }
+            
+            if (c.getId() != -1) { // Só atualiza se for categoria existente
+                try {
+                    Connection conn = BD.getConnection();
+                    PreparedStatement update = conn.prepareStatement(String.format("UPDATE %s SET nome = ?, descricao = ? WHERE id = ?", TABLE));
+                    update.setString(1, c.getNome());
+                    update.setString(2, c.getDescricao());
+                    update.setString(3, String.valueOf(c.getId()));
+
+                    int r = update.executeUpdate();
+
+                    update.close();
+                    conn.close();
+
+                    return r;
+                } catch(SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de alteração de categoria", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            
+            return -1;
+        }
+        
+        public static int delete(japedidos.produto.Categoria c) {
+            if (c == null) {
+                throw new NullPointerException();
+            }
+            
+            if (c.getId() != -1) { // Só deleta se for categoria já existente no banco
+                try {
+                    Connection conn = BD.getConnection();
+                    PreparedStatement delete = conn.prepareStatement(String.format("DELETE FROM %s WHERE id = ?", TABLE));
+                    delete.setString(1, String.valueOf(c.getId()));
+                    
+                    int r = delete.executeUpdate();
+                    
+                    delete.close();
+                    conn.close();
+                    
+                    return r;
+                } catch(SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de deleção de categoria", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            
             return -1;
         }
         
@@ -83,7 +137,6 @@ public final class BD {
                 Connection conn = BD.getConnection();
                 PreparedStatement select = conn.prepareStatement(String.format("SELECT id, nome, descricao FROM %s", TABLE));
                 ResultSet rs = select.executeQuery();
-                rs.next();
                 
                 japedidos.produto.Categoria[] categorias = parse(rs);
                 

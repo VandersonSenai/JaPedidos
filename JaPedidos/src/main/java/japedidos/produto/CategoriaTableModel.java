@@ -82,6 +82,14 @@ public class CategoriaTableModel extends AbstractTableModel {
         fireTableRowsInserted(lastRow, lastRow);
     }
     
+    public Categoria getRow(int row) {
+        if (row < 0 || row > data.size() - 1) {
+            throw new IllegalArgumentException();
+        }
+        
+        return data.get(row);
+    }
+    
     public void fillRows(Categoria... categorias) {
         this.clearRows();
         for(Categoria c : categorias) {
