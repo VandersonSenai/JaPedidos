@@ -22,7 +22,7 @@ public class Produto {
         }
 
         this.nome = nome;
-        this.categoria = new CategoriaProduto(categoria).getNome();
+        this.categoria = new Categoria(categoria).getNome();
         this.unidadeMedida = unidadeMedida;
         this.precoCusto  = precoCusto;
         this.precoVenda = precoVenda;

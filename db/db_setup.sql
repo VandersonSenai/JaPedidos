@@ -1,0 +1,12 @@
+DROP DATABASE IF EXISTS japedidos;
+
+CREATE DATABASE japedidos;
+USE japedidos;
+
+CREATE TABLE categoria(
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(24) NOT NULL,
+	descricao VARCHAR(120)
+);
+
+SELECT * FROM categoria;

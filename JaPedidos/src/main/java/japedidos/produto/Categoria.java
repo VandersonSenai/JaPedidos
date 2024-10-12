@@ -4,34 +4,25 @@ package japedidos.produto;
  *
  * @author thiago
  */
-public class CategoriaProduto {
+public class Categoria {
     private int id = -1;
     private String nome;
     private String descricao;
     
-    CategoriaProduto(int id, String nome, String descricao) {
+    public Categoria(int id, String nome, String descricao) {
         this(nome, descricao);
         
-        if (id < 1) {
-            throw new IllegalArgumentException();
-        }
-        this.id = id;
+        setId(id);
     }
     
-    CategoriaProduto(int id, String nome) {
+    public Categoria(int id, String nome) {
         this(nome);
         
-        if (id < 1) {
-            throw new IllegalArgumentException();
-        }
-        this.id = id;
+        setId(id);
     }
     
-    CategoriaProduto(String nome, String descricao) {
+    public Categoria(String nome, String descricao) {
         this(nome);
-        if (descricao == null) {
-            throw new NullPointerException();
-        }
         
         if(descricao.length() > 120) {
             throw new IllegalArgumentException();
@@ -42,7 +33,7 @@ public class CategoriaProduto {
         }
     }
     
-    CategoriaProduto(String nome) {
+    public Categoria(String nome) {
         if (nome == null) {
             throw new NullPointerException();
         }
@@ -52,6 +43,13 @@ public class CategoriaProduto {
         }
         
         this.nome = nome;
+    }
+    
+    public void setId(int id) {
+        if (id < 1) {
+            throw new IllegalArgumentException();
+        }
+        this.id = id;
     }
     
     public String getNome() {
