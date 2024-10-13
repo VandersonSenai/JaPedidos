@@ -92,11 +92,14 @@ public class CategoriaTableModel extends AbstractTableModel {
     
     public void fillRows(Categoria... categorias) {
         this.clearRows();
-        for(Categoria c : categorias) {
-            if (c != null) {
-                this.data.add(c);
-            }
+        if (categorias != null) {
+           for(Categoria c : categorias) {
+                if (c != null) {
+                    this.data.add(c);
+                }
+            } 
         }
+        
         fireTableDataChanged();
     }
     

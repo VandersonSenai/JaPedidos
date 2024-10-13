@@ -9,7 +9,7 @@ CREATE TABLE categoria(
 	descricao VARCHAR(120)
 );
 
--- SELECT * FROM categoria;
+SELECT * FROM categoria;
 
 CREATE TABLE unidade(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
