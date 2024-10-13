@@ -1,4 +1,6 @@
-package japedidos.clientes;
+package japedidos.pedidos;
+
+import japedidos.clientes.CPF;
 
 
 /**
