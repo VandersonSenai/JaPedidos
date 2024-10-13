@@ -67,6 +67,10 @@ public class UnidadeTableModel extends AbstractTableModel {
         data.clear();
     }
     
+    public void refreshRows() {
+        fillRows(BD.Unidade.selectAll());
+    }
+    
     // Implementação de métodos abstratos de AbstractTableModel 
     @Override
     public int getColumnCount() {
