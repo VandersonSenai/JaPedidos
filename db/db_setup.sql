@@ -9,4 +9,14 @@ CREATE TABLE categoria(
 	descricao VARCHAR(120)
 );
 
-SELECT * FROM categoria;
+-- SELECT * FROM categoria;
+
+CREATE TABLE unidade(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nome VARCHAR(16) NOT NULL,
+	abreviacao CHAR(5) NOT NULL
+);
+
+SELECT * FROM unidade;
+
+
