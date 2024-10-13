@@ -30,7 +30,7 @@ public class JTable_Categoria extends JPanel{
         final JTable table = new JTable(model);
         this.table = table;
         
-        table.setPreferredScrollableViewportSize(new Dimension(200,300));
+        table.setPreferredScrollableViewportSize(new Dimension(400,300));
         table.setFillsViewportHeight(true);
         JScrollPane scrollPane = new JScrollPane(table);
         
@@ -38,7 +38,7 @@ public class JTable_Categoria extends JPanel{
     }
     
     public void refresh() {
-        this.getModel().fillRows(BD.Categoria.selectAll());
+        this.getModel().refresh();
     }
     
     public JTable getJTable() {

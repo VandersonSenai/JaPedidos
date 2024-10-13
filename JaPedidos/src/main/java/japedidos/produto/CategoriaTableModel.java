@@ -65,11 +65,11 @@ public class CategoriaTableModel extends AbstractTableModel {
     }
 
     public Class<?> getColumnClass(int col) {
-        switch(col) {
-            case 0 -> {return Integer.class;}
-            case 1, 2 -> {return String.class;}
-            default -> {return Object.class;}
-        }
+        return switch(col) {
+            case 0 -> Integer.class;
+            case 1, 2 -> String.class;
+            default -> Object.class;
+        };
     }
 
     public void addRow(Categoria categoria) {
@@ -101,6 +101,10 @@ public class CategoriaTableModel extends AbstractTableModel {
         }
         
         fireTableDataChanged();
+    }
+    
+    public void refresh() {
+        this.fillRows(BD.Categoria.selectAll());
     }
     
     public void clearRows() {
