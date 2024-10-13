@@ -41,7 +41,7 @@ public class JTable_Unidade extends JPanel {
         return this.model;
     }
     
-    public JTable getTable() {
+    public JTable getJTable() {
         return this.table;
     }
     

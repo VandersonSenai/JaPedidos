@@ -88,6 +88,7 @@ public class JFrame_Categoria extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jbtn_limparSelecao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Categoria");
@@ -96,16 +97,16 @@ public class JFrame_Categoria extends javax.swing.JFrame {
         jPanel1.add(jtbl_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 180));
 
         jLabel1.setText("Id");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
 
         jLabel2.setText("Nome");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, -1, -1));
 
         jLabel3.setText("Descrição");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 250, -1, -1));
-        jPanel1.add(jtxtf_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, 200, -1));
-        jPanel1.add(jtxtf_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 120, -1));
-        jPanel1.add(jtxtf_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 270, 140, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 240, -1, -1));
+        jPanel1.add(jtxtf_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 200, -1));
+        jPanel1.add(jtxtf_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 120, -1));
+        jPanel1.add(jtxtf_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 260, 140, -1));
 
         jbtn_inserir.setText("Inserir");
         jbtn_inserir.addActionListener(new java.awt.event.ActionListener() {
@@ -113,8 +114,8 @@ public class JFrame_Categoria extends javax.swing.JFrame {
                 jbtn_inserirActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtn_inserir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, 110, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 420, 460, 10));
+        jPanel1.add(jbtn_inserir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 110, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 520, 10));
 
         jButton1.setText("Alterar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -122,7 +123,7 @@ public class JFrame_Categoria extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 360, 110, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, 110, -1));
 
         jButton2.setText("Excluir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +131,15 @@ public class JFrame_Categoria extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(396, 360, 120, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 330, 120, -1));
+
+        jbtn_limparSelecao.setText("Limpar seleção");
+        jbtn_limparSelecao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtn_limparSelecaoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jbtn_limparSelecao, new org.netbeans.lib.awtextra.AbsoluteConstraints(428, 180, 140, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -140,7 +149,7 @@ public class JFrame_Categoria extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
         );
 
         pack();
@@ -175,6 +184,11 @@ public class JFrame_Categoria extends javax.swing.JFrame {
         
         this.clearFieldsInfo();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jbtn_limparSelecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_limparSelecaoActionPerformed
+        clearFieldsInfo();
+        jtbl_categoria.getJTable().getSelectionModel().clearSelection();
+    }//GEN-LAST:event_jbtn_limparSelecaoActionPerformed
 
     public int getSelectedRow() {
         return jtbl_categoria.getJTable().getSelectedRow();
@@ -224,6 +238,7 @@ public class JFrame_Categoria extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton jbtn_inserir;
+    private javax.swing.JButton jbtn_limparSelecao;
     private japedidos.produto.JTable_Categoria jtbl_categoria;
     private javax.swing.JTextField jtxtf_descricao;
     private javax.swing.JTextField jtxtf_id;

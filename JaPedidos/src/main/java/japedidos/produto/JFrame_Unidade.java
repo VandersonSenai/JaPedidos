@@ -12,8 +12,8 @@ public class JFrame_Unidade extends javax.swing.JFrame {
 
     public JFrame_Unidade() {
         initComponents();
-        jtbl_unidade.getTable().getSelectionModel().addListSelectionListener((e) -> {
-            int selRow = jtbl_unidade.getTable().getSelectedRow();
+        jtbl_unidade.getJTable().getSelectionModel().addListSelectionListener((e) -> {
+            int selRow = jtbl_unidade.getJTable().getSelectedRow();
             
             if (selRow == -1) {
                 clearFieldsInfo();
@@ -76,6 +76,7 @@ public class JFrame_Unidade extends javax.swing.JFrame {
         jbtn_limparSelecao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Unidade");
 
         jPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel.add(jtbl_unidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 170));
@@ -196,7 +197,7 @@ public class JFrame_Unidade extends javax.swing.JFrame {
 
     private void jbtn_limparSelecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_limparSelecaoActionPerformed
         clearFieldsInfo();
-        jtbl_unidade.getTable().getSelectionModel().clearSelection();
+        jtbl_unidade.getJTable().getSelectionModel().clearSelection();
     }//GEN-LAST:event_jbtn_limparSelecaoActionPerformed
 
     public static void main(String args[]) {
