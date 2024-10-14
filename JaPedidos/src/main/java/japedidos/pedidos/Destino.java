@@ -20,23 +20,29 @@ public class Destino {
     }
 
     private final void setLogradouro(String logradouro) {
-        if(logradouro == null) {
+        logradouro = logradouro.trim();
+        
+        if (logradouro.isEmpty() || logradouro.length() > 45) {
             throw new IllegalArgumentException();
         }
-
+        
         this.logradouro = logradouro;
     }
 
     private final void setNumero(String numero) {
-        if(numero == null) {
+        numero = numero.trim();
+        
+        if (numero.isEmpty() || numero.length() > 20) {
             throw new IllegalArgumentException();
         }
-
+        
         this.numero = numero;
     }
 
     private final void setBairro(String bairro) {
-        if(bairro == null) {
+        bairro = bairro.trim();
+        
+        if(bairro.isEmpty() || bairro.length() > 45) {
             throw new IllegalArgumentException();
         }
 
@@ -44,26 +50,32 @@ public class Destino {
     }
 
     private final void setCidade(String cidade) {
-        if(cidade == null) {
+        cidade = cidade.trim();
+        
+        if(cidade.isEmpty() || cidade.length() > 45) {
             throw new IllegalArgumentException();
         }
 
         this.cidade = cidade;
     }
 
-    private final void setPais(String pais) {
-        if(cidade == null) {
-            throw new IllegalArgumentException();
-        }
-
-        this.pais = pais;
-    }
-
     private final void setEstado(String estado) {
-        if(cidade == null) {
+        estado = estado.trim();
+        
+        if(estado.isEmpty() || estado.length() > 45) {
             throw new IllegalArgumentException();
         }
 
         this.estado = estado;
+    }
+    
+    private final void setPais(String pais) {
+        pais = pais.trim();
+        
+        if(pais.isEmpty() || pais.length() > 45) {
+            throw new IllegalArgumentException();
+        }
+
+        this.pais = pais;
     }
 }
