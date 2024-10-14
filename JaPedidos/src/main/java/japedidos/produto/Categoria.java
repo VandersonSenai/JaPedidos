@@ -89,7 +89,6 @@ public class Categoria {
         setId(id);
     }
     
-    
     /** Constrói um novo objeto {@code Categoria} a partir de {@code nome} e 
      * {@code descricao}. <br>
      * 
