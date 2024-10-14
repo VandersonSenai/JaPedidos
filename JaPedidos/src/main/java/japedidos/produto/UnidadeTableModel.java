@@ -113,7 +113,7 @@ public class UnidadeTableModel extends AbstractTableModel {
         if (row < 0 || col < 0) {
             throw new IllegalArgumentException();
         }
-        
+
         if (row < data.size()) {
             return switch(col) {
                 case 0 -> data.get(row).getId();

@@ -114,7 +114,6 @@ public final class BD {
                 }
                 select.close();
                 conn.close();
-                
                 return categoria;
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);    

@@ -10,9 +10,9 @@ public class Produto {
     public final String categoria;
     public final double precoCusto;
     public final double precoVenda;
-    public final String unidadeMedida;
+    public final Unidade unidadeMedida;
 
-    public Produto(String nome, String categoria, String unidadeMedida, double precoCusto, double precoVenda) {
+    public Produto(String nome, String categoria, Unidade unidadeMedida, double precoCusto, double precoVenda) {
         if (nome == null || unidadeMedida == null) {
             throw new NullPointerException();
         }
@@ -28,7 +28,7 @@ public class Produto {
         this.precoVenda = precoVenda;
     }
     
-    public Produto(int id, String nome, String categoria, String unidadeMedida, double precoCusto, double precoVenda) {
+    public Produto(int id, String nome, String categoria, Unidade unidadeMedida, double precoCusto, double precoVenda) {
         this(nome, categoria, unidadeMedida, precoCusto, precoVenda);
         
         if (id < 1) {

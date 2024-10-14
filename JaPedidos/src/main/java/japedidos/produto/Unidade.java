@@ -4,6 +4,8 @@ package japedidos.produto;
  * de medida válida deve conter id, nome e abreviação, que serão utilizados no
  * cadastro de novos produtos e na seleção de produtos a serem adicionados em um
  * pedido.
+ * 
+ * @author Thiago M. Baiense
  */
 public class Unidade {
     
@@ -29,10 +31,10 @@ public class Unidade {
     
     /** Constrói um novo objeto Unidade, contendo {@code nome} e {@code abreviação}.
      * 
-     * @param nome String contendo o nome da unidade de medida. O valor recebido
+     * @param nome          String contendo o nome da unidade de medida. O valor recebido
      * como sofre ação do {@code nome.trim()}.
      * 
-     * @param abreviacao String contendo a abreviação do nome da unidade de 
+     * @param abreviacao    String contendo a abreviação do nome da unidade de 
      * medida.  O valor recebido como sofre ação do {@code abreviacao.trim()} e
      * {@code abreviacao.toUpperCase}.
      * 
@@ -57,6 +59,7 @@ public class Unidade {
         
         this.nome = nome;
         this.abreviacao = abreviacao;
+        Integer s = new Integer(3);
     }
     
     /** Constrói um novo objeto Unidade, contendo {@code id}, {@code nome} e {@code abreviação}.
