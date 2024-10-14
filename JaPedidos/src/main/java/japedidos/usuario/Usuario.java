@@ -22,7 +22,7 @@ public class Usuario {
      ao utilizador com acesso a todas as funcionalidades implementadas.*/
     static public enum Tipo {ATENDENTE, ADMINISTRADOR}
     
-    public static Usuario atual;
+    private static Usuario atual;
             
     /** Constroe um novo objeto Usuário com base em registro do banco de dados.
      * 
@@ -50,7 +50,7 @@ public class Usuario {
      * 
      * @param usuario objeto Usuario que representa o utilizador atual
      */
-    public static void carregarAtual(Usuario usuario) {
+    public static void setAtual(Usuario usuario) {
         if(Usuario.atual != null) {
             throw new IllegalStateException("não é possível carregar outro usuário com um já carregado.");
         }
@@ -58,6 +58,10 @@ public class Usuario {
             throw new NullPointerException("Não é possivel carregar um usuário nulo.");
         }
         Usuario.atual = usuario;
+    }
+    
+    public static Usuario getAtual() {
+        return Usuario.atual;
     }
 }
 
