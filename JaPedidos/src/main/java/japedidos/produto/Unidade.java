@@ -1,9 +1,9 @@
 package japedidos.produto;
 
-/** Esta classe representa o atributo "Unidade de medida" dos produtos. Uma unidade
- * de medida válida deve conter id, nome e abreviação, que serão utilizados no
- * cadastro de novos produtos e na seleção de produtos a serem adicionados em um
- * pedido.
+/** Esta classe representa o atributo "Unidade de medida" dos produtos. <br>
+ * Uma unidade de medida válida deve conter id, nome e abreviação, que serão 
+ * utilizados no cadastro de novos produtos e na seleção de produtos a serem 
+ * adicionados em um pedido.
  * 
  * @author Thiago M. Baiense
  */
@@ -20,12 +20,16 @@ public class Unidade {
     
     /** Representa o nome completo da unidade de medida. O tamanho máximo é de
      * 16 caracteres.
+     * 
+     * @see #getNome() 
      */
     private String nome;
     
     /** Representa o nome abreviado da unidade de medida. Esta abreviação será
      * associada a produtos para especificar como eles serão quantificados durante
      * a adição deles no pedido. Seu tamanho máximo é de 5 caracteres.
+     * 
+     * @see #getAbreviacao() 
      */
     private String abreviacao;
     
@@ -96,6 +100,8 @@ public class Unidade {
      * 
      * @throws IllegalStateException se a instância já tiver {@code id} definido.
      * @throws IllegalArgumentException se {@code id < 0}.
+     * 
+     * @see #id
      */
     public void setId(int id) {
         if (this.id != -1) {

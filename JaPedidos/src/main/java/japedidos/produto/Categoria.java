@@ -1,17 +1,17 @@
 package japedidos.produto;
 
-/** Representa a categoria de determinado produto. Uma categoria deve conter 
- * uma chave primária, representada pelo {@link #id id}, um nome de 
- * identificação, contido em {@link #nome nome} e opcionalmente uma descrição, 
- * armazenada em {@link #descricao descricao}.
+/** Representa a categoria de determinado produto. <br>
+ * Uma categoria deve conter uma chave primária, representada pelo 
+ * {@link #id id}, um nome de identificação, contido em {@link #nome nome} e 
+ * opcionalmente uma descrição, armazenada em {@link #descricao descricao}.
  *
  * @author Thiago M. Baiense
  */
 public class Categoria {
     
-    /** Representa a chave primária da categoria registrada no banco de dados. Para
-     * instâncias ainda não cadastradas no banco de dados, seu valor deve ser -1
-     * por padrão. Seus valores válidos são de {@literal id >= 0}.
+    /** Representa a chave primária da categoria registrada no banco de dados. <br>
+     * Para instâncias ainda não cadastradas no banco de dados, seu valor deve 
+     * ser -1 por padrão. Seus valores válidos são de {@literal id >= 0}.
      * 
      * @see #setId(int id)
      * @see #getId()
@@ -20,17 +20,21 @@ public class Categoria {
     
     /** Representa o nome completo da categoria. O tamanho máximo é de
      * 24 caracteres.
+     * 
+     * @see #getNome()
      */
     private String nome;
     
-    /** Descreve a função da categoria e em quais produtos poderá ser aplicada.
+    /** Descreve a função da categoria e em quais produtos poderá ser aplicada. <br>
      * Seu tamanho máximo é de 120 caracteres. Seu valor em uma instância deverá
      * ser {@code null} caso não tenha sido informada durante a criação.
+     * 
+     * @see #getDescricao() 
      */
     private String descricao;
     
     /** Constrói um novo objeto {@code Categoria} a partir de {@code id}, 
-     * {@code nome} e {@code descricao}. <br>
+     * {@code nome} e {@code descricao}.
      * 
      * @param id {@code int} contendo o valor da chave primária da categoria no
      * banco de dados.
@@ -158,6 +162,8 @@ public class Categoria {
      * 
      * @throws IllegalStateException se a instância já tiver {@code id} definido.
      * @throws IllegalArgumentException se {@code id < 0}.
+     * 
+     * @see #id
      */
     public void setId(int id) {
         if (id < 1) {
@@ -187,7 +193,7 @@ public class Categoria {
     /** Retorna a descrição da instância, contida em {@code descricao}.
      * 
      * @return String que representa a descrição detalhada da categoria.
-     * @see #nome
+     * @see #descricao
      */
     public String getDescricao() {
         return this.descricao;

@@ -1,7 +1,7 @@
 package japedidos.produto;
 
 /** Representa um produto, um item comercializável que será usado pelo utilizador
- * para inserir em instâncias de {@link japedidos.pedidos.Pedido Pedido}.<br>
+ * para inserir em instâncias de {@link japedidos.pedidos.Pedido Pedido}. <br>
  * Toda instância apta a ser utilizada deverá conter uma chave primária representada
  * pelo valor de {@link #id id}, um {@link #nome nome}, uma {@link #categoria categoria},
  * uma {@link #unidadeMedida unidadeMedida}, e preço de custo e de venda, representados
@@ -11,10 +11,12 @@ package japedidos.produto;
  */
 public class Produto {
     
-    /** Representa a chave primária do produto registrada no banco de dados. Para
-     * instâncias ainda não cadastradas no banco de dados, seu valor deve ser -1
-     * por padrão. Seus valores válidos são de {@literal id >= 0}.
+    /** Representa a chave primária do produto registrada no banco de dados. <br>
+     * Para instâncias ainda não cadastradas no banco de dados, seu valor deve 
+     * ser -1 por padrão. Seus valores válidos são de {@literal id >= 0}.
      * 
+     * @see #setId(int)
+     * @see #getId() 
      */
     private int id = -1;
     
@@ -25,7 +27,7 @@ public class Produto {
     
     /** Representa a {@link japedidos.produto.Categoria categoria} do produto.
      * 
-     * @see japedidos.produto#Categoria Categoria
+     * @see japedidos.produto.Categoria Categoria
      */
     public final Categoria categoria;
     
@@ -80,7 +82,7 @@ public class Produto {
     }
 
 
-    /** Constrói uma nova instância de {@code Produto}, com {@code id == -1}.
+    /** Constrói uma nova instância de {@code Produto}.
      * 
      * @param id {@code int} contendo o valor da chave primária do produto no
      * banco de dados.
@@ -105,6 +107,35 @@ public class Produto {
         }
         
         this.id = id;
+    }
+    
+    /** Atribui o parâmetro {@code id} como chave primária da instância {@code Produto}.
+     * 
+     * @param id {@code int} contendo valor >= 0 a ser usado como chave primária
+     * da instância de {@code Produto}.
+     * 
+     * @throws IllegalStateException se {@code id != -1} antes da execução do método.
+     * @throws IllegalArgumentException se {@code id < 0}.
+     */
+    public void setId(int id) {
+        if (id != -1) {
+            throw new IllegalStateException();
+        }
+        
+        if (id < 0) {
+            throw new IllegalArgumentException();
+        }
+        
+        this.id = id;
+    }
+    
+    /** Retorna o valor de chave primária da instância contida em {@link #id id}.
+     * 
+     * @return -1 se a instâcia não for cadastrada no banco de dados e >=0 se houver
+     * cadastro associado no banco de dados.
+     */
+    public int getId() {
+        return this.id;
     }
     
     @Override
