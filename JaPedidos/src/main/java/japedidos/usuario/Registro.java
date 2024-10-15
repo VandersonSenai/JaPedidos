@@ -23,4 +23,8 @@ public class Registro {
         this.AUTOR = autor;
         this.DATA_HORA = dataHora;
     }
+    
+    public String toString() {
+        return String.format("%s - %s", AUTOR.toString(), DATA_HORA.toString());
+    }
 }

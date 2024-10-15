@@ -10,9 +10,9 @@ import java.util.Arrays;
 public class JaPedidos {
 
     public static void main(String[] args) {
-        Usuario.setAtual(new Usuario(1, "Thiago", Usuario.Tipo.ATENDENTE));
+        Usuario.setAtual(new Usuario(1, "Thiago", "t.baiense", Usuario.Tipo.ATENDENTE));
         
         Produto coxinha = new Produto("Coxinha", BD.Categoria.selectLast(), BD.Unidade.selectLast(), 10, 5);
-        System.out.print(coxinha.getCategoria());
+        System.out.print(coxinha.getUnidade());
     }
 }

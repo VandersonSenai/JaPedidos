@@ -12,10 +12,12 @@ public class Usuario {
     public final int id;
     
     /** Identificador do utilizador que é usado durante a etapa de autenticação.*/
-    public String login;
+    public final String login;
+    
+    public String nome;
     
     /** Tipo de usuário atribuído ao registro do usuário.*/
-    public Usuario.Tipo tipo;
+    private Usuario.Tipo tipo;
     
     /** Define o tipo do usuário que o objeto se refere. "ATENDENTE" refere-se
      ao utilizador do software com permissões limitadas. "ADMINISTRADOR" refere-se
@@ -32,14 +34,22 @@ public class Usuario {
      * @param tipo Usuario.Tipo que representa o tipo do usuário e especifica 
      * suas permissões
      */
-    public Usuario(int id, String login, Usuario.Tipo tipo) {
-            if(login == null || tipo == null) {
+    public Usuario(int id, String nome, String login, Usuario.Tipo tipo) {
+            if(nome == null || login == null || tipo == null) {
                 throw new NullPointerException();
             } else if (id <= 0) {
                 throw new IllegalArgumentException("id de usuario inválido");
             }
-
+            
+            nome = nome.trim();
+            login = login.trim();
+            
+            if (nome.isEmpty() || login.isEmpty()) {
+                throw new IllegalArgumentException();
+            }
+            
             this.id = id;
+            this.nome = nome;
             this.login = login;
             this.tipo = tipo;
     }
@@ -62,6 +72,27 @@ public class Usuario {
     
     public static Usuario getAtual() {
         return Usuario.atual;
+    }
+    
+    public String getNome() {
+        return this.nome;
+    }
+    
+    public int getId() {
+        return this.id;
+    }
+    
+    public String getLogin() {
+        return this.login;
+    }
+    
+    public Usuario.Tipo getTipo() {
+        return this.tipo;
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("%s (%s)", this.getNome(), this.getLogin());
     }
 }
 
