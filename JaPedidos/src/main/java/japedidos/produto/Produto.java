@@ -86,7 +86,7 @@ public class Produto {
         if (nome.isEmpty() || precoCusto < 0 || precoVenda < 0) {
             throw new IllegalArgumentException();
         }
-
+        
         this.nome = nome;
         this.categoria = categoria;
         this.unidadeMedida = unidadeMedida;
@@ -200,6 +200,26 @@ public class Produto {
      */
     public Registro getAlteracao() {
         return this.alteracao;
+    }
+    
+    public String getNome() {
+        return this.nome;
+    }
+    
+    public Unidade getUnidade() {
+        return this.unidadeMedida;
+    }
+    
+    public Categoria getCategoria() {
+        return this.categoria;
+    }
+    
+    public double getPrecoVenda() {
+        return this.precoVenda;
+    }
+    
+    public double getPrecoCusto() {
+        return this.precoCusto;
     }
     
     @Override

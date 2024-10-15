@@ -197,4 +197,9 @@ public class Categoria {
     public String getDescricao() {
         return this.descricao;
     }
+    
+    @Override
+    public String toString() {
+        return getNome();
+    }
 }

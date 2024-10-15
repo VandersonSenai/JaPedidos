@@ -3,15 +3,16 @@ package japedidos;
 import japedidos.bd.BD;
 import japedidos.produto.*;
 import japedidos.clientes.*;
+import japedidos.usuario.Usuario;
 import javax.swing.JOptionPane;
 import java.util.Arrays;
 
 public class JaPedidos {
 
     public static void main(String[] args) {
-        Cliente eu = new Cliente("thiago", "12313244");
-        Cliente.InfoAdicional.PF info = new Cliente.InfoAdicional.PF(eu.nome, "928.814.780-26");
-        eu.setInfoAdicional(info);
-        System.out.print(eu.getInfoAdicional());
+        Usuario.setAtual(new Usuario(1, "Thiago", Usuario.Tipo.ATENDENTE));
+        
+        Produto coxinha = new Produto("Coxinha", BD.Categoria.selectLast(), BD.Unidade.selectLast(), 10, 5);
+        System.out.print(coxinha.getCategoria());
     }
 }
