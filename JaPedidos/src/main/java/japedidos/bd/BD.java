@@ -33,7 +33,6 @@ public final class BD {
     
     static public class Categoria {
         public static final String TABLE = "categoria";
-        public static final String[] COLUMNS = {"id", "nome", "descricao"}; // Utilizado em CategoriaTableModel
         
         public static int insert(japedidos.produto.Categoria c) {
 //            if (c.getId() != -1) { // Categoria não pode ser existente 
@@ -170,7 +169,6 @@ public final class BD {
 
     static public class Unidade {
         public static final String TABLE = "unidade";
-        public static final String[] COLUMNS = {"id", "nome", "abreviacao"};
         
         public static int insert(japedidos.produto.Unidade u) {
 //            if (u.getId() != -1) { // Unidade não pode ser existente

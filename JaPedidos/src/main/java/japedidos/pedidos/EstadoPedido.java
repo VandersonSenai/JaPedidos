@@ -7,23 +7,26 @@ import java.time.LocalDateTime;
  *
  * @author thiago
  */
-public class EstadoPedido extends Estado {
+public class EstadoPedido {
+    public final Estado ESTADO;
     public final Usuario AUTOR;
     public final LocalDateTime CRIACAO;
     
     public EstadoPedido(Estado estado) {
-        super(estado.ID, estado.NOME);
+        if (estado == null) {
+            throw new NullPointerException();
+        }
+        
+        this.ESTADO = estado;
         this.AUTOR = Usuario.getAtual();
         this.CRIACAO = LocalDateTime.now();
     }
     
-    public EstadoPedido(int id, String nome, Usuario autor, LocalDateTime criacao) {
-        super(id, nome);
-        
-        if (autor == null || criacao == null) {
+    public EstadoPedido(Estado estado, Usuario autor, LocalDateTime criacao) {
+        if (estado == null || autor == null || criacao == null) {
             throw new NullPointerException();
         }
-        
+        this.ESTADO = estado;
         this.AUTOR = autor;
         this.CRIACAO = criacao;
     }

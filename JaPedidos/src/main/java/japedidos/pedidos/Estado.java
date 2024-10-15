@@ -1,5 +1,7 @@
 package japedidos.pedidos;
 
+import java.util.ArrayList;
+
 /** Representa o estado de andamento de um pedido em dado momento. <br>
  * O estado de andamento indica o progresso de um pedido em direção à sua 
  * conclusão. 
@@ -20,18 +22,46 @@ public class Estado {
     
     public final int ID;
     public final String NOME;
+    public static final int QUANTIDADE = 9;
     
-    public Estado(int id, String nome) {
+    private Estado(int id, String nome) {
         if (nome == null) {
             throw new NullPointerException();
         }
         
-        if (id < 0 || nome.length() > 16) {
+        if (id <= 0 || nome.length() > 16) {
             throw new IllegalArgumentException();
         }
         
         this.ID = id;
         this.NOME = nome;
+    }
+    
+    public static Estado[] getAll() {
+        Estado[] estados = new Estado[QUANTIDADE];
+        for (int i=1; i <= QUANTIDADE; i++) {
+            estados[i] = getEstado(i);
+        }
+        return estados;
+    }
+    
+    public static Estado getEstado(int id) {
+        return switch(id) {
+            case 1 -> ABERTO;
+            case 2 -> AGUARDANDO_PAGAMENTO;
+            case 3 -> PAGO;
+            case 4 -> EM_PREPARO;
+            case 5 -> AGUARDANDO_ENVIO;
+            case 6 -> AGUARDANDO_RETIRADA;
+            case 7 -> SAIU_PARA_ENTREGA;
+            case 8 -> CONCLUIDO;
+            case 9 -> CANCELADO;
+            default -> null;
+        };
+    }
+    
+    public String toString() {
+        return this.NOME;
     }
     
     @Override

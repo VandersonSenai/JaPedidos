@@ -19,4 +19,23 @@ CREATE TABLE unidade(
 
 SELECT * FROM unidade;
 
+CREATE TABLE est_andamento(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nome VARCHAR(22) NOT NULL
+);
+
+INSERT INTO est_andamento(nome) VALUES 
+	("Em aberto"),
+	("Aguardando pagamento"),
+	("Pago"),
+	("Em preparo/separação"),
+	("Aguardando envio"),
+	("Aguardando retirada"),
+	("Saiu para entrega"),
+	("Concluído"),
+	("Cancelado");
+
+SELECT * FROM est_andamento;
+
+
 

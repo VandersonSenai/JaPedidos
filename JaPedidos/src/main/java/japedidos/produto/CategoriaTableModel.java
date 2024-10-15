@@ -11,11 +11,10 @@ import japedidos.bd.BD;
  * @author thiago
  */
 public class CategoriaTableModel extends AbstractTableModel {
-    private String[] columnName;
+    private final String[] COLUMNS = {"id", "nome", "descricao"};
     private ArrayList<Categoria> data;
     
     public CategoriaTableModel() {
-        columnName = BD.Categoria.COLUMNS;
         data = new ArrayList<Categoria>();
     }
     
@@ -29,7 +28,7 @@ public class CategoriaTableModel extends AbstractTableModel {
     }
     
     public int getColumnCount() {
-        return columnName.length;
+        return COLUMNS.length;
     }
 
     public int getRowCount() {
@@ -38,7 +37,7 @@ public class CategoriaTableModel extends AbstractTableModel {
 
     public String getColumnName(int col) {
         if (col >= 0 && col < getColumnCount()) {
-            return columnName[col];
+            return COLUMNS[col];
         } else {
             return null;
         }

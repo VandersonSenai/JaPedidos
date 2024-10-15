@@ -9,11 +9,10 @@ import japedidos.bd.BD;
  * @author thiago
  */
 public class UnidadeTableModel extends AbstractTableModel {
-    private final String[] columnNames;
+    private final String[] COLUMNS = {"id", "nome", "abreviacao"};
     private final ArrayList<Unidade> data;
     
     public UnidadeTableModel() {
-        columnNames = BD.Unidade.COLUMNS;
         data = new ArrayList<Unidade>();
     }
     
@@ -74,7 +73,7 @@ public class UnidadeTableModel extends AbstractTableModel {
     // Implementação de métodos abstratos de AbstractTableModel 
     @Override
     public int getColumnCount() {
-        return columnNames.length;
+        return COLUMNS.length;
     }
     
     @Override
@@ -83,11 +82,11 @@ public class UnidadeTableModel extends AbstractTableModel {
             throw new IllegalArgumentException();
         }
         
-        if (col > columnNames.length - 1) {
+        if (col > COLUMNS.length - 1) {
             return null;
         }
         
-        return columnNames[col];
+        return COLUMNS[col];
     }
     
     @Override
