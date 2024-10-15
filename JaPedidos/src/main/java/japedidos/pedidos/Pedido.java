@@ -6,6 +6,7 @@ import japedidos.produto.Categoria;
 import japedidos.produto.Unidade;
 import japedidos.produto.Produto;
 import japedidos.usuario.Usuario;
+import japedidos.usuario.Registro;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 
@@ -19,10 +20,8 @@ public class Pedido {
     private TipoEntrega tipoEntrega;
     private Destino destino;
     private String destinatario;
-    public final Usuario AUTOR;
-    private LocalDateTime criacao;
-    private Usuario usuarioAlteracao;
-    private LocalDateTime dthrAlteracao;
+    private Registro criacao;
+    private Registro alteracao; 
     private LocalDateTime dthrAntregar;
     private LocalDate dtPago;
     private LocalDate dtVencimentoPagamento;
@@ -34,7 +33,4 @@ public class Pedido {
     private double precoCustoTotal;
     private double taxaDesconto;
     
-    public Pedido() {
-        this.AUTOR = Usuario.getAtual();
-    }
 }

@@ -1,5 +1,7 @@
 package japedidos.produto;
 
+import japedidos.usuario.Registro;
+
 /** Representa um produto, um item comercializável que será usado pelo utilizador
  * para inserir em instâncias de {@link japedidos.pedidos.Pedido Pedido}. <br>
  * Toda instância apta a ser utilizada deverá conter uma chave primária representada
@@ -23,31 +25,42 @@ public class Produto {
     /** Representa o nome completo do produto. O tamanho máximo é de
      * 32 caracteres.
      */
-    public final String nome;
+    private final String nome;
     
     /** Representa a {@link japedidos.produto.Categoria categoria} do produto.
      * 
      * @see japedidos.produto.Categoria Categoria
      */
-    public final Categoria categoria;
+    private final Categoria categoria;
     
     /** Preço de custo do produto, que é usado para calcular a lucratividade
      * dos pedidos. Será valido sempre que {@code precoCusto >= 0}.
      */
-    public final double precoCusto;
+    private final double precoCusto;
     
     /** Preço de venda do produto, que é usado para calcular a lucratividade
      * dos pedidos. Será valido sempre que {@code precoVenda >= 0}.
      */
-    public final double precoVenda;
+    private final double precoVenda;
     
     /** Representa a {@link japedidos.produto.Unidade unidade de medida} do 
      * produto.
      * 
      * @see japedidos.produto.Unidade Unidade
      */
-    public final Unidade unidadeMedida;
-
+    private final Unidade unidadeMedida;
+    
+    /** Contém o autor e o momento da última alteração feita neste produto. 
+     * Deverá ser nulo caso não tenha sofrido alteração.
+     */
+    private Registro alteracao;
+    
+    /** Determina o estado do produto: se este é um produto ativo, o valor deverá
+     * ser {@code true} e {@code false} caso desativado. Produtos desativados 
+     * não poderão ser incluídos em novos pedidos. Por padrão, instancias são
+     * determinadas como ativos.
+     */
+    private boolean estaAtivo = true;
     
     /** Constrói uma nova instância de {@code Produto}, com {@code id == -1}.
      * 
@@ -136,6 +149,57 @@ public class Produto {
      */
     public int getId() {
         return this.id;
+    }
+    
+    
+    /** Atribui o valor {@code estado} à {@link #estaAtivo estaAtivo}.
+     * 
+     * @param estado {@code true} se o estado do produto deverá ser ativo e 
+     * {@code false}, se deverá ser desativado.
+     * 
+     * @see #isAtivo()
+     */
+    public void setAtivo(boolean estado) {
+        this.estaAtivo = estado;
+    }
+    
+    /** Retorna o estado do produto.
+     * 
+     * @return {@code true} se o estado do produto é ativo e {@code false}, se 
+     * desativado.
+     * @see #setAtivo(boolean) 
+     */
+    public boolean isAtivo() {
+        return this.estaAtivo;
+    }
+    
+    
+    /** Recebendo {@code alteracao}, atribui um autor e momento responsável por 
+     * alguma alteração no produto, por meio de um objeto 
+     * {@link japedidos.usuario.Registro Registro}.
+     * 
+     * @param alteracao objeto {@link japedidos.usuario.Registro Registro}.
+     * @throws NullPointerException se {@code alteracao} for {@code null}.
+     * @see #alteracao
+     * @see #getAlteracao() 
+     */
+    public void setAlteracao(Registro alteracao) {
+        if (alteracao == null) {
+            throw new NullPointerException();
+        }
+        this.alteracao = alteracao;
+    }
+    
+    
+    /** Retorna a informação de alteração presente no produto.
+     * 
+     * @return um objeto {@link japedidos.usuario.Registro Registro}, contendo o
+     * autor e o momento da alteração.
+     * @see #alteracao
+     * @see #setAlteracao(japedidos.usuario.Registro) 
+     */
+    public Registro getAlteracao() {
+        return this.alteracao;
     }
     
     @Override
