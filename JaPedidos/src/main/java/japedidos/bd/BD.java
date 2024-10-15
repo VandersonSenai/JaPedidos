@@ -1,9 +1,11 @@
 package japedidos.bd;
 
+import japedidos.usuario.Registro;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.sql.Timestamp;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
@@ -29,6 +31,104 @@ public final class BD {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
             return null;
         }
+    }
+    
+    static public class Produto {
+        public static final String TABLE = "produto";
+        
+        public static int insert(japedidos.produto.Produto p) {
+            if (p != null && p.getId() == -1) {
+                try {
+                    Connection conn = BD.getConnection();
+                    PreparedStatement insert = conn.prepareStatement(
+                            String.format("INSERT INTO %s(id_categoria, id_unidade, nome, preco_venda, preco_custo, estado) "
+                                    + "VALUES (?, ?, ?, ? , ? , ?)", TABLE));
+                    insert.setInt(1, p.getCategoria().getId());
+                    insert.setInt(2, p.getUnidade().getId());
+                    insert.setString(3, p.getNome());
+                    insert.setDouble(4, p.getPrecoVenda());
+                    insert.setDouble(5, p.getPrecoCusto());
+                    insert.setBoolean(6, p.isAtivo());
+                    
+                    int r = insert.executeUpdate();
+
+                    insert.close();
+                    conn.close();
+                    return r;
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de cadastro", JOptionPane.ERROR_MESSAGE);
+                    return -1;
+                }
+            } else {
+                return 0;
+            }
+        }
+        
+        public static int update(japedidos.produto.Produto p) {
+            if (p != null && p.getId() == -1) {
+                try {
+                    Connection conn = BD.getConnection();
+                    PreparedStatement update = conn.prepareStatement(
+                            String.format("UPDATE %s SET "
+                                    + "id_categoria = ?, "
+                                    + "id_unidade = ?, "
+                                    + "nome = ?, "
+                                    + "preco_venda = ?, "
+                                    + "preco_custo = ?, "
+                                    + "estado = ?, "
+                                    + "id_usuario_alt = ?, "
+                                    + "dthr_alt = ? "
+                                    + "WHERE id = ?", TABLE));
+                    update.setInt(1, p.getCategoria().getId());
+                    update.setInt(2, p.getUnidade().getId());
+                    update.setString(3, p.getNome());
+                    update.setDouble(4, p.getPrecoVenda());
+                    update.setDouble(5, p.getPrecoCusto());
+                    update.setBoolean(6, p.isAtivo());
+                    
+                    if (p.getAlteracao() == null) {
+                        p.setAlteracao(new Registro());
+                    }
+                    
+                    update.setInt(7, p.getAlteracao().AUTOR.getId());
+                    update.setTimestamp(8, Timestamp.valueOf(p.getAlteracao().DATA_HORA));
+                    
+                    int r = update.executeUpdate();
+
+                    update.close();
+                    conn.close();
+
+                    return r;
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de alteração de produto", JOptionPane.ERROR_MESSAGE);
+                    return -1;
+                }
+            } else {
+                return 0;
+            }
+        }
+//        
+//        public static int delete(japedidos.produto.Produto p) {
+//        
+//            
+//        }
+//        
+//        public static japedidos.produto.Produto selectLast() {
+//        
+//            
+//        }
+//        
+//        public static japedidos.produto.Produto[] selectAll() {
+//        
+//            
+//        }
+//        
+//        public static japedidos.produto.Produto[] parse(ResultSet rs) {
+//        
+//            
+//        }
+        
+        
     }
     
     static public class Categoria {

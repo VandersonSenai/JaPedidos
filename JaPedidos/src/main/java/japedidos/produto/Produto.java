@@ -25,30 +25,30 @@ public class Produto {
     /** Representa o nome completo do produto. O tamanho máximo é de
      * 32 caracteres.
      */
-    private final String nome;
+    private String nome;
     
     /** Representa a {@link japedidos.produto.Categoria categoria} do produto.
      * 
      * @see japedidos.produto.Categoria Categoria
      */
-    private final Categoria categoria;
+    private Categoria categoria;
     
     /** Preço de custo do produto, que é usado para calcular a lucratividade
      * dos pedidos. Será valido sempre que {@code precoCusto >= 0}.
      */
-    private final double precoCusto;
+    private double precoCusto;
     
     /** Preço de venda do produto, que é usado para calcular a lucratividade
      * dos pedidos. Será valido sempre que {@code precoVenda >= 0}.
      */
-    private final double precoVenda;
+    private double precoVenda;
     
     /** Representa a {@link japedidos.produto.Unidade unidade de medida} do 
      * produto.
      * 
      * @see japedidos.produto.Unidade Unidade
      */
-    private final Unidade unidadeMedida;
+    private Unidade unidadeMedida;
     
     /** Contém o autor e o momento da última alteração feita neste produto. 
      * Deverá ser nulo caso não tenha sofrido alteração.
@@ -204,6 +204,32 @@ public class Produto {
     
     public String getNome() {
         return this.nome;
+    }
+    
+    public void setNome(String nome) {
+        nome = nome.trim();
+        
+        if (nome.isEmpty() || nome.length() > 32) {
+            throw new IllegalArgumentException();
+        }
+        
+        this.nome = nome;
+    }
+    
+    public void setPrecoVenda(double preco) {
+        if (preco < 0) {
+            throw new IllegalArgumentException();
+        }
+        
+        this.precoVenda = preco;
+    }
+    
+    public void setPrecoCusto(double preco) {
+        if (preco < 0) {
+            throw new IllegalArgumentException();
+        }
+        
+        this.precoCusto = preco;
     }
     
     public Unidade getUnidade() {
