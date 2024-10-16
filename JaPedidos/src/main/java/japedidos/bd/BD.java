@@ -35,6 +35,139 @@ public final class BD {
         }
     }
     
+    static public class Usuario {
+        public static final String TABLE = "usuario";
+        
+        public static int insert(japedidos.usuario.Usuario u) {           
+            if (u != null && u.getId() == -1 && u.getSenha() != null) { // Só cadastra se não houver id, e tiver senha inserida
+                try {
+                    Connection conn = BD.getConnection();
+                    PreparedStatement insert = conn.prepareStatement(
+                            String.format("INSERT INTO %s(nome, login, senha, tipo) VALUES (?, ?, ?, ?)", TABLE));
+                    insert.setString(1, u.getNome());
+                    insert.setString(2, u.getLogin());
+                    insert.setString(3, u.getSenha());
+                    insert.setString(4, u.getTipo().toString().toLowerCase());
+                    
+                    int r = insert.executeUpdate();
+
+                    insert.close();
+                    conn.close();
+                    return r;
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de cadastro", JOptionPane.ERROR_MESSAGE);
+                    return -1;
+                }
+            } else {
+                return 0;
+            }
+        }
+        
+        public static japedidos.usuario.Usuario selectLast() {
+            try {
+                Connection conn = BD.getConnection();
+                PreparedStatement select = conn.prepareStatement(String.format("SELECT id, nome, login, tipo FROM %s ORDER BY id DESC LIMIT 1", TABLE));
+
+                ResultSet rs = select.executeQuery();
+                japedidos.usuario.Usuario[] usuarios = parse(rs);
+
+                select.close();
+                conn.close();
+
+                if (usuarios == null) {
+                    return null;
+                }
+
+                return usuarios[0];
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+            }
+            return null;
+        }
+        
+        public static japedidos.usuario.Usuario[] selectAll() {
+            try {
+                Connection conn = BD.getConnection();
+                PreparedStatement select = conn.prepareStatement(String.format("SELECT id, nome, login, tipo FROM %s", TABLE));
+
+                ResultSet rs = select.executeQuery();
+                japedidos.usuario.Usuario[] usuarios = parse(rs);
+
+                select.close();
+                conn.close();
+
+                if (usuarios == null) {
+                    return null;
+                }
+
+                return usuarios;
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+            }
+            return null;
+        }
+        
+        public static japedidos.usuario.Usuario selectById(int id) {
+            if (id > 0) {
+                try {
+                    Connection conn = BD.getConnection();
+                    PreparedStatement select = conn.prepareStatement(String.format("SELECT id, nome, login, tipo FROM %s WHERE id = ?", TABLE));
+                    select.setInt(1, id);
+                    
+                    ResultSet rs = select.executeQuery();
+                    japedidos.usuario.Usuario[] usuarios = parse(rs);
+                    
+                    select.close();
+                    conn.close();
+                    
+                    if (usuarios == null) {
+                        return null;
+                    }
+                    
+                    return usuarios[0];
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            return null;
+        }
+        
+        public static japedidos.usuario.Usuario[] parse(ResultSet rs) {
+            ArrayList<japedidos.usuario.Usuario> uList = new ArrayList<japedidos.usuario.Usuario>();
+            
+            try {
+                while (rs.next()) {
+                    int id;
+                    String nome, login;
+                    japedidos.usuario.Usuario.Tipo tipo;
+                    japedidos.usuario.Usuario usuario;
+                    
+                    id = rs.getInt(1);
+                    nome = rs.getString(2);
+                    login = rs.getString(3);
+                    tipo = japedidos.usuario.Usuario.getTipo(rs.getString(4));
+                    
+                    usuario = new japedidos.usuario.Usuario(id, nome, login, tipo);
+                    
+                    uList.add(usuario);
+                }
+                
+                if (uList.isEmpty()) {
+                    return null;
+                }
+                
+                japedidos.usuario.Usuario[] usuarios = new japedidos.usuario.Usuario[uList.size()];
+                uList.toArray(usuarios);
+                
+                return usuarios;
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de parse", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            return null;
+        }
+    }
+    
     static public class Produto {
         public static final String TABLE = "produto";
         
@@ -233,8 +366,7 @@ public final class BD {
                     
                     Registro alteracao = null;
                     if (id_usuario_alt != 0 && dthr_alt != null) {
-                        Usuario u = new Usuario(id_usuario_alt, "NOME DO USUARIO", "usuario.login", Usuario.Tipo.ATENDENTE);
-                        alteracao = new Registro(u, dthr_alt); // TODO: ADICIONAR BUSCA DE USUARIO
+                        alteracao = new Registro(BD.Usuario.selectById(id_usuario_alt), dthr_alt); // TODO: ADICIONAR BUSCA DE USUARIO
                     }
                     
                     if (alteracao != null) {
