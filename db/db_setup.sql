@@ -48,6 +48,7 @@ CREATE TABLE produto(
 	preco_custo DECIMAL(8,2) NOT NULL DEFAULT 0,
 	estado BIT(1) NOT NULL DEFAULT b'1',
 	id_usuario_alt INT,
+	FOREIGN KEY (id_usuario_alt) REFERENCES usuario(id),
 	dthr_alt DATETIME
 );
 
@@ -56,5 +57,13 @@ INSERT INTO
 VALUE
 	(52, 13, "Primeiro produto :D", 25.00);
 
+CREATE TABLE usuario(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nome VARCHAR(48) NOT NULL,
+	login VARCHAR(20) NOT NULL,
+	senha VARCHAR(32) NOT NULL,
+	tipo Enum("atendente", "administrador")
+);
 
+INSERT INTO usuario(nome, login, senha, tipo) VALUE ("Thiago M. Baiense", "thiago", "baiense", "administrador");
 
