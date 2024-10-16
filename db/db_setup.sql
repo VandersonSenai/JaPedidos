@@ -56,9 +56,5 @@ INSERT INTO
 VALUE
 	(52, 13, "Primeiro produto :D", 25.00);
 
-SELECT produto.nome, categoria.nome, unidade.abreviacao, produto.preco_venda, produto.estado
-FROM produto 
-	INNER JOIN unidade ON unidade.id=produto.id_unidade 
-	INNER JOIN categoria ON categoria.id = produto.id_categoria;
 
 

@@ -1,12 +1,14 @@
 package japedidos.bd;
 
 import japedidos.usuario.Registro;
+import japedidos.usuario.Usuario;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 
@@ -65,7 +67,7 @@ public final class BD {
         }
         
         public static int update(japedidos.produto.Produto p) {
-            if (p != null && p.getId() == -1) {
+            if (p != null && p.getId() != -1) {
                 try {
                     Connection conn = BD.getConnection();
                     PreparedStatement update = conn.prepareStatement(
@@ -92,6 +94,7 @@ public final class BD {
                     
                     update.setInt(7, p.getAlteracao().AUTOR.getId());
                     update.setTimestamp(8, Timestamp.valueOf(p.getAlteracao().DATA_HORA));
+                    update.setInt(9, p.getId());
                     
                     int r = update.executeUpdate();
 
@@ -107,28 +110,154 @@ public final class BD {
                 return 0;
             }
         }
-//        
-//        public static int delete(japedidos.produto.Produto p) {
-//        
-//            
-//        }
-//        
-//        public static japedidos.produto.Produto selectLast() {
-//        
-//            
-//        }
-//        
-//        public static japedidos.produto.Produto[] selectAll() {
-//        
-//            
-//        }
-//        
-//        public static japedidos.produto.Produto[] parse(ResultSet rs) {
-//        
-//            
-//        }
         
+        public static int delete(japedidos.produto.Produto p) {
+            if (p != null && p.getId() != -1) {
+                try {
+                    Connection conn = BD.getConnection();
+                    PreparedStatement delete = conn.prepareStatement(
+                            String.format("DELETE FROM %s WHERE id = ?", TABLE));
+                    
+                    delete.setInt(1, p.getId());
+                    int r = delete.executeUpdate();
+                    
+                    delete.close();
+                    conn.close();
+
+                    return r;
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao deletar produto", JOptionPane.ERROR_MESSAGE);
+                    return -1;
+                }
+            } else {
+                return 0;
+            }
+        }
         
+        public static japedidos.produto.Produto selectLast() {
+            try {
+                Connection conn = BD.getConnection();
+                PreparedStatement select = conn.prepareStatement(
+                    String.format("SELECT id, id_categoria, id_unidade, nome, preco_venda, preco_custo, id_usuario_alt, dthr_alt, estado FROM %s ORDER BY id DESC LIMIT 1", TABLE));
+                ResultSet rs = select.executeQuery();
+                
+                japedidos.produto.Produto[] produto = parse(rs);
+                
+                if (produto == null) {
+                    return null;
+                }
+                
+                return produto[0];
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+                return null;
+            } 
+            
+        }
+        
+        public static japedidos.produto.Produto[] selectAll() {
+            try {
+                Connection conn = BD.getConnection();
+                PreparedStatement select = conn.prepareStatement(String.format("SELECT id, id_categoria, id_unidade, nome, preco_venda, preco_custo, id_usuario_alt, dthr_alt, estado FROM %s", TABLE));
+                ResultSet rs = select.executeQuery();
+                
+                japedidos.produto.Produto[] produtos = parse(rs);
+                
+                select.close();
+                conn.close();
+                
+                return produtos;
+                
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);    
+            }
+            return null;
+        }
+        
+        public static japedidos.produto.Produto selectById(int id) {
+            if (id > 0) {
+                try {
+                    Connection conn = BD.getConnection();
+                    PreparedStatement select = conn.prepareStatement(
+                        String.format("SELECT id, id_categoria, id_unidade, nome, preco_venda, preco_custo, id_usuario_alt, dthr_alt, estado FROM %s WHERE id = ?", TABLE));
+                    select.setInt(1, id);
+                    
+                    ResultSet rs = select.executeQuery();
+
+                    japedidos.produto.Produto[] produto = parse(rs);
+
+                    if (produto == null) {
+                        return null;
+                    }
+
+                    return produto[0];
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            return null;
+        }
+        
+        public static japedidos.produto.Produto[] parse(ResultSet rs) {
+            ArrayList<japedidos.produto.Produto> pList = new ArrayList<japedidos.produto.Produto>();
+            
+            try {
+                while (rs.next()) {
+                    int id_produto, id_categoria, id_unidade, id_usuario_alt;
+                    String nome_produto;
+                    double preco_venda, preco_custo;
+                    boolean estado;
+                    LocalDateTime dthr_alt = null;
+                    
+                    id_produto = rs.getInt(1);
+                    id_categoria = rs.getInt(2);
+                    id_unidade = rs.getInt(3);
+                    nome_produto = rs.getString(4);
+                    preco_venda = rs.getDouble(5);
+                    preco_custo = rs.getDouble(6);
+                    id_usuario_alt = rs.getInt(7);
+                    
+                    Timestamp ts = rs.getTimestamp(8);
+                    if (ts != null) {
+                        dthr_alt = ts.toLocalDateTime();
+                    }
+                    
+                    estado = rs.getBoolean(9);
+                    
+                    // Busca de unidade e categoria
+                    japedidos.produto.Categoria categoria = BD.Categoria.selectById(id_categoria);
+                    japedidos.produto.Unidade unidade = BD.Unidade.selectById(id_unidade);
+                    
+                    japedidos.produto.Produto p = new japedidos.produto.Produto(id_produto, nome_produto, categoria, unidade, preco_custo, preco_venda );
+                    p.setAtivo(estado);
+                    
+                    Registro alteracao = null;
+                    if (id_usuario_alt != 0 && dthr_alt != null) {
+                        Usuario u = new Usuario(id_usuario_alt, "NOME DO USUARIO", "usuario.login", Usuario.Tipo.ATENDENTE);
+                        alteracao = new Registro(u, dthr_alt); // TODO: ADICIONAR BUSCA DE USUARIO
+                    }
+                    
+                    if (alteracao != null) {
+                        p.setAlteracao(alteracao);
+                    }
+                    
+                    pList.add(p);
+                }
+                
+                if (!pList.isEmpty()) {
+                    japedidos.produto.Produto[] produtos = new japedidos.produto.Produto[pList.size()];
+                    pList.toArray(produtos);
+                    
+                    return produtos;
+                }
+                
+                return null;
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de parse", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            return null;
+        }
     }
     
     static public class Categoria {
@@ -164,7 +293,7 @@ public final class BD {
                     PreparedStatement update = conn.prepareStatement(String.format("UPDATE %s SET nome = ?, descricao = ? WHERE id = ?", TABLE));
                     update.setString(1, c.getNome());
                     update.setString(2, c.getDescricao());
-                    update.setString(3, String.valueOf(c.getId()));
+                    update.setInt(3, c.getId());
 
                     int r = update.executeUpdate();
 
@@ -185,7 +314,7 @@ public final class BD {
                 try {
                     Connection conn = BD.getConnection();
                     PreparedStatement delete = conn.prepareStatement(String.format("DELETE FROM %s WHERE id = ?", TABLE));
-                    delete.setString(1, String.valueOf(c.getId()));
+                    delete.setInt(1, c.getId());
                     
                     int r = delete.executeUpdate();
                     
@@ -206,14 +335,17 @@ public final class BD {
                 Connection conn = BD.getConnection();
                 PreparedStatement select = conn.prepareStatement(String.format("SELECT id, nome, descricao FROM %s ORDER BY id DESC LIMIT 1", TABLE));
                 ResultSet rs = select.executeQuery();
-                japedidos.produto.Categoria categoria = null;
                 
-                if (rs.next()) {
-                    categoria = new japedidos.produto.Categoria(rs.getInt(1), rs.getString(2), rs.getString(3));
-                }
+                japedidos.produto.Categoria[] categorias = parse(rs);
+                
                 select.close();
                 conn.close();
-                return categoria;
+                
+                if (categorias == null) {
+                    return null;
+                }
+                
+                return categorias[0];
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);    
             }
@@ -239,10 +371,32 @@ public final class BD {
             return null;
         }
         
+        public static japedidos.produto.Categoria selectById(int id) {
+            if (id > 0) {
+               try {
+                    Connection conn = BD.getConnection();
+                    PreparedStatement select = conn.prepareStatement(String.format("SELECT id, nome, descricao FROM %s WHERE id = ?", TABLE));
+                    select.setInt(1, id);
+                    ResultSet rs = select.executeQuery();
+                    japedidos.produto.Categoria[] categoria = parse(rs);
+                    
+                    select.close();
+                    conn.close();
+                    
+                    if (categoria == null) {
+                        return null;
+                    }
+                    
+                    return categoria[0];
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);    
+                } 
+            }
+            return null;
+        }
+        
         public static japedidos.produto.Categoria[] parse(ResultSet rs) {
-            
             try {
-                
                 ArrayList<japedidos.produto.Categoria> c = new ArrayList<japedidos.produto.Categoria>();
                 while(rs.next()) {
                     final int id = rs.getInt(1);
@@ -251,7 +405,7 @@ public final class BD {
                     japedidos.produto.Categoria categoria = new japedidos.produto.Categoria(id, nome, descricao);
                     c.add(categoria);
                 }
-                if (c.size() > 0) {
+                if (!c.isEmpty()) {
                     japedidos.produto.Categoria[] categorias = new japedidos.produto.Categoria[c.size()];
                     c.toArray(categorias);
                     return categorias;
@@ -260,9 +414,7 @@ public final class BD {
                 }
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de parse", JOptionPane.ERROR_MESSAGE);
-                
             }
-            
             return null;
         }
     }
@@ -298,7 +450,7 @@ public final class BD {
                     PreparedStatement update = conn.prepareStatement(String.format("UPDATE %s SET nome = ?, abreviacao = ? WHERE id = ?", TABLE));
                     update.setString(1, u.getNome());
                     update.setString(2, u.getAbreviacao());
-                    update.setString(3, String.valueOf(u.getId()));
+                    update.setInt(3, u.getId());
 
                     int r = update.executeUpdate();
 
@@ -318,7 +470,7 @@ public final class BD {
                 try {
                     Connection conn = BD.getConnection();
                     PreparedStatement delete = conn.prepareStatement(String.format("DELETE FROM %s WHERE id = ?", TABLE));
-                    delete.setString(1, String.valueOf(u.getId()));
+                    delete.setInt(1, u.getId());
                     
                     int r = delete.executeUpdate();
                     
@@ -338,16 +490,17 @@ public final class BD {
                 Connection conn = BD.getConnection();
                 PreparedStatement select = conn.prepareStatement(String.format("SELECT id, nome, abreviacao FROM %s ORDER BY id DESC LIMIT 1", TABLE));
                 ResultSet rs = select.executeQuery();
-                japedidos.produto.Unidade unidade = null;
                 
-                if (rs.next()) {
-                    unidade = new japedidos.produto.Unidade(rs.getInt(1), rs.getString(2), rs.getString(3));
-                }
+                japedidos.produto.Unidade[] unidades = parse(rs);
                 
                 select.close();
                 conn.close();
                 
-                return unidade;
+                if (unidades == null) {
+                    return null;
+                }
+                
+                return unidades[0];
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);    
             }
@@ -369,6 +522,32 @@ public final class BD {
                 
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);    
+            }
+            return null;
+        }
+        
+        public static japedidos.produto.Unidade selectById(int id) {
+            if (id > 0) {
+                try {
+                    Connection conn = BD.getConnection();
+                    PreparedStatement select = conn.prepareStatement(String.format("SELECT id, nome, abreviacao FROM %s WHERE id = ?", TABLE));
+                    select.setInt(1, id);
+                    
+                    ResultSet rs = select.executeQuery();
+
+                    japedidos.produto.Unidade[] unidades = parse(rs);
+                    
+                    select.close();
+                    conn.close();
+                    
+                    if (unidades == null) {
+                        return null;
+                    }
+                    return unidades[0];
+
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);    
+                }
             }
             return null;
         }

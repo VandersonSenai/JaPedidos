@@ -11,7 +11,6 @@ import java.util.Arrays;
 public class JaPedidos {
 
     public static void main(String[] args) {
-        Usuario.setAtual(new Usuario(1, "Thiago", "t.baiense", Usuario.Tipo.ATENDENTE));
-        
+        BD.Produto.insert(new Produto("Coxinha", BD.Categoria.selectById(55), BD.Unidade.selectById(13), 10, 15));
     }
 }
