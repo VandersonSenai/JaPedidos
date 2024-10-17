@@ -20,11 +20,11 @@ public class CategoriaTableModel extends AbstractTableModel {
     
     public CategoriaTableModel(Categoria... categorias) {
         this();
-        for (Categoria c: categorias) {
-            if (c != null) {
-                this.addRow(c);
-            }
+        if (categorias == null) {
+            return;
         }
+        
+        fillRows(categorias);
     }
     
     public int getColumnCount() {
