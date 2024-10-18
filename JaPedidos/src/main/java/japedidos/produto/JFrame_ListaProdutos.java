@@ -1,16 +1,22 @@
 package japedidos.produto;
 
 import java.awt.Color;
+import javax.swing.ImageIcon;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class JFrame_ListaProdutos extends javax.swing.JFrame {
-
-    String diretorioBase = "C:\\SENAI\\TECHNIGHT\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\";
-    String caminhoIcone = "";
+/*
+    
+    String diretorioBaseImagens = ".\\src\\main\\java\\japedidos\\imagens\\";
+    ImageIcon imgBackground_01 = new ImageIcon(diretorioBaseImagens + "\\background_produtos_075x.png");
+    */
+    
     Color cor_padrao_txt_clientes = new Color(128,128,128);
     Color cor_padrao_txt_produtos = new Color(255,255,255);
     Color cor_padrao_txt_pedidos = new Color(128,128,128);
     Color cor_padrao_txt_relatorios = new Color(128,128,128);
-
+    
     /**
      * Creates new form listaProdutos
      */
@@ -48,6 +54,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jlbl_valor = new javax.swing.JLabel();
         jtxtf_valor = new javax.swing.JTextField();
         jtb_linha = new javax.swing.JToolBar();
+        jtb_linha1 = new javax.swing.JToolBar();
+        jlbl_clientes1 = new javax.swing.JLabel();
+        jlbl_produtos1 = new javax.swing.JLabel();
+        jlbl_pedidos1 = new javax.swing.JLabel();
+        jlbl_relatorios1 = new javax.swing.JLabel();
+        jpnl_img_etiqueta1 = new javax.swing.JLabel();
+        jpnl_background2 = new javax.swing.JLabel();
         jpnl_btn_novo = new javax.swing.JLabel();
         jpnl_btn_excluir = new javax.swing.JLabel();
         jpnl_btn_salvar = new javax.swing.JLabel();
@@ -74,9 +87,9 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtb_linhaBranca.setBorderPainted(false);
         jpnl_sideMenu.add(jtb_linhaBranca, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 280, 100, 4));
 
-        jlbl_clientes.setBackground(new java.awt.Color(204, 0, 204));
+        jlbl_clientes.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_clientes.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_clientes.setForeground(new java.awt.Color(204, 0, 153));
+        jlbl_clientes.setForeground(new Color(128,128,128));
         jlbl_clientes.setText("CLIENTES");
         jlbl_clientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -96,7 +109,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         jlbl_produtos.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_produtos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_produtos.setForeground(new Color(128,128,128));
+        jlbl_produtos.setForeground(new Color(255,255,255));
         jlbl_produtos.setText("PRODUTOS");
         jlbl_produtos.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -144,11 +157,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         });
         jpnl_sideMenu.add(jlbl_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 330, -1, -1));
 
+        jpnl_img_etiqueta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/painel_comandos_esquerda_05x.png"))); // NOI18N
         jpnl_img_etiqueta.setMaximumSize(new java.awt.Dimension(250, 576));
         jpnl_img_etiqueta.setMinimumSize(new java.awt.Dimension(250, 576));
         jpnl_sideMenu.add(jpnl_img_etiqueta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 250, -1));
 
         jpnl_background_01.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jpnl_background_01.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_produtos_075x.png"))); // NOI18N
         jpnl_background_01.setToolTipText("");
         jpnl_background_01.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jpnl_background_01.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -188,7 +203,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         jtxtf_descricao.setBackground(new java.awt.Color(204, 204, 204));
         jtxtf_descricao.setForeground(new java.awt.Color(0, 0, 0));
-        jpnl_corpo.add(jtxtf_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 210, 290, 30));
+        jpnl_corpo.add(jtxtf_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 210, 280, 30));
 
         jlbl_categoria.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_categoria.setForeground(new java.awt.Color(0, 0, 0));
@@ -203,17 +218,17 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jlbl_und.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_und.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_und.setText("UND :");
-        jpnl_corpo.add(jlbl_und, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 250, -1, -1));
+        jpnl_corpo.add(jlbl_und, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 250, -1, -1));
 
         jcmb_und.setBackground(new java.awt.Color(204, 204, 204));
         jcmb_und.setForeground(new java.awt.Color(255, 255, 255));
         jcmb_und.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UNI", "KG", "SC" }));
-        jpnl_corpo.add(jcmb_und, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 250, 60, 30));
+        jpnl_corpo.add(jcmb_und, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 250, 60, 30));
 
         jlbl_valor.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_valor.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_valor.setText("VALOR :");
-        jpnl_corpo.add(jlbl_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 250, -1, -1));
+        jpnl_corpo.add(jlbl_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 250, -1, -1));
 
         jtxtf_valor.setBackground(new java.awt.Color(204, 204, 204));
         jtxtf_valor.setForeground(new java.awt.Color(0, 0, 0));
@@ -221,9 +236,53 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         jtb_linha.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.white, java.awt.Color.darkGray, null));
 
+        jtb_linha1.setBackground(new java.awt.Color(255, 255, 255));
+        jtb_linha1.setBorder(null);
+        jtb_linha1.setForeground(new java.awt.Color(255, 255, 255));
+        jtb_linha.add(jtb_linha1);
+
+        jlbl_clientes1.setBackground(new java.awt.Color(0, 0, 0));
+        jlbl_clientes1.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_clientes1.setText("CLIENTES");
+        jtb_linha.add(jlbl_clientes1);
+
+        jlbl_produtos1.setBackground(new java.awt.Color(0, 0, 0));
+        jlbl_produtos1.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_produtos1.setForeground(new java.awt.Color(255, 255, 255));
+        jlbl_produtos1.setText("PRODUTOS");
+        jlbl_produtos1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jlbl_produtosFocusGained(evt);
+            }
+        });
+        jtb_linha.add(jlbl_produtos1);
+
+        jlbl_pedidos1.setBackground(new java.awt.Color(0, 0, 0));
+        jlbl_pedidos1.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_pedidos1.setText("PEDIDOS");
+        jtb_linha.add(jlbl_pedidos1);
+
+        jlbl_relatorios1.setBackground(new java.awt.Color(0, 0, 0));
+        jlbl_relatorios1.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_relatorios1.setText("RELATÓRIOS");
+        jtb_linha.add(jlbl_relatorios1);
+
+        jpnl_img_etiqueta1.setMaximumSize(new java.awt.Dimension(250, 576));
+        jpnl_img_etiqueta1.setMinimumSize(new java.awt.Dimension(250, 576));
+        jtb_linha.add(jpnl_img_etiqueta1);
+
+        jpnl_background2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jpnl_background2.setToolTipText("");
+        jpnl_background2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jpnl_background2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jpnl_background2.setMaximumSize(new java.awt.Dimension(1024, 576));
+        jpnl_background2.setMinimumSize(new java.awt.Dimension(1024, 576));
+        jpnl_background2.setPreferredSize(new java.awt.Dimension(1024, 576));
+        jtb_linha.add(jpnl_background2);
 
         jpnl_corpo.add(jtb_linha, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 680, 2));
 
+        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_novo_padrao.png")); // NOI18N
         jpnl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jpnl_btn_novoMouseClicked(evt);
@@ -237,6 +296,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         });
         jpnl_corpo.add(jpnl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 170, -1, -1));
 
+        jpnl_btn_excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_excluir_padrao.png"))); // NOI18N
         jpnl_btn_excluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jpnl_btn_excluirMousePressed(evt);
@@ -247,6 +307,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         });
         jpnl_corpo.add(jpnl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 210, -1, -1));
 
+        jpnl_btn_salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_salvar_padrao.png"))); // NOI18N
         jpnl_btn_salvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jpnl_btn_salvarMousePressed(evt);
@@ -303,9 +364,8 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         jpnl_corpo.add(jtbl_listaprodutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, 680, 170));
 
-<<<<<<< HEAD
         jpnl_background_02.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jpnl_background_02.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\background_produtos_075x.png")); // NOI18N
+        jpnl_background_02.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_produtos_075x.png"))); // NOI18N
         jpnl_background_02.setToolTipText("");
         jpnl_background_02.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jpnl_background_02.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -313,16 +373,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_background_02.setMinimumSize(new java.awt.Dimension(1024, 576));
         jpnl_background_02.setPreferredSize(new java.awt.Dimension(1024, 576));
         jpnl_corpo.add(jpnl_background_02, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-=======
-        jpnl_background_2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jpnl_background_2.setToolTipText("");
-        jpnl_background_2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jpnl_background_2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jpnl_background_2.setMaximumSize(new java.awt.Dimension(1024, 576));
-        jpnl_background_2.setMinimumSize(new java.awt.Dimension(1024, 576));
-        jpnl_background_2.setPreferredSize(new java.awt.Dimension(1024, 576));
-        jpnl_corpo.add(jpnl_background_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
->>>>>>> 638af1a4d7c1086458f17c2f6ec0cf87f229472f
 
         getContentPane().add(jpnl_corpo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -336,44 +386,38 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jpnl_btn_novoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_novoMousePressed
         // TODO add your handling code here:
-        //jpnl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\SENAI\\TECHNIGHT\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_novo_pressionado.png")); 
-        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_novo_pressionado.png")); 
+        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\btn_novo_pressionado.png")); 
     }//GEN-LAST:event_jpnl_btn_novoMousePressed
 
     private void jpnl_btn_novoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_novoMouseClicked
         // TODO add your handling code here:
-        
+    
 
     }//GEN-LAST:event_jpnl_btn_novoMouseClicked
 
     private void jpnl_btn_novoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_novoMouseReleased
         // TODO add your handling code here:
-        //jpnl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\SENAI\\TECHNIGHT\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_novo_padrao.png")); 
-        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_novo_padrao.png")); 
+        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\btn_novo_padrao.png")); 
     }//GEN-LAST:event_jpnl_btn_novoMouseReleased
 
     private void jpnl_btn_excluirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_excluirMousePressed
         // TODO add your handling code here:
-        // jpnl_btn_excluir.setIcon(new javax.swing.ImageIcon("C:\\SENAI\\TECHNIGHT\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_excluir_pressionado.png")); 
-        jpnl_btn_excluir.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_excluir_pressionado.png")); 
+        jpnl_btn_excluir.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\btn_excluir_pressionado.png")); 
     }//GEN-LAST:event_jpnl_btn_excluirMousePressed
 
     private void jpnl_btn_excluirMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_excluirMouseReleased
         // TODO add your handling code here:
-        // jpnl_btn_excluir.setIcon(new javax.swing.ImageIcon("C:\\SENAI\\TECHNIGHT\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_excluir_padrao.png")); 
-        jpnl_btn_excluir.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_excluir_padrao.png")); 
+        jpnl_btn_excluir.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\btn_excluir_padrao.png")); 
     }//GEN-LAST:event_jpnl_btn_excluirMouseReleased
 
     private void jpnl_btn_salvarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_salvarMouseReleased
         // TODO add your handling code here:
-        // jpnl_btn_salvar.setIcon(new javax.swing.ImageIcon("C:\\SENAI\\TECHNIGHT\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_salvar_padrao.png")); 
-        jpnl_btn_salvar.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_salvar_padrao.png")); 
+        jpnl_btn_salvar.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\btn_salvar_padrao.png")); 
     }//GEN-LAST:event_jpnl_btn_salvarMouseReleased
 
     private void jpnl_btn_salvarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_salvarMousePressed
         // TODO add your handling code here:
-        // jpnl_btn_salvar.setIcon(new javax.swing.ImageIcon("C:\\SENAI\\TECHNIGHT\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_salvar_pressionado.png")); 
-        jpnl_btn_salvar.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_salvar_pressionado.png")); 
+        jpnl_btn_salvar.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\btn_salvar_pressionado.png")); 
     }//GEN-LAST:event_jpnl_btn_salvarMousePressed
 
     private void jlbl_clientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_clientesMouseEntered
@@ -470,6 +514,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+
+        Path currentRelativePath = Paths.get("");
+        String caminhoImagens = currentRelativePath.toAbsolutePath().toString();
+        caminhoImagens = Paths.get(".").toAbsolutePath().normalize().toString();
+        System.out.print("Current absolute path is: " + caminhoImagens);
+        
+                
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -508,13 +559,18 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jcmb_und;
     private javax.swing.JLabel jlbl_categoria;
     private javax.swing.JLabel jlbl_clientes;
+    private javax.swing.JLabel jlbl_clientes1;
     private javax.swing.JLabel jlbl_codigo;
     private javax.swing.JLabel jlbl_descricao;
     private javax.swing.JLabel jlbl_pedidos;
+    private javax.swing.JLabel jlbl_pedidos1;
     private javax.swing.JLabel jlbl_produtos;
+    private javax.swing.JLabel jlbl_produtos1;
     private javax.swing.JLabel jlbl_relatorios;
+    private javax.swing.JLabel jlbl_relatorios1;
     private javax.swing.JLabel jlbl_und;
     private javax.swing.JLabel jlbl_valor;
+    private javax.swing.JLabel jpnl_background2;
     private javax.swing.JLabel jpnl_background_01;
     private javax.swing.JLabel jpnl_background_02;
     private javax.swing.JLabel jpnl_btn_excluir;
@@ -522,8 +578,10 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     private javax.swing.JLabel jpnl_btn_salvar;
     private javax.swing.JPanel jpnl_corpo;
     private javax.swing.JLabel jpnl_img_etiqueta;
+    private javax.swing.JLabel jpnl_img_etiqueta1;
     private javax.swing.JPanel jpnl_sideMenu;
     private javax.swing.JToolBar jtb_linha;
+    private javax.swing.JToolBar jtb_linha1;
     private javax.swing.JToolBar jtb_linhaBranca;
     private javax.swing.JTable jtbl_lista_produtos;
     private javax.swing.JScrollPane jtbl_listaprodutos;
