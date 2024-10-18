@@ -31,8 +31,9 @@ public final class BD {
             return conn;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
-            return null;
+            System.exit(-1);
         }
+        return null;
     }
     
     static public class Usuario {
