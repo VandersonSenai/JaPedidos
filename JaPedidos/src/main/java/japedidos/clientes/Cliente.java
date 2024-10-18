@@ -14,7 +14,8 @@ public class Cliente {
     public final String nome;
     public final String telefone;
     public Pedido ultimoPedido;
-    
+    private InfoAdicional infoAdicional;
+            
     public Cliente(String nome, String telefone) {
         if (nome == null) {
             throw new NullPointerException("nome informado é nulo");
@@ -41,5 +42,73 @@ public class Cliente {
     
     public int getId() {
         return this.id;
+    }
+    
+    public Cliente.InfoAdicional getInfoAdicional() {
+        return this.infoAdicional;
+    }
+    
+    public void setInfoAdicional(InfoAdicional info) {
+        if (info == null) {
+            throw new NullPointerException();
+        }
+        
+        this.infoAdicional = info;
+    }
+    
+    static public abstract class InfoAdicional {
+        protected Tipo tipo;
+
+        public static enum Tipo {PF, PJ}
+
+        public Tipo getTipo() {
+            return this.tipo;
+        }
+        
+        public boolean isPF() {
+            if (this.getTipo() == Tipo.PF) {
+                return true;
+            }
+            return false;
+        }
+        
+        public boolean isPJ() {
+            if (this.getTipo() == Tipo.PJ) {
+                return true;
+            }
+            return false;
+        }
+        
+        public String toString() {
+            if (this.getTipo() == Tipo.PF) {
+                return "Pessoa Física";
+            } else {
+                return "Pessoa Jurídica";
+            }
+        }
+
+        static public class PF extends InfoAdicional {
+            public final String nome;
+            public final String cpf;
+
+            public PF(String nome, String cpf) {
+                this.tipo = Tipo.PF;
+                this.nome = nome;
+                this.cpf = new CPF(cpf).toString();
+            }
+        }
+
+        static public class PJ extends InfoAdicional {
+            public final String nomeFantasia;
+            public final String razaoSocial;
+            public final String cnpj;
+
+            public PJ(String nomeFantasia, String razaoSocial, String cnpj) {
+                this.tipo = Tipo.PJ;
+                this.nomeFantasia = nomeFantasia;
+                this.razaoSocial = razaoSocial;
+                this.cnpj = cnpj;
+            }
+        }
     }
 }

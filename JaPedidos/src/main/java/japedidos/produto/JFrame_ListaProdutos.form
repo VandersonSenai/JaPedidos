@@ -177,9 +177,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jpnl_img_etiqueta">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\JaPedidos\JaPedidos\src\main\java\japedidos\imagens\painel_comandos_esquerda_05x.png"/>
-            </Property>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[250, 576]"/>
             </Property>
@@ -196,9 +193,6 @@
         <Component class="javax.swing.JLabel" name="jpnl_background_01">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\JaPedidos\JaPedidos\src\main\java\japedidos\imagens\background_produtos_075x.png"/>
-            </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="verticalAlignment" type="int" value="1"/>
             <Property name="horizontalTextPosition" type="int" value="2"/>
@@ -556,11 +550,6 @@
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="jpnl_btn_novo">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\JaPedidos\JaPedidos\src\main\java\japedidos\imagens\btn_novo_padrao.png"/>
-            </Property>
-          </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jpnl_btn_novoMouseClicked"/>
             <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jpnl_btn_novoMousePressed"/>
@@ -573,11 +562,6 @@
           </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="jpnl_btn_excluir">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\JaPedidos\JaPedidos\src\main\java\japedidos\imagens\btn_excluir_padrao.png"/>
-            </Property>
-          </Properties>
           <Events>
             <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jpnl_btn_excluirMousePressed"/>
             <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jpnl_btn_excluirMouseReleased"/>
@@ -589,11 +573,6 @@
           </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="jpnl_btn_salvar">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\JaPedidos\JaPedidos\src\main\java\japedidos\imagens\btn_salvar_padrao.png"/>
-            </Property>
-          </Properties>
           <Events>
             <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jpnl_btn_salvarMousePressed"/>
             <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jpnl_btn_salvarMouseReleased"/>
@@ -738,9 +717,6 @@
         <Component class="javax.swing.JLabel" name="jpnl_background_02">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\JaPedidos\JaPedidos\src\main\java\japedidos\imagens\background_produtos_075x.png"/>
-            </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="verticalAlignment" type="int" value="1"/>
             <Property name="horizontalTextPosition" type="int" value="2"/>

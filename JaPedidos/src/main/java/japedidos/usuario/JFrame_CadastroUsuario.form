@@ -83,13 +83,9 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-<<<<<<< HEAD:JaPedidos/src/main/java/japedidos/usuario/CadastroUsuario.form
                   <EmptySpace pref="69" max="32767" attributes="0"/>
                   <Component id="jpnl_btn_novo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-=======
-                  <EmptySpace pref="127" max="32767" attributes="0"/>
->>>>>>> 49c93973be3150ee1be360e013b106c549d3087a:JaPedidos/src/main/java/japedidos/usuario/JFrame_CadastroUsuario.form
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jlbl_login" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jtxtf_login" alignment="3" min="-2" max="-2" attributes="0"/>

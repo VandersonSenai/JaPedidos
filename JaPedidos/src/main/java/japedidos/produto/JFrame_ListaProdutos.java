@@ -144,13 +144,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         });
         jpnl_sideMenu.add(jlbl_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 330, -1, -1));
 
-        jpnl_img_etiqueta.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\painel_comandos_esquerda_05x.png")); // NOI18N
         jpnl_img_etiqueta.setMaximumSize(new java.awt.Dimension(250, 576));
         jpnl_img_etiqueta.setMinimumSize(new java.awt.Dimension(250, 576));
         jpnl_sideMenu.add(jpnl_img_etiqueta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 250, -1));
 
         jpnl_background_01.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jpnl_background_01.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\background_produtos_075x.png")); // NOI18N
         jpnl_background_01.setToolTipText("");
         jpnl_background_01.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jpnl_background_01.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -226,7 +224,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         jpnl_corpo.add(jtb_linha, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 680, 2));
 
-        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_novo_padrao.png")); // NOI18N
         jpnl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jpnl_btn_novoMouseClicked(evt);
@@ -240,7 +237,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         });
         jpnl_corpo.add(jpnl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 170, -1, -1));
 
-        jpnl_btn_excluir.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_excluir_padrao.png")); // NOI18N
         jpnl_btn_excluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jpnl_btn_excluirMousePressed(evt);
@@ -251,7 +247,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         });
         jpnl_corpo.add(jpnl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 210, -1, -1));
 
-        jpnl_btn_salvar.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_salvar_padrao.png")); // NOI18N
         jpnl_btn_salvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jpnl_btn_salvarMousePressed(evt);
@@ -308,6 +303,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         jpnl_corpo.add(jtbl_listaprodutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, 680, 170));
 
+<<<<<<< HEAD
         jpnl_background_02.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jpnl_background_02.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\background_produtos_075x.png")); // NOI18N
         jpnl_background_02.setToolTipText("");
@@ -317,6 +313,16 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_background_02.setMinimumSize(new java.awt.Dimension(1024, 576));
         jpnl_background_02.setPreferredSize(new java.awt.Dimension(1024, 576));
         jpnl_corpo.add(jpnl_background_02, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+=======
+        jpnl_background_2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jpnl_background_2.setToolTipText("");
+        jpnl_background_2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jpnl_background_2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jpnl_background_2.setMaximumSize(new java.awt.Dimension(1024, 576));
+        jpnl_background_2.setMinimumSize(new java.awt.Dimension(1024, 576));
+        jpnl_background_2.setPreferredSize(new java.awt.Dimension(1024, 576));
+        jpnl_corpo.add(jpnl_background_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+>>>>>>> 638af1a4d7c1086458f17c2f6ec0cf87f229472f
 
         getContentPane().add(jpnl_corpo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
