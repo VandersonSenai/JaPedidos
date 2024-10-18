@@ -69,6 +69,8 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jspn_quantidade = new javax.swing.JSpinner();
         jlbl_destinatario = new javax.swing.JLabel();
         jlbl_nomeCliente = new javax.swing.JLabel();
+        jtxtf_numero = new javax.swing.JTextField();
+        jlbl_numero = new javax.swing.JLabel();
         jpnl_pedidosAberto = new javax.swing.JPanel();
         jpnl_historicoPedidos = new javax.swing.JPanel();
         jpnl_sideMenu = new javax.swing.JPanel();
@@ -153,7 +155,7 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jlbl_bairro.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_bairro.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_bairro.setText("BAIRRO");
-        jpnl_incluirPedido.add(jlbl_bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, -1, -1));
+        jpnl_incluirPedido.add(jlbl_bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, -1, -1));
 
         jlbl_rua.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_rua.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -162,7 +164,7 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jpnl_incluirPedido.add(jlbl_rua, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
 
         jtxtf_cidade.setForeground(new java.awt.Color(204, 204, 204));
-        jpnl_incluirPedido.add(jtxtf_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, 210, -1));
+        jpnl_incluirPedido.add(jtxtf_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, 210, -1));
 
         jcmb_produto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BOLINHA DE QUEIJO", "COXINHA DE FRANGO", "KIBE DE CARNE", "RISSOLE DE", "MINI CHURROS" }));
         jpnl_incluirPedido.add(jcmb_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 190, -1));
@@ -202,7 +204,7 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jlbl_cidade.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_cidade.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_cidade.setText("CIDADE");
-        jpnl_incluirPedido.add(jlbl_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, -1, -1));
+        jpnl_incluirPedido.add(jlbl_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 110, -1, -1));
 
         jlbl_estadoInicial.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_estadoInicial.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -211,7 +213,7 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jpnl_incluirPedido.add(jlbl_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 150, 30));
 
         jtxtf_uf.setForeground(new java.awt.Color(204, 204, 204));
-        jpnl_incluirPedido.add(jtxtf_uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, 140, -1));
+        jpnl_incluirPedido.add(jtxtf_uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 130, 50, -1));
 
         jlbl_tipoEntrega.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_tipoEntrega.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -226,10 +228,10 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jlbl_uf.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_uf.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_uf.setText("UF");
-        jpnl_incluirPedido.add(jlbl_uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 110, -1, -1));
+        jpnl_incluirPedido.add(jlbl_uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 110, -1, -1));
 
         jtxtf_bairro.setForeground(new java.awt.Color(204, 204, 204));
-        jpnl_incluirPedido.add(jtxtf_bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 140, -1));
+        jpnl_incluirPedido.add(jtxtf_bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 140, -1));
 
         jtxtf_desconto.setForeground(new java.awt.Color(204, 204, 204));
         jpnl_incluirPedido.add(jtxtf_desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 470, 120, -1));
@@ -296,6 +298,15 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jlbl_nomeCliente.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_nomeCliente.setText("NOME");
         jpnl_incluirPedido.add(jlbl_nomeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 130, -1));
+
+        jtxtf_numero.setForeground(new java.awt.Color(204, 204, 204));
+        jpnl_incluirPedido.add(jtxtf_numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 50, -1));
+
+        jlbl_numero.setBackground(new java.awt.Color(0, 0, 0));
+        jlbl_numero.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_numero.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_numero.setText("Nº");
+        jpnl_incluirPedido.add(jlbl_numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, -1, -1));
 
         jTabbedPane1.addTab("Incluir pedido", jpnl_incluirPedido);
 
@@ -480,6 +491,7 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jlbl_horaEntrega;
     private javax.swing.JLabel jlbl_infoAdicionalCliente;
     private javax.swing.JLabel jlbl_nomeCliente;
+    private javax.swing.JLabel jlbl_numero;
     private javax.swing.JLabel jlbl_pedidos;
     private javax.swing.JLabel jlbl_produto;
     private javax.swing.JLabel jlbl_produtos;
@@ -511,6 +523,7 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
     private javax.swing.JTextField jtxtf_desconto;
     private javax.swing.JTextField jtxtf_horaEntrega;
     private javax.swing.JTextField jtxtf_nomeCliente;
+    private javax.swing.JTextField jtxtf_numero;
     private javax.swing.JTextField jtxtf_rua;
     private javax.swing.JTextField jtxtf_telefoneCliente;
     private javax.swing.JTextField jtxtf_uf;
