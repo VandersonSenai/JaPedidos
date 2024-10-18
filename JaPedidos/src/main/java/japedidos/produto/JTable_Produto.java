@@ -32,6 +32,7 @@ public class JTable_Produto extends JPanel {
     
     public static void test() {
         JFrame frame = new JFrame("Teste de produto");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JTable_Produto tabela = new JTable_Produto();
         frame.setContentPane(tabela);
         frame.pack();
