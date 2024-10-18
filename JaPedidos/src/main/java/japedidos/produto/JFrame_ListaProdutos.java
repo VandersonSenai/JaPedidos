@@ -282,7 +282,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         jpnl_corpo.add(jtb_linha, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 680, 2));
 
-        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_novo_padrao.png")); // NOI18N
+        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_novo_padrao.png"))); // NOI18N
         jpnl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jpnl_btn_novoMouseClicked(evt);
