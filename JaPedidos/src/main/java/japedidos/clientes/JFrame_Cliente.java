@@ -30,6 +30,7 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         jLbl_Cliente = new javax.swing.JLabel();
         jLbl_Filtro = new javax.swing.JLabel();
         jLbl_novo = new javax.swing.JLabel();
+        jLblLupa = new javax.swing.JLabel();
         jTxtFpesquisa = new javax.swing.JTextField();
         jTxtFnomeFiltra = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -52,54 +53,49 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLbl_Produto.setBackground(new java.awt.Color(255, 255, 255));
-        jLbl_Produto.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLbl_Produto.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jLbl_Produto.setText("PRODUTOS");
-        getContentPane().add(jLbl_Produto);
-        jLbl_Produto.setBounds(10, 210, 100, 20);
+        getContentPane().add(jLbl_Produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 100, 20));
 
         jLbl_Relatorio.setBackground(new java.awt.Color(0, 0, 0));
-        jLbl_Relatorio.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLbl_Relatorio.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jLbl_Relatorio.setText("RELATÓRIOS");
-        getContentPane().add(jLbl_Relatorio);
-        jLbl_Relatorio.setBounds(10, 190, 100, 20);
+        getContentPane().add(jLbl_Relatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 120, 20));
 
         jLbl_pedido.setBackground(new java.awt.Color(255, 255, 255));
-        jLbl_pedido.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLbl_pedido.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jLbl_pedido.setText("PEDIDOS");
-        getContentPane().add(jLbl_pedido);
-        jLbl_pedido.setBounds(10, 230, 90, 20);
+        getContentPane().add(jLbl_pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 80, 20));
 
         jLbl_Cliente.setBackground(new java.awt.Color(255, 255, 255));
-        jLbl_Cliente.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLbl_Cliente.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jLbl_Cliente.setForeground(new java.awt.Color(255, 255, 255));
         jLbl_Cliente.setText("CLIENTES");
-        getContentPane().add(jLbl_Cliente);
-        jLbl_Cliente.setBounds(10, 170, 80, 20);
+        getContentPane().add(jLbl_Cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 90, 20));
 
         jLbl_Filtro.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLbl_Filtro.setText("FILTRO:");
-        getContentPane().add(jLbl_Filtro);
-        jLbl_Filtro.setBounds(600, 60, 90, 30);
+        getContentPane().add(jLbl_Filtro, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 70, 90, 40));
 
         jLbl_novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/btn_novo_padrao.png"))); // NOI18N
-        getContentPane().add(jLbl_novo);
-        jLbl_novo.setBounds(510, 50, 90, 40);
+        getContentPane().add(jLbl_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 70, 90, 40));
 
-        jTxtFpesquisa.setText("PESQUISAR.......");
+        jLblLupa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/icon_lupa.png"))); // NOI18N
+        getContentPane().add(jLblLupa, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 30, 40));
+
+        jTxtFpesquisa.setText("           Pesquisar.......");
         jTxtFpesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTxtFpesquisaActionPerformed(evt);
             }
         });
-        getContentPane().add(jTxtFpesquisa);
-        jTxtFpesquisa.setBounds(190, 50, 310, 40);
+        getContentPane().add(jTxtFpesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 300, 40));
 
         jTxtFnomeFiltra.setText("NOME ");
-        getContentPane().add(jTxtFnomeFiltra);
-        jTxtFnomeFiltra.setBounds(700, 50, 80, 40);
+        getContentPane().add(jTxtFnomeFiltra, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 70, 80, 40));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -122,8 +118,7 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable2);
 
-        getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(150, 120, 640, 310);
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, 730, 370));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -136,16 +131,15 @@ public class JFrame_Cliente extends javax.swing.JFrame {
             .addGap(0, 440, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(1150, 10, 220, 440);
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 10, -1, -1));
 
         jLbl_LogoPaleta.setBackground(new java.awt.Color(0, 102, 255));
-        getContentPane().add(jLbl_LogoPaleta);
-        jLbl_LogoPaleta.setBounds(0, 60, 153, 0);
+        jLbl_LogoPaleta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/painel_comandos_esquerda_05x.png"))); // NOI18N
+        getContentPane().add(jLbl_LogoPaleta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 250, 510));
 
         jLbl_Imagem.setBackground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(jLbl_Imagem);
-        jLbl_Imagem.setBounds(-10, -10, 900, 450);
+        jLbl_Imagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/background_clientes.png"))); // NOI18N
+        getContentPane().add(jLbl_Imagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 550));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -193,6 +187,7 @@ public class JFrame_Cliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLblLupa;
     private javax.swing.JLabel jLbl_Cliente;
     private javax.swing.JLabel jLbl_Filtro;
     private javax.swing.JLabel jLbl_Imagem;
