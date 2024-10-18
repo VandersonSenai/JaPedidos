@@ -14,11 +14,11 @@ import java.util.ArrayList;
 
 public final class BD {
     public static final String SGBD = "mysql";
-    public static final String IP = "localhost";
+    public static final String IP = "162.241.203.86";
     public static final String PORT = "3306";
-    public static final String NAME = "japedidos";
-    public static final String USER = "root";
-    public static final String USER_PWD = "";
+    public static final String NAME = "titanw25_japedidos_hml";
+    public static final String USER = "titanw25_japedidos_hml";
+    public static final String USER_PWD = "seNai@2024proj";
     
     private BD() {}
     

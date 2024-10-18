@@ -37,6 +37,16 @@ INSERT INTO est_andamento(nome) VALUES
 
 SELECT * FROM est_andamento;
 
+CREATE TABLE usuario(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nome VARCHAR(48) NOT NULL,
+	login VARCHAR(20) NOT NULL,
+	senha VARCHAR(32) NOT NULL,
+	tipo Enum("atendente", "administrador")
+);
+
+INSERT INTO usuario(nome, login, senha, tipo) VALUE ("Thiago M. Baiense", "thiago", "baiense", "administrador");
+
 CREATE TABLE produto(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	id_categoria INT NOT NULL,
@@ -51,19 +61,4 @@ CREATE TABLE produto(
 	FOREIGN KEY (id_usuario_alt) REFERENCES usuario(id),
 	dthr_alt DATETIME
 );
-
-INSERT INTO 
-	produto(id_categoria, id_unidade, nome, preco_venda)
-VALUE
-	(52, 13, "Primeiro produto :D", 25.00);
-
-CREATE TABLE usuario(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	nome VARCHAR(48) NOT NULL,
-	login VARCHAR(20) NOT NULL,
-	senha VARCHAR(32) NOT NULL,
-	tipo Enum("atendente", "administrador")
-);
-
-INSERT INTO usuario(nome, login, senha, tipo) VALUE ("Thiago M. Baiense", "thiago", "baiense", "administrador");
 
