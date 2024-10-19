@@ -72,7 +72,18 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jtxtf_numero = new javax.swing.JTextField();
         jlbl_numero = new javax.swing.JLabel();
         jpnl_pedidosAberto = new javax.swing.JPanel();
+        jtxtf_pesquisarPedidos = new javax.swing.JTextField();
+        jlbl_filtroPedidosEmAberto = new javax.swing.JLabel();
+        jtxtf_filtroPedidosEmAberto = new javax.swing.JTextField();
+        jscp_pedidosEmAberto = new javax.swing.JScrollPane();
+        jtbl_pedidosEmAberto = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
         jpnl_historicoPedidos = new javax.swing.JPanel();
+        jtxtf_pesquisarHistoricoPedido = new javax.swing.JTextField();
+        jlbl_filtroHistoricoPedido = new javax.swing.JLabel();
+        jtxtf_filtroHistoricoPedido = new javax.swing.JTextField();
+        jscp_pedidosEmAberto1 = new javax.swing.JScrollPane();
+        jtbl_HistoricoPedido = new javax.swing.JTable();
         jpnl_sideMenu = new javax.swing.JPanel();
         jlbl_clientes = new javax.swing.JLabel();
         jlbl_produtos = new javax.swing.JLabel();
@@ -311,32 +322,107 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jTabbedPane1.addTab("Incluir pedido", jpnl_incluirPedido);
 
         jpnl_pedidosAberto.setOpaque(false);
+        jpnl_pedidosAberto.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jpnl_pedidosAbertoLayout = new javax.swing.GroupLayout(jpnl_pedidosAberto);
-        jpnl_pedidosAberto.setLayout(jpnl_pedidosAbertoLayout);
-        jpnl_pedidosAbertoLayout.setHorizontalGroup(
-            jpnl_pedidosAbertoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
-        );
-        jpnl_pedidosAbertoLayout.setVerticalGroup(
-            jpnl_pedidosAbertoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 545, Short.MAX_VALUE)
-        );
+        jtxtf_pesquisarPedidos.setText("PESQUISAR..");
+        jtxtf_pesquisarPedidos.setPreferredSize(new java.awt.Dimension(96, 22));
+        jtxtf_pesquisarPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtf_pesquisarPedidosActionPerformed(evt);
+            }
+        });
+        jpnl_pedidosAberto.add(jtxtf_pesquisarPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 21, 220, 40));
+
+        jlbl_filtroPedidosEmAberto.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jlbl_filtroPedidosEmAberto.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_filtroPedidosEmAberto.setText("FILTRO:");
+        jpnl_pedidosAberto.add(jlbl_filtroPedidosEmAberto, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
+
+        jtxtf_filtroPedidosEmAberto.setText("NOME ");
+        jpnl_pedidosAberto.add(jtxtf_filtroPedidosEmAberto, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, 100, 40));
+
+        jtbl_pedidosEmAberto.setBackground(new java.awt.Color(153, 204, 255));
+        jtbl_pedidosEmAberto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jtbl_pedidosEmAberto.setForeground(new java.awt.Color(255, 255, 255));
+        jtbl_pedidosEmAberto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                { new Integer(1), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO"},
+                { new Integer(2), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO"},
+                { new Integer(3), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO"},
+                { new Integer(4), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO"},
+                { new Integer(5), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO"}
+            },
+            new String [] {
+                "CODIGO", "NOME", "TELEFONE", "ENDEREÇO", "DATA/HORA ENTREGA", "VALOR", "STAUS PEDIDO"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jtbl_pedidosEmAberto.setMinimumSize(new java.awt.Dimension(20, 160));
+        jtbl_pedidosEmAberto.setPreferredSize(new java.awt.Dimension(655, 204));
+        jscp_pedidosEmAberto.setViewportView(jtbl_pedidosEmAberto);
+
+        jpnl_pedidosAberto.add(jscp_pedidosEmAberto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 690, 170));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/Intercorrencia.png"))); // NOI18N
+        jpnl_pedidosAberto.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 110, -1, -1));
 
         jTabbedPane1.addTab("Pedidos em aberto", jpnl_pedidosAberto);
 
         jpnl_historicoPedidos.setOpaque(false);
+        jpnl_historicoPedidos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jpnl_historicoPedidosLayout = new javax.swing.GroupLayout(jpnl_historicoPedidos);
-        jpnl_historicoPedidos.setLayout(jpnl_historicoPedidosLayout);
-        jpnl_historicoPedidosLayout.setHorizontalGroup(
-            jpnl_historicoPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
-        );
-        jpnl_historicoPedidosLayout.setVerticalGroup(
-            jpnl_historicoPedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 545, Short.MAX_VALUE)
-        );
+        jtxtf_pesquisarHistoricoPedido.setText("PESQUISAR..");
+        jtxtf_pesquisarHistoricoPedido.setPreferredSize(new java.awt.Dimension(96, 22));
+        jtxtf_pesquisarHistoricoPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtf_pesquisarHistoricoPedidoActionPerformed(evt);
+            }
+        });
+        jpnl_historicoPedidos.add(jtxtf_pesquisarHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 21, 220, 40));
+
+        jlbl_filtroHistoricoPedido.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jlbl_filtroHistoricoPedido.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_filtroHistoricoPedido.setText("FILTRO:");
+        jpnl_historicoPedidos.add(jlbl_filtroHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
+
+        jtxtf_filtroHistoricoPedido.setText("NOME ");
+        jpnl_historicoPedidos.add(jtxtf_filtroHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, 100, 40));
+
+        jtbl_HistoricoPedido.setBackground(new java.awt.Color(153, 204, 255));
+        jtbl_HistoricoPedido.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jtbl_HistoricoPedido.setForeground(new java.awt.Color(255, 255, 255));
+        jtbl_HistoricoPedido.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                { new Integer(1), "NOME",  new Integer(27999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0)},
+                { new Integer(2), "NOME",  new Integer(27999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0)},
+                { new Integer(3), "NOME",  new Integer(27999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0)},
+                { new Integer(4), "NOME",  new Integer(27999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0)},
+                { new Integer(5), "NOME",  new Integer(27999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0)}
+            },
+            new String [] {
+                "CODIGO", "NOME", "TELEFONE", "ENDEREÇO", "DATA/HORA ENTREGA", "VALOR"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jtbl_HistoricoPedido.setMinimumSize(new java.awt.Dimension(20, 160));
+        jtbl_HistoricoPedido.setPreferredSize(new java.awt.Dimension(655, 204));
+        jscp_pedidosEmAberto1.setViewportView(jtbl_HistoricoPedido);
+
+        jpnl_historicoPedidos.add(jscp_pedidosEmAberto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 590, 170));
 
         jTabbedPane1.addTab("Histórico de pedidos", jpnl_historicoPedidos);
 
@@ -436,6 +522,14 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jpnl_btn_novoMouseReleased
 
+    private void jtxtf_pesquisarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_pesquisarPedidosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtf_pesquisarPedidosActionPerformed
+
+    private void jtxtf_pesquisarHistoricoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_pesquisarHistoricoPedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtf_pesquisarHistoricoPedidoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -475,6 +569,7 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton jbtn_criarPedido;
     private javax.swing.JButton jbtn_incluirProduto;
@@ -488,6 +583,8 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jlbl_desconto;
     private javax.swing.JLabel jlbl_destinatario;
     private javax.swing.JLabel jlbl_estadoInicial;
+    private javax.swing.JLabel jlbl_filtroHistoricoPedido;
+    private javax.swing.JLabel jlbl_filtroPedidosEmAberto;
     private javax.swing.JLabel jlbl_horaEntrega;
     private javax.swing.JLabel jlbl_infoAdicionalCliente;
     private javax.swing.JLabel jlbl_nomeCliente;
@@ -513,17 +610,25 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
     private javax.swing.JPanel jpnl_principal;
     private javax.swing.JPanel jpnl_sideMenu;
     private javax.swing.JScrollPane jscp_destinatario;
+    private javax.swing.JScrollPane jscp_pedidosEmAberto;
+    private javax.swing.JScrollPane jscp_pedidosEmAberto1;
     private javax.swing.JScrollPane jscp_produtosInseridos;
     private javax.swing.JSpinner jspn_quantidade;
+    private javax.swing.JTable jtbl_HistoricoPedido;
+    private javax.swing.JTable jtbl_pedidosEmAberto;
     private javax.swing.JTable jtbl_produtosInseridos;
     private javax.swing.JTextArea jtxta_destinatario;
     private javax.swing.JTextField jtxtf_bairro;
     private javax.swing.JTextField jtxtf_cidade;
     private javax.swing.JTextField jtxtf_dataEntrega;
     private javax.swing.JTextField jtxtf_desconto;
+    private javax.swing.JTextField jtxtf_filtroHistoricoPedido;
+    private javax.swing.JTextField jtxtf_filtroPedidosEmAberto;
     private javax.swing.JTextField jtxtf_horaEntrega;
     private javax.swing.JTextField jtxtf_nomeCliente;
     private javax.swing.JTextField jtxtf_numero;
+    private javax.swing.JTextField jtxtf_pesquisarHistoricoPedido;
+    private javax.swing.JTextField jtxtf_pesquisarPedidos;
     private javax.swing.JTextField jtxtf_rua;
     private javax.swing.JTextField jtxtf_telefoneCliente;
     private javax.swing.JTextField jtxtf_uf;
