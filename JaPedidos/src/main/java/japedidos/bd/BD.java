@@ -20,6 +20,10 @@ public final class BD {
     public static final String USER = "titanw25_japedidos_hml";
     public static final String USER_PWD = "seNai@2024proj";
     
+//    public static final String IP = "localhost";
+//    public static final String USER_PWD = "";
+//    public static final String USER = "root";
+    
     private BD() {}
     
     public final static Connection getConnection() {

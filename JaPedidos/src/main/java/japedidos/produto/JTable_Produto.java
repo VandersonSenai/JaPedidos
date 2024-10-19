@@ -13,8 +13,8 @@ import javax.swing.JFrame;
  * @author t.baiense
  */
 public class JTable_Produto extends JPanel {
-    JTable_Produto table;
-    ProdutoTableModel model;
+    private JTable table;
+    private ProdutoTableModel model;
     
     public JTable_Produto() {
         super(new GridLayout(1, 0));
@@ -23,11 +23,20 @@ public class JTable_Produto extends JPanel {
         ProdutoTableModel model = new ProdutoTableModel();
         this.model = model;
         JTable table = new JTable(model);
+        this.table = table;
         table.setPreferredScrollableViewportSize(new Dimension(600, 300));
         table.setFillsViewportHeight(true);
         
         JScrollPane scrollPane = new JScrollPane(table);
         this.add(scrollPane);
+    }
+    
+    public JTable getTable() {
+        return this.table;
+    }
+    
+    public ProdutoTableModel getModel() {
+        return this.model;
     }
     
     public static void test() {
