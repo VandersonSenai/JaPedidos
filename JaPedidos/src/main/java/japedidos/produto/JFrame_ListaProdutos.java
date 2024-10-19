@@ -71,6 +71,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFocusCycleRoot(false);
         setIconImages(null);
+        setResizable(false);
         setSize(new java.awt.Dimension(1024, 576));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -433,8 +434,9 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jlbl_pedidosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_pedidosMouseExited
         // TODO add your handling code here:
-         
-         jlbl_pedidos.setForeground(new Color(128,128,128));
+        if (jlbl_pedidos.getForeground().equals(new Color(255, 255, 255)) ){
+             jlbl_pedidos.setForeground(new Color(128,128,128));
+         }
     }//GEN-LAST:event_jlbl_pedidosMouseExited
 
     private void jlbl_pedidosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_pedidosMouseEntered
