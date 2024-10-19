@@ -77,7 +77,7 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jtxtf_filtroPedidosEmAberto = new javax.swing.JTextField();
         jscp_pedidosEmAberto = new javax.swing.JScrollPane();
         jtbl_pedidosEmAberto = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        jlbl_img_intercorrencia = new javax.swing.JLabel();
         jpnl_historicoPedidos = new javax.swing.JPanel();
         jtxtf_pesquisarHistoricoPedido = new javax.swing.JTextField();
         jlbl_filtroHistoricoPedido = new javax.swing.JLabel();
@@ -331,15 +331,15 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
                 jtxtf_pesquisarPedidosActionPerformed(evt);
             }
         });
-        jpnl_pedidosAberto.add(jtxtf_pesquisarPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 21, 220, 40));
+        jpnl_pedidosAberto.add(jtxtf_pesquisarPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 21, 310, 40));
 
         jlbl_filtroPedidosEmAberto.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jlbl_filtroPedidosEmAberto.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_filtroPedidosEmAberto.setText("FILTRO:");
-        jpnl_pedidosAberto.add(jlbl_filtroPedidosEmAberto, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
+        jpnl_pedidosAberto.add(jlbl_filtroPedidosEmAberto, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, -1, -1));
 
         jtxtf_filtroPedidosEmAberto.setText("NOME ");
-        jpnl_pedidosAberto.add(jtxtf_filtroPedidosEmAberto, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, 100, 40));
+        jpnl_pedidosAberto.add(jtxtf_filtroPedidosEmAberto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, 100, 40));
 
         jtbl_pedidosEmAberto.setBackground(new java.awt.Color(153, 204, 255));
         jtbl_pedidosEmAberto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -370,8 +370,8 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
 
         jpnl_pedidosAberto.add(jscp_pedidosEmAberto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 690, 170));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/Intercorrencia.png"))); // NOI18N
-        jpnl_pedidosAberto.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 110, -1, -1));
+        jlbl_img_intercorrencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/Intercorrencia.png"))); // NOI18N
+        jpnl_pedidosAberto.add(jlbl_img_intercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 110, -1, -1));
 
         jTabbedPane1.addTab("Pedidos em aberto", jpnl_pedidosAberto);
 
@@ -385,15 +385,15 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
                 jtxtf_pesquisarHistoricoPedidoActionPerformed(evt);
             }
         });
-        jpnl_historicoPedidos.add(jtxtf_pesquisarHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 21, 220, 40));
+        jpnl_historicoPedidos.add(jtxtf_pesquisarHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 21, 310, 40));
 
         jlbl_filtroHistoricoPedido.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jlbl_filtroHistoricoPedido.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_filtroHistoricoPedido.setText("FILTRO:");
-        jpnl_historicoPedidos.add(jlbl_filtroHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
+        jpnl_historicoPedidos.add(jlbl_filtroHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, -1, -1));
 
         jtxtf_filtroHistoricoPedido.setText("NOME ");
-        jpnl_historicoPedidos.add(jtxtf_filtroHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, 100, 40));
+        jpnl_historicoPedidos.add(jtxtf_filtroHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, 100, 40));
 
         jtbl_HistoricoPedido.setBackground(new java.awt.Color(153, 204, 255));
         jtbl_HistoricoPedido.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -422,7 +422,7 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jtbl_HistoricoPedido.setPreferredSize(new java.awt.Dimension(655, 204));
         jscp_pedidosEmAberto1.setViewportView(jtbl_HistoricoPedido);
 
-        jpnl_historicoPedidos.add(jscp_pedidosEmAberto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 590, 170));
+        jpnl_historicoPedidos.add(jscp_pedidosEmAberto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 690, 170));
 
         jTabbedPane1.addTab("Histórico de pedidos", jpnl_historicoPedidos);
 
@@ -569,7 +569,6 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton jbtn_criarPedido;
     private javax.swing.JButton jbtn_incluirProduto;
@@ -586,6 +585,7 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jlbl_filtroHistoricoPedido;
     private javax.swing.JLabel jlbl_filtroPedidosEmAberto;
     private javax.swing.JLabel jlbl_horaEntrega;
+    private javax.swing.JLabel jlbl_img_intercorrencia;
     private javax.swing.JLabel jlbl_infoAdicionalCliente;
     private javax.swing.JLabel jlbl_nomeCliente;
     private javax.swing.JLabel jlbl_numero;
