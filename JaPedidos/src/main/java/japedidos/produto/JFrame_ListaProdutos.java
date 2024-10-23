@@ -534,17 +534,21 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         //String sql = "SELECT * FROM aluno WHERE nome=? AND cpf=?";
-        String sql = "SELECT * FROM produto WHERE nome LIKE 'Coxinha de frango'";
-        //String sql = "SELECT * FROM produto WHERE nome LIKE ?";
+//        String sql = "SELECT * FROM produto WHERE nome LIKE ?";
+        String sql = "SELECT * FROM produto Where nome='coxinha de frango'";
         //String sql = "SELECT * FROM produto ";
         Connection conexao = null;
         PreparedStatement statement = null;
-       
+/*
         String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
-//        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
-        
+        String usuario = "root";
+        String senha = "";
+*/
+
+        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
         String usuario = "titanw25_japedidos_hml";
         String senha = "seNai@2024proj";
+        
 
         try
         {
@@ -553,10 +557,10 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             statement = conexao.prepareStatement(sql);
             
             //PreparedStatement banco = (PreparedStatement)con.prepareStatement(sql);
-
-            //statement.setString(1, "%" + jtxtf_pesquisa.getText() + "%"); // NOME
-            //statement.setString(1, jtxtf_pesquisa.getText()); // NOME
-            
+/*
+            String nomeAluno = jtxtf_pesquisa.getText();
+            statement.setString(1, nomeAluno);
+  */          
 
             statement.execute(); // cria o vetor
 
@@ -574,9 +578,10 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                    resultado.getString("nome"),
                    resultado.getString("id_categoria"),
 
-                   //resultado.getString("preco_custo"),
-                   //resultado.getString("preco_venda"),
-                   resultado.getString("id_unidade")
+                   resultado.getString("preco_custo"),
+                   resultado.getString("preco_venda"),
+                   resultado.getString("id_unidade"),
+                   resultado.getString("estado")
                 }); 
            } 
             statement.close();
