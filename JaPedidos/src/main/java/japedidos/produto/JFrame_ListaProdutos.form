@@ -246,6 +246,19 @@
         <Property name="useNullLayout" type="boolean" value="false"/>
       </Layout>
       <SubComponents>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jButton1"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="740" y="40" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
+        </Component>
         <Component class="javax.swing.JTextField" name="jtxtf_pesquisa">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -254,7 +267,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="  Pesquisar..."/>
+            <Property name="text" type="java.lang.String" value="Coxinha de frango"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection component="jtxtf_codigo" name="border" type="property"/>
             </Property>
@@ -631,16 +644,8 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="6" rowCount="7">
-                    <Column editable="true" title="Codigo" type="java.lang.Integer">
-                      <Data value="1"/>
-                      <Data value="2"/>
-                      <Data value="3"/>
-                      <Data value="4"/>
-                      <Data value="5"/>
-                      <Data value="6"/>
-                      <Data value="7"/>
-                    </Column>
+                  <Table columnCount="7" rowCount="7">
+                    <Column editable="false" title="Codigo" type="java.lang.String"/>
                     <Column editable="true" title="Descri&#xe7;&#xe3;o" type="java.lang.String">
                       <Data value="BOLINHA DE QUEIJO"/>
                       <Data value="COXINHA DE FRANGO"/>
@@ -659,15 +664,8 @@
                       <Data value="ALIMENTO"/>
                       <Data value="ALIMENTO"/>
                     </Column>
-                    <Column editable="true" title="Valor(R$)" type="java.lang.Double">
-                      <Data value="0.75"/>
-                      <Data value="0.75"/>
-                      <Data value="0.65"/>
-                      <Data value="0.65"/>
-                      <Data value="0.75"/>
-                      <Data value="0.55"/>
-                      <Data value="0.55"/>
-                    </Column>
+                    <Column editable="true" title="Custo(R$)" type="java.lang.String"/>
+                    <Column editable="true" title="Venda(R$)" type="java.lang.String"/>
                     <Column editable="true" title="Unidade " type="java.lang.String">
                       <Data value="UNI"/>
                       <Data value="UNI"/>
@@ -677,15 +675,7 @@
                       <Data value="UNI"/>
                       <Data value="UNI"/>
                     </Column>
-                    <Column editable="true" title="Ativo" type="java.lang.Boolean">
-                      <Data value="true"/>
-                      <Data value="true"/>
-                      <Data value="true"/>
-                      <Data value="true"/>
-                      <Data value="true"/>
-                      <Data value="true"/>
-                      <Data value="true"/>
-                    </Column>
+                    <Column editable="true" title="Ativo" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -707,6 +697,11 @@
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="66" resizable="false">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                       <Title/>
                       <Editor/>
                       <Renderer/>

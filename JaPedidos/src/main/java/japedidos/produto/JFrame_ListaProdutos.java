@@ -4,6 +4,13 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+import japedidos.bd.BD;
 
 public class JFrame_ListaProdutos extends javax.swing.JFrame {
 /*
@@ -42,6 +49,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_img_etiqueta = new javax.swing.JLabel();
         jpnl_background_01 = new javax.swing.JLabel();
         jpnl_corpo = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         jtxtf_pesquisa = new javax.swing.JTextField();
         jlbl_codigo = new javax.swing.JLabel();
         jtxtf_codigo = new javax.swing.JTextField();
@@ -181,9 +189,17 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_corpo.setPreferredSize(new java.awt.Dimension(1024, 576));
         jpnl_corpo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jpnl_corpo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 40, -1, -1));
+
         jtxtf_pesquisa.setBackground(new java.awt.Color(204, 204, 204));
         jtxtf_pesquisa.setForeground(new java.awt.Color(0, 0, 0));
-        jtxtf_pesquisa.setText("  Pesquisar...");
+        jtxtf_pesquisa.setText("Coxinha de frango");
         jtxtf_pesquisa.setBorder(jtxtf_codigo.getBorder());
         jtxtf_pesquisa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jpnl_corpo.add(jtxtf_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 680, 30));
@@ -324,24 +340,31 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtbl_lista_produtos.setForeground(new java.awt.Color(255, 255, 255));
         jtbl_lista_produtos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "BOLINHA DE QUEIJO", "ALIMENTO",  new Double(0.75), "UNI",  new Boolean(true)},
-                { new Integer(2), "COXINHA DE FRANGO", "ALIMENTO",  new Double(0.75), "UNI",  new Boolean(true)},
-                { new Integer(3), "KIBE DE CARNE", "ALIMENTO",  new Double(0.65), "UNI",  new Boolean(true)},
-                { new Integer(4), "RISSOLE DE PIZZA", "ALIMENTO",  new Double(0.65), "UNI",  new Boolean(true)},
-                { new Integer(5), "RISSOLE DE CAMARÃO", "ALIMENTO",  new Double(0.75), "UNI",  new Boolean(true)},
-                { new Integer(6), "MINI CHURROS", "ALIMENTO",  new Double(0.55), "UNI",  new Boolean(true)},
-                { new Integer(7), "ENROLADO DE SALSICHA ", "ALIMENTO",  new Double(0.55), "UNI",  new Boolean(true)}
+                {null, "BOLINHA DE QUEIJO", "ALIMENTO", null, null, "UNI", null},
+                {null, "COXINHA DE FRANGO", "ALIMENTO", null, null, "UNI", null},
+                {null, "KIBE DE CARNE", "ALIMENTO", null, null, "UNI", null},
+                {null, "RISSOLE DE PIZZA", "ALIMENTO", null, null, "UNI", null},
+                {null, "RISSOLE DE CAMARÃO", "ALIMENTO", null, null, "UNI", null},
+                {null, "MINI CHURROS", "ALIMENTO", null, null, "UNI", null},
+                {null, "ENROLADO DE SALSICHA ", "ALIMENTO", null, null, "UNI", null}
             },
             new String [] {
-                "Codigo", "Descrição", "Categoria", "Valor(R$)", "Unidade ", "Ativo"
+                "Codigo", "Descrição", "Categoria", "Custo(R$)", "Venda(R$)", "Unidade ", "Ativo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jtbl_lista_produtos.setToolTipText("");
@@ -358,9 +381,10 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             jtbl_lista_produtos.getColumnModel().getColumn(3).setResizable(false);
             jtbl_lista_produtos.getColumnModel().getColumn(3).setPreferredWidth(66);
             jtbl_lista_produtos.getColumnModel().getColumn(4).setResizable(false);
-            jtbl_lista_produtos.getColumnModel().getColumn(4).setPreferredWidth(55);
             jtbl_lista_produtos.getColumnModel().getColumn(5).setResizable(false);
-            jtbl_lista_produtos.getColumnModel().getColumn(5).setPreferredWidth(40);
+            jtbl_lista_produtos.getColumnModel().getColumn(5).setPreferredWidth(55);
+            jtbl_lista_produtos.getColumnModel().getColumn(6).setResizable(false);
+            jtbl_lista_produtos.getColumnModel().getColumn(6).setPreferredWidth(40);
         }
 
         jpnl_corpo.add(jtbl_listaprodutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, 680, 170));
@@ -507,6 +531,63 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jlbl_relatorios.setForeground(new Color(255,255,255));
     }//GEN-LAST:event_jlbl_relatoriosMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        //String sql = "SELECT * FROM aluno WHERE nome=? AND cpf=?";
+        String sql = "SELECT * FROM produto WHERE nome LIKE 'Coxinha de frango'";
+        //String sql = "SELECT * FROM produto WHERE nome LIKE ?";
+        //String sql = "SELECT * FROM produto ";
+        Connection conexao = null;
+        PreparedStatement statement = null;
+       
+        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+//        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
+        
+        String usuario = "titanw25_japedidos_hml";
+        String senha = "seNai@2024proj";
+
+        try
+        {
+//            Connection con=(Connection)DriverManager.getConnection("jdbc:mysql://localhost/titanw25_japedidos_hml", "root", "");
+            conexao = DriverManager.getConnection(url, usuario, senha);
+            statement = conexao.prepareStatement(sql);
+            
+            //PreparedStatement banco = (PreparedStatement)con.prepareStatement(sql);
+
+            //statement.setString(1, "%" + jtxtf_pesquisa.getText() + "%"); // NOME
+            //statement.setString(1, jtxtf_pesquisa.getText()); // NOME
+            
+
+            statement.execute(); // cria o vetor
+
+            ResultSet resultado = statement.executeQuery(sql);
+
+            DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
+            model.setNumRows(0);
+
+            while(resultado.next())
+            {
+                model.addRow(new Object[] 
+                { 
+                   //retorna os dados da tabela do BD, cada campo e um coluna.
+                   resultado.getString("id"),
+                   resultado.getString("nome"),
+                   resultado.getString("id_categoria"),
+
+                   //resultado.getString("preco_custo"),
+                   //resultado.getString("preco_venda"),
+                   resultado.getString("id_unidade")
+                }); 
+           } 
+            statement.close();
+            statement.close();
+        }
+          catch (SQLException ex)
+          {
+             System.out.println("o erro foi " +ex);
+            }            
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -557,6 +638,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jcmb_categoria;
     private javax.swing.JComboBox<String> jcmb_und;
     private javax.swing.JLabel jlbl_categoria;
