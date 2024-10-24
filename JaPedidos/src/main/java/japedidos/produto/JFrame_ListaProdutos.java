@@ -353,7 +353,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
                 false, true, true, true, true, true, true
@@ -370,6 +370,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtbl_lista_produtos.setToolTipText("");
         jtbl_lista_produtos.setMinimumSize(new java.awt.Dimension(90, 160));
         jtbl_lista_produtos.setPreferredSize(new java.awt.Dimension(655, 204));
+        jtbl_lista_produtos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtbl_lista_produtosMouseClicked(evt);
+            }
+        });
         jtbl_listaprodutos.setViewportView(jtbl_lista_produtos);
         if (jtbl_lista_produtos.getColumnModel().getColumnCount() > 0) {
             jtbl_lista_produtos.getColumnModel().getColumn(0).setResizable(false);
@@ -532,38 +537,35 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jlbl_relatoriosMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        //String sql = "SELECT * FROM aluno WHERE nome=? AND cpf=?";
+//        TODO add your handling code here:
 //        String sql = "SELECT * FROM produto WHERE nome LIKE ?";
-        String sql = "SELECT * FROM produto Where nome='coxinha de frango'";
-        //String sql = "SELECT * FROM produto ";
+//        String sql = "SELECT * FROM produto WHERE nome LIKE ?";
+//        String sql = "SELECT * FROM produto Where nome='coxinha de frango'";
+        String sql = "SELECT * FROM listatodosprodutos ";
+//        String sql = "SELECT * FROM produto WHERE nome LIKE '?'";
         Connection conexao = null;
         PreparedStatement statement = null;
-/*
         String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
         String usuario = "root";
         String senha = "";
-*/
-
+/*
         String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
         String usuario = "titanw25_japedidos_hml";
         String senha = "seNai@2024proj";
-        
-
+        */
         try
         {
 //            Connection con=(Connection)DriverManager.getConnection("jdbc:mysql://localhost/titanw25_japedidos_hml", "root", "");
+//            PreparedStatement banco = (PreparedStatement)con.prepareStatement(sql);
             conexao = DriverManager.getConnection(url, usuario, senha);
             statement = conexao.prepareStatement(sql);
-            
-            //PreparedStatement banco = (PreparedStatement)con.prepareStatement(sql);
 /*
-            String nomeAluno = jtxtf_pesquisa.getText();
-            statement.setString(1, nomeAluno);
-  */          
+            String encontrar = jtxtf_pesquisa.getText();
+            System.out.println("Texto = " + encontrar);
+            statement.setString(1, encontrar);
+*/
 
             statement.execute(); // cria o vetor
-
             ResultSet resultado = statement.executeQuery(sql);
 
             DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
@@ -576,12 +578,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                    //retorna os dados da tabela do BD, cada campo e um coluna.
                    resultado.getString("id"),
                    resultado.getString("nome"),
-                   resultado.getString("id_categoria"),
-
-                   resultado.getString("preco_custo"),
-                   resultado.getString("preco_venda"),
-                   resultado.getString("id_unidade"),
-                   resultado.getString("estado")
+                   resultado.getString("categoria"),
+                   resultado.getDouble("preco_custo"),
+                   resultado.getDouble("preco_venda"),
+                   resultado.getString("unidade"),
+                   resultado.getBoolean("estado")
                 }); 
            } 
             statement.close();
@@ -592,6 +593,16 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
              System.out.println("o erro foi " +ex);
             }            
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jtbl_lista_produtosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbl_lista_produtosMouseClicked
+        // TODO add your handling code here:
+        System.out.println("Linha Selecionada - " + jtbl_lista_produtos.getSelectedRow());
+        System.out.println("Coluna Selecionada - " + jtbl_lista_produtos.getSelectedColumn());
+        System.out.println("Coluna Selecionada - " + jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), jtbl_lista_produtos.getSelectedColumn()));
+        jtxtf_codigo.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 0));
+        jtxtf_descricao.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 1));
+        jcmb_categoria.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
+    }//GEN-LAST:event_jtbl_lista_produtosMouseClicked
 
     /**
      * @param args the command line arguments

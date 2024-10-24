@@ -664,8 +664,8 @@
                       <Data value="ALIMENTO"/>
                       <Data value="ALIMENTO"/>
                     </Column>
-                    <Column editable="true" title="Custo(R$)" type="java.lang.String"/>
-                    <Column editable="true" title="Venda(R$)" type="java.lang.String"/>
+                    <Column editable="true" title="Custo(R$)" type="java.lang.Double"/>
+                    <Column editable="true" title="Venda(R$)" type="java.lang.Double"/>
                     <Column editable="true" title="Unidade " type="java.lang.String">
                       <Data value="UNI"/>
                       <Data value="UNI"/>
@@ -675,7 +675,7 @@
                       <Data value="UNI"/>
                       <Data value="UNI"/>
                     </Column>
-                    <Column editable="true" title="Ativo" type="java.lang.String"/>
+                    <Column editable="true" title="Ativo" type="java.lang.Boolean"/>
                   </Table>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -728,6 +728,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtbl_lista_produtosMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
