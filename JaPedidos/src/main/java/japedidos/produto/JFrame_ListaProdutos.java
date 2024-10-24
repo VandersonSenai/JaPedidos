@@ -189,7 +189,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_corpo.setPreferredSize(new java.awt.Dimension(1024, 576));
         jpnl_corpo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("jButton1");
+        jButton1.setText("TESTE CONSULTA");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
