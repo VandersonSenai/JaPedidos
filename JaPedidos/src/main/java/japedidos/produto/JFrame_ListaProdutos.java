@@ -202,6 +202,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtxtf_pesquisa.setText("Coxinha de frango");
         jtxtf_pesquisa.setBorder(jtxtf_codigo.getBorder());
         jtxtf_pesquisa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jtxtf_pesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtf_pesquisaActionPerformed(evt);
+            }
+        });
         jpnl_corpo.add(jtxtf_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 680, 30));
 
         jlbl_codigo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -538,11 +543,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 //        TODO add your handling code here:
-//        String sql = "SELECT * FROM produto WHERE nome LIKE ?";
-//        String sql = "SELECT * FROM produto WHERE nome LIKE ?";
 //        String sql = "SELECT * FROM produto Where nome='coxinha de frango'";
-        String sql = "SELECT * FROM listatodosprodutos ";
-//        String sql = "SELECT * FROM produto WHERE nome LIKE '?'";
+//        String sql = "SELECT * FROM listatodosprodutos GROUP BY nome LIKE '%PIZZA' "; // funciona
+        String sql = "SELECT * FROM listatodosprodutos GROUP BY nome LIKE "; 
+
+//        String sql = "SELECT * FROM listatodosprodutos GROUP BY nome ";
         Connection conexao = null;
         PreparedStatement statement = null;
         String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
@@ -555,21 +560,31 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         */
         try
         {
+            
 //            Connection con=(Connection)DriverManager.getConnection("jdbc:mysql://localhost/titanw25_japedidos_hml", "root", "");
 //            PreparedStatement banco = (PreparedStatement)con.prepareStatement(sql);
             conexao = DriverManager.getConnection(url, usuario, senha);
+            statement = conexao.prepareStatement(sql);
+/*  
+            String encontrar = jtxtf_pesquisa.getText();
+            System.out.println("Texto = " + encontrar);
+            sql = sql + "LIKE nome='%" + encontrar + "%'";
+  */               
+            String encontrar = jtxtf_pesquisa.getText();
+            sql = sql + "'%" + encontrar + "'";
             statement = conexao.prepareStatement(sql);
 /*
             String encontrar = jtxtf_pesquisa.getText();
             System.out.println("Texto = " + encontrar);
             statement.setString(1, encontrar);
 */
-
+                    
             statement.execute(); // cria o vetor
             ResultSet resultado = statement.executeQuery(sql);
 
             DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
             model.setNumRows(0);
+            
 
             while(resultado.next())
             {
@@ -603,6 +618,65 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtxtf_descricao.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 1));
         jcmb_categoria.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
     }//GEN-LAST:event_jtbl_lista_produtosMouseClicked
+
+    private void jtxtf_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_pesquisaActionPerformed
+        // TODO add your handling code here:
+//          String sql = "SELECT * FROM listatodosprodutos GROUP BY nome LIKE ";         
+          String sql = "SELECT * FROM listatodosprodutos GROUP BY nome LIKE ";         
+
+        Connection conexao = null;
+        PreparedStatement statement = null;
+        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+        String usuario = "root";
+        String senha = "";
+/*
+        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
+        String usuario = "titanw25_japedidos_hml";
+        String senha = "seNai@2024proj";
+        */
+        try
+        {
+            
+            conexao = DriverManager.getConnection(url, usuario, senha);
+//            statement = conexao.prepareStatement(sql);
+
+            String encontrar = jtxtf_pesquisa.getText();
+            sql = sql + "'%" + encontrar + "%'";
+            statement = conexao.prepareStatement(sql);
+/*
+            String encontrar = jtxtf_pesquisa.getText();
+            System.out.println("Texto = " + encontrar);
+            statement.setString(1, encontrar);
+*/
+                    
+            statement.execute();
+            ResultSet resultado = statement.executeQuery(sql);
+
+            DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
+            model.setNumRows(0);
+
+            while(resultado.next())
+            {
+                model.addRow(new Object[] 
+                { 
+                   //retorna os dados da tabela do BD, cada campo e um coluna.
+                   resultado.getString("id"),
+                   resultado.getString("nome"),
+                   resultado.getString("categoria"),
+                   resultado.getDouble("preco_custo"),
+                   resultado.getDouble("preco_venda"),
+                   resultado.getString("unidade"),
+                   resultado.getBoolean("estado")
+                }); 
+           } 
+            statement.close();
+            statement.close();
+        }
+          catch (SQLException ex)
+          {
+             System.out.println("o erro foi " +ex);
+            }        
+    }//GEN-LAST:event_jtxtf_pesquisaActionPerformed
 
     /**
      * @param args the command line arguments
