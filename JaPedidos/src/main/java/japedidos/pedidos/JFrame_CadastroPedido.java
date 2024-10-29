@@ -371,7 +371,7 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jpnl_pedidosAberto.add(jscp_pedidosEmAberto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 690, 170));
 
         jlbl_img_intercorrencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/Intercorrencia.png"))); // NOI18N
-        jpnl_pedidosAberto.add(jlbl_img_intercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 100, -1, -1));
+        jpnl_pedidosAberto.add(jlbl_img_intercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 50, -1, -1));
 
         jTabbedPane1.addTab("Pedidos em aberto", jpnl_pedidosAberto);
 
@@ -422,7 +422,7 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jtbl_HistoricoPedido.setPreferredSize(new java.awt.Dimension(655, 204));
         jscp_pedidosEmAberto1.setViewportView(jtbl_HistoricoPedido);
 
-        jpnl_historicoPedidos.add(jscp_pedidosEmAberto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 690, 170));
+        jpnl_historicoPedidos.add(jscp_pedidosEmAberto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 690, 170));
 
         jTabbedPane1.addTab("Histórico de pedidos", jpnl_historicoPedidos);
 

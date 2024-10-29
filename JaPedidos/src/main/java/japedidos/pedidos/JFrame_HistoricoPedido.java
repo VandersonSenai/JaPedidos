@@ -82,7 +82,7 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame {
         jlbl_horaEntregaHistorico.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_horaEntregaHistorico.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_horaEntregaHistorico.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_horaEntregaHistorico.setText("HORA ENTREGA");
+        jlbl_horaEntregaHistorico.setText("HORA");
         jpnl_incluirPedido.add(jlbl_horaEntregaHistorico, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, -1, 30));
 
         jtxta_destinatarioHistorico.setColumns(20);
@@ -236,13 +236,13 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame {
         jlbl_dataEntregaHistorico.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_dataEntregaHistorico.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_dataEntregaHistorico.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_dataEntregaHistorico.setText("DATA ENTREGA");
+        jlbl_dataEntregaHistorico.setText("DATA");
         jpnl_incluirPedido.add(jlbl_dataEntregaHistorico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 140, 30));
 
         jlbl_destinatarioHistorico.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_destinatarioHistorico.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_destinatarioHistorico.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_destinatarioHistorico.setText("DESTINATÁRIO");
+        jlbl_destinatarioHistorico.setText("OBSERVAÇÕES");
         jpnl_incluirPedido.add(jlbl_destinatarioHistorico, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 160, 30));
 
         jlbl_nomeClienteHistorico.setBackground(new java.awt.Color(0, 0, 0));
