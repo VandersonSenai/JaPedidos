@@ -39,7 +39,6 @@ public class JFrame_AlterarPedidos extends javax.swing.JFrame {
         jtxtf_horaEntregaAlterar = new javax.swing.JTextField();
         jcmb_tipoEntregaAlterar = new javax.swing.JComboBox<>();
         jtxtf_nomeClienteAlterar = new javax.swing.JTextField();
-        jtxtf_unidadeAlterar = new javax.swing.JTextField();
         jlbl_valorEntregaAlterar = new javax.swing.JLabel();
         jlbl_bairroAlterar = new javax.swing.JLabel();
         jlbl_ruaAlterar = new javax.swing.JLabel();
@@ -69,6 +68,7 @@ public class JFrame_AlterarPedidos extends javax.swing.JFrame {
         jlbl_nomeClienteAlterar = new javax.swing.JLabel();
         jtxtf_numeroAlterar = new javax.swing.JTextField();
         jlbl_numeroAlterar = new javax.swing.JLabel();
+        jbtn_excluirProdutoAlterar = new javax.swing.JButton();
         jpnl_sideMenu = new javax.swing.JPanel();
         jlbl_clientes = new javax.swing.JLabel();
         jlbl_produtos = new javax.swing.JLabel();
@@ -85,31 +85,34 @@ public class JFrame_AlterarPedidos extends javax.swing.JFrame {
         jpnl_incluirPedido.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jcmb_estadoInicialAlterar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Em aberto", "Aguardando pagamento", "Pago", "Em preparo/separação", "Aguardando envio/retirada", "Saiu para entrega", "Concluído", "Cancelado" }));
-        jpnl_incluirPedido.add(jcmb_estadoInicialAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 160, -1));
+        jpnl_incluirPedido.add(jcmb_estadoInicialAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 160, -1));
 
         jtxtf_valorEntregaAlterar.setForeground(new java.awt.Color(204, 204, 204));
-        jpnl_incluirPedido.add(jtxtf_valorEntregaAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 440, 120, -1));
+        jpnl_incluirPedido.add(jtxtf_valorEntregaAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 350, 70, -1));
 
         jlbl_horaEntregaAlterar.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_horaEntregaAlterar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_horaEntregaAlterar.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_horaEntregaAlterar.setText("HORA ENTREGA");
-        jpnl_incluirPedido.add(jlbl_horaEntregaAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, -1, 30));
+        jlbl_horaEntregaAlterar.setText("HORA");
+        jpnl_incluirPedido.add(jlbl_horaEntregaAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 150, -1, -1));
 
         jtxta_destinatarioAlterar.setColumns(20);
         jtxta_destinatarioAlterar.setRows(5);
+        jtxta_destinatarioAlterar.setText("Destinatário, ponto de referência ...");
         jscp_destinatario.setViewportView(jtxta_destinatarioAlterar);
 
-        jpnl_incluirPedido.add(jscp_destinatario, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, 260, 60));
+        jpnl_incluirPedido.add(jscp_destinatario, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 260, 90));
 
         jbtn_incluirProdutoAlterar.setText("Incluir");
-        jpnl_incluirPedido.add(jbtn_incluirProdutoAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, -1, -1));
+        jpnl_incluirPedido.add(jbtn_incluirProdutoAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, -1, -1));
 
         jtxtf_valorTotalAlterar.setForeground(new java.awt.Color(204, 204, 204));
-        jpnl_incluirPedido.add(jtxtf_valorTotalAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 500, 120, -1));
+        jpnl_incluirPedido.add(jtxtf_valorTotalAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 430, 70, -1));
 
+        jtxtf_dataEntregaAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jtxtf_dataEntregaAlterar.setForeground(new java.awt.Color(204, 204, 204));
-        jpnl_incluirPedido.add(jtxtf_dataEntregaAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 120, -1));
+        jtxtf_dataEntregaAlterar.setText("07/07/2024");
+        jpnl_incluirPedido.add(jtxtf_dataEntregaAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 150, 80, -1));
 
         jpnl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -124,39 +127,44 @@ public class JFrame_AlterarPedidos extends javax.swing.JFrame {
         });
         jpnl_incluirPedido.add(jpnl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 390, -1, -1));
 
+        jtxtf_horaEntregaAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jtxtf_horaEntregaAlterar.setForeground(new java.awt.Color(204, 204, 204));
-        jpnl_incluirPedido.add(jtxtf_horaEntregaAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 90, -1));
+        jtxtf_horaEntregaAlterar.setText("20:20");
+        jtxtf_horaEntregaAlterar.setToolTipText("");
+        jpnl_incluirPedido.add(jtxtf_horaEntregaAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 150, 60, -1));
 
+        jcmb_tipoEntregaAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jcmb_tipoEntregaAlterar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Envio", "Retirada no local" }));
         jpnl_incluirPedido.add(jcmb_tipoEntregaAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, 160, -1));
 
+        jtxtf_nomeClienteAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jtxtf_nomeClienteAlterar.setForeground(new java.awt.Color(204, 204, 204));
+        jtxtf_nomeClienteAlterar.setText("VALENTIN GAZZOLLI BOLDRINE GOMES");
         jpnl_incluirPedido.add(jtxtf_nomeClienteAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 300, -1));
-
-        jtxtf_unidadeAlterar.setText("UND");
-        jpnl_incluirPedido.add(jtxtf_unidadeAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 70, -1));
 
         jlbl_valorEntregaAlterar.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_valorEntregaAlterar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_valorEntregaAlterar.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_valorEntregaAlterar.setText("VALOR DA ENTREGA:");
-        jpnl_incluirPedido.add(jlbl_valorEntregaAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 440, 190, 30));
+        jpnl_incluirPedido.add(jlbl_valorEntregaAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 340, 190, 30));
 
         jlbl_bairroAlterar.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_bairroAlterar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_bairroAlterar.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_bairroAlterar.setText("BAIRRO");
-        jpnl_incluirPedido.add(jlbl_bairroAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, -1, -1));
+        jpnl_incluirPedido.add(jlbl_bairroAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 110, -1, -1));
 
         jlbl_ruaAlterar.setBackground(new java.awt.Color(0, 0, 0));
-        jlbl_ruaAlterar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_ruaAlterar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jlbl_ruaAlterar.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_ruaAlterar.setText("RUA");
         jpnl_incluirPedido.add(jlbl_ruaAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
 
+        jtxtf_cidadeAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jtxtf_cidadeAlterar.setForeground(new java.awt.Color(204, 204, 204));
-        jpnl_incluirPedido.add(jtxtf_cidadeAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, 210, -1));
+        jpnl_incluirPedido.add(jtxtf_cidadeAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 210, -1));
 
+        jcmb_produtoAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jcmb_produtoAlterar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BOLINHA DE QUEIJO", "COXINHA DE FRANGO", "KIBE DE CARNE", "RISSOLE DE", "MINI CHURROS" }));
         jpnl_incluirPedido.add(jcmb_produtoAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 190, -1));
 
@@ -189,22 +197,23 @@ public class JFrame_AlterarPedidos extends javax.swing.JFrame {
         jtbl_produtosInseridosAlterar.setPreferredSize(new java.awt.Dimension(655, 204));
         jscp_produtosInseridos.setViewportView(jtbl_produtosInseridosAlterar);
 
-        jpnl_incluirPedido.add(jscp_produtosInseridos, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, 440, 170));
+        jpnl_incluirPedido.add(jscp_produtosInseridos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 440, 170));
 
         jlbl_cidadeAlterar.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_cidadeAlterar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_cidadeAlterar.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_cidadeAlterar.setText("CIDADE");
-        jpnl_incluirPedido.add(jlbl_cidadeAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 110, -1, -1));
+        jpnl_incluirPedido.add(jlbl_cidadeAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
         jlbl_estadoInicialAlterar.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_estadoInicialAlterar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_estadoInicialAlterar.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_estadoInicialAlterar.setText("NOVO ESTADO");
-        jpnl_incluirPedido.add(jlbl_estadoInicialAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 150, 30));
+        jpnl_incluirPedido.add(jlbl_estadoInicialAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 150, 30));
 
+        jtxtf_ufAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jtxtf_ufAlterar.setForeground(new java.awt.Color(204, 204, 204));
-        jpnl_incluirPedido.add(jtxtf_ufAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 130, 50, -1));
+        jpnl_incluirPedido.add(jtxtf_ufAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 150, 50, -1));
 
         jlbl_tipoEntregaAlterar.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_tipoEntregaAlterar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -212,29 +221,33 @@ public class JFrame_AlterarPedidos extends javax.swing.JFrame {
         jlbl_tipoEntregaAlterar.setText("TIPO DA ENTREGA");
         jpnl_incluirPedido.add(jlbl_tipoEntregaAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 30, -1, 30));
 
+        jtxtf_ruaAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jtxtf_ruaAlterar.setForeground(new java.awt.Color(204, 204, 204));
-        jpnl_incluirPedido.add(jtxtf_ruaAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 210, -1));
+        jpnl_incluirPedido.add(jtxtf_ruaAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 290, -1));
 
         jlbl_ufAlterar.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_ufAlterar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_ufAlterar.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_ufAlterar.setText("UF");
-        jpnl_incluirPedido.add(jlbl_ufAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 110, -1, -1));
+        jpnl_incluirPedido.add(jlbl_ufAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, -1, -1));
 
+        jtxtf_bairroAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jtxtf_bairroAlterar.setForeground(new java.awt.Color(204, 204, 204));
-        jpnl_incluirPedido.add(jtxtf_bairroAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 140, -1));
+        jpnl_incluirPedido.add(jtxtf_bairroAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, 160, -1));
 
         jtxtf_descontoAlterar.setForeground(new java.awt.Color(204, 204, 204));
-        jpnl_incluirPedido.add(jtxtf_descontoAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 470, 120, -1));
+        jpnl_incluirPedido.add(jtxtf_descontoAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 390, 70, -1));
 
         jlbl_descontoAlterar.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_descontoAlterar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_descontoAlterar.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_descontoAlterar.setText("DESCONTO APLICADO:");
-        jpnl_incluirPedido.add(jlbl_descontoAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 470, 200, 30));
+        jpnl_incluirPedido.add(jlbl_descontoAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 390, 200, 30));
 
+        jtxtf_telefoneClienteAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jtxtf_telefoneClienteAlterar.setForeground(new java.awt.Color(204, 204, 204));
-        jpnl_incluirPedido.add(jtxtf_telefoneClienteAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 130, -1));
+        jtxtf_telefoneClienteAlterar.setText("+55(27)99929-5178");
+        jpnl_incluirPedido.add(jtxtf_telefoneClienteAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 120, -1));
 
         jlbl_telefoneClienteAlterar.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_telefoneClienteAlterar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -246,7 +259,7 @@ public class JFrame_AlterarPedidos extends javax.swing.JFrame {
         jlbl_quantidadeProdutoAlterar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_quantidadeProdutoAlterar.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_quantidadeProdutoAlterar.setText("QUANT.");
-        jpnl_incluirPedido.add(jlbl_quantidadeProdutoAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 80, 30));
+        jpnl_incluirPedido.add(jlbl_quantidadeProdutoAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, 80, 30));
 
         jbtn_criarPedidoAlterar.setText("Alterar Pedido");
         jbtn_criarPedidoAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -254,13 +267,13 @@ public class JFrame_AlterarPedidos extends javax.swing.JFrame {
                 jbtn_criarPedidoAlterarActionPerformed(evt);
             }
         });
-        jpnl_incluirPedido.add(jbtn_criarPedidoAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 500, 210, -1));
+        jpnl_incluirPedido.add(jbtn_criarPedidoAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 460, 210, -1));
 
         jlbl_valorTotalAlterar.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_valorTotalAlterar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_valorTotalAlterar.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_valorTotalAlterar.setText("VALOR TOTAL:");
-        jpnl_incluirPedido.add(jlbl_valorTotalAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 500, 130, 30));
+        jpnl_incluirPedido.add(jlbl_valorTotalAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 430, 130, 30));
 
         jlbl_produtoAlterar.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_produtoAlterar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -274,15 +287,15 @@ public class JFrame_AlterarPedidos extends javax.swing.JFrame {
         jlbl_dataEntregaAlterar.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_dataEntregaAlterar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_dataEntregaAlterar.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_dataEntregaAlterar.setText("DATA ENTREGA");
-        jpnl_incluirPedido.add(jlbl_dataEntregaAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 140, 30));
-        jpnl_incluirPedido.add(jspn_quantidadeAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, 90, -1));
+        jlbl_dataEntregaAlterar.setText("DATA");
+        jpnl_incluirPedido.add(jlbl_dataEntregaAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 120, -1));
+        jpnl_incluirPedido.add(jspn_quantidadeAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, 90, 20));
 
         jlbl_destinatarioAlterar.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_destinatarioAlterar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_destinatarioAlterar.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_destinatarioAlterar.setText("DESTINATÁRIO");
-        jpnl_incluirPedido.add(jlbl_destinatarioAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 160, 30));
+        jlbl_destinatarioAlterar.setText("OBSERVAÇÕES");
+        jpnl_incluirPedido.add(jlbl_destinatarioAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, 160, 30));
 
         jlbl_nomeClienteAlterar.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_nomeClienteAlterar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -290,16 +303,21 @@ public class JFrame_AlterarPedidos extends javax.swing.JFrame {
         jlbl_nomeClienteAlterar.setText("NOME");
         jpnl_incluirPedido.add(jlbl_nomeClienteAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 130, -1));
 
+        jtxtf_numeroAlterar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jtxtf_numeroAlterar.setForeground(new java.awt.Color(204, 204, 204));
-        jpnl_incluirPedido.add(jtxtf_numeroAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 50, -1));
+        jtxtf_numeroAlterar.setText("9999");
+        jpnl_incluirPedido.add(jtxtf_numeroAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 110, 40, -1));
 
         jlbl_numeroAlterar.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_numeroAlterar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_numeroAlterar.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_numeroAlterar.setText("Nº");
-        jpnl_incluirPedido.add(jlbl_numeroAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, -1, -1));
+        jpnl_incluirPedido.add(jlbl_numeroAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, -1, -1));
 
-        getContentPane().add(jpnl_incluirPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, -1));
+        jbtn_excluirProdutoAlterar.setText("Excluir");
+        jpnl_incluirPedido.add(jbtn_excluirProdutoAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, -1, -1));
+
+        getContentPane().add(jpnl_incluirPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, -1, -1));
 
         jpnl_sideMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jpnl_sideMenu.setMaximumSize(new java.awt.Dimension(250, 576));
@@ -418,6 +436,7 @@ public class JFrame_AlterarPedidos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbtn_criarPedidoAlterar;
+    private javax.swing.JButton jbtn_excluirProdutoAlterar;
     private javax.swing.JButton jbtn_incluirProdutoAlterar;
     private javax.swing.JComboBox<String> jcmb_estadoInicialAlterar;
     private javax.swing.JComboBox<String> jcmb_produtoAlterar;
@@ -465,7 +484,6 @@ public class JFrame_AlterarPedidos extends javax.swing.JFrame {
     private javax.swing.JTextField jtxtf_ruaAlterar;
     private javax.swing.JTextField jtxtf_telefoneClienteAlterar;
     private javax.swing.JTextField jtxtf_ufAlterar;
-    private javax.swing.JTextField jtxtf_unidadeAlterar;
     private javax.swing.JTextField jtxtf_valorEntregaAlterar;
     private javax.swing.JTextField jtxtf_valorTotalAlterar;
     // End of variables declaration//GEN-END:variables

@@ -346,18 +346,18 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jtbl_pedidosEmAberto.setForeground(new java.awt.Color(255, 255, 255));
         jtbl_pedidosEmAberto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO"},
-                { new Integer(2), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO"},
-                { new Integer(3), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO"},
-                { new Integer(4), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO"},
-                { new Integer(5), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO"}
+                { new Integer(1), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO", null},
+                { new Integer(2), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO", null},
+                { new Integer(3), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO", null},
+                { new Integer(4), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO", null},
+                { new Integer(5), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO", null}
             },
             new String [] {
-                "CODIGO", "NOME", "TELEFONE", "ENDEREÇO", "DATA/HORA ENTREGA", "VALOR", "STAUS PEDIDO"
+                "CODIGO", "NOME", "TELEFONE", "ENDEREÇO", "DATA/HORA ENTREGA", "VALOR", "STAUS PEDIDO", ""
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -368,10 +368,10 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jtbl_pedidosEmAberto.setPreferredSize(new java.awt.Dimension(655, 204));
         jscp_pedidosEmAberto.setViewportView(jtbl_pedidosEmAberto);
 
-        jpnl_pedidosAberto.add(jscp_pedidosEmAberto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 690, 170));
+        jpnl_pedidosAberto.add(jscp_pedidosEmAberto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 690, 170));
 
         jlbl_img_intercorrencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/Intercorrencia.png"))); // NOI18N
-        jpnl_pedidosAberto.add(jlbl_img_intercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 110, -1, -1));
+        jpnl_pedidosAberto.add(jlbl_img_intercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 100, -1, -1));
 
         jTabbedPane1.addTab("Pedidos em aberto", jpnl_pedidosAberto);
 
