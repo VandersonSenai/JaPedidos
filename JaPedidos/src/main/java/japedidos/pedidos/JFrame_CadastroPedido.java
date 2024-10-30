@@ -33,7 +33,7 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jtxtf_valorEntrega = new javax.swing.JTextField();
         jlbl_horaEntrega = new javax.swing.JLabel();
         jscp_destinatario = new javax.swing.JScrollPane();
-        jtxta_destinatario = new javax.swing.JTextArea();
+        jtxta_observações = new javax.swing.JTextArea();
         jbtn_incluirProduto = new javax.swing.JButton();
         jtxtf_valorTotal = new javax.swing.JTextField();
         jtxtf_dataEntrega = new javax.swing.JTextField();
@@ -41,7 +41,6 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jtxtf_horaEntrega = new javax.swing.JTextField();
         jcmb_tipoEntrega = new javax.swing.JComboBox<>();
         jtxtf_nomeCliente = new javax.swing.JTextField();
-        jtxtf_unidade = new javax.swing.JTextField();
         jlbl_valorEntrega = new javax.swing.JLabel();
         jlbl_bairro = new javax.swing.JLabel();
         jlbl_rua = new javax.swing.JLabel();
@@ -67,10 +66,11 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jlbl_infoAdicionalCliente = new javax.swing.JLabel();
         jlbl_dataEntrega = new javax.swing.JLabel();
         jspn_quantidade = new javax.swing.JSpinner();
-        jlbl_destinatario = new javax.swing.JLabel();
+        jlbl_observações = new javax.swing.JLabel();
         jlbl_nomeCliente = new javax.swing.JLabel();
         jtxtf_numero = new javax.swing.JTextField();
         jlbl_numero = new javax.swing.JLabel();
+        jbtn_excluirProduto = new javax.swing.JButton();
         jpnl_pedidosAberto = new javax.swing.JPanel();
         jtxtf_pesquisarPedidos = new javax.swing.JTextField();
         jlbl_filtroPedidosEmAberto = new javax.swing.JLabel();
@@ -116,9 +116,10 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jlbl_horaEntrega.setText("HORA ENTREGA");
         jpnl_incluirPedido.add(jlbl_horaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, -1, 30));
 
-        jtxta_destinatario.setColumns(20);
-        jtxta_destinatario.setRows(5);
-        jscp_destinatario.setViewportView(jtxta_destinatario);
+        jtxta_observações.setColumns(20);
+        jtxta_observações.setRows(5);
+        jtxta_observações.setText("Dados destinatário, ponto de referência...");
+        jscp_destinatario.setViewportView(jtxta_observações);
 
         jpnl_incluirPedido.add(jscp_destinatario, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, 260, 60));
 
@@ -152,9 +153,6 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
 
         jtxtf_nomeCliente.setForeground(new java.awt.Color(204, 204, 204));
         jpnl_incluirPedido.add(jtxtf_nomeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 300, -1));
-
-        jtxtf_unidade.setText("UND");
-        jpnl_incluirPedido.add(jtxtf_unidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 70, -1));
 
         jlbl_valorEntrega.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_valorEntrega.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -296,13 +294,13 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jlbl_dataEntrega.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_dataEntrega.setText("DATA ENTREGA");
         jpnl_incluirPedido.add(jlbl_dataEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 140, 30));
-        jpnl_incluirPedido.add(jspn_quantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, 90, -1));
+        jpnl_incluirPedido.add(jspn_quantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 90, -1));
 
-        jlbl_destinatario.setBackground(new java.awt.Color(0, 0, 0));
-        jlbl_destinatario.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbl_destinatario.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_destinatario.setText("DESTINATÁRIO");
-        jpnl_incluirPedido.add(jlbl_destinatario, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 160, 30));
+        jlbl_observações.setBackground(new java.awt.Color(0, 0, 0));
+        jlbl_observações.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_observações.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_observações.setText("OBSERVAÇÕES");
+        jpnl_incluirPedido.add(jlbl_observações, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 160, 30));
 
         jlbl_nomeCliente.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_nomeCliente.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -318,6 +316,9 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
         jlbl_numero.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_numero.setText("Nº");
         jpnl_incluirPedido.add(jlbl_numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, -1, -1));
+
+        jbtn_excluirProduto.setText("Excluir");
+        jpnl_incluirPedido.add(jbtn_excluirProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, -1, -1));
 
         jTabbedPane1.addTab("Incluir pedido", jpnl_incluirPedido);
 
@@ -571,6 +572,7 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton jbtn_criarPedido;
+    private javax.swing.JButton jbtn_excluirProduto;
     private javax.swing.JButton jbtn_incluirProduto;
     private javax.swing.JComboBox<String> jcmb_estadoInicial;
     private javax.swing.JComboBox<String> jcmb_produto;
@@ -580,7 +582,6 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jlbl_clientes;
     private javax.swing.JLabel jlbl_dataEntrega;
     private javax.swing.JLabel jlbl_desconto;
-    private javax.swing.JLabel jlbl_destinatario;
     private javax.swing.JLabel jlbl_estadoInicial;
     private javax.swing.JLabel jlbl_filtroHistoricoPedido;
     private javax.swing.JLabel jlbl_filtroPedidosEmAberto;
@@ -589,6 +590,7 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jlbl_infoAdicionalCliente;
     private javax.swing.JLabel jlbl_nomeCliente;
     private javax.swing.JLabel jlbl_numero;
+    private javax.swing.JLabel jlbl_observações;
     private javax.swing.JLabel jlbl_pedidos;
     private javax.swing.JLabel jlbl_produto;
     private javax.swing.JLabel jlbl_produtos;
@@ -617,7 +619,7 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
     private javax.swing.JTable jtbl_HistoricoPedido;
     private javax.swing.JTable jtbl_pedidosEmAberto;
     private javax.swing.JTable jtbl_produtosInseridos;
-    private javax.swing.JTextArea jtxta_destinatario;
+    private javax.swing.JTextArea jtxta_observações;
     private javax.swing.JTextField jtxtf_bairro;
     private javax.swing.JTextField jtxtf_cidade;
     private javax.swing.JTextField jtxtf_dataEntrega;
@@ -632,7 +634,6 @@ public class JFrame_CadastroPedido extends javax.swing.JFrame {
     private javax.swing.JTextField jtxtf_rua;
     private javax.swing.JTextField jtxtf_telefoneCliente;
     private javax.swing.JTextField jtxtf_uf;
-    private javax.swing.JTextField jtxtf_unidade;
     private javax.swing.JTextField jtxtf_valorEntrega;
     private javax.swing.JTextField jtxtf_valorTotal;
     // End of variables declaration//GEN-END:variables
