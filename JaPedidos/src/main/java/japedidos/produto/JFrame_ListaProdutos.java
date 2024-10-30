@@ -49,28 +49,20 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_img_etiqueta = new javax.swing.JLabel();
         jpnl_background_01 = new javax.swing.JLabel();
         jpnl_corpo = new javax.swing.JPanel();
-        jtb_linhaEncontrar = new javax.swing.JToolBar();
-        jlbl_encontrar = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jtxtf_pesquisa = new javax.swing.JTextField();
-        jlbl_codigo = new javax.swing.JLabel();
-        jtxtf_codigo = new javax.swing.JTextField();
         jlbl_descricao = new javax.swing.JLabel();
         jtxtf_descricao = new javax.swing.JTextField();
         jlbl_categoria = new javax.swing.JLabel();
         jcmb_categoria = new javax.swing.JComboBox<>();
+        jlbl_codigo = new javax.swing.JLabel();
+        jtxtf_codigo = new javax.swing.JTextField();
         jlbl_und = new javax.swing.JLabel();
         jcmb_und = new javax.swing.JComboBox<>();
         jlbl_valor = new javax.swing.JLabel();
         jtxtf_valor = new javax.swing.JTextField();
-        jtb_linha = new javax.swing.JToolBar();
-        jtb_linha1 = new javax.swing.JToolBar();
-        jlbl_clientes1 = new javax.swing.JLabel();
-        jlbl_produtos1 = new javax.swing.JLabel();
-        jlbl_pedidos1 = new javax.swing.JLabel();
-        jlbl_relatorios1 = new javax.swing.JLabel();
-        jpnl_img_etiqueta1 = new javax.swing.JLabel();
-        jpnl_background2 = new javax.swing.JLabel();
+        jtb_linhaEncontrar = new javax.swing.JToolBar();
+        jlbl_encontrar = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jtxtf_pesquisa = new javax.swing.JTextField();
         jpnl_btn_novo = new javax.swing.JLabel();
         jpnl_btn_excluir = new javax.swing.JLabel();
         jpnl_btn_salvar = new javax.swing.JLabel();
@@ -78,7 +70,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtbl_lista_produtos = new javax.swing.JTable();
         jpnl_background_02 = new javax.swing.JLabel();
         jtb_linhaBranca1 = new javax.swing.JToolBar();
-        canvas1 = new java.awt.Canvas();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFocusCycleRoot(false);
@@ -193,12 +184,64 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_corpo.setPreferredSize(new java.awt.Dimension(1024, 576));
         jpnl_corpo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jlbl_descricao.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_descricao.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_descricao.setText("DESCRIÇÃO :");
+        jpnl_corpo.add(jlbl_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 430, -1, -1));
+
+        jtxtf_descricao.setBackground(new java.awt.Color(204, 204, 204));
+        jtxtf_descricao.setForeground(new java.awt.Color(0, 0, 0));
+        jpnl_corpo.add(jtxtf_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 430, 330, 30));
+
+        jlbl_categoria.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_categoria.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_categoria.setText("CATEGORIA :");
+        jpnl_corpo.add(jlbl_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 470, -1, -1));
+
+        jcmb_categoria.setBackground(new java.awt.Color(204, 204, 204));
+        jcmb_categoria.setForeground(new java.awt.Color(255, 255, 255));
+        jcmb_categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALIMENTO", "REFRIGERANTE", "MOLHOS" }));
+        jpnl_corpo.add(jcmb_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 470, 110, 30));
+
+        jlbl_codigo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_codigo.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_codigo.setText("CÓDIGO :");
+        jpnl_corpo.add(jlbl_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 390, -1, -1));
+
+        jtxtf_codigo.setBackground(new java.awt.Color(204, 204, 204));
+        jtxtf_codigo.setForeground(new java.awt.Color(0, 0, 0));
+        jpnl_corpo.add(jtxtf_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 390, 70, 30));
+
+        jlbl_und.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_und.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_und.setText("UND :");
+        jpnl_corpo.add(jlbl_und, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 430, 50, -1));
+
+        jcmb_und.setBackground(new java.awt.Color(204, 204, 204));
+        jcmb_und.setForeground(new java.awt.Color(255, 255, 255));
+        jcmb_und.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UNI", "KG", "SC" }));
+        jcmb_und.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcmb_undActionPerformed(evt);
+            }
+        });
+        jpnl_corpo.add(jcmb_und, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 430, 70, 30));
+
+        jlbl_valor.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_valor.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_valor.setText("VALOR :");
+        jpnl_corpo.add(jlbl_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 470, -1, -1));
+
+        jtxtf_valor.setBackground(new java.awt.Color(204, 204, 204));
+        jtxtf_valor.setForeground(new java.awt.Color(0, 0, 0));
+        jpnl_corpo.add(jtxtf_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 470, 100, 30));
+
         jtb_linhaEncontrar.setBackground(new java.awt.Color(102, 102, 102));
         jtb_linhaEncontrar.setBorder(null);
         jtb_linhaEncontrar.setFloatable(true);
         jtb_linhaEncontrar.setForeground(new java.awt.Color(102, 102, 102));
         jtb_linhaEncontrar.setBorderPainted(false);
-        jpnl_corpo.add(jtb_linhaEncontrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 106, 3, 22));
+        jpnl_corpo.add(jtb_linhaEncontrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 76, 3, 22));
 
         jlbl_encontrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon_lupa_padrao.png"))); // NOI18N
         jlbl_encontrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -212,7 +255,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                 jlbl_encontrarMouseReleased(evt);
             }
         });
-        jpnl_corpo.add(jlbl_encontrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 106, -1, -1));
+        jpnl_corpo.add(jlbl_encontrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 76, -1, -1));
 
         jButton1.setText("TESTE CONSULTA");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -246,102 +289,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                 jtxtf_pesquisaKeyTyped(evt);
             }
         });
-        jpnl_corpo.add(jtxtf_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 680, 34));
-
-        jlbl_codigo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbl_codigo.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_codigo.setText("CÓDIGO :");
-        jpnl_corpo.add(jlbl_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, -1, -1));
-
-        jtxtf_codigo.setBackground(new java.awt.Color(204, 204, 204));
-        jtxtf_codigo.setForeground(new java.awt.Color(0, 0, 0));
-        jpnl_corpo.add(jtxtf_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 170, 90, 30));
-
-        jlbl_descricao.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbl_descricao.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_descricao.setText("DESCRIÇÃO :");
-        jpnl_corpo.add(jlbl_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, -1, -1));
-
-        jtxtf_descricao.setBackground(new java.awt.Color(204, 204, 204));
-        jtxtf_descricao.setForeground(new java.awt.Color(0, 0, 0));
-        jpnl_corpo.add(jtxtf_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 210, 280, 30));
-
-        jlbl_categoria.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbl_categoria.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_categoria.setText("CATEGORIA :");
-        jpnl_corpo.add(jlbl_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, -1, -1));
-
-        jcmb_categoria.setBackground(new java.awt.Color(204, 204, 204));
-        jcmb_categoria.setForeground(new java.awt.Color(255, 255, 255));
-        jcmb_categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALIMENTO", "REFRIGERANTE", "MOLHOS" }));
-        jpnl_corpo.add(jcmb_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 250, 140, 30));
-
-        jlbl_und.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbl_und.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_und.setText("UND :");
-        jpnl_corpo.add(jlbl_und, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 250, -1, -1));
-
-        jcmb_und.setBackground(new java.awt.Color(204, 204, 204));
-        jcmb_und.setForeground(new java.awt.Color(255, 255, 255));
-        jcmb_und.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UNI", "KG", "SC" }));
-        jpnl_corpo.add(jcmb_und, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 250, 60, 30));
-
-        jlbl_valor.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbl_valor.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_valor.setText("VALOR :");
-        jpnl_corpo.add(jlbl_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 250, -1, -1));
-
-        jtxtf_valor.setBackground(new java.awt.Color(204, 204, 204));
-        jtxtf_valor.setForeground(new java.awt.Color(0, 0, 0));
-        jpnl_corpo.add(jtxtf_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 250, 70, 30));
-
-        jtb_linha.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.white, java.awt.Color.darkGray, null));
-
-        jtb_linha1.setBackground(new java.awt.Color(255, 255, 255));
-        jtb_linha1.setBorder(null);
-        jtb_linha1.setForeground(new java.awt.Color(255, 255, 255));
-        jtb_linha.add(jtb_linha1);
-
-        jlbl_clientes1.setBackground(new java.awt.Color(0, 0, 0));
-        jlbl_clientes1.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_clientes1.setText("CLIENTES");
-        jtb_linha.add(jlbl_clientes1);
-
-        jlbl_produtos1.setBackground(new java.awt.Color(0, 0, 0));
-        jlbl_produtos1.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_produtos1.setForeground(new java.awt.Color(255, 255, 255));
-        jlbl_produtos1.setText("PRODUTOS");
-        jlbl_produtos1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jlbl_produtosFocusGained(evt);
-            }
-        });
-        jtb_linha.add(jlbl_produtos1);
-
-        jlbl_pedidos1.setBackground(new java.awt.Color(0, 0, 0));
-        jlbl_pedidos1.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_pedidos1.setText("PEDIDOS");
-        jtb_linha.add(jlbl_pedidos1);
-
-        jlbl_relatorios1.setBackground(new java.awt.Color(0, 0, 0));
-        jlbl_relatorios1.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_relatorios1.setText("RELATÓRIOS");
-        jtb_linha.add(jlbl_relatorios1);
-
-        jpnl_img_etiqueta1.setMaximumSize(new java.awt.Dimension(250, 576));
-        jpnl_img_etiqueta1.setMinimumSize(new java.awt.Dimension(250, 576));
-        jtb_linha.add(jpnl_img_etiqueta1);
-
-        jpnl_background2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jpnl_background2.setToolTipText("");
-        jpnl_background2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jpnl_background2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jpnl_background2.setMaximumSize(new java.awt.Dimension(1024, 576));
-        jpnl_background2.setMinimumSize(new java.awt.Dimension(1024, 576));
-        jpnl_background2.setPreferredSize(new java.awt.Dimension(1024, 576));
-        jtb_linha.add(jpnl_background2);
-
-        jpnl_corpo.add(jtb_linha, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 680, 2));
+        jpnl_corpo.add(jtxtf_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 680, 34));
 
         jpnl_btn_novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_novo_padrao.png"))); // NOI18N
         jpnl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -355,7 +303,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                 jpnl_btn_novoMouseReleased(evt);
             }
         });
-        jpnl_corpo.add(jpnl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 170, -1, -1));
+        jpnl_corpo.add(jpnl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 390, -1, -1));
 
         jpnl_btn_excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_excluir_padrao.png"))); // NOI18N
         jpnl_btn_excluir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -366,7 +314,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                 jpnl_btn_excluirMouseReleased(evt);
             }
         });
-        jpnl_corpo.add(jpnl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 210, -1, -1));
+        jpnl_corpo.add(jpnl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 430, -1, -1));
 
         jpnl_btn_salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_salvar_padrao.png"))); // NOI18N
         jpnl_btn_salvar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -377,7 +325,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                 jpnl_btn_salvarMouseReleased(evt);
             }
         });
-        jpnl_corpo.add(jpnl_btn_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 250, -1, -1));
+        jpnl_corpo.add(jpnl_btn_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 470, -1, -1));
 
         jtbl_lista_produtos.setBackground(new java.awt.Color(153, 204, 255));
         jtbl_lista_produtos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -436,7 +384,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             jtbl_lista_produtos.getColumnModel().getColumn(6).setPreferredWidth(40);
         }
 
-        jpnl_corpo.add(jtbl_listaprodutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, 680, 170));
+        jpnl_corpo.add(jtbl_listaprodutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 680, 250));
 
         jpnl_background_02.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jpnl_background_02.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_produtos_075x.png"))); // NOI18N
@@ -454,7 +402,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtb_linhaBranca1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jtb_linhaBranca1.setBorderPainted(false);
         jpnl_corpo.add(jtb_linhaBranca1, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 280, 100, 4));
-        jpnl_corpo.add(canvas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 180, 190, -1));
 
         getContentPane().add(jpnl_corpo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -865,6 +812,10 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jtxtf_pesquisaKeyTyped
 
+    private void jcmb_undActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmb_undActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcmb_undActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -915,25 +866,19 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Canvas canvas1;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jcmb_categoria;
     private javax.swing.JComboBox<String> jcmb_und;
     private javax.swing.JLabel jlbl_categoria;
     private javax.swing.JLabel jlbl_clientes;
-    private javax.swing.JLabel jlbl_clientes1;
     private javax.swing.JLabel jlbl_codigo;
     private javax.swing.JLabel jlbl_descricao;
     private javax.swing.JLabel jlbl_encontrar;
     private javax.swing.JLabel jlbl_pedidos;
-    private javax.swing.JLabel jlbl_pedidos1;
     private javax.swing.JLabel jlbl_produtos;
-    private javax.swing.JLabel jlbl_produtos1;
     private javax.swing.JLabel jlbl_relatorios;
-    private javax.swing.JLabel jlbl_relatorios1;
     private javax.swing.JLabel jlbl_und;
     private javax.swing.JLabel jlbl_valor;
-    private javax.swing.JLabel jpnl_background2;
     private javax.swing.JLabel jpnl_background_01;
     private javax.swing.JLabel jpnl_background_02;
     private javax.swing.JLabel jpnl_btn_excluir;
@@ -941,10 +886,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     private javax.swing.JLabel jpnl_btn_salvar;
     private javax.swing.JPanel jpnl_corpo;
     private javax.swing.JLabel jpnl_img_etiqueta;
-    private javax.swing.JLabel jpnl_img_etiqueta1;
     private javax.swing.JPanel jpnl_sideMenu;
-    private javax.swing.JToolBar jtb_linha;
-    private javax.swing.JToolBar jtb_linha1;
     private javax.swing.JToolBar jtb_linhaBranca;
     private javax.swing.JToolBar jtb_linhaBranca1;
     private javax.swing.JToolBar jtb_linhaEncontrar;
