@@ -49,6 +49,8 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_img_etiqueta = new javax.swing.JLabel();
         jpnl_background_01 = new javax.swing.JLabel();
         jpnl_corpo = new javax.swing.JPanel();
+        jtb_linhaEncontrar = new javax.swing.JToolBar();
+        jlbl_encontrar = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jtxtf_pesquisa = new javax.swing.JTextField();
         jlbl_codigo = new javax.swing.JLabel();
@@ -75,6 +77,8 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtbl_listaprodutos = new javax.swing.JScrollPane();
         jtbl_lista_produtos = new javax.swing.JTable();
         jpnl_background_02 = new javax.swing.JLabel();
+        jtb_linhaBranca1 = new javax.swing.JToolBar();
+        canvas1 = new java.awt.Canvas();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFocusCycleRoot(false);
@@ -189,25 +193,60 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_corpo.setPreferredSize(new java.awt.Dimension(1024, 576));
         jpnl_corpo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jtb_linhaEncontrar.setBackground(new java.awt.Color(102, 102, 102));
+        jtb_linhaEncontrar.setBorder(null);
+        jtb_linhaEncontrar.setFloatable(true);
+        jtb_linhaEncontrar.setForeground(new java.awt.Color(102, 102, 102));
+        jtb_linhaEncontrar.setBorderPainted(false);
+        jpnl_corpo.add(jtb_linhaEncontrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 106, 3, 22));
+
+        jlbl_encontrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon_lupa_padrao.png"))); // NOI18N
+        jlbl_encontrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlbl_encontrarMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jlbl_encontrarMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jlbl_encontrarMouseReleased(evt);
+            }
+        });
+        jpnl_corpo.add(jlbl_encontrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 106, -1, -1));
+
         jButton1.setText("TESTE CONSULTA");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jpnl_corpo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 40, -1, -1));
+        jpnl_corpo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 10, -1, -1));
 
         jtxtf_pesquisa.setBackground(new java.awt.Color(204, 204, 204));
-        jtxtf_pesquisa.setForeground(new java.awt.Color(0, 0, 0));
-        jtxtf_pesquisa.setText("Coxinha de frango");
+        jtxtf_pesquisa.setForeground(new java.awt.Color(102, 102, 102));
+        jtxtf_pesquisa.setText("Digite aqui que deseja encontrar...");
         jtxtf_pesquisa.setBorder(jtxtf_codigo.getBorder());
         jtxtf_pesquisa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jtxtf_pesquisa.setMargin(new java.awt.Insets(2, 54, 2, 6));
+        jtxtf_pesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtxtf_pesquisaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtf_pesquisaFocusLost(evt);
+            }
+        });
         jtxtf_pesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtf_pesquisaActionPerformed(evt);
             }
         });
-        jpnl_corpo.add(jtxtf_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 680, 30));
+        jtxtf_pesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtf_pesquisaKeyTyped(evt);
+            }
+        });
+        jpnl_corpo.add(jtxtf_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 680, 34));
 
         jlbl_codigo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_codigo.setForeground(new java.awt.Color(0, 0, 0));
@@ -361,7 +400,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true, true
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -408,6 +447,14 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_background_02.setMinimumSize(new java.awt.Dimension(1024, 576));
         jpnl_background_02.setPreferredSize(new java.awt.Dimension(1024, 576));
         jpnl_corpo.add(jpnl_background_02, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jtb_linhaBranca1.setBackground(new java.awt.Color(255, 255, 255));
+        jtb_linhaBranca1.setBorder(null);
+        jtb_linhaBranca1.setForeground(new java.awt.Color(255, 255, 255));
+        jtb_linhaBranca1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jtb_linhaBranca1.setBorderPainted(false);
+        jpnl_corpo.add(jtb_linhaBranca1, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 280, 100, 4));
+        jpnl_corpo.add(canvas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 180, 190, -1));
 
         getContentPane().add(jpnl_corpo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -543,13 +590,16 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 //        TODO add your handling code here:
-//        String sql = "SELECT * FROM produto Where nome='coxinha de frango'";
-//        String sql = "SELECT * FROM listatodosprodutos GROUP BY nome LIKE '%PIZZA' "; // funciona
-        String sql = "SELECT * FROM listatodosprodutos GROUP BY nome LIKE "; 
+          String encontrar = jtxtf_pesquisa.getText();
+//          String sql = "select * from listaTodosProdutos group by nome having nome LIKE '%" + encontrar + "%'";
+          String sql = "select * from listaTodosProdutos group by nome ";
 
-//        String sql = "SELECT * FROM listatodosprodutos GROUP BY nome ";
+//        String sql = "SELECT * FROM listaTodosProdutos GROUP BY nome LIKE "; 
+
+//        String sql = "SELECT * FROM listaTodosProdutos GROUP BY nome ";
         Connection conexao = null;
         PreparedStatement statement = null;
+
         String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
         String usuario = "root";
         String senha = "";
@@ -565,24 +615,16 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 //            PreparedStatement banco = (PreparedStatement)con.prepareStatement(sql);
             conexao = DriverManager.getConnection(url, usuario, senha);
             statement = conexao.prepareStatement(sql);
-/*  
-            String encontrar = jtxtf_pesquisa.getText();
-            System.out.println("Texto = " + encontrar);
-            sql = sql + "LIKE nome='%" + encontrar + "%'";
-  */               
+/*         
             String encontrar = jtxtf_pesquisa.getText();
             sql = sql + "'%" + encontrar + "'";
-            statement = conexao.prepareStatement(sql);
-/*
-            String encontrar = jtxtf_pesquisa.getText();
-            System.out.println("Texto = " + encontrar);
-            statement.setString(1, encontrar);
-*/
-                    
+
+               */     
             statement.execute(); // cria o vetor
             ResultSet resultado = statement.executeQuery(sql);
 
             DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
+            model.setRowCount(0);
             model.setNumRows(0);
             
 
@@ -621,8 +663,10 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jtxtf_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_pesquisaActionPerformed
         // TODO add your handling code here:
-//          String sql = "SELECT * FROM listatodosprodutos GROUP BY nome LIKE ";         
-          String sql = "SELECT * FROM listatodosprodutos GROUP BY nome LIKE ";         
+//          String sql = "select * from produto group by nome having nome LIKE '%PIZZA%'";
+          //String encontrar = jtxtf_pesquisa.getText();
+          String sql = "select * from listaTodosProdutos group by nome having nome LIKE ";
+          
 
         Connection conexao = null;
         PreparedStatement statement = null;
@@ -637,11 +681,12 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         try
         {
             
-            conexao = DriverManager.getConnection(url, usuario, senha);
-//            statement = conexao.prepareStatement(sql);
 
             String encontrar = jtxtf_pesquisa.getText();
             sql = sql + "'%" + encontrar + "%'";
+            //statement = conexao.prepareStatement(sql);
+
+            conexao = DriverManager.getConnection(url, usuario, senha);
             statement = conexao.prepareStatement(sql);
 /*
             String encontrar = jtxtf_pesquisa.getText();
@@ -654,6 +699,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
             DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
             model.setNumRows(0);
+            model.setRowCount(0);
+            model.getDataVector().removeAllElements();
+            model.fireTableDataChanged();
+
+            //System.out.printf("model.getRowCount() = " + model.getRowCount());
 
             while(resultado.next())
             {
@@ -677,6 +727,143 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
              System.out.println("o erro foi " +ex);
             }        
     }//GEN-LAST:event_jtxtf_pesquisaActionPerformed
+
+    private void jtxtf_pesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtf_pesquisaFocusGained
+        // TODO add your handling code here:
+        jtxtf_pesquisa.setText("");
+    }//GEN-LAST:event_jtxtf_pesquisaFocusGained
+
+    private void jtxtf_pesquisaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtf_pesquisaFocusLost
+        // TODO add your handling code here:
+        jtxtf_pesquisa.setText("Digite aqui que deseja encontrar...");
+    }//GEN-LAST:event_jtxtf_pesquisaFocusLost
+
+    private void jlbl_encontrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_encontrarMousePressed
+        // TODO add your handling code here:
+        jlbl_encontrar.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\icon_encontrar_pressionado.png")); 
+    }//GEN-LAST:event_jlbl_encontrarMousePressed
+
+    private void jlbl_encontrarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_encontrarMouseReleased
+        // TODO add your handling code here:
+        jlbl_encontrar.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\icon_encontrar_padrao.png")); 
+    }//GEN-LAST:event_jlbl_encontrarMouseReleased
+
+    private void jlbl_encontrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_encontrarMouseClicked
+        String encontrar = jtxtf_pesquisa.getText();
+        String sql = "";
+
+        encontrar = "'%" + encontrar + "%'";
+        if (jtxtf_pesquisa.getText().equals("")|jtxtf_pesquisa.getText().equals("Digite aqui que deseja encontrar...")){
+            sql = "select * from listaTodosProdutos group by nome ";
+        } else {
+            sql = "select * from listaTodosProdutos group by nome having nome LIKE " + encontrar;
+        }
+               
+
+        Connection conexao = null;
+        PreparedStatement statement = null;
+
+        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+        String usuario = "root";
+        String senha = "";
+/*
+        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
+        String usuario = "titanw25_japedidos_hml";
+        String senha = "seNai@2024proj";
+        */
+        try
+        {
+            conexao = DriverManager.getConnection(url, usuario, senha);
+            statement = conexao.prepareStatement(sql);
+
+            statement.execute();
+            ResultSet resultado = statement.executeQuery(sql);
+
+            DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
+            model.setRowCount(0);
+            model.setNumRows(0);
+
+            while(resultado.next())
+            {
+                model.addRow(new Object[] 
+                { 
+                   //retorna os dados da tabela do BD, cada campo e um coluna.
+                   resultado.getString("id"),
+                   resultado.getString("nome"),
+                   resultado.getString("categoria"),
+                   resultado.getDouble("preco_custo"),
+                   resultado.getDouble("preco_venda"),
+                   resultado.getString("unidade"),
+                   resultado.getBoolean("estado")
+                }); 
+           } 
+            statement.close();
+        }
+          catch (SQLException ex)
+          {
+             System.out.println("o erro foi " +ex);
+            }
+        
+    }//GEN-LAST:event_jlbl_encontrarMouseClicked
+
+    private void jtxtf_pesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtf_pesquisaKeyTyped
+        // TODO add your handling code here:
+        if ( (jtxtf_pesquisa.getText().length()>=3) & (!jtxtf_pesquisa.getText().equals("Digite aqui que deseja encontrar...")) ){
+            System.out.println("OOOOOOOOOOI");
+        String encontrar = jtxtf_pesquisa.getText();
+        String sql = "";
+        
+        encontrar = "'%" + encontrar + "%'";
+        sql = "select * from listaTodosProdutos group by nome having nome LIKE " + encontrar;
+                      
+
+        Connection conexao = null;
+        PreparedStatement statement = null;
+
+        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+        String usuario = "root";
+        String senha = "";
+/*
+        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
+        String usuario = "titanw25_japedidos_hml";
+        String senha = "seNai@2024proj";
+        */
+        try
+        {
+            conexao = DriverManager.getConnection(url, usuario, senha);
+            statement = conexao.prepareStatement(sql);
+
+            statement.execute();
+            ResultSet resultado = statement.executeQuery(sql);
+
+            DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
+            model.setRowCount(0);
+            model.setNumRows(0);
+
+            while(resultado.next())
+            {
+                model.addRow(new Object[] 
+                { 
+                   //retorna os dados da tabela do BD, cada campo e um coluna.
+                   resultado.getString("id"),
+                   resultado.getString("nome"),
+                   resultado.getString("categoria"),
+                   resultado.getDouble("preco_custo"),
+                   resultado.getDouble("preco_venda"),
+                   resultado.getString("unidade"),
+                   resultado.getBoolean("estado")
+                }); 
+           } 
+            statement.close();
+        }
+          catch (SQLException ex)
+          {
+             System.out.println("o erro foi " +ex);
+            }
+        
+            
+        }
+    }//GEN-LAST:event_jtxtf_pesquisaKeyTyped
 
     /**
      * @param args the command line arguments
@@ -728,6 +915,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.Canvas canvas1;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jcmb_categoria;
     private javax.swing.JComboBox<String> jcmb_und;
@@ -736,6 +924,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     private javax.swing.JLabel jlbl_clientes1;
     private javax.swing.JLabel jlbl_codigo;
     private javax.swing.JLabel jlbl_descricao;
+    private javax.swing.JLabel jlbl_encontrar;
     private javax.swing.JLabel jlbl_pedidos;
     private javax.swing.JLabel jlbl_pedidos1;
     private javax.swing.JLabel jlbl_produtos;
@@ -757,6 +946,8 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     private javax.swing.JToolBar jtb_linha;
     private javax.swing.JToolBar jtb_linha1;
     private javax.swing.JToolBar jtb_linhaBranca;
+    private javax.swing.JToolBar jtb_linhaBranca1;
+    private javax.swing.JToolBar jtb_linhaEncontrar;
     private javax.swing.JTable jtbl_lista_produtos;
     private javax.swing.JScrollPane jtbl_listaprodutos;
     private javax.swing.JTextField jtxtf_codigo;

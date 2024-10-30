@@ -12,9 +12,9 @@
             <version>RELEASE220</version>
         </dependency>
         <dependency>
-            <groupId>mysql-connector-java</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.30</version>
+            <groupId>mysql-connector-java-8.0.30</groupId>
+            <artifactId>mysql-connector-java-8.0.30</artifactId>
+            <version>v8.0.30</version>
         </dependency>
     </dependencies>
     <properties>
