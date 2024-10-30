@@ -67,7 +67,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="241" y="40" width="230" height="-1"/>
+              <AbsoluteConstraints x="250" y="40" width="230" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -95,7 +95,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="480" y="40" width="160" height="-1"/>
+              <AbsoluteConstraints x="490" y="40" width="160" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -118,7 +118,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="jlbl_idPedido2">
+        <Component class="javax.swing.JLabel" name="jlbl_codigoPedido">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
@@ -129,7 +129,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="ID PEDIDO:"/>
+            <Property name="text" type="java.lang.String" value="C&#xd3;DIGO PEDIDO:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -137,7 +137,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtxtf_idPedido1">
+        <Component class="javax.swing.JTextField" name="jtxtf_codigoPedido">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -146,7 +146,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="110" y="40" width="60" height="-1"/>
+              <AbsoluteConstraints x="170" y="40" width="60" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -201,7 +201,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtxtf_dataIntercorrencia1">
+        <Component class="javax.swing.JTextField" name="jtxtf_horaIntercorrencia">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -224,7 +224,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JButton" name="jbtn_salvarIntercorrencia1">
+        <Component class="javax.swing.JButton" name="jbtn_salvarIntercorrencia">
           <Properties>
             <Property name="text" type="java.lang.String" value="SALVAR"/>
           </Properties>

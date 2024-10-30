@@ -31,14 +31,14 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
         jlbl_tipoIntecorrencia = new javax.swing.JLabel();
         jcmb_tipoIntecorrencia = new javax.swing.JComboBox<>();
         jlbl_detalheIntecorrencia = new javax.swing.JLabel();
-        jlbl_idPedido2 = new javax.swing.JLabel();
-        jtxtf_idPedido1 = new javax.swing.JTextField();
+        jlbl_codigoPedido = new javax.swing.JLabel();
+        jtxtf_codigoPedido = new javax.swing.JTextField();
         jtxtf_dataIntercorrencia = new javax.swing.JTextField();
         jlbl_dataIntercorrencia = new javax.swing.JLabel();
         jlbl_horaIntercorrencia = new javax.swing.JLabel();
-        jtxtf_dataIntercorrencia1 = new javax.swing.JTextField();
+        jtxtf_horaIntercorrencia = new javax.swing.JTextField();
         jbtn_voltarIntercorrencia = new javax.swing.JButton();
-        jbtn_salvarIntercorrencia1 = new javax.swing.JButton();
+        jbtn_salvarIntercorrencia = new javax.swing.JButton();
         jpnl_sideMenu = new javax.swing.JPanel();
         jlbl_clientes = new javax.swing.JLabel();
         jlbl_produtos = new javax.swing.JLabel();
@@ -62,10 +62,10 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
         jlbl_tipoIntecorrencia.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_tipoIntecorrencia.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_tipoIntecorrencia.setText("TIPO DA INTECORRENCIA:");
-        jpnl_incluirPedido.add(jlbl_tipoIntecorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(241, 40, 230, -1));
+        jpnl_incluirPedido.add(jlbl_tipoIntecorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 230, -1));
 
         jcmb_tipoIntecorrencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ATRASO NA ENTREGA", "PEDIDO VEIO FALTANDO", "CLIENTE NÃO ESTAVA NO LOCAL", "PACOTE FURTADO", "PROBLEMAS NO VEÍCULA DA ENTREGA", "FORÇAS MAIORES", "PRODUTO EM FALTA", "CLIENTE NÃO PAGOU", "PROBLEMAS PROCESSUAIS", "PROBLEMAS TÉCNICOS", "MOTOBOY NÃO APARECEU", "OUTROS" }));
-        jpnl_incluirPedido.add(jcmb_tipoIntecorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, 160, -1));
+        jpnl_incluirPedido.add(jcmb_tipoIntecorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 40, 160, -1));
 
         jlbl_detalheIntecorrencia.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_detalheIntecorrencia.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -73,15 +73,15 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
         jlbl_detalheIntecorrencia.setText("DETALHES:");
         jpnl_incluirPedido.add(jlbl_detalheIntecorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
-        jlbl_idPedido2.setBackground(new java.awt.Color(0, 0, 0));
-        jlbl_idPedido2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbl_idPedido2.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_idPedido2.setText("ID PEDIDO:");
-        jpnl_incluirPedido.add(jlbl_idPedido2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+        jlbl_codigoPedido.setBackground(new java.awt.Color(0, 0, 0));
+        jlbl_codigoPedido.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_codigoPedido.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_codigoPedido.setText("CÓDIGO PEDIDO:");
+        jpnl_incluirPedido.add(jlbl_codigoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
-        jtxtf_idPedido1.setForeground(new java.awt.Color(204, 204, 204));
-        jtxtf_idPedido1.setText("001");
-        jpnl_incluirPedido.add(jtxtf_idPedido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 60, -1));
+        jtxtf_codigoPedido.setForeground(new java.awt.Color(204, 204, 204));
+        jtxtf_codigoPedido.setText("001");
+        jpnl_incluirPedido.add(jtxtf_codigoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 60, -1));
 
         jtxtf_dataIntercorrencia.setForeground(new java.awt.Color(204, 204, 204));
         jtxtf_dataIntercorrencia.setText("29/10/2024");
@@ -99,15 +99,15 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
         jlbl_horaIntercorrencia.setText("HORA DA INTERCORRÊNCIA:");
         jpnl_incluirPedido.add(jlbl_horaIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, 260, -1));
 
-        jtxtf_dataIntercorrencia1.setForeground(new java.awt.Color(204, 204, 204));
-        jtxtf_dataIntercorrencia1.setText("20:20");
-        jpnl_incluirPedido.add(jtxtf_dataIntercorrencia1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 370, 80, 20));
+        jtxtf_horaIntercorrencia.setForeground(new java.awt.Color(204, 204, 204));
+        jtxtf_horaIntercorrencia.setText("20:20");
+        jpnl_incluirPedido.add(jtxtf_horaIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 370, 80, 20));
 
         jbtn_voltarIntercorrencia.setText("VOLTAR");
         jpnl_incluirPedido.add(jbtn_voltarIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 420, -1, -1));
 
-        jbtn_salvarIntercorrencia1.setText("SALVAR");
-        jpnl_incluirPedido.add(jbtn_salvarIntercorrencia1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, -1, -1));
+        jbtn_salvarIntercorrencia.setText("SALVAR");
+        jpnl_incluirPedido.add(jbtn_salvarIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, -1, -1));
 
         getContentPane().add(jpnl_incluirPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, 730, 490));
 
@@ -208,14 +208,14 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jbtn_salvarIntercorrencia1;
+    private javax.swing.JButton jbtn_salvarIntercorrencia;
     private javax.swing.JButton jbtn_voltarIntercorrencia;
     private javax.swing.JComboBox<String> jcmb_tipoIntecorrencia;
     private javax.swing.JLabel jlbl_clientes;
+    private javax.swing.JLabel jlbl_codigoPedido;
     private javax.swing.JLabel jlbl_dataIntercorrencia;
     private javax.swing.JLabel jlbl_detalheIntecorrencia;
     private javax.swing.JLabel jlbl_horaIntercorrencia;
-    private javax.swing.JLabel jlbl_idPedido2;
     private javax.swing.JLabel jlbl_pedidos;
     private javax.swing.JLabel jlbl_produtos;
     private javax.swing.JLabel jlbl_relatorios;
@@ -225,9 +225,9 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jpnl_img_etiqueta;
     private javax.swing.JPanel jpnl_incluirPedido;
     private javax.swing.JPanel jpnl_sideMenu;
+    private javax.swing.JTextField jtxtf_codigoPedido;
     private javax.swing.JTextField jtxtf_dataIntercorrencia;
-    private javax.swing.JTextField jtxtf_dataIntercorrencia1;
     private javax.swing.JTextField jtxtf_detaleIntercorrencia;
-    private javax.swing.JTextField jtxtf_idPedido1;
+    private javax.swing.JTextField jtxtf_horaIntercorrencia;
     // End of variables declaration//GEN-END:variables
 }
