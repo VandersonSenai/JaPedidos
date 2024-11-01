@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 import japedidos.bd.BD;
+import java.awt.Dimension;
+import java.util.HashMap;
 
 public class JFrame_ListaProdutos extends javax.swing.JFrame {
 /*
@@ -49,6 +51,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_img_etiqueta = new javax.swing.JLabel();
         jpnl_background_01 = new javax.swing.JLabel();
         jpnl_corpo = new javax.swing.JPanel();
+        jtb_linhaEncontrar = new javax.swing.JToolBar();
+        jlbl_encontrar = new javax.swing.JLabel();
+        jtxtf_pesquisa = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
         jlbl_descricao = new javax.swing.JLabel();
         jtxtf_descricao = new javax.swing.JTextField();
         jlbl_categoria = new javax.swing.JLabel();
@@ -59,13 +66,10 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jcmb_und = new javax.swing.JComboBox<>();
         jlbl_valor = new javax.swing.JLabel();
         jtxtf_valor = new javax.swing.JTextField();
-        jtb_linhaEncontrar = new javax.swing.JToolBar();
-        jlbl_encontrar = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jtxtf_pesquisa = new javax.swing.JTextField();
-        jpnl_btn_novo = new javax.swing.JLabel();
-        jpnl_btn_excluir = new javax.swing.JLabel();
-        jpnl_btn_salvar = new javax.swing.JLabel();
+        jlbl_btn_novo = new javax.swing.JLabel();
+        jlbl_btn_excluir = new javax.swing.JLabel();
+        jlbl_btn_salvar = new javax.swing.JLabel();
         jtbl_listaprodutos = new javax.swing.JScrollPane();
         jtbl_lista_produtos = new javax.swing.JTable();
         jpnl_background_02 = new javax.swing.JLabel();
@@ -184,66 +188,18 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_corpo.setPreferredSize(new java.awt.Dimension(1024, 576));
         jpnl_corpo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jlbl_descricao.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbl_descricao.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_descricao.setText("DESCRIÇÃO :");
-        jpnl_corpo.add(jlbl_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 430, -1, -1));
-
-        jtxtf_descricao.setBackground(new java.awt.Color(204, 204, 204));
-        jtxtf_descricao.setForeground(new java.awt.Color(0, 0, 0));
-        jpnl_corpo.add(jtxtf_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 430, 330, 30));
-
-        jlbl_categoria.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbl_categoria.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_categoria.setText("CATEGORIA :");
-        jpnl_corpo.add(jlbl_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 470, -1, -1));
-
-        jcmb_categoria.setBackground(new java.awt.Color(204, 204, 204));
-        jcmb_categoria.setForeground(new java.awt.Color(255, 255, 255));
-        jcmb_categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALIMENTO", "REFRIGERANTE", "MOLHOS" }));
-        jpnl_corpo.add(jcmb_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 470, 110, 30));
-
-        jlbl_codigo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbl_codigo.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_codigo.setText("CÓDIGO :");
-        jpnl_corpo.add(jlbl_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 390, -1, -1));
-
-        jtxtf_codigo.setBackground(new java.awt.Color(204, 204, 204));
-        jtxtf_codigo.setForeground(new java.awt.Color(0, 0, 0));
-        jpnl_corpo.add(jtxtf_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 390, 70, 30));
-
-        jlbl_und.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbl_und.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_und.setText("UND :");
-        jpnl_corpo.add(jlbl_und, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 430, 50, -1));
-
-        jcmb_und.setBackground(new java.awt.Color(204, 204, 204));
-        jcmb_und.setForeground(new java.awt.Color(255, 255, 255));
-        jcmb_und.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UNI", "KG", "SC" }));
-        jcmb_und.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcmb_undActionPerformed(evt);
-            }
-        });
-        jpnl_corpo.add(jcmb_und, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 430, 70, 30));
-
-        jlbl_valor.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbl_valor.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_valor.setText("VALOR :");
-        jpnl_corpo.add(jlbl_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 470, -1, -1));
-
-        jtxtf_valor.setBackground(new java.awt.Color(204, 204, 204));
-        jtxtf_valor.setForeground(new java.awt.Color(0, 0, 0));
-        jpnl_corpo.add(jtxtf_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 470, 100, 30));
-
         jtb_linhaEncontrar.setBackground(new java.awt.Color(102, 102, 102));
         jtb_linhaEncontrar.setBorder(null);
         jtb_linhaEncontrar.setFloatable(true);
         jtb_linhaEncontrar.setForeground(new java.awt.Color(102, 102, 102));
         jtb_linhaEncontrar.setBorderPainted(false);
+        jtb_linhaEncontrar.setEnabled(false);
+        jtb_linhaEncontrar.setFocusable(false);
+        jtb_linhaEncontrar.setRequestFocusEnabled(false);
         jpnl_corpo.add(jtb_linhaEncontrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 76, 3, 22));
 
         jlbl_encontrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon_lupa_padrao.png"))); // NOI18N
+        jlbl_encontrar.setNextFocusableComponent(jtxtf_pesquisa);
         jlbl_encontrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jlbl_encontrarMouseClicked(evt);
@@ -257,20 +213,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         });
         jpnl_corpo.add(jlbl_encontrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 76, -1, -1));
 
-        jButton1.setText("TESTE CONSULTA");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jpnl_corpo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 10, -1, -1));
-
         jtxtf_pesquisa.setBackground(new java.awt.Color(204, 204, 204));
         jtxtf_pesquisa.setForeground(new java.awt.Color(102, 102, 102));
         jtxtf_pesquisa.setText("Digite aqui que deseja encontrar...");
         jtxtf_pesquisa.setBorder(jtxtf_codigo.getBorder());
         jtxtf_pesquisa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jtxtf_pesquisa.setMargin(new java.awt.Insets(2, 54, 2, 6));
+        jtxtf_pesquisa.setNextFocusableComponent(jtxtf_codigo);
         jtxtf_pesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jtxtf_pesquisaFocusGained(evt);
@@ -291,54 +240,129 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         });
         jpnl_corpo.add(jtxtf_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 680, 34));
 
-        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_novo_padrao.png"))); // NOI18N
-        jpnl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTextField1.setText("pizza");
+        jpnl_corpo.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, -1, -1));
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jpnl_corpo.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 20, -1, -1));
+
+        jlbl_descricao.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_descricao.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_descricao.setText("DESCRIÇÃO :");
+        jpnl_corpo.add(jlbl_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 430, -1, -1));
+
+        jtxtf_descricao.setBackground(new java.awt.Color(204, 204, 204));
+        jtxtf_descricao.setForeground(new java.awt.Color(0, 0, 0));
+        jtxtf_descricao.setNextFocusableComponent(jcmb_und);
+        jpnl_corpo.add(jtxtf_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 430, 330, 30));
+
+        jlbl_categoria.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_categoria.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_categoria.setText("CATEGORIA :");
+        jpnl_corpo.add(jlbl_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 470, -1, -1));
+
+        jcmb_categoria.setBackground(new java.awt.Color(204, 204, 204));
+        jcmb_categoria.setForeground(new java.awt.Color(0, 0, 0));
+        jcmb_categoria.setNextFocusableComponent(jtxtf_valor);
+        jcmb_categoria.setPreferredSize(new java.awt.Dimension(400, 22));
+        jpnl_corpo.add(jcmb_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 470, 110, 30));
+
+        jlbl_codigo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_codigo.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_codigo.setText("CÓDIGO :");
+        jpnl_corpo.add(jlbl_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 390, -1, -1));
+
+        jtxtf_codigo.setBackground(new java.awt.Color(204, 204, 204));
+        jtxtf_codigo.setForeground(new java.awt.Color(0, 0, 0));
+        jtxtf_codigo.setNextFocusableComponent(jtxtf_descricao);
+        jpnl_corpo.add(jtxtf_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 390, 70, 30));
+
+        jlbl_und.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_und.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_und.setText("UND :");
+        jpnl_corpo.add(jlbl_und, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 430, 50, -1));
+
+        jcmb_und.setBackground(new java.awt.Color(204, 204, 204));
+        jcmb_und.setForeground(new java.awt.Color(255, 255, 255));
+        jcmb_und.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UNI", "KG", "SC" }));
+        jcmb_und.setNextFocusableComponent(jcmb_categoria);
+        jcmb_und.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcmb_undActionPerformed(evt);
+            }
+        });
+        jpnl_corpo.add(jcmb_und, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 430, 70, 30));
+
+        jlbl_valor.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_valor.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_valor.setText("VALOR :");
+        jpnl_corpo.add(jlbl_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 470, -1, -1));
+
+        jtxtf_valor.setBackground(new java.awt.Color(204, 204, 204));
+        jtxtf_valor.setForeground(new java.awt.Color(0, 0, 0));
+        jtxtf_valor.setNextFocusableComponent(jlbl_btn_novo);
+        jpnl_corpo.add(jtxtf_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 470, 100, 30));
+
+        jButton1.setText("TESTE CONSULTA");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jpnl_corpo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 10, -1, -1));
+
+        jlbl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\JAPEDIDOS\\JaPedidos\\src\\main\\java\\japedidos\\pedidos\\imagens\\btn_novo_padrao.png")); // NOI18N
+        jlbl_btn_novo.setNextFocusableComponent(jlbl_btn_excluir);
+        jlbl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jpnl_btn_novoMouseClicked(evt);
+                jlbl_btn_novoMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jpnl_btn_novoMousePressed(evt);
+                jlbl_btn_novoMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jpnl_btn_novoMouseReleased(evt);
+                jlbl_btn_novoMouseReleased(evt);
             }
         });
-        jpnl_corpo.add(jpnl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 390, -1, -1));
+        jpnl_corpo.add(jlbl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 390, -1, -1));
 
-        jpnl_btn_excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_excluir_padrao.png"))); // NOI18N
-        jpnl_btn_excluir.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlbl_btn_excluir.setIcon(new javax.swing.ImageIcon("C:\\JAPEDIDOS\\JaPedidos\\src\\main\\java\\japedidos\\pedidos\\imagens\\btn_excluir_padrao.png")); // NOI18N
+        jlbl_btn_excluir.setNextFocusableComponent(jlbl_btn_salvar);
+        jlbl_btn_excluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jpnl_btn_excluirMousePressed(evt);
+                jlbl_btn_excluirMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jpnl_btn_excluirMouseReleased(evt);
+                jlbl_btn_excluirMouseReleased(evt);
             }
         });
-        jpnl_corpo.add(jpnl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 430, -1, -1));
+        jpnl_corpo.add(jlbl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 430, -1, -1));
 
-        jpnl_btn_salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_salvar_padrao.png"))); // NOI18N
-        jpnl_btn_salvar.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlbl_btn_salvar.setIcon(new javax.swing.ImageIcon("C:\\JAPEDIDOS\\JaPedidos\\src\\main\\java\\japedidos\\pedidos\\imagens\\btn_salvar_padrao.png")); // NOI18N
+        jlbl_btn_salvar.setNextFocusableComponent(jtxtf_pesquisa);
+        jlbl_btn_salvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jpnl_btn_salvarMousePressed(evt);
+                jlbl_btn_salvarMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jpnl_btn_salvarMouseReleased(evt);
+                jlbl_btn_salvarMouseReleased(evt);
             }
         });
-        jpnl_corpo.add(jpnl_btn_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 470, -1, -1));
+        jpnl_corpo.add(jlbl_btn_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 470, -1, -1));
+
+        jtbl_listaprodutos.setAutoscrolls(true);
 
         jtbl_lista_produtos.setBackground(new java.awt.Color(153, 204, 255));
         jtbl_lista_produtos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jtbl_lista_produtos.setForeground(new java.awt.Color(255, 255, 255));
         jtbl_lista_produtos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "BOLINHA DE QUEIJO", "ALIMENTO", null, null, "UNI", null},
-                {null, "COXINHA DE FRANGO", "ALIMENTO", null, null, "UNI", null},
-                {null, "KIBE DE CARNE", "ALIMENTO", null, null, "UNI", null},
-                {null, "RISSOLE DE PIZZA", "ALIMENTO", null, null, "UNI", null},
-                {null, "RISSOLE DE CAMARÃO", "ALIMENTO", null, null, "UNI", null},
-                {null, "MINI CHURROS", "ALIMENTO", null, null, "UNI", null},
-                {null, "ENROLADO DE SALSICHA ", "ALIMENTO", null, null, "UNI", null}
+
             },
             new String [] {
                 "Codigo", "Descrição", "Categoria", "Custo(R$)", "Venda(R$)", "Unidade ", "Ativo"
@@ -348,7 +372,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -361,7 +385,8 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         });
         jtbl_lista_produtos.setToolTipText("");
         jtbl_lista_produtos.setMinimumSize(new java.awt.Dimension(90, 160));
-        jtbl_lista_produtos.setPreferredSize(new java.awt.Dimension(655, 204));
+        jtbl_lista_produtos.setPreferredSize(new java.awt.Dimension(658, 204));
+        jtbl_lista_produtos.setShowGrid(false);
         jtbl_lista_produtos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtbl_lista_produtosMouseClicked(evt);
@@ -372,7 +397,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             jtbl_lista_produtos.getColumnModel().getColumn(0).setResizable(false);
             jtbl_lista_produtos.getColumnModel().getColumn(0).setPreferredWidth(60);
             jtbl_lista_produtos.getColumnModel().getColumn(1).setResizable(false);
-            jtbl_lista_produtos.getColumnModel().getColumn(1).setPreferredWidth(350);
+            jtbl_lista_produtos.getColumnModel().getColumn(1).setPreferredWidth(352);
             jtbl_lista_produtos.getColumnModel().getColumn(2).setResizable(false);
             jtbl_lista_produtos.getColumnModel().getColumn(2).setPreferredWidth(90);
             jtbl_lista_produtos.getColumnModel().getColumn(3).setResizable(false);
@@ -413,41 +438,41 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jlbl_produtosFocusGained
 
-    private void jpnl_btn_novoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_novoMousePressed
+    private void jlbl_btn_novoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_novoMousePressed
         // TODO add your handling code here:
-        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\btn_novo_pressionado.png")); 
-    }//GEN-LAST:event_jpnl_btn_novoMousePressed
+        jlbl_btn_novo.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\btn_novo_pressionado.png")); 
+    }//GEN-LAST:event_jlbl_btn_novoMousePressed
 
-    private void jpnl_btn_novoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_novoMouseClicked
+    private void jlbl_btn_novoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_novoMouseClicked
         // TODO add your handling code here:
     
 
-    }//GEN-LAST:event_jpnl_btn_novoMouseClicked
+    }//GEN-LAST:event_jlbl_btn_novoMouseClicked
 
-    private void jpnl_btn_novoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_novoMouseReleased
+    private void jlbl_btn_novoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_novoMouseReleased
         // TODO add your handling code here:
-        jpnl_btn_novo.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\btn_novo_padrao.png")); 
-    }//GEN-LAST:event_jpnl_btn_novoMouseReleased
+        jlbl_btn_novo.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\btn_novo_padrao.png")); 
+    }//GEN-LAST:event_jlbl_btn_novoMouseReleased
 
-    private void jpnl_btn_excluirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_excluirMousePressed
+    private void jlbl_btn_excluirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_excluirMousePressed
         // TODO add your handling code here:
-        jpnl_btn_excluir.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\btn_excluir_pressionado.png")); 
-    }//GEN-LAST:event_jpnl_btn_excluirMousePressed
+        jlbl_btn_excluir.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\btn_excluir_pressionado.png")); 
+    }//GEN-LAST:event_jlbl_btn_excluirMousePressed
 
-    private void jpnl_btn_excluirMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_excluirMouseReleased
+    private void jlbl_btn_excluirMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_excluirMouseReleased
         // TODO add your handling code here:
-        jpnl_btn_excluir.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\btn_excluir_padrao.png")); 
-    }//GEN-LAST:event_jpnl_btn_excluirMouseReleased
+        jlbl_btn_excluir.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\btn_excluir_padrao.png")); 
+    }//GEN-LAST:event_jlbl_btn_excluirMouseReleased
 
-    private void jpnl_btn_salvarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_salvarMouseReleased
+    private void jlbl_btn_salvarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_salvarMouseReleased
         // TODO add your handling code here:
-        jpnl_btn_salvar.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\btn_salvar_padrao.png")); 
-    }//GEN-LAST:event_jpnl_btn_salvarMouseReleased
+        jlbl_btn_salvar.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\btn_salvar_padrao.png")); 
+    }//GEN-LAST:event_jlbl_btn_salvarMouseReleased
 
-    private void jpnl_btn_salvarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnl_btn_salvarMousePressed
+    private void jlbl_btn_salvarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_salvarMousePressed
         // TODO add your handling code here:
-        jpnl_btn_salvar.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\btn_salvar_pressionado.png")); 
-    }//GEN-LAST:event_jpnl_btn_salvarMousePressed
+        jlbl_btn_salvar.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\btn_salvar_pressionado.png")); 
+    }//GEN-LAST:event_jlbl_btn_salvarMousePressed
 
     private void jlbl_clientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_clientesMouseEntered
         // TODO add your handling code here:
@@ -536,14 +561,10 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jlbl_relatoriosMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        TODO add your handling code here:
-          String encontrar = jtxtf_pesquisa.getText();
-//          String sql = "select * from listaTodosProdutos group by nome having nome LIKE '%" + encontrar + "%'";
-          String sql = "select * from listaTodosProdutos group by nome ";
-
-//        String sql = "SELECT * FROM listaTodosProdutos GROUP BY nome LIKE "; 
-
-//        String sql = "SELECT * FROM listaTodosProdutos GROUP BY nome ";
+        String encontrar = jtxtf_pesquisa.getText();
+        String sql = "select * from listaTodosProdutos group by nome ";
+//        String sql_categoria = "select * from categoria group by nome"; 
+        
         Connection conexao = null;
         PreparedStatement statement = null;
 
@@ -557,23 +578,14 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         */
         try
         {
-            
-//            Connection con=(Connection)DriverManager.getConnection("jdbc:mysql://localhost/titanw25_japedidos_hml", "root", "");
-//            PreparedStatement banco = (PreparedStatement)con.prepareStatement(sql);
             conexao = DriverManager.getConnection(url, usuario, senha);
             statement = conexao.prepareStatement(sql);
-/*         
-            String encontrar = jtxtf_pesquisa.getText();
-            sql = sql + "'%" + encontrar + "'";
-
-               */     
             statement.execute(); // cria o vetor
             ResultSet resultado = statement.executeQuery(sql);
 
             DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
             model.setRowCount(0);
-            model.setNumRows(0);
-            
+
 
             while(resultado.next())
             {
@@ -596,13 +608,17 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
           {
              System.out.println("o erro foi " +ex);
             }            
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jtbl_lista_produtosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbl_lista_produtosMouseClicked
         // TODO add your handling code here:
-        System.out.println("Linha Selecionada - " + jtbl_lista_produtos.getSelectedRow());
-        System.out.println("Coluna Selecionada - " + jtbl_lista_produtos.getSelectedColumn());
-        System.out.println("Coluna Selecionada - " + jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), jtbl_lista_produtos.getSelectedColumn()));
+        System.out.println( "\n Linha - " + jtbl_lista_produtos.getSelectedRow()+
+                            "\n Coluna - " + jtbl_lista_produtos.getSelectedColumn()+
+                            "\n Descricao :  - " + jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 
+                                                1));
+
         jtxtf_codigo.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 0));
         jtxtf_descricao.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 1));
         jcmb_categoria.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
@@ -646,7 +662,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
             DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
             model.setNumRows(0);
-            model.setRowCount(0);
             model.getDataVector().removeAllElements();
             model.fireTableDataChanged();
 
@@ -754,8 +769,8 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jlbl_encontrarMouseClicked
 
     private void jtxtf_pesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtf_pesquisaKeyTyped
-        // TODO add your handling code here:
-        if ( (jtxtf_pesquisa.getText().length()>=3) & (!jtxtf_pesquisa.getText().equals("Digite aqui que deseja encontrar...")) ){
+
+        if ( (jtxtf_pesquisa.getText().length()>=2) & (!jtxtf_pesquisa.getText().equals("Digite aqui que deseja encontrar...")) ){
             System.out.println("OOOOOOOOOOI");
         String encontrar = jtxtf_pesquisa.getText();
         String sql = "";
@@ -770,11 +785,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
         String usuario = "root";
         String senha = "";
-/*
-        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
-        String usuario = "titanw25_japedidos_hml";
-        String senha = "seNai@2024proj";
-        */
+
+//        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
+//        String usuario = "titanw25_japedidos_hml";
+//        String senha = "seNai@2024proj";
+  
         try
         {
             conexao = DriverManager.getConnection(url, usuario, senha);
@@ -810,11 +825,74 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         
             
         }
+        
     }//GEN-LAST:event_jtxtf_pesquisaKeyTyped
 
     private void jcmb_undActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmb_undActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcmb_undActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // Configuração do banco de dados
+        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+        String usuario = "root";
+        String senha = "";        
+
+        Connection banco = null;
+
+        // Criação do JComboBox
+//        JComboBox<String> comboBoxCategorias = new JComboBox<>();
+
+        // Mapa para armazenar índice e nome
+        HashMap<Integer, String[]> categoriaMap = new HashMap<>();
+
+        try {
+            // Estabelece a conexão com o banco de dados
+            banco = DriverManager.getConnection(url, usuario, senha);
+
+            // Consulta SQL para obter os dados de 'categorias'
+            String sql = "SELECT id, nome, descricao FROM categoria ORDER BY nome ASC";
+            String sql_uni = "SELECT id, nome, descricao FROM categoria ORDER BY nome ASC";
+            PreparedStatement stmt = banco.prepareStatement(sql);
+
+            // Executa a consulta e obtém o resultado
+            ResultSet resultado = stmt.executeQuery();
+
+            // Armazena as categorias no mapa e adiciona os nomes ao JComboBox
+            while (resultado.next()) {
+                int index = resultado.getInt("id");  // Obtém o índice
+                String nomeCategoria = resultado.getString("nome");  // Obtém o nome
+                String nomeDescricao = resultado.getString("descricao");  // Obtém o descricao
+
+                // Mapeia o índice para o nome
+                //categoriaMap.put(index, nomeCategoria);
+                categoriaMap.put(index, new String[]{nomeCategoria, nomeDescricao});
+
+                // Adiciona o nome ao JComboBox
+                jcmb_categoria.addItem(nomeCategoria + " | " + nomeDescricao);
+                
+            }
+
+            // Fecha os recuresultadoos
+            resultado.close();
+            stmt.close();
+            //int width = Math.max(width,jcmb_categoria.getPreferredSize().width);
+            jcmb_categoria.setPreferredSize(new Dimension(300, jcmb_categoria.getPreferredSize().height));
+//            setPreferredSize(new Dimension(100, jcmb_categoria.getPreferredSize().height));
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (banco != null && !banco.isClosed()) {
+                    banco.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -829,7 +907,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         Path currentRelativePath = Paths.get("");
         String caminhoImagens = currentRelativePath.toAbsolutePath().toString();
         caminhoImagens = Paths.get(".").toAbsolutePath().normalize().toString();
-        System.out.print("Current absolute path is: " + caminhoImagens);
+        System.out.print("O diretorio atual : " + caminhoImagens + "\n");
         
                 
         try {
@@ -867,8 +945,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JComboBox<String> jcmb_categoria;
     private javax.swing.JComboBox<String> jcmb_und;
+    private javax.swing.JLabel jlbl_btn_excluir;
+    private javax.swing.JLabel jlbl_btn_novo;
+    private javax.swing.JLabel jlbl_btn_salvar;
     private javax.swing.JLabel jlbl_categoria;
     private javax.swing.JLabel jlbl_clientes;
     private javax.swing.JLabel jlbl_codigo;
@@ -881,9 +964,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     private javax.swing.JLabel jlbl_valor;
     private javax.swing.JLabel jpnl_background_01;
     private javax.swing.JLabel jpnl_background_02;
-    private javax.swing.JLabel jpnl_btn_excluir;
-    private javax.swing.JLabel jpnl_btn_novo;
-    private javax.swing.JLabel jpnl_btn_salvar;
     private javax.swing.JPanel jpnl_corpo;
     private javax.swing.JLabel jpnl_img_etiqueta;
     private javax.swing.JPanel jpnl_sideMenu;
