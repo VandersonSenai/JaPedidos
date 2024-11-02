@@ -41,8 +41,6 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame {
         jlbl_bairroHistorico = new javax.swing.JLabel();
         jlbl_ruaHistorico = new javax.swing.JLabel();
         jtxtf_cidadeHistorico = new javax.swing.JTextField();
-        jscp_produtosInseridos = new javax.swing.JScrollPane();
-        jtbl_produtosInseridosHistorico = new javax.swing.JTable();
         jlbl_cidadeHistorico = new javax.swing.JLabel();
         jtxtf_ufHistorico = new javax.swing.JTextField();
         jlbl_tipoEntregaHistorico = new javax.swing.JLabel();
@@ -61,6 +59,8 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame {
         jlbl_nomeClienteHistorico = new javax.swing.JLabel();
         jtxtf_numeroHistorico = new javax.swing.JTextField();
         jlbl_numeroHistorico = new javax.swing.JLabel();
+        jtbl_listaprodutos = new javax.swing.JScrollPane();
+        jtbl_lista_produtos = new javax.swing.JTable();
         jpnl_sideMenu = new javax.swing.JPanel();
         jlbl_clientes = new javax.swing.JLabel();
         jlbl_produtos = new javax.swing.JLabel();
@@ -139,37 +139,6 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame {
 
         jtxtf_cidadeHistorico.setForeground(new java.awt.Color(204, 204, 204));
         jpnl_incluirPedido.add(jtxtf_cidadeHistorico, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, 210, -1));
-
-        jtbl_produtosInseridosHistorico.setBackground(new java.awt.Color(153, 204, 255));
-        jtbl_produtosInseridosHistorico.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jtbl_produtosInseridosHistorico.setForeground(new java.awt.Color(255, 255, 255));
-        jtbl_produtosInseridosHistorico.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                { new Integer(1), "BOLINHA DE QUEIJO", "ALIMENTO", "UND",  new Double(0.75)},
-                { new Integer(2), "COXINHA DE FRANGO", "ALIMENTO", "UND",  new Double(0.75)},
-                { new Integer(3), "KIBE DE CARNE", "ALIMENTO", "UND",  new Double(0.65)},
-                { new Integer(4), "RISSOLE DE PIZZA", "ALIMENTO", "UND",  new Double(0.65)},
-                { new Integer(5), "RISSOLE DE CAMARÃO", "ALIMENTO", "UND",  new Double(0.75)},
-                { new Integer(6), "MINI CHURROS", "ALIMENTO", "UND",  new Double(0.55)},
-                { new Integer(7), "ENROLADO DE SALSICHA ", "ALIMENTO", "UND",  new Double(0.55)}
-            },
-            new String [] {
-                "Cód.", "Descrição", "Categoria", "Unid.", "Valor(R$)"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jtbl_produtosInseridosHistorico.setMinimumSize(new java.awt.Dimension(20, 160));
-        jtbl_produtosInseridosHistorico.setPreferredSize(new java.awt.Dimension(655, 204));
-        jscp_produtosInseridos.setViewportView(jtbl_produtosInseridosHistorico);
-
-        jpnl_incluirPedido.add(jscp_produtosInseridos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 570, 170));
 
         jlbl_cidadeHistorico.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_cidadeHistorico.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -260,6 +229,52 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame {
         jlbl_numeroHistorico.setText("Nº");
         jpnl_incluirPedido.add(jlbl_numeroHistorico, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, -1, -1));
 
+        jtbl_listaprodutos.setAutoscrolls(true);
+
+        jtbl_lista_produtos.setBackground(new java.awt.Color(153, 204, 255));
+        jtbl_lista_produtos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jtbl_lista_produtos.setForeground(new java.awt.Color(255, 255, 255));
+        jtbl_lista_produtos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Descrição", "Categoria", "Unidade ", "Venda(R$)"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtbl_lista_produtos.setToolTipText("");
+        jtbl_lista_produtos.setMinimumSize(new java.awt.Dimension(90, 160));
+        jtbl_lista_produtos.setPreferredSize(new java.awt.Dimension(658, 204));
+        jtbl_lista_produtos.setShowGrid(false);
+        jtbl_lista_produtos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtbl_lista_produtosMouseClicked(evt);
+            }
+        });
+        jtbl_listaprodutos.setViewportView(jtbl_lista_produtos);
+        if (jtbl_lista_produtos.getColumnModel().getColumnCount() > 0) {
+            jtbl_lista_produtos.getColumnModel().getColumn(0).setPreferredWidth(60);
+            jtbl_lista_produtos.getColumnModel().getColumn(1).setPreferredWidth(350);
+            jtbl_lista_produtos.getColumnModel().getColumn(4).setPreferredWidth(55);
+        }
+
+        jpnl_incluirPedido.add(jtbl_listaprodutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 730, 190));
+
         getContentPane().add(jpnl_incluirPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, -1));
 
         jpnl_sideMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -342,6 +357,19 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jlbl_produtosFocusGained
 
+    private void jtbl_lista_produtosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbl_lista_produtosMouseClicked
+        // TODO add your handling code here:
+        System.out.println( "\n Linha - " + jtbl_lista_produtos.getSelectedRow()+
+            "\n Coluna - " + jtbl_lista_produtos.getSelectedColumn()+
+            "\n Descricao :  - " + jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(),
+                1));
+
+        jtxtf_codigo.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 0));
+        jtxtf_descricao.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 1));
+        jcmb_categoria.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
+        jcmb_und.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 5));
+    }//GEN-LAST:event_jtbl_lista_produtosMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -406,8 +434,8 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame {
     private javax.swing.JPanel jpnl_incluirPedido;
     private javax.swing.JPanel jpnl_sideMenu;
     private javax.swing.JScrollPane jscp_destinatario;
-    private javax.swing.JScrollPane jscp_produtosInseridos;
-    private javax.swing.JTable jtbl_produtosInseridosHistorico;
+    private javax.swing.JTable jtbl_lista_produtos;
+    private javax.swing.JScrollPane jtbl_listaprodutos;
     private javax.swing.JTextArea jtxta_destinatarioHistorico;
     private javax.swing.JTextField jtxtf_bairroHistorico;
     private javax.swing.JTextField jtxtf_cidadeHistorico;

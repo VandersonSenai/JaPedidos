@@ -774,9 +774,9 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jlbl_encontrarMouseClicked
 
     private void jtxtf_pesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtf_pesquisaKeyTyped
-
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        
         if ( (jtxtf_pesquisa.getText().length()>=2) & (!jtxtf_pesquisa.getText().equals("Digite aqui que deseja encontrar...")) ){
-            System.out.println("OOOOOOOOOOI");
         String encontrar = jtxtf_pesquisa.getText();
         String sql = "";
         
@@ -831,7 +831,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         }
           catch (SQLException ex)
           {
-             System.out.println("o erro foi " +ex);
+             System.out.println("o erro foi : " +ex);
             }
         
             
