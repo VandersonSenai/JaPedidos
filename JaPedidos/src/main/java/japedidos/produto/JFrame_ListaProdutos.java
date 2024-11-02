@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import japedidos.bd.BD;
 import java.awt.Dimension;
 import java.util.HashMap;
+import java.text.NumberFormat;
 
 public class JFrame_ListaProdutos extends javax.swing.JFrame {
 /*
@@ -198,7 +199,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtb_linhaEncontrar.setRequestFocusEnabled(false);
         jpnl_corpo.add(jtb_linhaEncontrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 76, 3, 22));
 
-        jlbl_encontrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon_lupa_padrao.png"))); // NOI18N
+        jlbl_encontrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon_encontrar.png"))); // NOI18N
         jlbl_encontrar.setNextFocusableComponent(jtxtf_pesquisa);
         jlbl_encontrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -270,6 +271,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jcmb_categoria.setForeground(new java.awt.Color(0, 0, 0));
         jcmb_categoria.setNextFocusableComponent(jtxtf_valor);
         jcmb_categoria.setPreferredSize(new java.awt.Dimension(400, 22));
+        jcmb_categoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcmb_categoriaActionPerformed(evt);
+            }
+        });
         jpnl_corpo.add(jcmb_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 470, 110, 30));
 
         jlbl_codigo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -289,7 +295,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         jcmb_und.setBackground(new java.awt.Color(204, 204, 204));
         jcmb_und.setForeground(new java.awt.Color(255, 255, 255));
-        jcmb_und.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UNI", "KG", "SC" }));
         jcmb_und.setNextFocusableComponent(jcmb_categoria);
         jcmb_und.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -401,7 +406,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             jtbl_lista_produtos.getColumnModel().getColumn(2).setResizable(false);
             jtbl_lista_produtos.getColumnModel().getColumn(2).setPreferredWidth(90);
             jtbl_lista_produtos.getColumnModel().getColumn(3).setResizable(false);
-            jtbl_lista_produtos.getColumnModel().getColumn(3).setPreferredWidth(66);
             jtbl_lista_produtos.getColumnModel().getColumn(4).setResizable(false);
             jtbl_lista_produtos.getColumnModel().getColumn(5).setResizable(false);
             jtbl_lista_produtos.getColumnModel().getColumn(5).setPreferredWidth(55);
@@ -602,11 +606,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                 }); 
            } 
             statement.close();
-            statement.close();
+//            statement.close();
         }
           catch (SQLException ex)
           {
-             System.out.println("o erro foi " +ex);
+             System.out.println("o erro foi :  " +ex);
             }            
         
         
@@ -622,6 +626,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtxtf_codigo.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 0));
         jtxtf_descricao.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 1));
         jcmb_categoria.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
+        jcmb_und.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 5));
     }//GEN-LAST:event_jtbl_lista_produtosMouseClicked
 
     private void jtxtf_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_pesquisaActionPerformed
@@ -797,6 +802,12 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
             statement.execute();
             ResultSet resultado = statement.executeQuery(sql);
+            
+/*
+            String encontrar = jtxtf_pesquisa.getText();
+            System.out.println("Texto = " + encontrar);
+            statement.setString(1, encontrar);
+*/
 
             DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
             model.setRowCount(0);
@@ -845,6 +856,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         // Mapa para armazenar índice e nome
         HashMap<Integer, String[]> categoriaMap = new HashMap<>();
+        HashMap<Integer, String[]> categoriaMap_unidade = new HashMap<>();
 
         try {
             // Estabelece a conexão com o banco de dados
@@ -852,34 +864,44 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
             // Consulta SQL para obter os dados de 'categorias'
             String sql = "SELECT id, nome, descricao FROM categoria ORDER BY nome ASC";
-            String sql_uni = "SELECT id, nome, descricao FROM categoria ORDER BY nome ASC";
+            String sql_unidade = "SELECT id, abreviacao FROM unidade ORDER BY abreviacao ASC";
             PreparedStatement stmt = banco.prepareStatement(sql);
+            PreparedStatement stmt_categoria = banco.prepareStatement(sql_unidade);
 
             // Executa a consulta e obtém o resultado
             ResultSet resultado = stmt.executeQuery();
+            ResultSet resultado_unidade = stmt_categoria.executeQuery();
 
             // Armazena as categorias no mapa e adiciona os nomes ao JComboBox
             while (resultado.next()) {
                 int index = resultado.getInt("id");  // Obtém o índice
                 String nomeCategoria = resultado.getString("nome");  // Obtém o nome
-                String nomeDescricao = resultado.getString("descricao");  // Obtém o descricao
+//                  String nomeDescricao = resultado.getString("descricao");  // Obtém o descricao
+//                  categoriaMap.put(index, nomeCategoria);
+//                  categoriaMap.put(index, new String[]{nomeCategoria, nomeDescricao});
+                categoriaMap.put(index, new String[]{nomeCategoria});
+//                  Adiciona o nome ao JComboBox
+                jcmb_categoria.addItem(nomeCategoria);
+            }
 
-                // Mapeia o índice para o nome
-                //categoriaMap.put(index, nomeCategoria);
-                categoriaMap.put(index, new String[]{nomeCategoria, nomeDescricao});
-
-                // Adiciona o nome ao JComboBox
-                jcmb_categoria.addItem(nomeCategoria + " | " + nomeDescricao);
-                
+            while (resultado_unidade.next()) {
+                int index = resultado_unidade.getInt("id");  // Obtém o índice
+                String nomeCategoria = resultado_unidade.getString("abreviacao");  // Obtém o nome
+//                  String nomeDescricao = resultado.getString("descricao");  // Obtém o descricao
+//                  categoriaMap.put(index, nomeCategoria);
+//                  categoriaMap.put(index, new String[]{nomeCategoria, nomeDescricao});
+                categoriaMap_unidade.put(index, new String[]{nomeCategoria});
+//                  Adiciona o nome ao JComboBox
+                jcmb_und.addItem(nomeCategoria);
             }
 
             // Fecha os recuresultadoos
             resultado.close();
             stmt.close();
-            //int width = Math.max(width,jcmb_categoria.getPreferredSize().width);
-            jcmb_categoria.setPreferredSize(new Dimension(300, jcmb_categoria.getPreferredSize().height));
-//            setPreferredSize(new Dimension(100, jcmb_categoria.getPreferredSize().height));
-            
+
+            resultado_unidade.close();
+            stmt_categoria.close();
+  
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -893,6 +915,15 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jcmb_categoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmb_categoriaActionPerformed
+        // TODO add your handling code here:
+                System.out.println(  "\n Contagem - " + jcmb_categoria.getItemCount()+
+                                                "\n getActionListeners - " + jcmb_categoria.getActionListeners()+
+                                                "\n getSelectedIndex - " + jcmb_categoria.getSelectedIndex()+
+                                                "\n getSelectedItem - " + jcmb_categoria.getSelectedItem()
+                                                );
+    }//GEN-LAST:event_jcmb_categoriaActionPerformed
 
     /**
      * @param args the command line arguments
