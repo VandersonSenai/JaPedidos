@@ -54,7 +54,6 @@ public class JFrame_LoginUsuario extends javax.swing.JFrame {
         jtxtf_login.setText("Nome do usuário");
         jtxtf_login.setBorder(null);
         jtxtf_login.setMargin(new java.awt.Insets(10, 10, 10, 18));
-        jtxtf_login.setOpaque(false);
         jtxtf_login.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         jtxtf_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,7 +68,6 @@ public class JFrame_LoginUsuario extends javax.swing.JFrame {
         jpwf_senha.setMargin(new java.awt.Insets(10, 10, 10, 10));
         jpwf_senha.setMaximumSize(new java.awt.Dimension(260, 40));
         jpwf_senha.setMinimumSize(new java.awt.Dimension(260, 40));
-        jpwf_senha.setOpaque(false);
         jpwf_senha.setPreferredSize(new java.awt.Dimension(260, 40));
         jPanel1.add(jpwf_senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, 240, 40));
 
