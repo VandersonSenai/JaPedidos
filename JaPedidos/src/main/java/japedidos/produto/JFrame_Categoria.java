@@ -76,7 +76,14 @@ public class JFrame_Categoria extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jpnl_tudo = new javax.swing.JPanel();
+        jpn_sideMenu = new javax.swing.JPanel();
+        jlbl_clientes = new javax.swing.JLabel();
+        jlbl_clientes1 = new javax.swing.JLabel();
+        jlbl_clientes2 = new javax.swing.JLabel();
+        jlbl_clientes3 = new javax.swing.JLabel();
+        jlbl_etiqueta = new javax.swing.JLabel();
+        jpnl_principal = new javax.swing.JPanel();
         jtbl_categoria = new japedidos.produto.JTable_Categoria();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -84,54 +91,75 @@ public class JFrame_Categoria extends javax.swing.JFrame {
         jtxtf_nome = new javax.swing.JTextField();
         jtxtf_id = new javax.swing.JTextField();
         jtxtf_descricao = new javax.swing.JTextField();
-        jbtn_inserir = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jbtn_limparSelecao = new javax.swing.JButton();
+        jlbl_btn_novo = new javax.swing.JLabel();
+        jlbl_btn_excluir = new javax.swing.JLabel();
+        jlbl_btn_salvar = new javax.swing.JLabel();
+        jlbl_campo = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jlbl_bg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Categoria");
+        setMaximumSize(new java.awt.Dimension(1024, 576));
+        setMinimumSize(new java.awt.Dimension(1024, 576));
+        setPreferredSize(new java.awt.Dimension(1024, 576));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jtbl_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 180));
+        jpnl_tudo.setMaximumSize(new java.awt.Dimension(1024, 576));
+        jpnl_tudo.setMinimumSize(new java.awt.Dimension(1024, 576));
+        jpnl_tudo.setPreferredSize(new java.awt.Dimension(1024, 576));
+        jpnl_tudo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Id");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
+        jpn_sideMenu.setMaximumSize(new java.awt.Dimension(250, 576));
+        jpn_sideMenu.setMinimumSize(new java.awt.Dimension(250, 576));
+        jpn_sideMenu.setOpaque(false);
+        jpn_sideMenu.setPreferredSize(new java.awt.Dimension(250, 576));
+        jpn_sideMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("Nome");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, -1, -1));
+        jlbl_clientes.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_clientes.setText("RELATÓRIOS");
+        jpn_sideMenu.add(jlbl_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 130, -1));
 
-        jLabel3.setText("Descrição");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 240, -1, -1));
-        jPanel1.add(jtxtf_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 200, -1));
-        jPanel1.add(jtxtf_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 120, -1));
-        jPanel1.add(jtxtf_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 260, 140, -1));
+        jlbl_clientes1.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_clientes1.setText("CLIENTES");
+        jpn_sideMenu.add(jlbl_clientes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 90, -1));
 
-        jbtn_inserir.setText("Inserir");
-        jbtn_inserir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtn_inserirActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbtn_inserir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 110, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 520, 10));
+        jlbl_clientes2.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_clientes2.setText("PRODUTOS");
+        jpn_sideMenu.add(jlbl_clientes2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 120, -1));
 
-        jButton1.setText("Alterar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, 110, -1));
+        jlbl_clientes3.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_clientes3.setText("PEDIDOS");
+        jpn_sideMenu.add(jlbl_clientes3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 100, -1));
 
-        jButton2.setText("Excluir");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 330, 120, -1));
+        jlbl_etiqueta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/painel_comandos_esquerda_05x.png"))); // NOI18N
+        jpn_sideMenu.add(jlbl_etiqueta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, -1, -1));
+
+        jpnl_tudo.add(jpn_sideMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 576));
+
+        jpnl_principal.setOpaque(false);
+        jpnl_principal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jpnl_principal.add(jtbl_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 550, 240));
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(30, 30, 30));
+        jLabel1.setText("ID:");
+        jpnl_principal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(30, 30, 30));
+        jLabel2.setText("NOME:");
+        jpnl_principal.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(30, 30, 30));
+        jLabel3.setText("DESCRIÇÃO:");
+        jpnl_principal.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
+        jpnl_principal.add(jtxtf_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 310, 40));
+        jpnl_principal.add(jtxtf_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 100, 40));
+        jpnl_principal.add(jtxtf_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 430, 40));
 
         jbtn_limparSelecao.setText("Limpar seleção");
         jbtn_limparSelecao.addActionListener(new java.awt.event.ActionListener() {
@@ -139,43 +167,71 @@ public class JFrame_Categoria extends javax.swing.JFrame {
                 jbtn_limparSelecaoActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtn_limparSelecao, new org.netbeans.lib.awtextra.AbsoluteConstraints(428, 180, 140, -1));
+        jpnl_principal.add(jbtn_limparSelecao, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 480, 140, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
-        );
+        jlbl_btn_novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_novo_padrao.png"))); // NOI18N
+        jlbl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlbl_btn_novoMouseClicked(evt);
+            }
+        });
+        jpnl_principal.add(jlbl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, -1, -1));
+
+        jlbl_btn_excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_excluir_padrao.png"))); // NOI18N
+        jlbl_btn_excluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlbl_btn_excluirMouseClicked(evt);
+            }
+        });
+        jpnl_principal.add(jlbl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 180, -1, -1));
+
+        jlbl_btn_salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_salvar_padrao.png"))); // NOI18N
+        jlbl_btn_salvar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlbl_btn_salvarMouseClicked(evt);
+            }
+        });
+        jpnl_principal.add(jlbl_btn_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 140, -1, -1));
+        jpnl_principal.add(jlbl_campo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, -1, -1));
+
+        jButton1.setText("Voltar");
+        jpnl_principal.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 510, 140, -1));
+
+        jpnl_tudo.add(jpnl_principal, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 750, 570));
+
+        jlbl_bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_produtos_075x.png"))); // NOI18N
+        jpnl_tudo.add(jlbl_bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        getContentPane().add(jpnl_tudo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -2, 1024, 576));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtn_inserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_inserirActionPerformed
-        
+    private void jbtn_limparSelecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_limparSelecaoActionPerformed
+        clearFieldsInfo();
+        jtbl_categoria.getJTable().getSelectionModel().clearSelection();
+    }//GEN-LAST:event_jbtn_limparSelecaoActionPerformed
+
+    private void jlbl_btn_novoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_novoMouseClicked
         Categoria newCategoria = this.getFieldsInfo();
         if (BD.Categoria.insert(newCategoria) > 0) {
             jtbl_categoria.refresh();
             this.clearFieldsInfo();
         }
-    }//GEN-LAST:event_jbtn_inserirActionPerformed
+    }//GEN-LAST:event_jlbl_btn_novoMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+    private void jlbl_btn_salvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_salvarMouseClicked
         if(BD.Categoria.update(this.getFieldsInfo()) == 0) {
             JOptionPane.showMessageDialog(null, "O item especificado não foi encontrado.");
             this.clearFieldsInfo();
         } else {
             jtbl_categoria.refresh();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jlbl_btn_salvarMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+    private void jlbl_btn_excluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_excluirMouseClicked
+       
         if (BD.Categoria.delete(this.getFieldsInfo()) == 0) {
             JOptionPane.showMessageDialog(null, "Não é possível excluir o item novamente.");
         } else {
@@ -183,12 +239,7 @@ public class JFrame_Categoria extends javax.swing.JFrame {
         }
         
         this.clearFieldsInfo();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jbtn_limparSelecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_limparSelecaoActionPerformed
-        clearFieldsInfo();
-        jtbl_categoria.getJTable().getSelectionModel().clearSelection();
-    }//GEN-LAST:event_jbtn_limparSelecaoActionPerformed
+    }//GEN-LAST:event_jlbl_btn_excluirMouseClicked
 
     public int getSelectedRow() {
         return jtbl_categoria.getJTable().getSelectedRow();
@@ -231,14 +282,23 @@ public class JFrame_Categoria extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JButton jbtn_inserir;
     private javax.swing.JButton jbtn_limparSelecao;
+    private javax.swing.JLabel jlbl_bg;
+    private javax.swing.JLabel jlbl_btn_excluir;
+    private javax.swing.JLabel jlbl_btn_novo;
+    private javax.swing.JLabel jlbl_btn_salvar;
+    private javax.swing.JLabel jlbl_campo;
+    private javax.swing.JLabel jlbl_clientes;
+    private javax.swing.JLabel jlbl_clientes1;
+    private javax.swing.JLabel jlbl_clientes2;
+    private javax.swing.JLabel jlbl_clientes3;
+    private javax.swing.JLabel jlbl_etiqueta;
+    private javax.swing.JPanel jpn_sideMenu;
+    private javax.swing.JPanel jpnl_principal;
+    private javax.swing.JPanel jpnl_tudo;
     private japedidos.produto.JTable_Categoria jtbl_categoria;
     private javax.swing.JTextField jtxtf_descricao;
     private javax.swing.JTextField jtxtf_id;

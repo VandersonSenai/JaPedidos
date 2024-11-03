@@ -3,18 +3,76 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package japedidos.clientes;
-
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import japedidos.clientes.Cliente;
+import japedidos.pedidos.JFrame_GerenciamentoPedidos;
+import javax.swing.JOptionPane;
 /**
  *
  * @author t.baiense
  */
 public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
 
+    private InfoAdicionalReceiver inicializador;
+    
+    private int POS_PF = 0;
+    private int POS_PJ = 1;
+    
     /**
      * Creates new form InfoAdicionalCliente
      */
-    public JFrame_InfoAdicionalCliente() {
+    public JFrame_InfoAdicionalCliente(InfoAdicionalReceiver inicializador, Cliente.InfoAdicional init) {
+        this(inicializador);
+        
+        if (init instanceof Cliente.InfoPF) {
+            Cliente.InfoPF initPF;
+            initPF = ((Cliente.InfoPF) init);
+            jtxtf_nomePF.setText(initPF.nome);
+            jtxtf_cpf.setText(initPF.cpf);
+            jcmb_tipoCliente.setSelectedIndex(POS_PF);
+        } else {
+            Cliente.InfoPJ initPJ;
+            initPJ = ((Cliente.InfoPJ)init);
+            
+            jtxtf_nomeFantasiaPJ.setText(initPJ.nomeFantasia);
+            jtxtf_razaoSocialPJ.setText(initPJ.razaoSocial);
+            jtxtf_cnpj.setText(initPJ.cnpj);
+            
+            jcmb_tipoCliente.setSelectedIndex(POS_PJ);
+        }
+    }
+    
+    
+    public JFrame_InfoAdicionalCliente(InfoAdicionalReceiver inicializador) {
         initComponents();
+        this.inicializador = inicializador;
+        jcmb_tipoCliente.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                //if (e.getStateChange() == ItemEvent.SELECTED) {
+                    Cliente.InfoAdicional tipoSelecionado = (Cliente.InfoAdicional)e.getItem();
+                    switch (tipoSelecionado.getTipo()) {
+                        case PJ -> {
+                            jpnl_clientePF.setVisible(false);
+                            jpnl_clientePJ.setVisible(true);
+                        }
+                        case PF -> {
+                            jpnl_clientePF.setVisible(true);
+                            jpnl_clientePJ.setVisible(false);}
+                        default -> {
+                            System.out.println("Tipo de cliente desconhecido selecionado!");
+                            jpnl_clientePF.setVisible(false);
+                            jpnl_clientePJ.setVisible(false);
+                        }
+                    }
+                //}
+            }
+        });
+        
+        jcmb_tipoCliente.addItem(new Cliente.InfoPF());
+        jcmb_tipoCliente.addItem(new Cliente.InfoPJ());
+        
     }
 
     /**
@@ -27,12 +85,13 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
     private void initComponents() {
 
         jpnl_principal = new javax.swing.JPanel();
-        jtpn_tipoCliente = new javax.swing.JTabbedPane();
         jpnl_clientePF = new javax.swing.JPanel();
-        jlbl_nomePF = new javax.swing.JLabel();
         jtxtf_nomePF = new javax.swing.JTextField();
         jlbl_cpf = new javax.swing.JLabel();
         jtxtf_cpf = new javax.swing.JTextField();
+        jlbl_nomePF1 = new javax.swing.JLabel();
+        jlbl_img_txtf = new javax.swing.JLabel();
+        jlbl_img_txtf2 = new javax.swing.JLabel();
         jpnl_clientePJ = new javax.swing.JPanel();
         jlbl_nomeFantasiaPJ = new javax.swing.JLabel();
         jtxtf_nomeFantasiaPJ = new javax.swing.JTextField();
@@ -40,114 +99,165 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
         jtxtf_cnpj = new javax.swing.JTextField();
         jlbl_razaoSocialPJ = new javax.swing.JLabel();
         jtxtf_razaoSocialPJ = new javax.swing.JTextField();
-        jbtn_confirmar = new javax.swing.JButton();
+        jlbl_img_txtf1 = new javax.swing.JLabel();
+        jlbl_img_txtf3 = new javax.swing.JLabel();
+        jlbl_img_txtf4 = new javax.swing.JLabel();
+        jcmb_tipoCliente = new javax.swing.JComboBox<>();
+        jlbl_tipoCliente = new javax.swing.JLabel();
+        jlbl_btn_salvar = new javax.swing.JLabel();
+        jlbl_btn_excluir = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Informação adicional do cliente");
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jpnl_principal.setBackground(new java.awt.Color(153, 153, 153));
+        jpnl_principal.setMaximumSize(new java.awt.Dimension(310, 340));
+        jpnl_principal.setMinimumSize(new java.awt.Dimension(310, 340));
+        jpnl_principal.setName(""); // NOI18N
+        jpnl_principal.setPreferredSize(new java.awt.Dimension(310, 340));
+        jpnl_principal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jpnl_clientePF.setOpaque(false);
         jpnl_clientePF.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jlbl_nomePF.setText("Nome do cliente solicitante");
-        jpnl_clientePF.add(jlbl_nomePF, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, -1, -1));
-
+        jtxtf_nomePF.setForeground(new java.awt.Color(0, 74, 173));
+        jtxtf_nomePF.setBorder(null);
         jtxtf_nomePF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtf_nomePFActionPerformed(evt);
             }
         });
-        jpnl_clientePF.add(jtxtf_nomePF, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 224, -1));
+        jpnl_clientePF.add(jtxtf_nomePF, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 240, 40));
 
         jlbl_cpf.setText("CPF");
-        jpnl_clientePF.add(jlbl_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, -1));
+        jpnl_clientePF.add(jlbl_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, -1, -1));
 
+        jtxtf_cpf.setForeground(new java.awt.Color(0, 74, 173));
+        jtxtf_cpf.setBorder(null);
         jtxtf_cpf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtf_cpfActionPerformed(evt);
             }
         });
-        jpnl_clientePF.add(jtxtf_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 224, -1));
+        jpnl_clientePF.add(jtxtf_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 240, 40));
 
-        jtpn_tipoCliente.addTab("Pessoa Física", jpnl_clientePF);
+        jlbl_nomePF1.setText("Nome do cliente solicitante");
+        jpnl_clientePF.add(jlbl_nomePF1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        jlbl_img_txtf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/text_box_login.png"))); // NOI18N
+        jpnl_clientePF.add(jlbl_img_txtf, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, -1));
+
+        jlbl_img_txtf2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/text_box_login.png"))); // NOI18N
+        jpnl_clientePF.add(jlbl_img_txtf2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, -1, -1));
+
+        jpnl_principal.add(jpnl_clientePF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 270, 130));
+
+        jpnl_clientePJ.setOpaque(false);
         jpnl_clientePJ.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlbl_nomeFantasiaPJ.setText("Nome fantasia");
-        jpnl_clientePJ.add(jlbl_nomeFantasiaPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 124, -1));
+        jpnl_clientePJ.add(jlbl_nomeFantasiaPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 124, -1));
 
+        jtxtf_nomeFantasiaPJ.setForeground(new java.awt.Color(0, 74, 173));
+        jtxtf_nomeFantasiaPJ.setBorder(null);
         jtxtf_nomeFantasiaPJ.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtf_nomeFantasiaPJActionPerformed(evt);
             }
         });
-        jpnl_clientePJ.add(jtxtf_nomeFantasiaPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 224, -1));
+        jpnl_clientePJ.add(jtxtf_nomeFantasiaPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 240, 40));
 
         jlbl_cnpj.setText("CNPJ");
-        jpnl_clientePJ.add(jlbl_cnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, -1, -1));
+        jpnl_clientePJ.add(jlbl_cnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, -1, -1));
 
+        jtxtf_cnpj.setForeground(new java.awt.Color(0, 74, 173));
+        jtxtf_cnpj.setBorder(null);
         jtxtf_cnpj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtf_cnpjActionPerformed(evt);
             }
         });
-        jpnl_clientePJ.add(jtxtf_cnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 224, -1));
+        jpnl_clientePJ.add(jtxtf_cnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 240, 40));
 
         jlbl_razaoSocialPJ.setText("Razão social");
-        jpnl_clientePJ.add(jlbl_razaoSocialPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 124, -1));
+        jpnl_clientePJ.add(jlbl_razaoSocialPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 124, -1));
 
+        jtxtf_razaoSocialPJ.setForeground(new java.awt.Color(0, 74, 173));
+        jtxtf_razaoSocialPJ.setBorder(null);
         jtxtf_razaoSocialPJ.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtf_razaoSocialPJActionPerformed(evt);
             }
         });
-        jpnl_clientePJ.add(jtxtf_razaoSocialPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 224, -1));
+        jpnl_clientePJ.add(jtxtf_razaoSocialPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 240, 40));
 
-        jtpn_tipoCliente.addTab("Pessoa Jurídica", jpnl_clientePJ);
+        jlbl_img_txtf1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/text_box_login.png"))); // NOI18N
+        jpnl_clientePJ.add(jlbl_img_txtf1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, -1));
 
-        jbtn_confirmar.setText("Confirmar");
-        jbtn_confirmar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtn_confirmarActionPerformed(evt);
+        jlbl_img_txtf3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/text_box_login.png"))); // NOI18N
+        jpnl_clientePJ.add(jlbl_img_txtf3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, -1, -1));
+
+        jlbl_img_txtf4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/text_box_login.png"))); // NOI18N
+        jpnl_clientePJ.add(jlbl_img_txtf4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, -1, -1));
+
+        jpnl_principal.add(jpnl_clientePJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 280, 210));
+
+        jpnl_principal.add(jcmb_tipoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 260, -1));
+
+        jlbl_tipoCliente.setText("Tipo do cliente");
+        jpnl_principal.add(jlbl_tipoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        jlbl_btn_salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_salvar_padrao.png"))); // NOI18N
+        jlbl_btn_salvar.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jlbl_btn_salvarAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
+        jlbl_btn_salvar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlbl_btn_salvarMouseClicked(evt);
+            }
+        });
+        jpnl_principal.add(jlbl_btn_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
 
-        javax.swing.GroupLayout jpnl_principalLayout = new javax.swing.GroupLayout(jpnl_principal);
-        jpnl_principal.setLayout(jpnl_principalLayout);
-        jpnl_principalLayout.setHorizontalGroup(
-            jpnl_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnl_principalLayout.createSequentialGroup()
-                .addComponent(jtpn_tipoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jpnl_principalLayout.createSequentialGroup()
-                .addGap(143, 143, 143)
-                .addComponent(jbtn_confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jpnl_principalLayout.setVerticalGroup(
-            jpnl_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnl_principalLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jtpn_tipoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbtn_confirmar)
-                .addGap(15, 15, 15))
-        );
+        jlbl_btn_excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_excluir_padrao.png"))); // NOI18N
+        jlbl_btn_excluir.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jlbl_btn_excluirAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jlbl_btn_excluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlbl_btn_excluirMouseClicked(evt);
+            }
+        });
+        jpnl_principal.add(jlbl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnl_principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jpnl_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        getContentPane().add(jpnl_principal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 340));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void clearFieldsInfo() {
+        // PJ
+        jtxtf_nomeFantasiaPJ.setText(null);
+        jtxtf_razaoSocialPJ.setText(null);
+        jtxtf_cnpj.setText(null);
+        // PF
+        jtxtf_nomePF.setText(null);
+        jtxtf_cpf.setText(null);
+    }
     private void jtxtf_nomePFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_nomePFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtf_nomePFActionPerformed
@@ -155,10 +265,6 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
     private void jtxtf_cpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_cpfActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtf_cpfActionPerformed
-
-    private void jbtn_confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_confirmarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtn_confirmarActionPerformed
 
     private void jtxtf_nomeFantasiaPJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_nomeFantasiaPJActionPerformed
         // TODO add your handling code here:
@@ -171,6 +277,72 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
     private void jtxtf_razaoSocialPJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_razaoSocialPJActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtf_razaoSocialPJActionPerformed
+
+    private void jlbl_btn_salvarAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jlbl_btn_salvarAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jlbl_btn_salvarAncestorAdded
+
+    private void jlbl_btn_salvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_salvarMouseClicked
+        Cliente.InfoAdicional infoEnviar = (Cliente.InfoAdicional)jcmb_tipoCliente.getSelectedItem();
+        boolean enviar = false;
+        if (infoEnviar instanceof Cliente.InfoPF) {
+            String nome, cpf;
+
+            nome = jtxtf_nomePF.getText().trim();
+            cpf = jtxtf_cpf.getText().trim();
+
+            if (nome.isEmpty() || cpf.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Os campos não podem estar vazios!");
+            } else {
+                Cliente.InfoPF pf = (Cliente.InfoPF)infoEnviar;
+                pf.nome = nome;
+                pf.cpf = cpf;
+                infoEnviar = pf;
+                enviar = true;
+//                System.out.println(pf.cpf);
+            }
+        } else if (infoEnviar instanceof Cliente.InfoPJ) {
+            String nomeFantasia, razaoSocial, cnpj;
+
+            nomeFantasia = jtxtf_nomeFantasiaPJ.getText();
+            razaoSocial = jtxtf_razaoSocialPJ.getText();
+            cnpj = jtxtf_cnpj.getText();
+            
+            if (nomeFantasia.isEmpty() || razaoSocial.isEmpty() || cnpj.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Os campos não podem estar vazios!");
+            } else {
+                Cliente.InfoPJ pj = (Cliente.InfoPJ)infoEnviar;
+                pj.nomeFantasia = nomeFantasia;
+                pj.razaoSocial = razaoSocial;
+                pj.cnpj = cnpj;
+                infoEnviar = pj;
+                enviar = true;
+//                System.out.println(pj.cnpj);
+            }
+
+        } else {
+            System.out.println("Tipo de cliente selecionado inválido! Enviando InfoAdicional com valor null");
+            inicializador.setInfoAdicionalCliente(null);
+        }
+        
+        if (enviar) {
+            inicializador.setInfoAdicionalCliente(infoEnviar);
+            this.dispose();
+        }
+        
+    }//GEN-LAST:event_jlbl_btn_salvarMouseClicked
+
+    private void jlbl_btn_excluirAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jlbl_btn_excluirAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jlbl_btn_excluirAncestorAdded
+
+    private void jlbl_btn_excluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_excluirMouseClicked
+        int r = JOptionPane.showConfirmDialog(null, "Deseja realmente descartar as informações?", "Descartar informações adicionais", JOptionPane.YES_NO_OPTION);
+        if (r == JOptionPane.YES_OPTION) {
+            inicializador.setInfoAdicionalCliente(null);
+            this.dispose();
+        }
+    }//GEN-LAST:event_jlbl_btn_excluirMouseClicked
 
     /**
      * @param args the command line arguments
@@ -205,22 +377,29 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFrame_InfoAdicionalCliente().setVisible(true);
+                new JFrame_InfoAdicionalCliente(new JFrame_GerenciamentoPedidos()).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jbtn_confirmar;
+    private javax.swing.JComboBox<japedidos.clientes.Cliente.InfoAdicional> jcmb_tipoCliente;
+    private javax.swing.JLabel jlbl_btn_excluir;
+    private javax.swing.JLabel jlbl_btn_salvar;
     private javax.swing.JLabel jlbl_cnpj;
     private javax.swing.JLabel jlbl_cpf;
+    private javax.swing.JLabel jlbl_img_txtf;
+    private javax.swing.JLabel jlbl_img_txtf1;
+    private javax.swing.JLabel jlbl_img_txtf2;
+    private javax.swing.JLabel jlbl_img_txtf3;
+    private javax.swing.JLabel jlbl_img_txtf4;
     private javax.swing.JLabel jlbl_nomeFantasiaPJ;
-    private javax.swing.JLabel jlbl_nomePF;
+    private javax.swing.JLabel jlbl_nomePF1;
     private javax.swing.JLabel jlbl_razaoSocialPJ;
+    private javax.swing.JLabel jlbl_tipoCliente;
     private javax.swing.JPanel jpnl_clientePF;
     private javax.swing.JPanel jpnl_clientePJ;
     private javax.swing.JPanel jpnl_principal;
-    private javax.swing.JTabbedPane jtpn_tipoCliente;
     private javax.swing.JTextField jtxtf_cnpj;
     private javax.swing.JTextField jtxtf_cpf;
     private javax.swing.JTextField jtxtf_nomeFantasiaPJ;

@@ -79,6 +79,7 @@ public class Cliente {
             return false;
         }
         
+        @Override
         public String toString() {
             if (this.getTipo() == Tipo.PF) {
                 return "Pessoa Física";
@@ -86,29 +87,35 @@ public class Cliente {
                 return "Pessoa Jurídica";
             }
         }
+    }
+    static public class InfoPF extends InfoAdicional {
+            public String nome;
+            public String cpf;
 
-        static public class PF extends InfoAdicional {
-            public final String nome;
-            public final String cpf;
-
-            public PF(String nome, String cpf) {
+            public InfoPF() {
                 this.tipo = Tipo.PF;
+            }
+            
+            public InfoPF(String nome, String cpf) {
+                this();
                 this.nome = nome;
                 this.cpf = new CPF(cpf).toString();
             }
         }
+    static public class InfoPJ extends InfoAdicional {
+        public String nomeFantasia;
+        public String razaoSocial;
+        public String cnpj;
 
-        static public class PJ extends InfoAdicional {
-            public final String nomeFantasia;
-            public final String razaoSocial;
-            public final String cnpj;
-
-            public PJ(String nomeFantasia, String razaoSocial, String cnpj) {
-                this.tipo = Tipo.PJ;
-                this.nomeFantasia = nomeFantasia;
-                this.razaoSocial = razaoSocial;
-                this.cnpj = cnpj;
-            }
+        public InfoPJ() {
+            this.tipo = Tipo.PJ;
+        }
+        
+        public InfoPJ(String nomeFantasia, String razaoSocial, String cnpj) {
+            this();
+            this.nomeFantasia = nomeFantasia;
+            this.razaoSocial = razaoSocial;
+            this.cnpj = cnpj;
         }
     }
 }

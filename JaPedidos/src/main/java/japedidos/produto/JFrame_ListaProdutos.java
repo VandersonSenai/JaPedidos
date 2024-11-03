@@ -321,7 +321,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         });
         jpnl_corpo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 10, -1, -1));
 
-        jlbl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\JAPEDIDOS\\JaPedidos\\src\\main\\java\\japedidos\\pedidos\\imagens\\btn_novo_padrao.png")); // NOI18N
         jlbl_btn_novo.setNextFocusableComponent(jlbl_btn_excluir);
         jlbl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -336,7 +335,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         });
         jpnl_corpo.add(jlbl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 390, -1, -1));
 
-        jlbl_btn_excluir.setIcon(new javax.swing.ImageIcon("C:\\JAPEDIDOS\\JaPedidos\\src\\main\\java\\japedidos\\pedidos\\imagens\\btn_excluir_padrao.png")); // NOI18N
         jlbl_btn_excluir.setNextFocusableComponent(jlbl_btn_salvar);
         jlbl_btn_excluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -348,7 +346,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         });
         jpnl_corpo.add(jlbl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 430, -1, -1));
 
-        jlbl_btn_salvar.setIcon(new javax.swing.ImageIcon("C:\\JAPEDIDOS\\JaPedidos\\src\\main\\java\\japedidos\\pedidos\\imagens\\btn_salvar_padrao.png")); // NOI18N
         jlbl_btn_salvar.setNextFocusableComponent(jtxtf_pesquisa);
         jlbl_btn_salvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -571,15 +568,15 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         
         Connection conexao = null;
         PreparedStatement statement = null;
+//
+//        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+//        String usuario = "root";
+//        String senha = "";
 
-        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
-        String usuario = "root";
-        String senha = "";
-/*
         String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
         String usuario = "titanw25_japedidos_hml";
         String senha = "seNai@2024proj";
-        */
+        
         try
         {
             conexao = DriverManager.getConnection(url, usuario, senha);
@@ -787,13 +784,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         Connection conexao = null;
         PreparedStatement statement = null;
 
-        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
-        String usuario = "root";
-        String senha = "";
+//        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+//        String usuario = "root";
+//        String senha = "";
 
-//        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
-//        String usuario = "titanw25_japedidos_hml";
-//        String senha = "seNai@2024proj";
+        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
+        String usuario = "titanw25_japedidos_hml";
+        String senha = "seNai@2024proj";
   
         try
         {

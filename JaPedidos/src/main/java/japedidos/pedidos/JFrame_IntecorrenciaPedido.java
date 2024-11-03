@@ -27,7 +27,6 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
     private void initComponents() {
 
         jpnl_incluirPedido = new javax.swing.JPanel();
-        jtxtf_detaleIntercorrencia = new javax.swing.JTextField();
         jlbl_tipoIntecorrencia = new javax.swing.JLabel();
         jcmb_tipoIntecorrencia = new javax.swing.JComboBox<>();
         jlbl_detalheIntecorrencia = new javax.swing.JLabel();
@@ -39,6 +38,8 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
         jtxtf_horaIntercorrencia = new javax.swing.JTextField();
         jbtn_voltarIntercorrencia = new javax.swing.JButton();
         jbtn_salvarIntercorrencia = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtxta_detalhes = new javax.swing.JTextArea();
         jpnl_sideMenu = new javax.swing.JPanel();
         jlbl_clientes = new javax.swing.JLabel();
         jlbl_produtos = new javax.swing.JLabel();
@@ -46,74 +47,80 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
         jlbl_relatorios = new javax.swing.JLabel();
         jpnl_img_etiqueta = new javax.swing.JLabel();
         jpnl_background = new javax.swing.JLabel();
-        jpnl_background1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1025, 575));
+        setMinimumSize(new java.awt.Dimension(1025, 575));
+        setPreferredSize(new java.awt.Dimension(1025, 575));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jpnl_incluirPedido.setOpaque(false);
         jpnl_incluirPedido.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jtxtf_detaleIntercorrencia.setForeground(new java.awt.Color(204, 204, 204));
-        jtxtf_detaleIntercorrencia.setText("Detalhes...");
-        jpnl_incluirPedido.add(jtxtf_detaleIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 490, 190));
-
         jlbl_tipoIntecorrencia.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_tipoIntecorrencia.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_tipoIntecorrencia.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_tipoIntecorrencia.setText("TIPO DA INTECORRENCIA:");
-        jpnl_incluirPedido.add(jlbl_tipoIntecorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 230, -1));
+        jlbl_tipoIntecorrencia.setText("TIPO DE INTERCORRÊNCIA:");
+        jpnl_incluirPedido.add(jlbl_tipoIntecorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 250, 20));
 
         jcmb_tipoIntecorrencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ATRASO NA ENTREGA", "PEDIDO VEIO FALTANDO", "CLIENTE NÃO ESTAVA NO LOCAL", "PACOTE FURTADO", "PROBLEMAS NO VEÍCULA DA ENTREGA", "FORÇAS MAIORES", "PRODUTO EM FALTA", "CLIENTE NÃO PAGOU", "PROBLEMAS PROCESSUAIS", "PROBLEMAS TÉCNICOS", "MOTOBOY NÃO APARECEU", "OUTROS" }));
-        jpnl_incluirPedido.add(jcmb_tipoIntecorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 40, 160, -1));
+        jpnl_incluirPedido.add(jcmb_tipoIntecorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 300, 30));
 
         jlbl_detalheIntecorrencia.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_detalheIntecorrencia.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_detalheIntecorrencia.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_detalheIntecorrencia.setText("DETALHES:");
-        jpnl_incluirPedido.add(jlbl_detalheIntecorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+        jpnl_incluirPedido.add(jlbl_detalheIntecorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, -1, -1));
 
         jlbl_codigoPedido.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_codigoPedido.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_codigoPedido.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_codigoPedido.setText("CÓDIGO PEDIDO:");
-        jpnl_incluirPedido.add(jlbl_codigoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+        jlbl_codigoPedido.setText("CÓD. PEDIDO:");
+        jpnl_incluirPedido.add(jlbl_codigoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, -1, -1));
 
         jtxtf_codigoPedido.setForeground(new java.awt.Color(204, 204, 204));
         jtxtf_codigoPedido.setText("001");
-        jpnl_incluirPedido.add(jtxtf_codigoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 60, -1));
+        jpnl_incluirPedido.add(jtxtf_codigoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 110, 30));
 
         jtxtf_dataIntercorrencia.setForeground(new java.awt.Color(204, 204, 204));
         jtxtf_dataIntercorrencia.setText("29/10/2024");
-        jpnl_incluirPedido.add(jtxtf_dataIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 332, 80, 20));
+        jpnl_incluirPedido.add(jtxtf_dataIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 110, 30));
 
         jlbl_dataIntercorrencia.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_dataIntercorrencia.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_dataIntercorrencia.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_dataIntercorrencia.setText("DATA DA INTERCORRÊNCIA:");
-        jpnl_incluirPedido.add(jlbl_dataIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 260, -1));
+        jlbl_dataIntercorrencia.setText("DATA:");
+        jpnl_incluirPedido.add(jlbl_dataIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 60, -1));
 
         jlbl_horaIntercorrencia.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_horaIntercorrencia.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_horaIntercorrencia.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_horaIntercorrencia.setText("HORA DA INTERCORRÊNCIA:");
-        jpnl_incluirPedido.add(jlbl_horaIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, 260, -1));
+        jlbl_horaIntercorrencia.setText("HORA:");
+        jpnl_incluirPedido.add(jlbl_horaIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 60, -1));
 
         jtxtf_horaIntercorrencia.setForeground(new java.awt.Color(204, 204, 204));
         jtxtf_horaIntercorrencia.setText("20:20");
-        jpnl_incluirPedido.add(jtxtf_horaIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 370, 80, 20));
+        jpnl_incluirPedido.add(jtxtf_horaIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 120, 90, 30));
 
         jbtn_voltarIntercorrencia.setText("VOLTAR");
-        jpnl_incluirPedido.add(jbtn_voltarIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 420, -1, -1));
+        jpnl_incluirPedido.add(jbtn_voltarIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 460, 140, -1));
 
         jbtn_salvarIntercorrencia.setText("SALVAR");
-        jpnl_incluirPedido.add(jbtn_salvarIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, -1, -1));
+        jpnl_incluirPedido.add(jbtn_salvarIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 460, 140, -1));
+
+        jtxta_detalhes.setColumns(20);
+        jtxta_detalhes.setRows(5);
+        jScrollPane1.setViewportView(jtxta_detalhes);
+
+        jpnl_incluirPedido.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 460, 250));
 
         getContentPane().add(jpnl_incluirPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, 730, 490));
 
         jpnl_sideMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jpnl_sideMenu.setMaximumSize(new java.awt.Dimension(250, 576));
         jpnl_sideMenu.setMinimumSize(new java.awt.Dimension(250, 576));
+        jpnl_sideMenu.setOpaque(false);
         jpnl_sideMenu.setPreferredSize(new java.awt.Dimension(250, 576));
         jpnl_sideMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -143,29 +150,23 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
         jlbl_relatorios.setText("RELATÓRIOS");
         jpnl_sideMenu.add(jlbl_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, -1));
 
-        jpnl_img_etiqueta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/painel_comandos_esquerda_05x.png"))); // NOI18N
+        jpnl_img_etiqueta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/painel_comandos_esquerda_05x.png"))); // NOI18N
         jpnl_img_etiqueta.setText("jLabel2");
         jpnl_img_etiqueta.setMaximumSize(new java.awt.Dimension(250, 576));
         jpnl_img_etiqueta.setMinimumSize(new java.awt.Dimension(250, 576));
         jpnl_sideMenu.add(jpnl_img_etiqueta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 250, -1));
 
+        getContentPane().add(jpnl_sideMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 576));
+
         jpnl_background.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jpnl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/background_pedidos.png"))); // NOI18N
+        jpnl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_pedidos.png"))); // NOI18N
         jpnl_background.setToolTipText("");
         jpnl_background.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jpnl_background.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jpnl_sideMenu.add(jpnl_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        getContentPane().add(jpnl_sideMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 576));
-
-        jpnl_background1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jpnl_background1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/background_pedidos.png"))); // NOI18N
-        jpnl_background1.setToolTipText("");
-        jpnl_background1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jpnl_background1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        getContentPane().add(jpnl_background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jpnl_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jlbl_produtosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jlbl_produtosFocusGained
@@ -208,6 +209,7 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtn_salvarIntercorrencia;
     private javax.swing.JButton jbtn_voltarIntercorrencia;
     private javax.swing.JComboBox<String> jcmb_tipoIntecorrencia;
@@ -221,13 +223,12 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jlbl_relatorios;
     private javax.swing.JLabel jlbl_tipoIntecorrencia;
     private javax.swing.JLabel jpnl_background;
-    private javax.swing.JLabel jpnl_background1;
     private javax.swing.JLabel jpnl_img_etiqueta;
     private javax.swing.JPanel jpnl_incluirPedido;
     private javax.swing.JPanel jpnl_sideMenu;
+    private javax.swing.JTextArea jtxta_detalhes;
     private javax.swing.JTextField jtxtf_codigoPedido;
     private javax.swing.JTextField jtxtf_dataIntercorrencia;
-    private javax.swing.JTextField jtxtf_detaleIntercorrencia;
     private javax.swing.JTextField jtxtf_horaIntercorrencia;
     // End of variables declaration//GEN-END:variables
 }
