@@ -13,6 +13,8 @@ import japedidos.usuario.Registro;
  */
 public class Produto {
     
+    public static final int NULL_ID = -1;
+    
     /** Representa a chave primária do produto registrada no banco de dados. <br>
      * Para instâncias ainda não cadastradas no banco de dados, seu valor deve 
      * ser -1 por padrão. Seus valores válidos são de {@literal id >= 0}.
@@ -20,7 +22,7 @@ public class Produto {
      * @see #setId(int)
      * @see #getId() 
      */
-    private int id = -1;
+    private int id = NULL_ID;
     
     /** Representa o nome completo do produto. O tamanho máximo é de
      * 32 caracteres.
@@ -120,6 +122,10 @@ public class Produto {
         }
         
         this.id = id;
+    }
+    
+    public boolean isNew() {
+        return this.getId() == NULL_ID;
     }
     
     /** Atribui o parâmetro {@code id} como chave primária da instância {@code Produto}.

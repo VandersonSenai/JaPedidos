@@ -33,6 +33,7 @@ public class JTable_Unidade extends JPanel {
         this.model = model;
         table.setPreferredScrollableViewportSize(new Dimension(400, 200));
         table.setFillsViewportHeight(true);
+        table.getTableHeader().setReorderingAllowed(false);
         JScrollPane scrollPane = new JScrollPane(table);
         this.add(scrollPane);
     }

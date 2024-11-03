@@ -19,14 +19,13 @@ public class JTable_Produto extends JPanel {
     public JTable_Produto() {
         super(new GridLayout(1, 0));
         
-        
         ProdutoTableModel model = new ProdutoTableModel();
         this.model = model;
         JTable table = new JTable(model);
         this.table = table;
         table.setPreferredScrollableViewportSize(new Dimension(600, 300));
         table.setFillsViewportHeight(true);
-        
+        table.getTableHeader().setReorderingAllowed(false);
         JScrollPane scrollPane = new JScrollPane(table);
         this.add(scrollPane);
     }

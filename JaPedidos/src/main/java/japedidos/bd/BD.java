@@ -177,7 +177,7 @@ public final class BD {
         public static final String TABLE = "produto";
         
         public static int insert(japedidos.produto.Produto p) {
-            if (p != null && p.getId() == -1) {
+            if (p != null) {
                 try {
                     Connection conn = BD.getConnection();
                     PreparedStatement insert = conn.prepareStatement(
