@@ -36,7 +36,7 @@
     <Container class="javax.swing.JPanel" name="jpnl_sideMenu">
       <Properties>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Default Cursor"/>
+          <Color id="Cursor Padr&#xe3;o"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[250, 576]"/>
@@ -274,7 +274,7 @@
         <Component class="javax.swing.JLabel" name="jlbl_encontrar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/icon_lupa_padrao.png"/>
+              <Image iconType="3" name="/icon_encontrar_padrao.png"/>
             </Property>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="jtxtf_pesquisa"/>
@@ -304,7 +304,7 @@
               <Connection component="jtxtf_codigo" name="border" type="property"/>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Default Cursor"/>
+              <Color id="Cursor Padr&#xe3;o"/>
             </Property>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[2, 54, 2, 6]"/>
@@ -552,9 +552,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jlbl_btn_novo">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\JAPEDIDOS\JaPedidos\src\main\java\japedidos\pedidos\imagens\btn_novo_padrao.png"/>
-            </Property>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="jlbl_btn_excluir"/>
             </Property>
@@ -572,9 +569,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jlbl_btn_excluir">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\JAPEDIDOS\JaPedidos\src\main\java\japedidos\pedidos\imagens\btn_excluir_padrao.png"/>
-            </Property>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="jlbl_btn_salvar"/>
             </Property>
@@ -591,9 +585,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jlbl_btn_salvar">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\JAPEDIDOS\JaPedidos\src\main\java\japedidos\pedidos\imagens\btn_salvar_padrao.png"/>
-            </Property>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="jtxtf_pesquisa"/>
             </Property>

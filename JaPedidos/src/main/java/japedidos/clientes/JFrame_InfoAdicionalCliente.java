@@ -6,7 +6,7 @@ package japedidos.clientes;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import japedidos.clientes.Cliente;
-import japedidos.pedidos.JFrame_CadastroPedido;
+import japedidos.pedidos.JFrame_GerenciamentoPedidos;
 import javax.swing.JOptionPane;
 /**
  *
@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
 
-    private JFrame_CadastroPedido inicializador;
+    private InfoAdicionalReceiver inicializador;
     
     private int POS_PF = 0;
     private int POS_PJ = 1;
@@ -22,7 +22,7 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
     /**
      * Creates new form InfoAdicionalCliente
      */
-    public JFrame_InfoAdicionalCliente(JFrame_CadastroPedido inicializador, Cliente.InfoAdicional init) {
+    public JFrame_InfoAdicionalCliente(InfoAdicionalReceiver inicializador, Cliente.InfoAdicional init) {
         this(inicializador);
         
         if (init instanceof Cliente.InfoPF) {
@@ -44,7 +44,7 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
     }
     
     
-    public JFrame_InfoAdicionalCliente(JFrame_CadastroPedido inicializador) {
+    public JFrame_InfoAdicionalCliente(InfoAdicionalReceiver inicializador) {
         initComponents();
         this.inicializador = inicializador;
         jcmb_tipoCliente.addItemListener(new ItemListener() {
@@ -246,6 +246,7 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
         getContentPane().add(jpnl_principal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 340));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void clearFieldsInfo() {
@@ -376,7 +377,7 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFrame_InfoAdicionalCliente(new JFrame_CadastroPedido()).setVisible(true);
+                new JFrame_InfoAdicionalCliente(new JFrame_GerenciamentoPedidos()).setVisible(true);
             }
         });
     }

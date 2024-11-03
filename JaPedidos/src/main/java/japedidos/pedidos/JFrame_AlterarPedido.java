@@ -4,26 +4,16 @@
  */
 package japedidos.pedidos;
 
-import japedidos.clientes.Cliente;
-import japedidos.clientes.InfoAdicionalReceiver;
-import japedidos.clientes.JFrame_InfoAdicionalCliente;
-
 /**
  *
  * @author ValentinGomes
  */
-public class JFrame_HistoricoPedido extends javax.swing.JFrame implements InfoAdicionalReceiver{
+public class JFrame_AlterarPedido extends javax.swing.JFrame {
 
-    Cliente.InfoAdicional infoAdicionalCliente;
-
-    public void setInfoAdicionalCliente(Cliente.InfoAdicional info) {
-        this.infoAdicionalCliente = info;
-    }
-    
     /**
      * Creates new form JFrame_HistoricoPedido
      */
-    public JFrame_HistoricoPedido() {
+    public JFrame_AlterarPedido() {
         initComponents();
     }
 
@@ -39,7 +29,7 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame implements InfoAd
         jpnl_incluirPedido = new javax.swing.JPanel();
         jscp_destinatario = new javax.swing.JScrollPane();
         jtxta_observações = new javax.swing.JTextArea();
-        jcmb_estadoFinal = new javax.swing.JComboBox<>();
+        jcmb_novoEstado = new javax.swing.JComboBox<>();
         jtxtf_valorEntrega = new javax.swing.JTextField();
         jlbl_horaEntrega = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -58,7 +48,7 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame implements InfoAd
         jscp_produtosInseridos = new javax.swing.JScrollPane();
         jtbl_produtosInseridos = new javax.swing.JTable();
         jlbl_cidade = new javax.swing.JLabel();
-        jlbl_estadoFinal = new javax.swing.JLabel();
+        jlbl_novoEstado = new javax.swing.JLabel();
         jtxtf_uf = new javax.swing.JTextField();
         jlbl_tipoEntrega = new javax.swing.JLabel();
         jtxtf_rua = new javax.swing.JTextField();
@@ -84,18 +74,18 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame implements InfoAd
         jlbl_valorEntrega = new javax.swing.JLabel();
         jlbl_reais2 = new javax.swing.JLabel();
         jlbl_reais = new javax.swing.JLabel();
+        jbtn_atualizarPedido = new javax.swing.JButton();
         jpnl_sideMenu = new javax.swing.JPanel();
         jlbl_clientes = new javax.swing.JLabel();
         jlbl_produtos = new javax.swing.JLabel();
         jlbl_pedidos = new javax.swing.JLabel();
         jlbl_relatorios = new javax.swing.JLabel();
         jpnl_img_etiqueta = new javax.swing.JLabel();
-        jpnl_background = new javax.swing.JLabel();
+        jpnl_background1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1024, 576));
         setMinimumSize(new java.awt.Dimension(1024, 576));
-        setPreferredSize(new java.awt.Dimension(1024, 576));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -109,8 +99,8 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame implements InfoAd
 
         jpnl_incluirPedido.add(jscp_destinatario, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 320, 80));
 
-        jcmb_estadoFinal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Concluído", "Em aberto", "Aguardando pagamento", "Pago", "Em preparo/separação", "Aguardando envio/retirada", "Saiu para entrega", "Cancelado" }));
-        jpnl_incluirPedido.add(jcmb_estadoFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 450, 190, -1));
+        jcmb_novoEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Em preparo/separação", "Em aberto", "Aguardando pagamento", "Pago", "Aguardando envio/retirada", "Saiu para entrega", "Concluído", "Cancelado" }));
+        jpnl_incluirPedido.add(jcmb_novoEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 450, 190, -1));
 
         jtxtf_valorEntrega.setForeground(new java.awt.Color(204, 204, 204));
         jpnl_incluirPedido.add(jtxtf_valorEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 80, 30));
@@ -217,11 +207,11 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame implements InfoAd
         jlbl_cidade.setText("CIDADE:");
         jpnl_incluirPedido.add(jlbl_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, -1, -1));
 
-        jlbl_estadoFinal.setBackground(new java.awt.Color(0, 0, 0));
-        jlbl_estadoFinal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbl_estadoFinal.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_estadoFinal.setText("ESTADO FINAL:");
-        jpnl_incluirPedido.add(jlbl_estadoFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 430, 190, 20));
+        jlbl_novoEstado.setBackground(new java.awt.Color(0, 0, 0));
+        jlbl_novoEstado.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_novoEstado.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_novoEstado.setText("NOVO ESTADO:");
+        jpnl_incluirPedido.add(jlbl_novoEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 430, 190, 20));
 
         jtxtf_uf.setForeground(new java.awt.Color(204, 204, 204));
         jpnl_incluirPedido.add(jtxtf_uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 80, -1));
@@ -280,7 +270,7 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame implements InfoAd
                 jbtn_voltarActionPerformed(evt);
             }
         });
-        jpnl_incluirPedido.add(jbtn_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 490, 180, 30));
+        jpnl_incluirPedido.add(jbtn_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 490, 180, 30));
 
         jlbl_valorTotal.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_valorTotal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -295,11 +285,6 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame implements InfoAd
         jpnl_incluirPedido.add(jlbl_produtoAdicionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, 20));
 
         jlbl_infoAdicionalCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_info_adicional.png"))); // NOI18N
-        jlbl_infoAdicionalCliente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jlbl_infoAdicionalClienteMouseClicked(evt);
-            }
-        });
         jpnl_incluirPedido.add(jlbl_infoAdicionalCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 430, -1, -1));
 
         jlbl_dataEntrega.setBackground(new java.awt.Color(0, 0, 0));
@@ -357,7 +342,16 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame implements InfoAd
         jlbl_reais.setText("R$");
         jpnl_incluirPedido.add(jlbl_reais, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 30, -1));
 
-        getContentPane().add(jpnl_incluirPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, -1, 550));
+        jbtn_atualizarPedido.setFont(new java.awt.Font("Noto Sans", 0, 13)); // NOI18N
+        jbtn_atualizarPedido.setText("Atualizar Pedido");
+        jbtn_atualizarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtn_atualizarPedidoActionPerformed(evt);
+            }
+        });
+        jpnl_incluirPedido.add(jbtn_atualizarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 490, 180, 30));
+
+        getContentPane().add(jpnl_incluirPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 38, -1, 530));
 
         jpnl_sideMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jpnl_sideMenu.setMaximumSize(new java.awt.Dimension(250, 576));
@@ -400,12 +394,15 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame implements InfoAd
 
         getContentPane().add(jpnl_sideMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 576));
 
-        jpnl_background.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jpnl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_pedidos.png"))); // NOI18N
-        jpnl_background.setToolTipText("");
-        jpnl_background.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jpnl_background.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        getContentPane().add(jpnl_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jpnl_background1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jpnl_background1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_pedidos.png"))); // NOI18N
+        jpnl_background1.setToolTipText("");
+        jpnl_background1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jpnl_background1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jpnl_background1.setMaximumSize(new java.awt.Dimension(1024, 576));
+        jpnl_background1.setMinimumSize(new java.awt.Dimension(1024, 576));
+        jpnl_background1.setPreferredSize(new java.awt.Dimension(1024, 576));
+        getContentPane().add(jpnl_background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -438,15 +435,9 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame implements InfoAd
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtf_telefoneClienteActionPerformed
 
-    private void jlbl_infoAdicionalClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_infoAdicionalClienteMouseClicked
-        JFrame_InfoAdicionalCliente frame;
-        if (infoAdicionalCliente == null) {
-            frame = new JFrame_InfoAdicionalCliente(this);
-        } else {
-            frame = new JFrame_InfoAdicionalCliente(this, this.infoAdicionalCliente);
-        }
-        frame.setVisible(true);
-    }//GEN-LAST:event_jlbl_infoAdicionalClienteMouseClicked
+    private void jbtn_atualizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_atualizarPedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtn_atualizarPedidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -465,30 +456,32 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame implements InfoAd
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFrame_HistoricoPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_AlterarPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFrame_HistoricoPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_AlterarPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFrame_HistoricoPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_AlterarPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFrame_HistoricoPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrame_AlterarPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFrame_HistoricoPedido().setVisible(true);
+                new JFrame_AlterarPedido().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton jbtn_atualizarPedido;
     private javax.swing.JButton jbtn_excluirProduto;
     private javax.swing.JButton jbtn_incluirProduto;
     private javax.swing.JButton jbtn_voltar;
-    private javax.swing.JComboBox<String> jcmb_estadoFinal;
+    private javax.swing.JComboBox<String> jcmb_novoEstado;
     private javax.swing.JComboBox<String> jcmb_produto;
     private javax.swing.JComboBox<String> jcmb_tipoEntrega;
     private javax.swing.JLabel jlbl_bairro;
@@ -496,10 +489,10 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame implements InfoAd
     private javax.swing.JLabel jlbl_clientes;
     private javax.swing.JLabel jlbl_dataEntrega;
     private javax.swing.JLabel jlbl_desconto;
-    private javax.swing.JLabel jlbl_estadoFinal;
     private javax.swing.JLabel jlbl_horaEntrega;
     private javax.swing.JLabel jlbl_infoAdicionalCliente;
     private javax.swing.JLabel jlbl_nomeCliente;
+    private javax.swing.JLabel jlbl_novoEstado;
     private javax.swing.JLabel jlbl_numero;
     private javax.swing.JLabel jlbl_observações;
     private javax.swing.JLabel jlbl_pct;
@@ -517,7 +510,7 @@ public class JFrame_HistoricoPedido extends javax.swing.JFrame implements InfoAd
     private javax.swing.JLabel jlbl_uf;
     private javax.swing.JLabel jlbl_valorEntrega;
     private javax.swing.JLabel jlbl_valorTotal;
-    private javax.swing.JLabel jpnl_background;
+    private javax.swing.JLabel jpnl_background1;
     private javax.swing.JLabel jpnl_btn_novo;
     private javax.swing.JLabel jpnl_img_etiqueta;
     private javax.swing.JPanel jpnl_incluirPedido;

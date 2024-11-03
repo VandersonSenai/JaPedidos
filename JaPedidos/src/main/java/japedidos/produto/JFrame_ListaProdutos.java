@@ -198,7 +198,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtb_linhaEncontrar.setRequestFocusEnabled(false);
         jpnl_corpo.add(jtb_linhaEncontrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 76, 3, 22));
 
-        jlbl_encontrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon_lupa_padrao.png"))); // NOI18N
+        jlbl_encontrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon_encontrar_padrao.png"))); // NOI18N
         jlbl_encontrar.setNextFocusableComponent(jtxtf_pesquisa);
         jlbl_encontrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -316,7 +316,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         });
         jpnl_corpo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 10, -1, -1));
 
-        jlbl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\JAPEDIDOS\\JaPedidos\\src\\main\\java\\japedidos\\pedidos\\imagens\\btn_novo_padrao.png")); // NOI18N
         jlbl_btn_novo.setNextFocusableComponent(jlbl_btn_excluir);
         jlbl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -331,7 +330,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         });
         jpnl_corpo.add(jlbl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 390, -1, -1));
 
-        jlbl_btn_excluir.setIcon(new javax.swing.ImageIcon("C:\\JAPEDIDOS\\JaPedidos\\src\\main\\java\\japedidos\\pedidos\\imagens\\btn_excluir_padrao.png")); // NOI18N
         jlbl_btn_excluir.setNextFocusableComponent(jlbl_btn_salvar);
         jlbl_btn_excluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -343,7 +341,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         });
         jpnl_corpo.add(jlbl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 430, -1, -1));
 
-        jlbl_btn_salvar.setIcon(new javax.swing.ImageIcon("C:\\JAPEDIDOS\\JaPedidos\\src\\main\\java\\japedidos\\pedidos\\imagens\\btn_salvar_padrao.png")); // NOI18N
         jlbl_btn_salvar.setNextFocusableComponent(jtxtf_pesquisa);
         jlbl_btn_salvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {

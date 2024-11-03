@@ -1,13 +1,17 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package japedidos.relatorios;
 
 /**
  *
- * @author f.oliveira
+ * @author v.gomes
  */
 public class JFrame_Relatorios extends javax.swing.JFrame {
 
     /**
-     * Creates new form relatorios
+     * Creates new form JFrame_relaorioIntercorrencia
      */
     public JFrame_Relatorios() {
         initComponents();
@@ -22,113 +26,110 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jpnl_background1 = new javax.swing.JLabel();
-        jpn_relatorio = new javax.swing.JPanel();
-        jLl_relatorio = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jCbox_ano = new javax.swing.JComboBox<>();
-        jBtt_dezembro = new javax.swing.JButton();
-        jBtt_novembro = new javax.swing.JButton();
-        jBtt_outubro = new javax.swing.JButton();
-        jBtt_setembro = new javax.swing.JButton();
-        jBtt_agosto = new javax.swing.JButton();
-        jBtt_julho = new javax.swing.JButton();
-        jBtt_junho = new javax.swing.JButton();
-        jBtt_maio = new javax.swing.JButton();
-        jBtt_abril = new javax.swing.JButton();
-        jBtt_marco = new javax.swing.JButton();
-        jBtt_fevereiro = new javax.swing.JButton();
-        jBtt_janeiro = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jtl_anual = new javax.swing.JTable();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtl_produto_mes = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jpnl_sideMenu = new javax.swing.JPanel();
+        jlbl_clientes = new javax.swing.JLabel();
+        jlbl_produtos = new javax.swing.JLabel();
         jlbl_pedidos = new javax.swing.JLabel();
         jlbl_relatorios = new javax.swing.JLabel();
-        jlbl_produtos = new javax.swing.JLabel();
-        jlbl_clientes = new javax.swing.JLabel();
-        jbtt_performace_geral = new javax.swing.JButton();
-        jBtt_financeiro = new javax.swing.JButton();
-        jBtt_intercorrencia = new javax.swing.JButton();
         jpnl_img_etiqueta = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jpnl_sideMenu = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jpnl_relatorioFinanceiro = new javax.swing.JPanel();
+        jBtt_novembro = new javax.swing.JButton();
+        jBtt_junho = new javax.swing.JButton();
+        jBtt_outubro = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtl_anual = new javax.swing.JTable();
+        jBtt_abril = new javax.swing.JButton();
+        jBtt_dezembro = new javax.swing.JButton();
+        jBtt_fevereiro = new javax.swing.JButton();
+        jBtt_agosto = new javax.swing.JButton();
+        jBtt_julho = new javax.swing.JButton();
+        jBtt_marco = new javax.swing.JButton();
+        jCbox_ano = new javax.swing.JComboBox<>();
+        jBtt_janeiro = new javax.swing.JButton();
+        jBtt_maio = new javax.swing.JButton();
+        jpn_relatorio = new javax.swing.JPanel();
+        jLl_relatorio = new javax.swing.JLabel();
+        jlbl_mes = new javax.swing.JLabel();
+        jBtt_setembro = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtl_produto_mes = new javax.swing.JTable();
+        jpnl_relatorioPerfomanceGeral = new javax.swing.JPanel();
+        jpnl_relatorioIntercorrencia = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jtbl_relatorioIntercorrencia = new javax.swing.JTable();
+        jlbl_filtroPeridoIntercorrencia = new javax.swing.JLabel();
+        jtxtf_periodoInicialIntercorrencia = new javax.swing.JTextField();
+        jtxtf_periodoFinalIntercorrencia = new javax.swing.JTextField();
+        jlbl_filtroPeridoIntercorrenciaAte = new javax.swing.JLabel();
+        jbtn_pesquisarFiltroIntercorrencia = new javax.swing.JButton();
         jpnl_background = new javax.swing.JLabel();
-        jpnl_background2 = new javax.swing.JLabel();
-
-        jpnl_background1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jpnl_background1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/background_pedidos.png"))); // NOI18N
-        jpnl_background1.setToolTipText("");
-        jpnl_background1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jpnl_background1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setMaximumSize(new java.awt.Dimension(1024, 576));
+        setMinimumSize(new java.awt.Dimension(1024, 576));
+        setPreferredSize(new java.awt.Dimension(1024, 576));
+        setResizable(false);
+        setSize(new java.awt.Dimension(1024, 576));
 
-        jLl_relatorio.setText("RELATÓRIO MÊS:");
+        jPanel1.setMaximumSize(new java.awt.Dimension(1024, 576));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1024, 576));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1024, 576));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("jLabel2");
+        jpnl_sideMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jpnl_sideMenu.setMaximumSize(new java.awt.Dimension(250, 576));
+        jpnl_sideMenu.setMinimumSize(new java.awt.Dimension(250, 576));
+        jpnl_sideMenu.setOpaque(false);
+        jpnl_sideMenu.setPreferredSize(new java.awt.Dimension(250, 576));
+        jpnl_sideMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jpn_relatorioLayout = new javax.swing.GroupLayout(jpn_relatorio);
-        jpn_relatorio.setLayout(jpn_relatorioLayout);
-        jpn_relatorioLayout.setHorizontalGroup(
-            jpn_relatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpn_relatorioLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jLl_relatorio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
-        );
-        jpn_relatorioLayout.setVerticalGroup(
-            jpn_relatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpn_relatorioLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jpn_relatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLl_relatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)))
-        );
+        jlbl_clientes.setBackground(new java.awt.Color(0, 0, 0));
+        jlbl_clientes.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_clientes.setText("CLIENTES");
+        jpnl_sideMenu.add(jlbl_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
 
-        getContentPane().add(jpn_relatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 270, 20));
+        jlbl_produtos.setBackground(new java.awt.Color(0, 0, 0));
+        jlbl_produtos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_produtos.setForeground(new java.awt.Color(204, 204, 204));
+        jlbl_produtos.setText("PRODUTOS");
+        jlbl_produtos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jlbl_produtosFocusGained(evt);
+            }
+        });
+        jpnl_sideMenu.add(jlbl_produtos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
 
-        jCbox_ano.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2024", "2023", "2022", "2021", "2020" }));
-        getContentPane().add(jCbox_ano, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 220, -1, -1));
+        jlbl_pedidos.setBackground(new java.awt.Color(0, 0, 0));
+        jlbl_pedidos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_pedidos.setText("PEDIDOS");
+        jpnl_sideMenu.add(jlbl_pedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
 
-        jBtt_dezembro.setText("DEZEMBRO");
-        getContentPane().add(jBtt_dezembro, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 180, 100, -1));
+        jlbl_relatorios.setBackground(new java.awt.Color(0, 0, 0));
+        jlbl_relatorios.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_relatorios.setText("RELATÓRIOS");
+        jpnl_sideMenu.add(jlbl_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, -1));
+
+        jpnl_img_etiqueta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/painel_comandos_esquerda_05x.png"))); // NOI18N
+        jpnl_img_etiqueta.setText("jLabel2");
+        jpnl_img_etiqueta.setMaximumSize(new java.awt.Dimension(250, 576));
+        jpnl_img_etiqueta.setMinimumSize(new java.awt.Dimension(250, 576));
+        jpnl_sideMenu.add(jpnl_img_etiqueta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 250, -1));
+
+        jPanel1.add(jpnl_sideMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 576));
+
+        jpnl_relatorioFinanceiro.setOpaque(false);
+        jpnl_relatorioFinanceiro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jBtt_novembro.setText("NOVEMBRO");
-        getContentPane().add(jBtt_novembro, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 150, 100, -1));
-
-        jBtt_outubro.setText("OUTUBRO");
-        getContentPane().add(jBtt_outubro, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 120, 100, -1));
-
-        jBtt_setembro.setText("SETEMBRO");
-        getContentPane().add(jBtt_setembro, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 180, 100, -1));
-
-        jBtt_agosto.setText("AGOSTO");
-        getContentPane().add(jBtt_agosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 150, 100, -1));
-
-        jBtt_julho.setText("JULHO");
-        getContentPane().add(jBtt_julho, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 120, 100, -1));
+        jpnl_relatorioFinanceiro.add(jBtt_novembro, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, 110, -1));
 
         jBtt_junho.setText("JUNHO");
-        getContentPane().add(jBtt_junho, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 180, 100, -1));
+        jpnl_relatorioFinanceiro.add(jBtt_junho, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 110, -1));
 
-        jBtt_maio.setText("MAIO");
-        getContentPane().add(jBtt_maio, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 150, 100, -1));
-
-        jBtt_abril.setText("ABRIL");
-        getContentPane().add(jBtt_abril, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 120, 100, -1));
-
-        jBtt_marco.setText("MARÇO");
-        getContentPane().add(jBtt_marco, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 180, 110, -1));
-
-        jBtt_fevereiro.setText("FEVEREIRO");
-        getContentPane().add(jBtt_fevereiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 150, 110, -1));
-
-        jBtt_janeiro.setText("JANEIRO");
-        getContentPane().add(jBtt_janeiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 120, 110, -1));
+        jBtt_outubro.setText("OUTUBRO");
+        jpnl_relatorioFinanceiro.add(jBtt_outubro, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 110, -1));
 
         jtl_anual.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -143,7 +144,63 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jtl_anual);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 260, 440, 330));
+        jpnl_relatorioFinanceiro.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, 460, 330));
+
+        jBtt_abril.setText("ABRIL");
+        jpnl_relatorioFinanceiro.add(jBtt_abril, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 40, 100, -1));
+
+        jBtt_dezembro.setText("DEZEMBRO");
+        jpnl_relatorioFinanceiro.add(jBtt_dezembro, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 100, 100, -1));
+
+        jBtt_fevereiro.setText("FEVEREIRO");
+        jpnl_relatorioFinanceiro.add(jBtt_fevereiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 40, 110, -1));
+
+        jBtt_agosto.setText("AGOSTO");
+        jpnl_relatorioFinanceiro.add(jBtt_agosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 70, 100, -1));
+
+        jBtt_julho.setText("JULHO");
+        jpnl_relatorioFinanceiro.add(jBtt_julho, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 70, 110, -1));
+
+        jBtt_marco.setText("MARÇO");
+        jpnl_relatorioFinanceiro.add(jBtt_marco, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, 110, -1));
+
+        jCbox_ano.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2024", "2023", "2022", "2021", "2020" }));
+        jpnl_relatorioFinanceiro.add(jCbox_ano, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 140, -1, -1));
+
+        jBtt_janeiro.setText("JANEIRO");
+        jpnl_relatorioFinanceiro.add(jBtt_janeiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 110, -1));
+
+        jBtt_maio.setText("MAIO");
+        jpnl_relatorioFinanceiro.add(jBtt_maio, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 110, -1));
+
+        jLl_relatorio.setText("RELATÓRIO MÊS:");
+
+        jlbl_mes.setText("JANEIRO");
+
+        javax.swing.GroupLayout jpn_relatorioLayout = new javax.swing.GroupLayout(jpn_relatorio);
+        jpn_relatorio.setLayout(jpn_relatorioLayout);
+        jpn_relatorioLayout.setHorizontalGroup(
+            jpn_relatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpn_relatorioLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLl_relatorio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlbl_mes, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
+        );
+        jpn_relatorioLayout.setVerticalGroup(
+            jpn_relatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpn_relatorioLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jpn_relatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLl_relatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlbl_mes)))
+        );
+
+        jpnl_relatorioFinanceiro.add(jpn_relatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 270, 20));
+
+        jBtt_setembro.setText("SETEMBRO");
+        jpnl_relatorioFinanceiro.add(jBtt_setembro, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 110, -1));
 
         jtl_produto_mes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -179,156 +236,97 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         jtl_produto_mes.setSelectionForeground(new java.awt.Color(153, 255, 255));
         jScrollPane1.setViewportView(jtl_produto_mes);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 270, 440));
+        jpnl_relatorioFinanceiro.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 270, 440));
 
-        jlbl_pedidos.setBackground(new java.awt.Color(0, 0, 0));
-        jlbl_pedidos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_pedidos.setText("PEDIDOS");
-        getContentPane().add(jlbl_pedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
+        jTabbedPane1.addTab("FINANCEIRO", jpnl_relatorioFinanceiro);
 
-        jlbl_relatorios.setBackground(new java.awt.Color(0, 0, 0));
-        jlbl_relatorios.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_relatorios.setForeground(new java.awt.Color(204, 204, 204));
-        jlbl_relatorios.setText("RELATÓRIOS");
-        getContentPane().add(jlbl_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, -1));
+        jpnl_relatorioPerfomanceGeral.setOpaque(false);
+        jpnl_relatorioPerfomanceGeral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jTabbedPane1.addTab("PERFORMANCE GERAL", jpnl_relatorioPerfomanceGeral);
 
-        jlbl_produtos.setBackground(new java.awt.Color(0, 0, 0));
-        jlbl_produtos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_produtos.setText("PRODUTOS");
-        jlbl_produtos.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jlbl_produtosFocusGained(evt);
+        jpnl_relatorioIntercorrencia.setOpaque(false);
+        jpnl_relatorioIntercorrencia.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jtbl_relatorioIntercorrencia.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"ATRASO NA ENTREGA", null, null},
+                {"PEDIDO VEIO FALTANDO", null, null},
+                {"CLIENTE NÃO ESTAVA NO LOCAL", null, null},
+                {"PACOTE FURTADO", null, null},
+                {"PROBLEMA NO VEÍCULO DE ENTREGA", null, null},
+                {"FORÇAS MAIORES", null, null},
+                {"PRODUTO EM FALTA", null, null},
+                {"CLIENTE NÃO PAGOU", null, null},
+                {"PROBLEMA PRCESSUAL", null, null},
+                {"PROBLEMA TÉCNICO", null, null},
+                {"MOTOBOY NÃO APARECEU", null, null},
+                {"OUTROS", null, null}
+            },
+            new String [] {
+                "INTERCORRÊNCIA RELATADA", "REINCIDÊNIA/QUANTIDADE", "GRAFICO DE PERDA GERAL"
             }
-        });
-        getContentPane().add(jlbl_produtos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
+        ));
+        jScrollPane3.setViewportView(jtbl_relatorioIntercorrencia);
 
-        jlbl_clientes.setBackground(new java.awt.Color(0, 0, 0));
-        jlbl_clientes.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_clientes.setText("CLIENTES");
-        getContentPane().add(jlbl_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
+        jpnl_relatorioIntercorrencia.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 720, 280));
 
-        jbtt_performace_geral.setText("PERFORMACE GERAL");
-        jbtt_performace_geral.addActionListener(new java.awt.event.ActionListener() {
+        jlbl_filtroPeridoIntercorrencia.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jlbl_filtroPeridoIntercorrencia.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_filtroPeridoIntercorrencia.setText("FILTRAR PERÍODO:");
+        jpnl_relatorioIntercorrencia.add(jlbl_filtroPeridoIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        jtxtf_periodoInicialIntercorrencia.setText("01/10/2024");
+        jtxtf_periodoInicialIntercorrencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtt_performace_geralActionPerformed(evt);
+                jtxtf_periodoInicialIntercorrenciaActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtt_performace_geral, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, 190, -1));
+        jpnl_relatorioIntercorrencia.add(jtxtf_periodoInicialIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 90, 30));
 
-        jBtt_financeiro.setText("FINANCEIRO");
-        jBtt_financeiro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtt_financeiroActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jBtt_financeiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 180, -1));
+        jtxtf_periodoFinalIntercorrencia.setText("31/10/2024");
+        jpnl_relatorioIntercorrencia.add(jtxtf_periodoFinalIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 90, 30));
 
-        jBtt_intercorrencia.setText("INTERCORRÊNCIAS");
-        jBtt_intercorrencia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtt_intercorrenciaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jBtt_intercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 60, 170, -1));
+        jlbl_filtroPeridoIntercorrenciaAte.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jlbl_filtroPeridoIntercorrenciaAte.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_filtroPeridoIntercorrenciaAte.setText(" -");
+        jpnl_relatorioIntercorrencia.add(jlbl_filtroPeridoIntercorrenciaAte, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 20, -1));
 
-        jpnl_img_etiqueta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/painel_comandos_esquerda_05x.png"))); // NOI18N
-        jpnl_img_etiqueta.setText("jLabel2");
-        jpnl_img_etiqueta.setMaximumSize(new java.awt.Dimension(250, 576));
-        jpnl_img_etiqueta.setMinimumSize(new java.awt.Dimension(250, 576));
-        getContentPane().add(jpnl_img_etiqueta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 250, -1));
+        jbtn_pesquisarFiltroIntercorrencia.setText("PESQUISAR");
+        jpnl_relatorioIntercorrencia.add(jbtn_pesquisarFiltroIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, 110, 30));
 
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 1034, -1, -1));
+        jTabbedPane1.addTab("INTERCORRÊNCIA", jpnl_relatorioIntercorrencia);
 
-        jpnl_sideMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jpnl_sideMenu.setMaximumSize(new java.awt.Dimension(250, 576));
-        jpnl_sideMenu.setMinimumSize(new java.awt.Dimension(250, 576));
-        jpnl_sideMenu.setPreferredSize(new java.awt.Dimension(250, 576));
-        jpnl_sideMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 750, 580));
 
         jpnl_background.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jpnl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/background_pedidos.png"))); // NOI18N
+        jpnl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_produtos.png"))); // NOI18N
         jpnl_background.setToolTipText("");
         jpnl_background.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jpnl_background.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jpnl_sideMenu.add(jpnl_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel1.add(jpnl_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        getContentPane().add(jpnl_sideMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 576));
-
-        jpnl_background2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jpnl_background2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/japedidos/imagens/background_pedidos.png"))); // NOI18N
-        jpnl_background2.setText("SETEMBRO");
-        jpnl_background2.setToolTipText("");
-        jpnl_background2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jpnl_background2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        getContentPane().add(jpnl_background2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 10, -1, -1));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jlbl_produtosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jlbl_produtosFocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_jlbl_produtosFocusGained
 
-    private void jBtt_financeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtt_financeiroActionPerformed
+    private void jtxtf_periodoInicialIntercorrenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_periodoInicialIntercorrenciaActionPerformed
         // TODO add your handling code here:
-        jBtt_abril.setVisible(false);
-        jBtt_agosto.setVisible(false);
-        jBtt_dezembro.setVisible(false);
-        jBtt_fevereiro.setVisible(false);
-        jBtt_janeiro.setVisible(false);
-        jBtt_maio.setVisible(false);
-        jBtt_junho.setVisible(false);
-        jBtt_julho.setVisible(false);
-        jBtt_novembro.setVisible(false);
-        jBtt_marco.setVisible(false);
-        jBtt_setembro.setVisible(false);
-        jBtt_outubro.setVisible(false);
-        jtl_anual.setVisible(false);
-        jtl_produto_mes.setVisible(false);
-        jCbox_ano.setVisible(false);
-        jpn_relatorio.setVisible(false);
-    }//GEN-LAST:event_jBtt_financeiroActionPerformed
-
-    private void jBtt_intercorrenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtt_intercorrenciaActionPerformed
-        // TODO add your handling code here:
-        jBtt_abril.setVisible(false);
-        jBtt_agosto.setVisible(false);
-        jBtt_dezembro.setVisible(false);
-        jBtt_fevereiro.setVisible(false);
-        jBtt_janeiro.setVisible(false);
-        jBtt_maio.setVisible(false);
-        jBtt_junho.setVisible(false);
-        jBtt_julho.setVisible(false);
-        jBtt_novembro.setVisible(false);
-        jBtt_marco.setVisible(false);
-        jBtt_setembro.setVisible(false);
-        jBtt_outubro.setVisible(false);
-        jtl_anual.setVisible(false);
-        jtl_produto_mes.setVisible(false);
-        jCbox_ano.setVisible(false);
-        jpn_relatorio.setVisible(false);
-    }//GEN-LAST:event_jBtt_intercorrenciaActionPerformed
-
-    private void jbtt_performace_geralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtt_performace_geralActionPerformed
-        // TODO add your handling code here:
-        jBtt_abril.setVisible(true);
-        jBtt_agosto.setVisible(true);
-        jBtt_dezembro.setVisible(true);
-        jBtt_fevereiro.setVisible(true);
-        jBtt_janeiro.setVisible(true);
-        jBtt_maio.setVisible(true);
-        jBtt_junho.setVisible(true);
-        jBtt_julho.setVisible(true);
-        jBtt_novembro.setVisible(true);
-        jBtt_marco.setVisible(true);
-        jBtt_setembro.setVisible(true);
-        jBtt_outubro.setVisible(true);
-        jtl_anual.setVisible(true);
-        jtl_produto_mes.setVisible(true);
-        jCbox_ano.setVisible(true);
-        jpn_relatorio.setVisible(true);
-    }//GEN-LAST:event_jbtt_performace_geralActionPerformed
+    }//GEN-LAST:event_jtxtf_periodoInicialIntercorrenciaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -357,6 +355,12 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -371,8 +375,6 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
     private javax.swing.JButton jBtt_agosto;
     private javax.swing.JButton jBtt_dezembro;
     private javax.swing.JButton jBtt_fevereiro;
-    private javax.swing.JButton jBtt_financeiro;
-    private javax.swing.JButton jBtt_intercorrencia;
     private javax.swing.JButton jBtt_janeiro;
     private javax.swing.JButton jBtt_julho;
     private javax.swing.JButton jBtt_junho;
@@ -382,23 +384,31 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
     private javax.swing.JButton jBtt_outubro;
     private javax.swing.JButton jBtt_setembro;
     private javax.swing.JComboBox<String> jCbox_ano;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLl_relatorio;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton jbtt_performace_geral;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton jbtn_pesquisarFiltroIntercorrencia;
     private javax.swing.JLabel jlbl_clientes;
+    private javax.swing.JLabel jlbl_filtroPeridoIntercorrencia;
+    private javax.swing.JLabel jlbl_filtroPeridoIntercorrenciaAte;
+    private javax.swing.JLabel jlbl_mes;
     private javax.swing.JLabel jlbl_pedidos;
     private javax.swing.JLabel jlbl_produtos;
     private javax.swing.JLabel jlbl_relatorios;
     private javax.swing.JPanel jpn_relatorio;
     private javax.swing.JLabel jpnl_background;
-    private javax.swing.JLabel jpnl_background1;
-    private javax.swing.JLabel jpnl_background2;
     private javax.swing.JLabel jpnl_img_etiqueta;
+    private javax.swing.JPanel jpnl_relatorioFinanceiro;
+    private javax.swing.JPanel jpnl_relatorioIntercorrencia;
+    private javax.swing.JPanel jpnl_relatorioPerfomanceGeral;
     private javax.swing.JPanel jpnl_sideMenu;
+    private javax.swing.JTable jtbl_relatorioIntercorrencia;
     private javax.swing.JTable jtl_anual;
     private javax.swing.JTable jtl_produto_mes;
+    private javax.swing.JTextField jtxtf_periodoFinalIntercorrencia;
+    private javax.swing.JTextField jtxtf_periodoInicialIntercorrencia;
     // End of variables declaration//GEN-END:variables
 }
