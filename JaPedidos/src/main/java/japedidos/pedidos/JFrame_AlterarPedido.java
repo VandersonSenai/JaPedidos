@@ -175,20 +175,20 @@ public class JFrame_AlterarPedido extends javax.swing.JFrame {
         jtbl_produtosInseridos.setForeground(new java.awt.Color(255, 255, 255));
         jtbl_produtosInseridos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "BOLINHA DE QUEIJO", "ALIMENTO", "UND",  new Double(0.75)},
-                { new Integer(2), "COXINHA DE FRANGO", "ALIMENTO", "UND",  new Double(0.75)},
-                { new Integer(3), "KIBE DE CARNE", "ALIMENTO", "UND",  new Double(0.65)},
-                { new Integer(4), "RISSOLE DE PIZZA", "ALIMENTO", "UND",  new Double(0.65)},
-                { new Integer(5), "RISSOLE DE CAMARÃO", "ALIMENTO", "UND",  new Double(0.75)},
-                { new Integer(6), "MINI CHURROS", "ALIMENTO", "UND",  new Double(0.55)},
-                { new Integer(7), "ENROLADO DE SALSICHA ", "ALIMENTO", "UND",  new Double(0.55)}
+                {null, "BOLINHA DE QUEIJO", "ALIMENTO", "UND", null},
+                {null, "COXINHA DE FRANGO", "ALIMENTO", "UND", null},
+                {null, "KIBE DE CARNE", "ALIMENTO", "UND", null},
+                {null, "RISSOLE DE PIZZA", "ALIMENTO", "UND", null},
+                {null, "RISSOLE DE CAMARÃO", "ALIMENTO", "UND", null},
+                {null, "MINI CHURROS", "ALIMENTO", "UND", null},
+                {null, "ENROLADO DE SALSICHA ", "ALIMENTO", "UND", null}
             },
             new String [] {
                 "Cód.", "Descrição", "Categoria", "Unid.", "Valor(R$)"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class
             };
 
             public Class getColumnClass(int columnIndex) {
