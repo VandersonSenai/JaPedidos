@@ -12,18 +12,18 @@ import javax.swing.JFrame;
  *
  * @author t.baiense
  */
-public class JTable_Produto extends JPanel {
+public class JTable_ProdutoPedido extends JPanel {
     private JTable table;
-    private ProdutoTableModel model;
+    private ProdutoPedidoTableModel model;
     
-    public JTable_Produto() {
+    public JTable_ProdutoPedido() {
         super(new GridLayout(1, 0));
         
-        ProdutoTableModel model = new ProdutoTableModel();
+        ProdutoPedidoTableModel model = new ProdutoPedidoTableModel();
         this.model = model;
         JTable table = new JTable(model);
         this.table = table;
-        table.setPreferredScrollableViewportSize(new Dimension(600, 300));
+        table.setPreferredScrollableViewportSize(new Dimension(730, 110));
         table.setFillsViewportHeight(true);
         table.getTableHeader().setReorderingAllowed(false);
         JScrollPane scrollPane = new JScrollPane(table);
@@ -34,14 +34,14 @@ public class JTable_Produto extends JPanel {
         return this.table;
     }
     
-    public ProdutoTableModel getModel() {
+    public ProdutoPedidoTableModel getModel() {
         return this.model;
     }
     
     public static void test() {
         JFrame frame = new JFrame("Teste de produto");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JTable_Produto tabela = new JTable_Produto();
+        JTable_ProdutoPedido tabela = new JTable_ProdutoPedido();
         frame.setContentPane(tabela);
         frame.pack();
         frame.setVisible(true);

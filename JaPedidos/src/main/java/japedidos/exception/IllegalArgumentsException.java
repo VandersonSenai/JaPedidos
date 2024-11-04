@@ -1,107 +1,82 @@
 package japedidos.exception;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
-public class IllegalArgumentsException extends Exception {
+/** Representa uma exceção que informa que um ou mais argumentos inválidos 
+ * foram passados a um método ou contrutor. Possui uma lista de {@code Exception}, 
+ * que armazena as causas desta exceção.
+ *
+ * @author Thiago M. Baiense
+ */
+
+public final class IllegalArgumentsException extends IllegalArgumentException {
+    private final ArrayList<Throwable> causeList = new ArrayList<Throwable>();
     
-    private Throwable[] causes;
-    private int nextCause;
-    
-    public IllegalArgumentsException() {}
+    public IllegalArgumentsException() {
+        super("um ou mais argumentos são inválidos");
+    }
     
     public IllegalArgumentsException(String message) {
         super(message);
     }
     
     public IllegalArgumentsException(Throwable cause) {
-        this.initCause(cause);
+        super("um dos argumentos fornecidos é inválido");
+        this.causeList.add(cause);
     }
     
     public IllegalArgumentsException(Throwable... causes) {
-        this.initCauses(causes);
+        super("um ou mais dos argumentos fornecidos é inválido");
+        this.initCauseList(causes);
     }
     
     public IllegalArgumentsException(String message, Throwable cause) {
         super(message);
-        this.initCause(cause);
+        this.initCauseList(cause);
     }
     
-     public IllegalArgumentsException(String message, Throwable... causes) {
+    public IllegalArgumentsException(String message, Throwable... causes) {
         super(message);
-        this.initCauses(causes);
+        this.initCauseList(causes);
     }
     
-    public Throwable initCause(Throwable cause) {
-        causes = new Throwable[1];
-        causes[0] = cause;
-        
-        return this;
-    }
-    
-    public Throwable initCauses(Throwable... causes) {
+    public void initCauseList(Throwable... causes) {
         if (causes == null) {
-            return this;
-        }
-        
-        this.causes = causes;
-        
-        return this;
-    }
-    
-    public boolean hasNextCause() {
-        if (causes == null) {
-            return false;
-        } else if (nextCause < causes.length) {
-            return true;
+            throw new NullPointerException();
         } else {
-            return false;
+            for(Throwable t : causes) {
+                if (t != null) {
+                    this.causeList.add(t);
+                }
+            }
         }
+    }
+    
+    public void addCause(Throwable... causes) {
+        if (causes != null) {
+            for (Throwable ex : causes) {
+                if (ex != null) {
+                    this.causeList.add(ex);
+                }
+            }
+        }
+    }
+    
+    public int size() { // Retorna a quantidade de causes
+        return this.causeList.size();
+    }
+    
+    public Throwable[] getCauses() {
+        Throwable[] cArray = new Throwable[this.size()];
+        return causeList.toArray(cArray);
     }
     
     @Override
     public Throwable getCause() {
-        if (causes == null) {
-            return null;
-        }
-        
-        if (causes.length == 1) {
-            return causes[nextCause++];
-        } else if (this.nextCause < causes.length) {
-            return causes[nextCause++];
-        } else {
-            return null;
-        }
+        return this.causeList.get(0);
     }
     
-    public Throwable nextCause() {
-        return this.getCause();
-    }
-    
-    public Throwable[] getCauses() {
-        return this.causes;
-    }
-    
-    public int getCauseCount() {
-        if (this.causes == null) {
-            return 0;
-        } else { 
-            return this.causes.length;
-        }
-    }
-    
-    public Throwable addCause(Throwable cause) {
-        if (cause == null) {
-            return this;
-        }
-        
-        if (this.causes == null) {
-            this.initCause(cause);
-        }
-        
-        Throwable[] newCauses = Arrays.copyOf(getCauses(), getCauseCount()+1);
-        newCauses[newCauses.length-1] = cause;
-        
-        this.causes = newCauses;
-        return this;
+    public Throwable getCause(int index) {
+        return this.causeList.get(index);
     }
 }

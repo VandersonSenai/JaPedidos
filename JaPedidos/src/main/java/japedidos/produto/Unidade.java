@@ -9,6 +9,8 @@ package japedidos.produto;
  */
 public class Unidade {
     
+    public static final int NULL_ID = -1;
+    
     /** Representa a chave primária da unidade registrada no banco de dados. Para
      * instâncias ainda não cadastradas no banco de dados, seu valor deve ser -1
      * por padrão. Seus valores válidos são de {@literal id >= 0}.
@@ -16,7 +18,7 @@ public class Unidade {
      * @see #setId(int id)
      * @see #getId()
      */
-    private int id = -1;
+    private int id = NULL_ID;
     
     /** Representa o nome completo da unidade de medida. O tamanho máximo é de
      * 16 caracteres.
@@ -93,6 +95,10 @@ public class Unidade {
     }
     
     
+    public boolean isNew() {
+        return this.getId() == NULL_ID;
+    }
+    
     /** Atribuí o valor de {@code id} à instância.
      * 
      * @param id int contendo o valor de chave primária da unidade no banco de 
@@ -151,5 +157,10 @@ public class Unidade {
      */
     public String toString() {
         return String.format("%s (%s)", getNome(), getAbreviacao());
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        return (o instanceof Unidade && ((Unidade)o).getId() == this.getId());
     }
 }

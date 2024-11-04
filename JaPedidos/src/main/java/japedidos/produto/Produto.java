@@ -1,5 +1,6 @@
 package japedidos.produto;
 
+import japedidos.exception.*;
 import japedidos.usuario.Registro;
 
 /** Representa um produto, um item comercializável que será usado pelo utilizador
@@ -13,6 +14,8 @@ import japedidos.usuario.Registro;
  */
 public class Produto {
     
+    public static final int NULL_ID = -1;
+    
     /** Representa a chave primária do produto registrada no banco de dados. <br>
      * Para instâncias ainda não cadastradas no banco de dados, seu valor deve 
      * ser -1 por padrão. Seus valores válidos são de {@literal id >= 0}.
@@ -20,7 +23,7 @@ public class Produto {
      * @see #setId(int)
      * @see #getId() 
      */
-    private int id = -1;
+    private int id = NULL_ID;
     
     /** Representa o nome completo do produto. O tamanho máximo é de
      * 32 caracteres.
@@ -77,21 +80,8 @@ public class Produto {
      * @param precoVenda {@code Double} que determina o preço de venda do produto. Deverá ser >= 0.
      */
     public Produto(String nome, Categoria categoria, Unidade unidadeMedida, double precoCusto, double precoVenda) {
-        if (nome == null || categoria == null || unidadeMedida == null) {
-            throw new NullPointerException();
-        }
-        
-        nome = nome.trim();
-        
-        if (nome.isEmpty() || precoCusto < 0 || precoVenda < 0) {
-            throw new IllegalArgumentException();
-        }
-        
-        this.nome = nome;
-        this.categoria = categoria;
-        this.unidadeMedida = unidadeMedida;
-        this.precoCusto  = precoCusto;
-        this.precoVenda = precoVenda;
+        this(1, nome, categoria, unidadeMedida, precoCusto, precoVenda);
+        this.id = -1;
     }
 
 
@@ -113,13 +103,57 @@ public class Produto {
      * @param precoVenda {@code Double} que determina o preço de venda do produto. Deverá ser >= 0.
      */
     public Produto(int id, String nome, Categoria categoria, Unidade unidadeMedida, double precoCusto, double precoVenda) {
-        this(nome, categoria, unidadeMedida, precoCusto, precoVenda);
+        IllegalArgumentsException exs = new IllegalArgumentsException();
         
-        if (id < 0) {
-            throw new IllegalArgumentException();
+        // Id
+        try {
+            this.setId(id);
+        } catch (IllegalIdException ex) {
+            exs.addCause(ex);
         }
         
-        this.id = id;
+        // Nome
+        try {
+            this.setNome(nome);
+        } catch (IllegalNomeException ex) {
+            exs.addCause(ex);
+        }
+        
+        // Categoria
+        if (categoria == null) {
+            exs.addCause(new IllegalCategoriaException("Categoria não pode ser null."));
+        } else {
+            this.categoria = categoria;
+        }
+        
+        // Unidade
+        if (unidadeMedida == null) {
+            exs.addCause(new IllegalUnidadeException("Unidade não pode ser null."));
+        } else {
+            this.unidadeMedida = unidadeMedida;
+        }
+        
+        // Preco Custo
+        try {
+            this.setPrecoCusto(precoCusto);
+        } catch (IllegalPrecoCustoException ex) {
+            exs.addCause(ex);
+        }
+        
+        // Preco venda
+        try {
+            this.setPrecoVenda(precoVenda);
+        } catch (IllegalPrecoVendaException ex) {
+            exs.addCause(ex);
+        }
+        
+        if (exs.size() > 0) {
+            throw exs;
+        }
+    }
+    
+    public boolean isNew() {
+        return this.getId() == NULL_ID;
     }
     
     /** Atribui o parâmetro {@code id} como chave primária da instância {@code Produto}.
@@ -127,16 +161,11 @@ public class Produto {
      * @param id {@code int} contendo valor >= 0 a ser usado como chave primária
      * da instância de {@code Produto}.
      * 
-     * @throws IllegalStateException se {@code id != -1} antes da execução do método.
      * @throws IllegalArgumentException se {@code id < 0}.
      */
     public void setId(int id) {
-        if (id != -1) {
-            throw new IllegalStateException();
-        }
-        
         if (id < 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalIdException("Id não pode ser menor que 0.");
         }
         
         this.id = id;
@@ -185,7 +214,7 @@ public class Produto {
      */
     public void setAlteracao(Registro alteracao) {
         if (alteracao == null) {
-            throw new NullPointerException();
+            throw new IllegalAlteracaoException("Alteração não pode ser nula.");
         }
         this.alteracao = alteracao;
     }
@@ -209,27 +238,29 @@ public class Produto {
     public void setNome(String nome) {
         nome = nome.trim();
         
-        if (nome.isEmpty() || nome.length() > 32) {
-            throw new IllegalArgumentException();
+        if (nome.isEmpty()) {
+            throw new IllegalNomeException("Nome não pode ser vazio.");
+        } else if (nome.length() > 32) {
+            throw new IllegalNomeException("Nome não deve exceder 32 caractes.");
+        } else {
+            this.nome = nome;
         }
-        
-        this.nome = nome;
     }
     
     public void setPrecoVenda(double preco) {
         if (preco < 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalPrecoVendaException("Preço não pode ser inferior a 0.");
+        } else {
+            this.precoVenda = preco;
         }
-        
-        this.precoVenda = preco;
     }
     
     public void setPrecoCusto(double preco) {
         if (preco < 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalPrecoCustoException("Preço não pode ser inferior a 0.");
+        } else {
+            this.precoCusto = preco;
         }
-        
-        this.precoCusto = preco;
     }
     
     public Unidade getUnidade() {

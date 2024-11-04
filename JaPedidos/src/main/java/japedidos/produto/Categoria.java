@@ -9,6 +9,8 @@ package japedidos.produto;
  */
 public class Categoria {
     
+    public static final int NULL_ID = -1;
+    
     /** Representa a chave primária da categoria registrada no banco de dados. <br>
      * Para instâncias ainda não cadastradas no banco de dados, seu valor deve 
      * ser -1 por padrão. Seus valores válidos são de {@literal id >= 0}.
@@ -16,7 +18,7 @@ public class Categoria {
      * @see #setId(int id)
      * @see #getId()
      */
-    private int id = -1;
+    private int id = NULL_ID;
     
     /** Representa o nome completo da categoria. O tamanho máximo é de
      * 24 caracteres.
@@ -154,6 +156,10 @@ public class Categoria {
         this.nome = nome;
     }
     
+    public boolean isNew() {
+        return this.getId() == NULL_ID;
+    }
+    
     /** Atribuí o valor de {@code id} à instância.
      * 
      * @param id int contendo o valor de chave primária da categoria no banco de 
@@ -201,5 +207,10 @@ public class Categoria {
     @Override
     public String toString() {
         return getNome();
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        return (o instanceof Categoria && ((Categoria)o).getId() == this.getId());
     }
 }
