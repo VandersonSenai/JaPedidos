@@ -12,8 +12,10 @@ import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 import japedidos.bd.BD;
 import java.awt.Dimension;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.text.NumberFormat;
+import javax.print.DocFlavor;
 
 public class JFrame_ListaProdutos extends javax.swing.JFrame {
 /*
@@ -71,6 +73,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jlbl_btn_novo = new javax.swing.JLabel();
         jlbl_btn_excluir = new javax.swing.JLabel();
         jlbl_btn_salvar = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
         jtbl_listaprodutos = new javax.swing.JScrollPane();
         jtbl_lista_produtos = new javax.swing.JTable();
         jpnl_background_02 = new javax.swing.JLabel();
@@ -216,7 +219,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         jtxtf_pesquisa.setBackground(new java.awt.Color(204, 204, 204));
         jtxtf_pesquisa.setForeground(new java.awt.Color(102, 102, 102));
-        jtxtf_pesquisa.setText("Digite aqui que deseja encontrar...");
+        jtxtf_pesquisa.setText("Digite aqui que deseja encontrar e pressione ENTER...");
         jtxtf_pesquisa.setBorder(jtxtf_codigo.getBorder());
         jtxtf_pesquisa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jtxtf_pesquisa.setMargin(new java.awt.Insets(2, 54, 2, 6));
@@ -305,13 +308,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         jlbl_valor.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_valor.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_valor.setText("VALOR :");
+        jlbl_valor.setText("VALOR R$ :");
         jpnl_corpo.add(jlbl_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 470, -1, -1));
 
         jtxtf_valor.setBackground(new java.awt.Color(204, 204, 204));
         jtxtf_valor.setForeground(new java.awt.Color(0, 0, 0));
         jtxtf_valor.setNextFocusableComponent(jlbl_btn_novo);
-        jpnl_corpo.add(jtxtf_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 470, 100, 30));
+        jpnl_corpo.add(jtxtf_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 470, 90, 30));
 
         jButton1.setText("TESTE CONSULTA");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -321,6 +324,8 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         });
         jpnl_corpo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 10, -1, -1));
 
+        jlbl_btn_novo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbl_btn_novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_novo_padrao.png"))); // NOI18N
         jlbl_btn_novo.setNextFocusableComponent(jlbl_btn_excluir);
         jlbl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -335,6 +340,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         });
         jpnl_corpo.add(jlbl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 390, -1, -1));
 
+        jlbl_btn_excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_excluir_padrao.png"))); // NOI18N
         jlbl_btn_excluir.setNextFocusableComponent(jlbl_btn_salvar);
         jlbl_btn_excluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -346,6 +352,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         });
         jpnl_corpo.add(jlbl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 430, -1, -1));
 
+        jlbl_btn_salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_salvar_padrao.png"))); // NOI18N
         jlbl_btn_salvar.setNextFocusableComponent(jtxtf_pesquisa);
         jlbl_btn_salvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -356,8 +363,12 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             }
         });
         jpnl_corpo.add(jlbl_btn_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 470, -1, -1));
+        jpnl_corpo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, -1, -1));
 
         jtbl_listaprodutos.setAutoscrolls(true);
+        jtbl_listaprodutos.setColumnHeaderView(jtbl_lista_produtos);
+        jtbl_listaprodutos.setRowHeaderView(jtbl_lista_produtos);
+        jtbl_listaprodutos.setViewportView(jtbl_lista_produtos);
 
         jtbl_lista_produtos.setBackground(new java.awt.Color(153, 204, 255));
         jtbl_lista_produtos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -371,10 +382,10 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -388,10 +399,19 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtbl_lista_produtos.setToolTipText("");
         jtbl_lista_produtos.setMinimumSize(new java.awt.Dimension(90, 160));
         jtbl_lista_produtos.setPreferredSize(new java.awt.Dimension(658, 204));
+        jtbl_lista_produtos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jtbl_lista_produtos.setShowGrid(false);
+        jtbl_lista_produtos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtbl_lista_produtosFocusGained(evt);
+            }
+        });
         jtbl_lista_produtos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtbl_lista_produtosMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jtbl_lista_produtosMousePressed(evt);
             }
         });
         jtbl_listaprodutos.setViewportView(jtbl_lista_produtos);
@@ -403,11 +423,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             jtbl_lista_produtos.getColumnModel().getColumn(2).setResizable(false);
             jtbl_lista_produtos.getColumnModel().getColumn(2).setPreferredWidth(90);
             jtbl_lista_produtos.getColumnModel().getColumn(3).setResizable(false);
+            jtbl_lista_produtos.getColumnModel().getColumn(3).setPreferredWidth(84);
             jtbl_lista_produtos.getColumnModel().getColumn(4).setResizable(false);
+            jtbl_lista_produtos.getColumnModel().getColumn(4).setPreferredWidth(84);
             jtbl_lista_produtos.getColumnModel().getColumn(5).setResizable(false);
-            jtbl_lista_produtos.getColumnModel().getColumn(5).setPreferredWidth(55);
+            jtbl_lista_produtos.getColumnModel().getColumn(5).setPreferredWidth(74);
             jtbl_lista_produtos.getColumnModel().getColumn(6).setResizable(false);
-            jtbl_lista_produtos.getColumnModel().getColumn(6).setPreferredWidth(40);
+            jtbl_lista_produtos.getColumnModel().getColumn(6).setPreferredWidth(50);
         }
 
         jpnl_corpo.add(jtbl_listaprodutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 680, 250));
@@ -562,20 +584,25 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jlbl_relatoriosMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+//        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+//        NumberFormat decimal = new DecimalFormat("R$ #,##0.00");
+        NumberFormat decimal = new DecimalFormat("#,##0.00");
+        
         String encontrar = jtxtf_pesquisa.getText();
+        int nLinhas = 0  ;
         String sql = "select * from listaTodosProdutos group by nome ";
 //        String sql_categoria = "select * from categoria group by nome"; 
         
         Connection conexao = null;
         PreparedStatement statement = null;
 //
-//        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
-//        String usuario = "root";
-//        String senha = "";
+        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+        String usuario = "root";
+        String senha = "";
 
-        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
-        String usuario = "titanw25_japedidos_hml";
-        String senha = "seNai@2024proj";
+//        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
+ //       String usuario = "titanw25_japedidos_hml";
+  //      String senha = "seNai@2024proj";
         
         try
         {
@@ -586,7 +613,8 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
             DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
             model.setRowCount(0);
-
+            
+            
 
             while(resultado.next())
             {
@@ -596,12 +624,18 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                    resultado.getString("id"),
                    resultado.getString("nome"),
                    resultado.getString("categoria"),
-                   resultado.getDouble("preco_custo"),
-                   resultado.getDouble("preco_venda"),
+                   decimal.format(resultado.getDouble("preco_custo")),
+                   decimal.format(resultado.getDouble("preco_venda")),
                    resultado.getString("unidade"),
                    resultado.getBoolean("estado")
                 }); 
-           } 
+           nLinhas = resultado.getRow();
+           }
+            System.out.println("linhas :  " + nLinhas);
+            System.out.println("linhas model :  " + model.getRowCount());
+            //jtbl_lista_produtos.set
+                    
+              
             statement.close();
 //            statement.close();
         }
@@ -615,6 +649,10 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jtbl_lista_produtosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbl_lista_produtosMouseClicked
         // TODO add your handling code here:
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        //NumberFormat formatter = NumberFormat.getNumberInstance();
+        NumberFormat decimal = new DecimalFormat("#,##0.00"); 
+       
         System.out.println( "\n Linha - " + jtbl_lista_produtos.getSelectedRow()+
                             "\n Coluna - " + jtbl_lista_produtos.getSelectedColumn()+
                             "\n Descricao :  - " + jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 
@@ -624,6 +662,19 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtxtf_descricao.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 1));
         jcmb_categoria.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
         jcmb_und.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 5));
+        
+        //jtxtf_valor.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4));
+        //System.out.print(formatter.format("1 - "+ jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4)));
+        //System.out.printf(String.format("2 - %02d", formatter.format(jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4))));
+        
+//      jtxtf_valor.setText(formatter.format((jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4))));  //quase ok
+        jtxtf_valor.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4));  //quase ok
+        
+        //jtxtf_valor.setText(decimal.format(jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4)));
+        System.out.print("\n1 - " + formatter.format(jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4)));
+        System.out.print("\n2 - " + decimal.format(jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4)));
+        System.out.print("\n2 - " + decimal.format(0.22));     
+        
     }//GEN-LAST:event_jtbl_lista_produtosMouseClicked
 
     private void jtxtf_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_pesquisaActionPerformed
@@ -677,7 +728,8 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                    resultado.getString("id"),
                    resultado.getString("nome"),
                    resultado.getString("categoria"),
-                   resultado.getDouble("preco_custo"),
+//                   resultado.getDouble("preco_custo"),
+                   resultado.getBigDecimal("preco_custo"),
                    resultado.getDouble("preco_venda"),
                    resultado.getString("unidade"),
                    resultado.getBoolean("estado")
@@ -771,7 +823,8 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jlbl_encontrarMouseClicked
 
     private void jtxtf_pesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtf_pesquisaKeyTyped
-        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+/*
+NumberFormat formatter = NumberFormat.getCurrencyInstance();
         
         if ( (jtxtf_pesquisa.getText().length()>=2) & (!jtxtf_pesquisa.getText().equals("Digite aqui que deseja encontrar...")) ){
         String encontrar = jtxtf_pesquisa.getText();
@@ -800,11 +853,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             statement.execute();
             ResultSet resultado = statement.executeQuery(sql);
             
-/*
-            String encontrar = jtxtf_pesquisa.getText();
-            System.out.println("Texto = " + encontrar);
-            statement.setString(1, encontrar);
-*/
+
+//            String encontrar = jtxtf_pesquisa.getText();
+//          System.out.println("Texto = " + encontrar);
+//          statement.setString(1, encontrar);
+//
 
             DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
             model.setRowCount(0);
@@ -833,7 +886,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         
             
         }
-        
+*/      
     }//GEN-LAST:event_jtxtf_pesquisaKeyTyped
 
     private void jcmb_undActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmb_undActionPerformed
@@ -922,6 +975,40 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                                                 );
     }//GEN-LAST:event_jcmb_categoriaActionPerformed
 
+    private void jtbl_lista_produtosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbl_lista_produtosMousePressed
+        // TODO add your handling code here:
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        //NumberFormat formatter = NumberFormat.getNumberInstance();
+        NumberFormat decimal = new DecimalFormat("#,##0.00"); 
+       
+        System.out.println( "\n Linha - " + jtbl_lista_produtos.getSelectedRow()+
+                            "\n Coluna - " + jtbl_lista_produtos.getSelectedColumn()+
+                            "\n Descricao :  - " + jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 
+                                                1));
+
+        jtxtf_codigo.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 0));
+        jtxtf_descricao.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 1));
+        jcmb_categoria.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
+        jcmb_und.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 5));
+        
+        //jtxtf_valor.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4));
+        //System.out.print(formatter.format("1 - "+ jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4)));
+        //System.out.printf(String.format("2 - %02d", formatter.format(jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4))));
+        
+//      jtxtf_valor.setText(formatter.format((jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4))));  //quase ok
+        jtxtf_valor.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4));  //quase ok
+        
+        //jtxtf_valor.setText(decimal.format(jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4)));
+        System.out.print("\n1 - " + formatter.format(jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4)));
+        System.out.print("\n2 - " + decimal.format(jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4)));
+        System.out.print("\n2 - " + decimal.format(0.22));     
+    }//GEN-LAST:event_jtbl_lista_produtosMousePressed
+
+    private void jtbl_lista_produtosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtbl_lista_produtosFocusGained
+        // TODO add your handling code here:
+   
+    }//GEN-LAST:event_jtbl_lista_produtosFocusGained
+
     /**
      * @param args the command line arguments
      */
@@ -974,6 +1061,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JComboBox<String> jcmb_categoria;
     private javax.swing.JComboBox<String> jcmb_und;
