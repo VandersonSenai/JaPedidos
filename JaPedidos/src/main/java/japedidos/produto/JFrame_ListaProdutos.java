@@ -1,5 +1,6 @@
 package japedidos.produto;
 
+import japedidos.produto.load_db_2_jtable_jcombbox;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import java.nio.file.Path;
@@ -16,6 +17,7 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.text.NumberFormat;
 import javax.print.DocFlavor;
+
 
 public class JFrame_ListaProdutos extends javax.swing.JFrame {
 /*
@@ -58,15 +60,18 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jlbl_encontrar = new javax.swing.JLabel();
         jtxtf_pesquisa = new javax.swing.JTextField();
         jlbl_descricao = new javax.swing.JLabel();
+        ComboBoxTESTE = new javax.swing.JComboBox<>();
         jtxtf_descricao = new javax.swing.JTextField();
         jlbl_categoria = new javax.swing.JLabel();
         jcmb_categoria = new javax.swing.JComboBox<>();
         jlbl_codigo = new javax.swing.JLabel();
         jtxtf_codigo = new javax.swing.JTextField();
-        jlbl_und = new javax.swing.JLabel();
-        jcmb_und = new javax.swing.JComboBox<>();
+        jlbl_unid = new javax.swing.JLabel();
+        jcmb_unid = new javax.swing.JComboBox<>();
         jlbl_valor = new javax.swing.JLabel();
         jtxtf_valor = new javax.swing.JTextField();
+        jlbl_ativo = new javax.swing.JLabel();
+        jchb_ativo = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         jlbl_btn_novo = new javax.swing.JLabel();
         jlbl_btn_excluir = new javax.swing.JLabel();
@@ -247,9 +252,12 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jlbl_descricao.setText("DESCRIÇÃO :");
         jpnl_corpo.add(jlbl_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 430, -1, -1));
 
+        ComboBoxTESTE.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jpnl_corpo.add(ComboBoxTESTE, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 30, 200, -1));
+
         jtxtf_descricao.setBackground(new java.awt.Color(204, 204, 204));
         jtxtf_descricao.setForeground(new java.awt.Color(0, 0, 0));
-        jtxtf_descricao.setNextFocusableComponent(jcmb_und);
+        jtxtf_descricao.setNextFocusableComponent(jcmb_unid);
         jpnl_corpo.add(jtxtf_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 430, 330, 30));
 
         jlbl_categoria.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -278,21 +286,21 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtxtf_codigo.setNextFocusableComponent(jtxtf_descricao);
         jpnl_corpo.add(jtxtf_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 390, 70, 30));
 
-        jlbl_und.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbl_und.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_und.setText("UND :");
-        jpnl_corpo.add(jlbl_und, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 430, 50, -1));
+        jlbl_unid.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_unid.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_unid.setText("UND :");
+        jpnl_corpo.add(jlbl_unid, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 430, 50, -1));
 
-        jcmb_und.setBackground(new java.awt.Color(102, 102, 102));
-        jcmb_und.setForeground(new java.awt.Color(204, 204, 204));
-        jcmb_und.setBorder(jcmb_categoria.getBorder());
-        jcmb_und.setNextFocusableComponent(jcmb_categoria);
-        jcmb_und.addActionListener(new java.awt.event.ActionListener() {
+        jcmb_unid.setBackground(new java.awt.Color(102, 102, 102));
+        jcmb_unid.setForeground(new java.awt.Color(204, 204, 204));
+        jcmb_unid.setBorder(jcmb_categoria.getBorder());
+        jcmb_unid.setNextFocusableComponent(jcmb_categoria);
+        jcmb_unid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcmb_undActionPerformed(evt);
+                jcmb_unidActionPerformed(evt);
             }
         });
-        jpnl_corpo.add(jcmb_und, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 430, 70, 30));
+        jpnl_corpo.add(jcmb_unid, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 430, 70, 30));
 
         jlbl_valor.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_valor.setForeground(new java.awt.Color(0, 0, 0));
@@ -303,6 +311,12 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtxtf_valor.setForeground(new java.awt.Color(0, 0, 0));
         jtxtf_valor.setNextFocusableComponent(jlbl_btn_novo);
         jpnl_corpo.add(jtxtf_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 470, 90, 30));
+
+        jlbl_ativo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbl_ativo.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_ativo.setText("ATIVO :");
+        jpnl_corpo.add(jlbl_ativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 470, 70, -1));
+        jpnl_corpo.add(jchb_ativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 470, -1, 30));
 
         jButton1.setText("TESTE CONSULTA");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -589,8 +603,10 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             jtxtf_codigo.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 0));
             jtxtf_descricao.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 1));
             jcmb_categoria.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
-            jcmb_und.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 5));
+            jcmb_unid.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 5));
             jtxtf_valor.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4));  //quase ok
+            
+            ComboBoxTESTE.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
         };
     }//GEN-LAST:event_jtbl_lista_produtosMouseClicked
 
@@ -613,11 +629,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         */
         try
         {
-            
-
             String encontrar = jtxtf_pesquisa.getText();
-            sql_lista_produtos_view = sql_lista_produtos_view + "'%" + encontrar + "%'";
-            //statement = conexao.prepareStatement(sql_lista_produtos_view);
+            
+            sql_lista_produtos_view = sql_lista_produtos_view + "'%" +
+                                                                encontrar + "%'" + " or categoria LIKE " +
+                                                                "'%" + encontrar + "%'" + " ORDER BY nome ASC";
 
             conexao = DriverManager.getConnection(url, usuario, senha);
             statement = conexao.prepareStatement(sql_lista_produtos_view);
@@ -635,7 +651,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             model.getDataVector().removeAllElements();
             model.fireTableDataChanged();
 
-            //System.out.printf("model.getRowCount() = " + model.getRowCount());
+
 
             while(resultado.next())
             {
@@ -806,9 +822,9 @@ NumberFormat formatter = NumberFormat.getCurrencyInstance();
 */      
     }//GEN-LAST:event_jtxtf_pesquisaKeyTyped
 
-    private void jcmb_undActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmb_undActionPerformed
+    private void jcmb_unidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmb_unidActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jcmb_undActionPerformed
+    }//GEN-LAST:event_jcmb_unidActionPerformed
 
     private void jcmb_categoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmb_categoriaActionPerformed
         // TODO add your handling code here:
@@ -836,8 +852,10 @@ NumberFormat formatter = NumberFormat.getCurrencyInstance();
             jtxtf_codigo.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 0));
             jtxtf_descricao.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 1));
             jcmb_categoria.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
-            jcmb_und.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 5));
+            jcmb_unid.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 5));
             jtxtf_valor.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4));  //quase ok
+            
+            ComboBoxTESTE.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
         };
    
     }//GEN-LAST:event_jtbl_lista_produtosMousePressed
@@ -859,7 +877,14 @@ NumberFormat formatter = NumberFormat.getCurrencyInstance();
         //        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
         //       String usuario = "titanw25_japedidos_hml";
         //      String senha = "seNai@2024proj";
+        try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
+            String sqlQuery = "SELECT id, nome, descricao FROM categoria ORDER BY nome ASC"; // Exemplo de consulta
 
+            load_db_2_jtable_jcombbox.loadComboBox(ComboBoxTESTE, conn, sqlQuery);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
         try
         {
             banco = DriverManager.getConnection(url, usuario, senha);
@@ -908,7 +933,7 @@ NumberFormat formatter = NumberFormat.getCurrencyInstance();
                 int index = resultado_unidade.getInt("id");  // Obtém o índice
                 String nomeUnidade = resultado_unidade.getString("abreviacao");  // Obtém o nome
                 unidadeMap.put(index, new String[]{nomeUnidade});
-                jcmb_und.addItem(nomeUnidade);
+                jcmb_unid.addItem(nomeUnidade);
             }
             
             stm_unidade.close();
@@ -972,10 +997,13 @@ NumberFormat formatter = NumberFormat.getCurrencyInstance();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> ComboBoxTESTE;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JCheckBox jchb_ativo;
     private javax.swing.JComboBox<String> jcmb_categoria;
-    private javax.swing.JComboBox<String> jcmb_und;
+    private javax.swing.JComboBox<String> jcmb_unid;
+    private javax.swing.JLabel jlbl_ativo;
     private javax.swing.JLabel jlbl_btn_excluir;
     private javax.swing.JLabel jlbl_btn_novo;
     private javax.swing.JLabel jlbl_btn_salvar;
@@ -987,7 +1015,7 @@ NumberFormat formatter = NumberFormat.getCurrencyInstance();
     private javax.swing.JLabel jlbl_pedidos;
     private javax.swing.JLabel jlbl_produtos;
     private javax.swing.JLabel jlbl_relatorios;
-    private javax.swing.JLabel jlbl_und;
+    private javax.swing.JLabel jlbl_unid;
     private javax.swing.JLabel jlbl_valor;
     private javax.swing.JLabel jpnl_background_01;
     private javax.swing.JLabel jpnl_background_02;
