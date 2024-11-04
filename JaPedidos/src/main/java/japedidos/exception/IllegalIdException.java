@@ -1,14 +1,17 @@
 package japedidos.exception;
 
-public class IllegalIdException extends Exception {
-    public IllegalIdException() {}
+/** Representa uma exceção informa que um {@code id} inválido foi fornecido
+ * como argumento a um método ou construtor.
+ *
+ * @author Thiago M. Baiense
+ */
+public class IllegalIdException extends ComparableException {
+    public IllegalIdException() {
+        super("Id inválido");
+    }
     
     public IllegalIdException(String message) {
         super(message);
-    }
-    
-    public IllegalIdException(Throwable cause) {
-        super(cause);
     }
     
     public IllegalIdException(String message, Throwable cause) {

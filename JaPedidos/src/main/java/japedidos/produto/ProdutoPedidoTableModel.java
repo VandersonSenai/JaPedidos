@@ -1,6 +1,5 @@
 package japedidos.produto;
 
-import japedidos.bd.BD;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
@@ -8,16 +7,16 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author t.baiense
  */
-public class ProdutoTableModel extends AbstractTableModel {
-    public static final String[] COLUMNS = {"id", "nome", "categoria", "unidade", "preco custo", "preco venda", "estado"};
+public final class ProdutoPedidoTableModel extends AbstractTableModel {
+    public static final String[] COLUMNS = {"Cód.", "Nome", "Categoria", "Quant.", "Unidade", "Preço"};
     
-    private ArrayList<Produto> data;
+    private ArrayList<ProdutoPedido> data;
     
-    public ProdutoTableModel() {
-        data = new ArrayList<Produto>();
+    public ProdutoPedidoTableModel() {
+        data = new ArrayList<>();
     }
     
-    public ProdutoTableModel(Produto... produtos) {
+    public ProdutoPedidoTableModel(ProdutoPedido... produtos) {
         this();
         
         if (produtos == null) {
@@ -27,12 +26,12 @@ public class ProdutoTableModel extends AbstractTableModel {
         fillRows(produtos);
     }
     
-    public void fillRows(Produto... produtos) {
+    public void fillRows(ProdutoPedido... produtos) {
         if (produtos == null) {
             return;
         }
         
-        for (Produto p : produtos) {
+        for (ProdutoPedido p : produtos) {
             if (p != null) {
                 this.addRow(p);
             }
@@ -40,7 +39,18 @@ public class ProdutoTableModel extends AbstractTableModel {
         
     }
     
-    public void addRow(Produto p) {
+    public void removeRow(int row) {
+        if (row < 0) {
+            throw new IllegalArgumentException();
+        }
+        
+        if (row < getRowCount()) {
+            data.remove(row);
+            fireTableRowsDeleted(row, row);
+        }
+    }
+    
+    public void addRow(ProdutoPedido p) {
         if (p == null) {
             return;
         }
@@ -50,7 +60,7 @@ public class ProdutoTableModel extends AbstractTableModel {
         fireTableRowsInserted(row, row);
     }
     
-    public Produto getRow(int row) {
+    public ProdutoPedido getRow(int row) {
         if (row < 0) {
             throw new IllegalArgumentException();
         }
@@ -62,24 +72,22 @@ public class ProdutoTableModel extends AbstractTableModel {
         return data.get(row);
     }
     
-    public void refresh() {
-        this.clearRows();
-        fillRows(BD.Produto.selectAll());
-    }
-    
     public void clearRows() {
         this.data.clear();
         fireTableDataChanged();
     }
     
+    @Override
     public int getColumnCount() {
         return COLUMNS.length;
     }
     
+    @Override
     public int getRowCount() {
         return data.size();
     }
     
+    @Override
     public String getColumnName(int col) {
         if (col < 0) {
             throw new IllegalArgumentException();
@@ -92,6 +100,7 @@ public class ProdutoTableModel extends AbstractTableModel {
         return COLUMNS[col];
     }
     
+    @Override
     public Object getValueAt(int row, int col) {
         if (col < 0 || row < 0) {
             throw new IllegalArgumentException();
@@ -102,33 +111,34 @@ public class ProdutoTableModel extends AbstractTableModel {
         }
         
         return switch (col) {
-            case 0 -> data.get(row).getId();
-            case 1 -> data.get(row).getNome();
-            case 2 -> data.get(row).getCategoria();
-            case 3 -> data.get(row).getUnidade().getAbreviacao();
-            case 4 -> String.format("R$ %1.2f", data.get(row).getPrecoCusto());
-            case 5 -> String.format("R$ %1.2f", data.get(row).getPrecoVenda());
-            case 6 -> data.get(row).isAtivo();
+            case 0 -> data.get(row).getProduto().getId();
+            case 1 -> data.get(row).getProduto().getNome();
+            case 2 -> data.get(row).getProduto().getCategoria();
+            case 3 -> data.get(row).getQuantidade();
+            case 4 -> data.get(row).getProduto().getUnidade().getAbreviacao();
+            case 5 -> String.format("R$ %1.2f", data.get(row).getProduto().getPrecoVenda());
             default -> null;
         };
     }
     
+    @Override
     public Class<?> getColumnClass(int col) {
         if (col < 0) {
             throw new IllegalArgumentException();
         }
         
         return switch (col) {
-            case 0 -> Integer.class;
-            case 1 -> String.class;
-            case 2 -> Categoria.class;
-            case 3 -> Unidade.class;
-            case 4, 5 -> String.class; // Precos
-            case 6 -> Boolean.class;
+            case 0 -> Integer.class; // Código
+            case 1 -> String.class; // Nome
+            case 2 -> Categoria.class; 
+            case 3 -> Integer.class; // Quantidade
+            case 4 -> Unidade.class;
+            case 5 -> String.class; // Precos
             default -> String.class;
         };
     }
     
+    @Override
     public boolean isCellEditable(int row, int col) {
         return false;
     }

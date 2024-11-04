@@ -226,12 +226,18 @@ public final class BD {
                     update.setDouble(5, p.getPrecoCusto());
                     update.setBoolean(6, p.isAtivo());
                     
-                    if (p.getAlteracao() == null) {
-                        p.setAlteracao(new Registro());
+                    if (japedidos.usuario.Usuario.getAtual() != null) {
+                        if (p.getAlteracao() == null) {
+                            p.setAlteracao(new Registro());
+                        }
+
+                        update.setInt(7, p.getAlteracao().AUTOR.getId());
+                        update.setTimestamp(8, Timestamp.valueOf(p.getAlteracao().DATA_HORA));
+                        
+                    } else {
+                        update.setNull(7, java.sql.Types.INTEGER);
+                        update.setNull(8, java.sql.Types.TIMESTAMP);
                     }
-                    
-                    update.setInt(7, p.getAlteracao().AUTOR.getId());
-                    update.setTimestamp(8, Timestamp.valueOf(p.getAlteracao().DATA_HORA));
                     update.setInt(9, p.getId());
                     
                     int r = update.executeUpdate();
@@ -240,7 +246,7 @@ public final class BD {
                     conn.close();
 
                     return r;
-                } catch (SQLException e) {
+                } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de alteração de produto", JOptionPane.ERROR_MESSAGE);
                     return -1;
                 }
@@ -296,7 +302,7 @@ public final class BD {
         public static japedidos.produto.Produto[] selectAll() {
             try {
                 Connection conn = BD.getConnection();
-                PreparedStatement select = conn.prepareStatement(String.format("SELECT id, id_categoria, id_unidade, nome, preco_venda, preco_custo, id_usuario_alt, dthr_alt, estado FROM %s", TABLE));
+                PreparedStatement select = conn.prepareStatement(String.format("SELECT id, id_categoria, id_unidade, nome, preco_venda, preco_custo, id_usuario_alt, dthr_alt, estado FROM %s ORDER BY nome ASC", TABLE));
                 ResultSet rs = select.executeQuery();
                 
                 japedidos.produto.Produto[] produtos = parse(rs);

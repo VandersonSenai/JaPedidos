@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package japedidos.produto;
 
 import japedidos.bd.BD;
+import japedidos.exception.*;
 
 /**
  *
@@ -17,6 +14,9 @@ public class JFrame_Produto extends javax.swing.JFrame {
      */
     public JFrame_Produto() {
         initComponents();
+        
+        resetErrorLabels();
+        
         jTable_Produto.getTable().getSelectionModel().addListSelectionListener((e) -> {
             int selectedRow = jTable_Produto.getTable().getSelectedRow();
             Produto selectedProduto;
@@ -27,6 +27,7 @@ public class JFrame_Produto extends javax.swing.JFrame {
             } else {
                 clearFieldsInfo();
             }
+            resetErrorLabels();
         });
         Unidade[] unidades = BD.Unidade.selectAll();
         if (unidades != null) {
@@ -86,6 +87,15 @@ public class JFrame_Produto extends javax.swing.JFrame {
         }
     }
     
+    public void resetErrorLabels() {
+        jlbl_erro_categoria.setVisible(false);
+        jlbl_erro_id.setVisible(false);
+        jlbl_erro_nome.setVisible(false);
+        jlbl_erro_precoCusto.setVisible(false);
+        jlbl_erro_precoVenda.setVisible(false);
+        jlbl_erro_unidade.setVisible(false);
+    }
+    
     public void clearFieldsInfo() {
         if (jcmb_categoria.getItemCount() > 0) {
             jcmb_categoria.setSelectedIndex(0);
@@ -104,6 +114,9 @@ public class JFrame_Produto extends javax.swing.JFrame {
 
     
     public Produto getFieldsInfo() {
+        resetErrorLabels();
+        
+        IllegalArgumentsException exs = new IllegalArgumentsException();
         Produto p = null;
         String nome, strPrecoCusto, strPrecoVenda, strId;
         Unidade unidade;
@@ -112,19 +125,20 @@ public class JFrame_Produto extends javax.swing.JFrame {
         double precoCusto, precoVenda;
         boolean ativo;
         
-        id = Produto.NULL_ID;
+        id = 1;
         nome = strPrecoCusto = strPrecoVenda = strId = null;
         unidade = null;
         categoria = null;
         ativo = true;
+        precoCusto = 0;
+        precoVenda = 0;
         
         strId = jtxtf_id.getText().trim();
         if (!strId.isEmpty()) {
             try {
                 id = Integer.valueOf(strId);
-                
             } catch (NumberFormatException ex) {
-                // TODO: ADICIONAR EXCECAO
+                exs.addCause(new IllegalIdException("Formato de id inválido"));
             }
         }
         
@@ -132,12 +146,58 @@ public class JFrame_Produto extends javax.swing.JFrame {
         strPrecoCusto = jtxtf_precoCusto.getText().trim();
         if (!strPrecoCusto.isEmpty()) {
             try {
-                
+                precoCusto = Double.valueOf(strPrecoCusto);
             } catch (NumberFormatException ex) {
-                // TODO: ADICIONAR EXCECAO
+                exs.addCause(new IllegalPrecoCustoException("Formato de preço inválido"));
             }
         }
         
+        strPrecoVenda = jtxtf_precoVenda.getText().trim();
+        if (!strPrecoVenda.isEmpty()) {
+            try {
+                precoVenda = Double.valueOf(strPrecoVenda);
+            } catch (NumberFormatException ex) {
+                exs.addCause(new IllegalPrecoVendaException("Formato de preço inválido"));
+            }
+        }
+        
+        categoria = (Categoria)jcmb_categoria.getSelectedItem();
+        unidade = (Unidade)jcmb_unidade.getSelectedItem();
+        ativo = jchb_ativo.isSelected();
+        
+        Produto newProduto = null;
+        try {
+            newProduto = new Produto(id, nome, categoria, unidade, precoCusto, precoVenda);
+            newProduto.setAtivo(ativo);
+        } catch (IllegalArgumentsException newExs) {
+            exs.addCause(newExs.getCauses());
+        }
+        
+        if (exs.size() > 0) {
+            for(Throwable ex : exs.getCauses()) {
+                if (ex instanceof IllegalIdException) {
+                    jlbl_erro_id.setText(ex.getMessage());
+                    jlbl_erro_id.setVisible(true);
+                } else if (ex instanceof IllegalNomeException) {
+                    jlbl_erro_nome.setText(ex.getMessage());
+                    jlbl_erro_nome.setVisible(true);
+                } else if (ex instanceof IllegalCategoriaException) {
+                    jlbl_erro_categoria.setText(ex.getMessage());
+                    jlbl_erro_categoria.setVisible(true);
+                } else if (ex instanceof IllegalUnidadeException) {
+                    jlbl_erro_unidade.setText(ex.getMessage());
+                    jlbl_erro_unidade.setVisible(true);
+                } else if (ex instanceof IllegalPrecoCustoException) {
+                    jlbl_erro_precoCusto.setText(ex.getMessage());
+                    jlbl_erro_precoCusto.setVisible(true);
+                } else if (ex instanceof IllegalPrecoVendaException) {
+                    jlbl_erro_precoVenda.setText(ex.getMessage());
+                    jlbl_erro_precoVenda.setVisible(true);
+                }
+            }
+        } else if (newProduto != null) {
+            p = newProduto;
+        }
         return p;
     }
     /**
@@ -168,12 +228,12 @@ public class JFrame_Produto extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
         jtxtf_nomeProduto = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        jlbl_erro_precoVenda = new javax.swing.JLabel();
+        jlbl_erro_id = new javax.swing.JLabel();
+        jlbl_erro_categoria = new javax.swing.JLabel();
+        jlbl_erro_unidade = new javax.swing.JLabel();
+        jlbl_erro_precoCusto = new javax.swing.JLabel();
+        jlbl_erro_nome = new javax.swing.JLabel();
         jbtn_limparSelecao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -206,12 +266,27 @@ public class JFrame_Produto extends javax.swing.JFrame {
         getContentPane().add(jchb_ativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 340, -1, 30));
 
         jbtn_inserir.setText("Inserir");
+        jbtn_inserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtn_inserirActionPerformed(evt);
+            }
+        });
         getContentPane().add(jbtn_inserir, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 510, 120, -1));
 
         jbtn_alterar.setText("Alterar");
+        jbtn_alterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtn_alterarActionPerformed(evt);
+            }
+        });
         getContentPane().add(jbtn_alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 510, 130, -1));
 
         jbtn_deletar.setText("Deletar");
+        jbtn_deletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtn_deletarActionPerformed(evt);
+            }
+        });
         getContentPane().add(jbtn_deletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 510, 130, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 810, 20));
         getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 810, 10));
@@ -220,29 +295,29 @@ public class JFrame_Produto extends javax.swing.JFrame {
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, -1, 30));
         getContentPane().add(jtxtf_nomeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 340, 250, -1));
 
-        jLabel5.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel5.setText("Mensagem de erro!");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 460, -1, -1));
+        jlbl_erro_precoVenda.setForeground(new java.awt.Color(204, 0, 51));
+        jlbl_erro_precoVenda.setText("Mensagem de erro!");
+        getContentPane().add(jlbl_erro_precoVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 460, -1, -1));
 
-        jLabel6.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel6.setText("Mensagem de erro!");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, -1, -1));
+        jlbl_erro_id.setForeground(new java.awt.Color(204, 0, 51));
+        jlbl_erro_id.setText("Mensagem de erro!");
+        getContentPane().add(jlbl_erro_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, -1, -1));
 
-        jLabel7.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel7.setText("Mensagem de erro!");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 460, -1, 20));
+        jlbl_erro_categoria.setForeground(new java.awt.Color(204, 0, 51));
+        jlbl_erro_categoria.setText("Mensagem de erro!");
+        getContentPane().add(jlbl_erro_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 460, -1, 20));
 
-        jLabel8.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel8.setText("Mensagem de erro!");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 460, -1, -1));
+        jlbl_erro_unidade.setForeground(new java.awt.Color(204, 0, 51));
+        jlbl_erro_unidade.setText("Mensagem de erro!");
+        getContentPane().add(jlbl_erro_unidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 460, -1, -1));
 
-        jLabel9.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel9.setText("Mensagem de erro!");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 460, -1, -1));
+        jlbl_erro_precoCusto.setForeground(new java.awt.Color(204, 0, 51));
+        jlbl_erro_precoCusto.setText("Mensagem de erro!");
+        getContentPane().add(jlbl_erro_precoCusto, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 460, -1, -1));
 
-        jLabel10.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel10.setText("Mensagem de erro!");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 370, -1, -1));
+        jlbl_erro_nome.setForeground(new java.awt.Color(204, 0, 51));
+        jlbl_erro_nome.setText("Mensagem de erro!");
+        getContentPane().add(jlbl_erro_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 370, -1, -1));
 
         jbtn_limparSelecao.setText("Limpar seleção");
         jbtn_limparSelecao.addActionListener(new java.awt.event.ActionListener() {
@@ -258,6 +333,34 @@ public class JFrame_Produto extends javax.swing.JFrame {
     private void jbtn_limparSelecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_limparSelecaoActionPerformed
         jTable_Produto.getTable().getSelectionModel().clearSelection();
     }//GEN-LAST:event_jbtn_limparSelecaoActionPerformed
+
+    private void jbtn_inserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_inserirActionPerformed
+        Produto recebido = getFieldsInfo();
+        if (recebido != null) {
+            BD.Produto.insert(recebido);
+            jTable_Produto.getModel().refresh();
+            clearFieldsInfo();
+        }
+    }//GEN-LAST:event_jbtn_inserirActionPerformed
+
+    private void jbtn_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_alterarActionPerformed
+        Produto recebido = getFieldsInfo();
+        if (recebido != null) {
+            BD.Produto.update(recebido);
+            jTable_Produto.getModel().refresh();
+            clearFieldsInfo();
+        }
+    }//GEN-LAST:event_jbtn_alterarActionPerformed
+
+    private void jbtn_deletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_deletarActionPerformed
+        Produto recebido = getFieldsInfo();
+        if (recebido != null) {
+            BD.Produto.delete(recebido);
+            jTable_Produto.getModel().refresh();
+            clearFieldsInfo();
+        }
+        
+    }//GEN-LAST:event_jbtn_deletarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -297,15 +400,9 @@ public class JFrame_Produto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private japedidos.produto.JTable_Produto jTable_Produto;
@@ -316,6 +413,12 @@ public class JFrame_Produto extends javax.swing.JFrame {
     private javax.swing.JCheckBox jchb_ativo;
     private javax.swing.JComboBox<japedidos.produto.Categoria> jcmb_categoria;
     private javax.swing.JComboBox<japedidos.produto.Unidade> jcmb_unidade;
+    private javax.swing.JLabel jlbl_erro_categoria;
+    private javax.swing.JLabel jlbl_erro_id;
+    private javax.swing.JLabel jlbl_erro_nome;
+    private javax.swing.JLabel jlbl_erro_precoCusto;
+    private javax.swing.JLabel jlbl_erro_precoVenda;
+    private javax.swing.JLabel jlbl_erro_unidade;
     private javax.swing.JLabel jlbl_id;
     private javax.swing.JLabel jlbl_precoCusto;
     private javax.swing.JTextField jtxtf_id;
