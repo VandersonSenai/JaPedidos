@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `japedidos`.`pedido` (
   `dthr_criacao` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_usuario_alt` INT NULL COMMENT 'Necessário para controle de alterações, conforme [RNF 06] Controle de alteração de dados\nAo haver alteração em qualquer informação do pedido, deverá haver o registro do autor da alteração e do horário. Alterações no estado do pedido serão registrados independentemente\n',
   `dthr_alt` DATETIME NULL COMMENT 'Necessário para controle de alterações, conforme [RNF 06] Controle de alteração de dados\nAo haver alteração em qualquer informação do pedido, deverá haver o registro do autor da alteração e do horário. Alterações no estado do pedido serão registrados independentemente\n',
-  `tipo_entrega` ENUM("envio", "retirada") NOT NULL,
+  `tipo_entrega` ENUM("ENVIO", "RETIRADA") NOT NULL,
   `dthr_entregar` DATETIME NOT NULL,
   `preco_frete` DECIMAL(8,2) NOT NULL DEFAULT 0.00,
   `tx_desconto` INT NOT NULL DEFAULT 0.00,

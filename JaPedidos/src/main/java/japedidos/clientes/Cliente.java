@@ -1,5 +1,8 @@
 package japedidos.clientes;
 
+import japedidos.exception.IllegalArgumentsException;
+import japedidos.exception.IllegalNomeException;
+import japedidos.exception.IllegalTelefoneException;
 import japedidos.pedidos.Pedido;
 
 /**
@@ -11,28 +14,90 @@ public class Cliente {
      houver registro associado no BD, seu id será maior que zero. Do contrário,
      será -1.*/
     private int id = -1;
-    public final String nome;
-    public final String telefone;
-    public Pedido ultimoPedido;
+    private String nome;
+    private String telefone;
+    private Pedido ultimoPedido;
     private InfoAdicional infoAdicional;
-            
+    public static int NULL_ID = -1;
+    
+//    public static void main(String[] args) {
+//        Cliente teste = new Cliente("Jussara", "651651165");
+//        System.out.println(teste);
+//    }
+//    
     public Cliente(String nome, String telefone) {
-        if (nome == null) {
-            throw new NullPointerException("nome informado é nulo");
-        }
-        if (telefone == null) {
-            throw new NullPointerException("telefone informado é nulo");
-        }
-        if (nome.length() < 3 || nome.length() > 80 || telefone.length() < 8 || telefone.length() > 20) {
-            throw new IllegalArgumentException();
+        this(1, nome, telefone);
+        this.id = NULL_ID;
+    }
+    
+    public Cliente(int id, String nome, String telefone) {
+        IllegalArgumentsException exs = new IllegalArgumentsException();
+        
+        try {
+            setNome(nome); 
+        } catch (IllegalNomeException ex) {
+            exs.addCause(ex);
         }
         
-        this.nome = nome;
-        this.telefone = telefone;
+        try {
+            setTelefone(telefone);
+        } catch (IllegalTelefoneException ex) {
+            exs.addCause(ex);
+        }
+        
+        if (exs.size() > 0) {
+            throw exs;
+        }
+    }
+    
+    public boolean isNew() {
+        return this.getId() == NULL_ID;
+    }
+    
+    public void setNome(String nome) {
+        if (nome == null) {
+            throw new IllegalNomeException("Nome não pode ser null.");
+        } else {
+            nome = nome.trim();
+            
+            if (nome.isEmpty()) {
+                throw new IllegalNomeException("Nome não pode ser vazio.");
+            } else if (nome.length() > 80){
+                throw new IllegalNomeException("Nome deve conter menos que 80 caracteres.");
+            } else {
+                this.nome = nome;
+            }
+        }
+    }
+    
+    public String getNome() {
+        return this.nome;
+    }
+    
+    public void setTelefone(String telefone) {
+        if (telefone == null) {
+            throw new IllegalTelefoneException("Telefone não pode ser null.");
+        } else {
+            telefone = telefone.trim();
+            
+            if (telefone.isEmpty()) {
+                throw new IllegalTelefoneException("Telefone está vazio.");
+            } else if (telefone.length() > 20){
+                throw new IllegalTelefoneException("Telefone contém mais que 20 caracteres.");
+            } else if (telefone.length() < 8){
+                throw new IllegalTelefoneException("Telefone contém menos que 8 caracteres.");
+            } else {
+                this.telefone = telefone;
+            }
+        }
+    }
+    
+    public String getTelefone() {
+        return this.telefone;
     }
     
     public Cliente setId(int id) {
-        if(id < 1) {
+        if(id < 0) {
             throw new IllegalArgumentException("id inválido");
         }
         
@@ -49,11 +114,12 @@ public class Cliente {
     }
     
     public void setInfoAdicional(InfoAdicional info) {
-        if (info == null) {
-            throw new NullPointerException();
-        }
-        
         this.infoAdicional = info;
+    }
+    
+    @Override
+    public String toString() {
+        return this.getNome();
     }
     
     static public abstract class InfoAdicional {

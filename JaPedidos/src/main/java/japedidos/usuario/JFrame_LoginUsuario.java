@@ -49,11 +49,13 @@ public class JFrame_LoginUsuario extends javax.swing.JFrame {
         jlbl_barra_sup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Barra superior.png"))); // NOI18N
         jPanel1.add(jlbl_barra_sup, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 50));
 
+        jtxtf_login.setBackground(new java.awt.Color(51, 51, 55));
         jtxtf_login.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jtxtf_login.setForeground(new java.awt.Color(0, 74, 173));
         jtxtf_login.setText("Nome do usuário");
         jtxtf_login.setBorder(null);
         jtxtf_login.setMargin(new java.awt.Insets(10, 10, 10, 18));
+        jtxtf_login.setOpaque(false);
         jtxtf_login.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         jtxtf_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,6 +70,7 @@ public class JFrame_LoginUsuario extends javax.swing.JFrame {
         jpwf_senha.setMargin(new java.awt.Insets(10, 10, 10, 10));
         jpwf_senha.setMaximumSize(new java.awt.Dimension(260, 40));
         jpwf_senha.setMinimumSize(new java.awt.Dimension(260, 40));
+        jpwf_senha.setOpaque(false);
         jpwf_senha.setPreferredSize(new java.awt.Dimension(260, 40));
         jPanel1.add(jpwf_senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, 240, 40));
 

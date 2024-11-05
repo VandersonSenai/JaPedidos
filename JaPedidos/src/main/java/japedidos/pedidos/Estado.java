@@ -24,14 +24,14 @@ public class Estado {
     public final String NOME;
     public static final int QUANTIDADE = 9;
     
-    private Estado(int id, String nome) {
+    public Estado(int id, String nome) {
         if (nome == null) {
             throw new NullPointerException();
         }
         
-        if (id <= 0 || nome.length() > 16) {
-            throw new IllegalArgumentException();
-        }
+//        if (id <= 0 || nome.length() > 16) {
+//            throw new IllegalArgumentException();
+//        }
         
         this.ID = id;
         this.NOME = nome;
@@ -60,6 +60,7 @@ public class Estado {
         };
     }
     
+    @Override
     public String toString() {
         return this.NOME;
     }

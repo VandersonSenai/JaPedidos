@@ -22,7 +22,7 @@ public class Pedido {
     private String destinatario;
     private Registro criacao;
     private Registro alteracao; 
-    private LocalDateTime dthrAntregar;
+    private LocalDateTime dthrEntregar;
     private LocalDate dtPago;
     private LocalDate dtVencimentoPagamento;
     private Cliente cliente;
