@@ -854,8 +854,8 @@ NumberFormat formatter = NumberFormat.getCurrencyInstance();
             jcmb_categoria.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
             jcmb_unid.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 5));
             jtxtf_valor.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4));  //quase ok
-            
-            ComboBoxTESTE.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
+            jchb_ativo.setSelected(Boolean.parseBoolean( jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 6)));
+            //ComboBoxTESTE.setSelectedItem((boolean) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
         };
    
     }//GEN-LAST:event_jtbl_lista_produtosMousePressed
