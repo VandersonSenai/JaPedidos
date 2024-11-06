@@ -1,6 +1,7 @@
 package japedidos.clientes;
 
 import japedidos.exception.IllegalArgumentsException;
+import japedidos.exception.IllegalIdException;
 import japedidos.exception.IllegalNomeException;
 import japedidos.exception.IllegalTelefoneException;
 import japedidos.pedidos.Pedido;
@@ -98,7 +99,7 @@ public class Cliente {
     
     public Cliente setId(int id) {
         if(id < 0) {
-            throw new IllegalArgumentException("id inválido");
+            throw new IllegalIdException("id inválido");
         }
         
         this.id = id;
