@@ -1,6 +1,6 @@
 package japedidos.produto;
 
-import japedidos.produto.load_db_2_jtable_jcombbox;
+import japedidos.produto.load_DB2_components;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import java.nio.file.Path;
@@ -60,7 +60,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jlbl_encontrar = new javax.swing.JLabel();
         jtxtf_pesquisa = new javax.swing.JTextField();
         jlbl_descricao = new javax.swing.JLabel();
-        ComboBoxTESTE = new javax.swing.JComboBox<>();
         jtxtf_descricao = new javax.swing.JTextField();
         jlbl_categoria = new javax.swing.JLabel();
         jcmb_categoria = new javax.swing.JComboBox<>();
@@ -87,6 +86,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         setIconImages(null);
         setResizable(false);
         setSize(new java.awt.Dimension(1024, 576));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jpnl_sideMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -252,9 +256,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jlbl_descricao.setText("DESCRIÇÃO :");
         jpnl_corpo.add(jlbl_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 430, -1, -1));
 
-        ComboBoxTESTE.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jpnl_corpo.add(ComboBoxTESTE, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 30, 200, -1));
-
         jtxtf_descricao.setBackground(new java.awt.Color(204, 204, 204));
         jtxtf_descricao.setForeground(new java.awt.Color(0, 0, 0));
         jtxtf_descricao.setNextFocusableComponent(jcmb_unid);
@@ -309,6 +310,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         jtxtf_valor.setBackground(new java.awt.Color(204, 204, 204));
         jtxtf_valor.setForeground(new java.awt.Color(0, 0, 0));
+        jtxtf_valor.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jtxtf_valor.setNextFocusableComponent(jlbl_btn_novo);
         jpnl_corpo.add(jtxtf_valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 470, 90, 30));
 
@@ -606,7 +608,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             jcmb_unid.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 5));
             jtxtf_valor.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4));  //quase ok
             
-            ComboBoxTESTE.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
+            
         };
     }//GEN-LAST:event_jtbl_lista_produtosMouseClicked
 
@@ -853,9 +855,9 @@ NumberFormat formatter = NumberFormat.getCurrencyInstance();
             jtxtf_descricao.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 1));
             jcmb_categoria.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
             jcmb_unid.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 5));
-            jtxtf_valor.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4));  //quase ok
-            jchb_ativo.setSelected(Boolean.parseBoolean( jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 6)));
-            //ComboBoxTESTE.setSelectedItem((boolean) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
+            jtxtf_valor.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4));  
+
+
         };
    
     }//GEN-LAST:event_jtbl_lista_produtosMousePressed
@@ -867,9 +869,6 @@ NumberFormat formatter = NumberFormat.getCurrencyInstance();
         NumberFormat decimal = new DecimalFormat("#,##0.00");
         Connection banco = null;
 //        PreparedStatement stm_lista_produtos_view = null;
-        
-        HashMap<Integer, String[]> categoriaMap = new HashMap<>();
-        HashMap<Integer, String[]> unidadeMap = new HashMap<>();
         //
         String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
         String usuario = "root";
@@ -877,29 +876,16 @@ NumberFormat formatter = NumberFormat.getCurrencyInstance();
         //        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
         //       String usuario = "titanw25_japedidos_hml";
         //      String senha = "seNai@2024proj";
-        try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
-            String sqlQuery = "SELECT id, nome, descricao FROM categoria ORDER BY nome ASC"; // Exemplo de consulta
 
-            load_db_2_jtable_jcombbox.loadComboBox(ComboBoxTESTE, conn, sqlQuery);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
         try
         {
             banco = DriverManager.getConnection(url, usuario, senha);
             String sql_lista_produtos_view = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
-            String sql_categoria = "SELECT id, nome, descricao FROM categoria ORDER BY nome ASC";
-            String sql_unidade = "SELECT id, abreviacao FROM unidade ORDER BY abreviacao ASC";
             
             PreparedStatement stm_lista_produtos_view = banco.prepareStatement(sql_lista_produtos_view);
-            PreparedStatement stm_categoria = banco.prepareStatement(sql_categoria);            
-            PreparedStatement stm_unidade = banco.prepareStatement(sql_unidade);
             
 //            stm_lista_produtos_view.execute(); // cria o vetor
             ResultSet resultado_lista_produtos_view = stm_lista_produtos_view.executeQuery(sql_lista_produtos_view);
-            ResultSet resultado_categoria = stm_categoria.executeQuery();
-            ResultSet resultado_unidade = stm_unidade.executeQuery();
 
 //          Define modelo de tabela a partir da  que ja existe neste frame
             DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
@@ -919,25 +905,6 @@ NumberFormat formatter = NumberFormat.getCurrencyInstance();
                         resultado_lista_produtos_view.getBoolean("estado")
                     });
                 }
-            while (resultado_categoria.next()) {
-                int index = resultado_categoria.getInt("id");  // Obtém o índice
-                String nomeCategoria = resultado_categoria.getString("nome");  // Obtém o nome
-//                  String nomeDescricao = resultado.getString("descricao");  // Obtém o descricao
-//                  categoriaMap.put(index, nomeCategoria);
-//                  categoriaMap.put(index, new String[]{nomeCategoria, nomeDescricao});
-                categoriaMap.put(index, new String[]{nomeCategoria});
-//                  Adiciona o nome ao JComboBox
-                jcmb_categoria.addItem(nomeCategoria);
-            }
-            while (resultado_unidade.next()) {
-                int index = resultado_unidade.getInt("id");  // Obtém o índice
-                String nomeUnidade = resultado_unidade.getString("abreviacao");  // Obtém o nome
-                unidadeMap.put(index, new String[]{nomeUnidade});
-                jcmb_unid.addItem(nomeUnidade);
-            }
-            
-            stm_unidade.close();
-            stm_categoria.close();
             stm_lista_produtos_view.close();
             }
             catch (SQLException ex)
@@ -946,6 +913,34 @@ NumberFormat formatter = NumberFormat.getCurrencyInstance();
             }
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        NumberFormat decimal = new DecimalFormat("#,##0.00");
+        Connection banco = null;
+//        PreparedStatement stm_lista_produtos_view = null;
+
+        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+        String usuario = "root";
+        String senha = "";
+
+        
+        HashMap<Integer, String[]> categoriaMap = new HashMap<>();
+        HashMap<Integer, String[]> unidadeMap = new HashMap<>();
+
+       try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
+            String sql_combCategoria = "SELECT id, nome, descricao FROM categoria ORDER BY nome ASC"; 
+            String sql_combUnidade = "SELECT id, abreviacao FROM unidade ORDER BY abreviacao ASC";
+
+            
+            load_DB2_components.loadComboBox(jcmb_categoria, conn, sql_combCategoria);
+            load_DB2_components.loadComboBox(jcmb_unid, conn, sql_combUnidade);
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -997,7 +992,6 @@ NumberFormat formatter = NumberFormat.getCurrencyInstance();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> ComboBoxTESTE;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JCheckBox jchb_ativo;
