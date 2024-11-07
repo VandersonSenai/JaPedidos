@@ -42,6 +42,11 @@ public final class Pedido {
     private ProdutoPedido[] produtosPedido;
     private String infoCancelamento;
     
+    public Pedido(Cliente cliente, InfoEntrega infoEntrega, ProdutoPedido[] produtoPedido, int taxaDesconto) {
+        this(1, cliente, infoEntrega, produtoPedido, taxaDesconto);
+        this.id = NULL_ID;
+    }
+    
     public Pedido(int id, Cliente cliente, InfoEntrega infoEntrega, ProdutoPedido[] produtoPedido, int taxaDesconto) {
         IllegalArgumentsException exs = new IllegalArgumentsException();
         
@@ -65,7 +70,7 @@ public final class Pedido {
         }
         
         try {
-            setProdutosPedido(produtosPedido);
+            setProdutos(produtosPedido);
         } catch (IllegalProdutoPedidoArrayException ex) {
             exs.addCause(ex);
         }
@@ -106,14 +111,16 @@ public final class Pedido {
             throw new IllegalInfoEntregaException("Informação de entrega é nula.");
         } else {
             this.infoEntrega = infoEntrega;
+            calcularPrecos();
         }
     }
-    
-    public void setProdutosPedido(ProdutoPedido[] produtosPedido) {
+    // Adiciona produtos e atualiza precos
+    public void setProdutos(ProdutoPedido[] produtosPedido) {
         if (produtosPedido == null) {
             throw new IllegalProdutoPedidoArrayException("Produtos são nulos.");
         } else {
             this.produtosPedido = produtosPedido;
+            calcularPrecos();
         }
     }
     
@@ -176,6 +183,53 @@ public final class Pedido {
         }
     }
     
+    public void calcularPrecos() {
+        if (produtosPedido != null) {
+            
+            double somaPrecoVenda = 0;
+            double somaPrecoCusto = 0;
+            double taxaDesconto = getTaxaDesconto();
+            
+            for (ProdutoPedido prodPedido : getProdutos()) {
+                if (prodPedido != null) {
+                    int qtdProd = prodPedido.getQuantidade();
+                    Produto p = prodPedido.getProduto();
+                    somaPrecoVenda += p.getPrecoVenda() * qtdProd;
+                    somaPrecoCusto += p.getPrecoCusto() * qtdProd;
+                }
+            }
+            
+            double precoFrete = 0;
+            InfoEntrega infoEntrega = this.getInfoEntrega(); 
+            if (infoEntrega != null) {
+                precoFrete = infoEntrega.getPrecoFrete();
+            }
+            
+            this.precoFinal = somaPrecoVenda * taxaDesconto + precoFrete;
+            this.precoCustoTotal = somaPrecoCusto;
+        }
+    }
+    
+    public static double precoFinal(ProdutoPedido[] produtos, double desconto, InfoEntrega infoEntrega) {
+        double somaPrecoVenda = 0;
+        double taxaDesconto = desconto;
+
+        for (ProdutoPedido prodPedido : produtos) {
+            if (prodPedido != null) {
+                int qtdProd = prodPedido.getQuantidade();
+                Produto p = prodPedido.getProduto();
+                somaPrecoVenda += p.getPrecoVenda() * qtdProd;
+            }
+        }
+
+        double precoFrete = 0;
+        if (infoEntrega != null) {
+            precoFrete = infoEntrega.getPrecoFrete();
+        }
+
+        return somaPrecoVenda * taxaDesconto + precoFrete;
+    }
+    
     public void setInfoCancelamento(String infoCancelamento) {
         if (infoCancelamento == null) {
 //            throw new IllegalInfoCancelamentoException("Informação de cancelamento é nula.");
@@ -195,5 +249,21 @@ public final class Pedido {
     
     public int getId() {
         return this.id;
+    }
+    
+    public int getProdutoCount() {
+        return this.produtosPedido.length;
+    }
+    
+    public ProdutoPedido[] getProdutos() {
+        return this.produtosPedido;
+    }
+    
+    public InfoEntrega getInfoEntrega() {
+        return this.infoEntrega;
+    }
+    
+    public double getTaxaDesconto() {
+        return this.taxaDesconto / 100.0;
     }
 }

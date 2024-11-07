@@ -8,8 +8,10 @@ import japedidos.clientes.Cliente;
 import japedidos.clientes.InfoAdicionalReceiver;
 import japedidos.clientes.JFrame_InfoAdicionalCliente;
 import japedidos.exception.IllegalArgumentsException;
+import japedidos.exception.IllegalPrecoFreteException;
 import japedidos.exception.IllegalProdutoException;
 import japedidos.exception.IllegalQuantidadeException;
+import japedidos.exception.IllegalTipoEntregaException;
 import japedidos.pedidos.Estado;
 import japedidos.produto.Produto;
 import japedidos.produto.ProdutoPedido;
@@ -67,11 +69,12 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         int txDesconto;
         double valorEntrega, valorTotal, custoTotal;
         String nome, telefone, strDataEntregar, strHoraEntregar, rua, numeroDestino, bairro, cidade, uf, observacoes, strTaxaDesconto, strValorEntrega, strValorTotal, strCustoTotal;
-        Cliente cliente = null;
+        Cliente cliente;
         TipoEntrega tipoEntrega;
         Destino destinoEntrega;
         LocalDate dataEntregar;
         LocalTime horaEntregar;
+        InfoEntrega infoEntrega;
         Registro criacao;
         LocalDateTime dthrEntregar;
         LocalDate dtPago;
@@ -90,20 +93,56 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             cliente = new Cliente(nome, telefone);
         } catch (IllegalArgumentsException newExs) {
             exs.addCause(newExs.getCauses());
+            cliente = null;
+        }
+        
+        // Tipo de entrega
+        tipoEntrega = (TipoEntrega)jcmb_tipoEntrega.getSelectedItem();
+        
+//        strDataEntregar = jtxtf_dataEntrega.getText().trim();
+//        dataEntregar = LocalDate.parse(strDataEntregar.subSequence(0, strDataEntregar.length()));
+//        strHoraEntregar = jtxtf_horaEntrega.getText().trim();
+//        horaEntregar = LocalTime.parse(strHoraEntregar.subSequence(0, strHoraEntregar.length())); 
+//        dthrEntregar = LocalDateTime.of(dataEntregar, horaEntregar);
+//        System.out.println(dthrEntregar);
+        dataEntregar = LocalDate.now();
+        horaEntregar = LocalTime.now();
+        dthrEntregar = LocalDateTime.of(dataEntregar, horaEntregar);
+        
+        // Criação do destino de entrega
+        rua = jtxtf_rua.getText().trim();
+        numeroDestino = jtxtf_numero.getText().trim();
+        bairro = jtxtf_bairro.getText().trim();
+        cidade = jtxtf_cidade.getText().trim();
+        uf = jtxtf_uf.getText().trim();
+        observacoes = jtxta_observacoes.getText().trim();
+        try {
+            destinoEntrega = new Destino(bairro, numeroDestino, bairro, cidade, uf);
+        } catch (IllegalArgumentsException newExs) {
+            exs.addCause(newExs.getCauses());
+            destinoEntrega = null;
         }
         
         // Info de entrega
-        tipoEntrega = (TipoEntrega)jcmb_tipoEntrega.getSelectedItem();
-        if (tipoEntrega == null) {
-            // Habilitar label de erro
+        try {
+            strValorEntrega = jtxtf_valorEntrega.getText().trim();
+            if (strValorEntrega.isEmpty()) {
+                valorEntrega = 0;
+            } else {
+                valorEntrega = Double.parseDouble(strValorEntrega);
+            }
+            
+            infoEntrega = new InfoEntrega(tipoEntrega, dthrEntregar, valorEntrega);
+        } catch (NumberFormatException ex) {
+            exs.addCause(new IllegalPrecoFreteException("Preço de frete inválido."));
+        } catch (IllegalArgumentsException ex) {
+            exs.addCause(ex.getCauses());
+            infoEntrega = null;
         }
         
-        strDataEntregar = jtxtf_dataEntrega.getText().trim();
-        dataEntregar = LocalDate.parse(strDataEntregar.subSequence(0, strDataEntregar.length()));
-        strHoraEntregar = jtxtf_horaEntrega.getText().trim();
-        horaEntregar = LocalTime.parse(strHoraEntregar.subSequence(0, strHoraEntregar.length())); 
-        dthrEntregar = LocalDateTime.of(dataEntregar, horaEntregar);
-        System.out.println(dthrEntregar);
+        // Produtos adicionados
+        
+        
         return p;
     }
     
@@ -167,7 +206,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jpnl_incluirPedido = new javax.swing.JPanel();
         jTable_ProdutoPedido = new japedidos.produto.JTable_ProdutoPedido();
         jscp_destinatario = new javax.swing.JScrollPane();
-        jtxta_observações = new javax.swing.JTextArea();
+        jtxta_observacoes = new javax.swing.JTextArea();
         jcmb_estadoInicial = new javax.swing.JComboBox<>();
         jtxtf_valorEntrega = new javax.swing.JTextField();
         jlbl_horaEntrega = new javax.swing.JLabel();
@@ -318,10 +357,10 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jpnl_incluirPedido.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jpnl_incluirPedido.add(jTable_ProdutoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 730, 110));
 
-        jtxta_observações.setColumns(20);
-        jtxta_observações.setRows(5);
-        jtxta_observações.setText("Dados destinatário, ponto de referência...");
-        jscp_destinatario.setViewportView(jtxta_observações);
+        jtxta_observacoes.setColumns(20);
+        jtxta_observacoes.setRows(5);
+        jtxta_observacoes.setText("Dados destinatário, ponto de referência...");
+        jscp_destinatario.setViewportView(jtxta_observacoes);
 
         jpnl_incluirPedido.add(jscp_destinatario, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 320, 100));
 
@@ -923,7 +962,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private javax.swing.JSpinner jspn_quantidade;
     private javax.swing.JTable jtbl_HistoricoPedido;
     private javax.swing.JTable jtbl_pedidosEmAberto;
-    private javax.swing.JTextArea jtxta_observações;
+    private javax.swing.JTextArea jtxta_observacoes;
     private javax.swing.JTextField jtxtf_bairro;
     private javax.swing.JTextField jtxtf_cidade;
     private javax.swing.JTextField jtxtf_dataEntrega;

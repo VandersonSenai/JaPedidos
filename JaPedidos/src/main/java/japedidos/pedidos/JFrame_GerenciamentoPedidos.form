@@ -342,7 +342,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTextArea" name="jtxta_observa&#xe7;&#xf5;es">
+                    <Component class="javax.swing.JTextArea" name="jtxta_observacoes">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="5"/>
