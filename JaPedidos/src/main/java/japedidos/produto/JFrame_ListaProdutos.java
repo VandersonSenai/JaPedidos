@@ -851,6 +851,10 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             load_DB2_components.excluirRegistro(url, usuario, senha, sqlQuery);
         } catch (SQLException ex) {
             Logger.getLogger(JFrame_ListaProdutos.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, 
+            "Falha ao excluir\n", 
+            "JaPedidos", 
+            JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jlbl_btn_excluirMouseClicked
 
