@@ -11,6 +11,7 @@ import japedidos.exception.IllegalArgumentsException;
 import japedidos.exception.IllegalPrecoFreteException;
 import japedidos.exception.IllegalProdutoException;
 import japedidos.exception.IllegalQuantidadeException;
+import japedidos.exception.IllegalTaxaDescontoException;
 import japedidos.exception.IllegalTipoEntregaException;
 import japedidos.pedidos.Estado;
 import japedidos.produto.Produto;
@@ -47,6 +48,14 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                 }
             }
         }
+        
+        jspn_valorEntrega.addChangeListener((e) -> {
+            atualizarValoresPedido();
+        });
+        
+        jspn_desconto.addChangeListener((e) -> {
+            atualizarValoresPedido();
+        });
     }
     public void fillEstadosComboBoxPedido() {
         jcmb_estadoInicial.addItem(Estado.ABERTO);
@@ -117,7 +126,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         uf = jtxtf_uf.getText().trim();
         observacoes = jtxta_observacoes.getText().trim();
         try {
-            destinoEntrega = new Destino(bairro, numeroDestino, bairro, cidade, uf);
+            destinoEntrega = new Destino(rua, bairro, numeroDestino, bairro, cidade, uf);
         } catch (IllegalArgumentsException newExs) {
             exs.addCause(newExs.getCauses());
             destinoEntrega = null;
@@ -125,23 +134,43 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         
         // Info de entrega
         try {
-            strValorEntrega = jtxtf_valorEntrega.getText().trim();
-            if (strValorEntrega.isEmpty()) {
-                valorEntrega = 0;
+            valorEntrega = (Double)jspn_valorEntrega.getValue();
+            if (valorEntrega < 0.0 || valorEntrega > (Double)((javax.swing.SpinnerNumberModel)jspn_valorEntrega.getModel()).getMaximum()) {
+                infoEntrega = null;
+                throw new NumberFormatException("Preço do frete não aceito.");
             } else {
-                valorEntrega = Double.parseDouble(strValorEntrega);
+                infoEntrega = new InfoEntrega(tipoEntrega, dthrEntregar, valorEntrega);
             }
-            
-            infoEntrega = new InfoEntrega(tipoEntrega, dthrEntregar, valorEntrega);
         } catch (NumberFormatException ex) {
             exs.addCause(new IllegalPrecoFreteException("Preço de frete inválido."));
+            infoEntrega = null;
         } catch (IllegalArgumentsException ex) {
             exs.addCause(ex.getCauses());
             infoEntrega = null;
         }
         
         // Produtos adicionados
+        produtosAdicionados = jTable_ProdutoPedido.getModel().getRows();
         
+        // Desconto
+        txDesconto = (int)jspn_desconto.getValue();
+        
+        // Definição do estado inicial
+        estadoInicial = (EstadoPedido)jcmb_estadoInicial.getSelectedItem();
+        
+        // Tentativa de criação do Pedido
+        try {
+            p = new Pedido(cliente, infoEntrega, produtosAdicionados, txDesconto);
+        } catch (IllegalArgumentsException newExs) {
+            Throwable[] causes = newExs.getCauses();
+            for (Throwable t : causes) {
+                if (t instanceof IllegalTaxaDescontoException) {
+                    exs.addCause(t);
+                } else if (t instanceof IllegalProdutoException) {
+                    exs.addCause(t);
+                }
+            }
+        }
         
         return p;
     }
@@ -208,7 +237,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jscp_destinatario = new javax.swing.JScrollPane();
         jtxta_observacoes = new javax.swing.JTextArea();
         jcmb_estadoInicial = new javax.swing.JComboBox<>();
-        jtxtf_valorEntrega = new javax.swing.JTextField();
         jlbl_horaEntrega = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jbtn_incluirProduto = new javax.swing.JButton();
@@ -230,7 +258,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jtxtf_rua = new javax.swing.JTextField();
         jlbl_uf = new javax.swing.JLabel();
         jtxtf_bairro = new javax.swing.JTextField();
-        jtxtf_desconto = new javax.swing.JTextField();
         jlbl_desconto = new javax.swing.JLabel();
         jtxtf_telefoneCliente = new javax.swing.JTextField();
         jlbl_telefoneCliente = new javax.swing.JLabel();
@@ -239,7 +266,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_produtoAdicionados = new javax.swing.JLabel();
         jlbl_infoAdicionalCliente = new javax.swing.JLabel();
         jlbl_dataEntrega = new javax.swing.JLabel();
-        jspn_quantidade = new javax.swing.JSpinner();
+        jspn_quantidade = new javax.swing.JSpinner(new javax.swing.SpinnerNumberModel(0, 0, 10000, 1));
         jlbl_observações = new javax.swing.JLabel();
         jlbl_nomeCliente = new javax.swing.JLabel();
         jtxtf_numero = new javax.swing.JTextField();
@@ -267,6 +294,8 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_erro_quantidadeProduto = new javax.swing.JLabel();
         jlbl_erro_valorEntrega = new javax.swing.JLabel();
         jlbl_erro_valorTotal = new javax.swing.JLabel();
+        jspn_desconto = new javax.swing.JSpinner(new javax.swing.SpinnerNumberModel(0.0, 0.0, 100.0, 1.0));
+        jspn_valorEntrega = new javax.swing.JSpinner(new javax.swing.SpinnerNumberModel(0.0, 0.0, 100000, 0.01));
         jpnl_historicoPedidos = new javax.swing.JPanel();
         jtxtf_pesquisarHistoricoPedido = new javax.swing.JTextField();
         jlbl_filtroHistoricoPedido = new javax.swing.JLabel();
@@ -366,9 +395,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
 
         jpnl_incluirPedido.add(jcmb_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 450, 190, -1));
 
-        jtxtf_valorEntrega.setForeground(new java.awt.Color(204, 204, 204));
-        jpnl_incluirPedido.add(jtxtf_valorEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 80, -1));
-
         jlbl_horaEntrega.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_horaEntrega.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_horaEntrega.setText("HORA:");
@@ -385,7 +411,8 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         });
         jpnl_incluirPedido.add(jbtn_incluirProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, 100, -1));
 
-        jtxtf_valorTotal.setForeground(new java.awt.Color(204, 204, 204));
+        jtxtf_valorTotal.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        jtxtf_valorTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jpnl_incluirPedido.add(jtxtf_valorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 450, 100, -1));
 
         jtxtf_dataEntrega.setForeground(new java.awt.Color(204, 204, 204));
@@ -460,9 +487,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
 
         jtxtf_bairro.setForeground(new java.awt.Color(204, 204, 204));
         jpnl_incluirPedido.add(jtxtf_bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 170, -1));
-
-        jtxtf_desconto.setForeground(new java.awt.Color(204, 204, 204));
-        jpnl_incluirPedido.add(jtxtf_desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 450, 60, 30));
 
         jlbl_desconto.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_desconto.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -648,6 +672,20 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_erro_valorTotal.setText("Info inválida!");
         jpnl_incluirPedido.add(jlbl_erro_valorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 480, 120, 20));
 
+        jspn_desconto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jspn_descontoFocusLost(evt);
+            }
+        });
+        jpnl_incluirPedido.add(jspn_desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 450, 70, -1));
+
+        jspn_valorEntrega.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jspn_valorEntregaFocusLost(evt);
+            }
+        });
+        jpnl_incluirPedido.add(jspn_valorEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 90, -1));
+
         jTabbedPane1.addTab("Incluir pedido", jpnl_incluirPedido);
 
         jpnl_historicoPedidos.setOpaque(false);
@@ -769,6 +807,20 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void atualizarValoresPedido() {
+        double valorFrete, valorFinalVenda;
+        double taxaDesconto;
+        
+        try {
+            valorFrete = (Double)jspn_valorEntrega.getValue();
+            taxaDesconto = (Double)jspn_desconto.getValue() / 100.0;
+            valorFinalVenda = Pedido.precoFinalVenda(jTable_ProdutoPedido.getModel().getRows(), taxaDesconto, valorFrete);
+            jtxtf_valorTotal.setText(String.format("%1.2f", valorFinalVenda));
+        } catch (NumberFormatException ex) {
+            System.out.println("Erro ao atualizar preço do pedido.");
+        }
+    }
+    
     private void jlbl_produtosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jlbl_produtosFocusGained
         // TODO add your handling code here:
 
@@ -834,6 +886,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                 }
             }
         }
+        atualizarValoresPedido();
     }//GEN-LAST:event_jbtn_incluirProdutoActionPerformed
 
     private void jbtn_excluirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_excluirProdutoActionPerformed
@@ -843,7 +896,16 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             clearProdutoFieldsInfo();
             hideProdutoErrorLabels();
         }
+        atualizarValoresPedido();
     }//GEN-LAST:event_jbtn_excluirProdutoActionPerformed
+
+    private void jspn_valorEntregaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jspn_valorEntregaFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jspn_valorEntregaFocusLost
+
+    private void jspn_descontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jspn_descontoFocusLost
+        atualizarValoresPedido();
+    }//GEN-LAST:event_jspn_descontoFocusLost
 
     /**
      * @param args the command line arguments
@@ -959,14 +1021,15 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private javax.swing.JScrollPane jscp_destinatario;
     private javax.swing.JScrollPane jscp_pedidosEmAberto;
     private javax.swing.JScrollPane jscp_pedidosEmAberto1;
+    private javax.swing.JSpinner jspn_desconto;
     private javax.swing.JSpinner jspn_quantidade;
+    private javax.swing.JSpinner jspn_valorEntrega;
     private javax.swing.JTable jtbl_HistoricoPedido;
     private javax.swing.JTable jtbl_pedidosEmAberto;
     private javax.swing.JTextArea jtxta_observacoes;
     private javax.swing.JTextField jtxtf_bairro;
     private javax.swing.JTextField jtxtf_cidade;
     private javax.swing.JTextField jtxtf_dataEntrega;
-    private javax.swing.JTextField jtxtf_desconto;
     private javax.swing.JTextField jtxtf_horaEntrega;
     private javax.swing.JTextField jtxtf_nomeCliente;
     private javax.swing.JTextField jtxtf_numero;
@@ -975,7 +1038,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private javax.swing.JTextField jtxtf_rua;
     private javax.swing.JTextField jtxtf_telefoneCliente;
     private javax.swing.JTextField jtxtf_uf;
-    private javax.swing.JTextField jtxtf_valorEntrega;
     private javax.swing.JTextField jtxtf_valorTotal;
     // End of variables declaration//GEN-END:variables
 }

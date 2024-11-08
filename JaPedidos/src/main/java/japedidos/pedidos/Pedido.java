@@ -185,35 +185,30 @@ public final class Pedido {
     
     public void calcularPrecos() {
         if (produtosPedido != null) {
-            
-            double somaPrecoVenda = 0;
             double somaPrecoCusto = 0;
             double taxaDesconto = getTaxaDesconto();
-            
-            for (ProdutoPedido prodPedido : getProdutos()) {
+            ProdutoPedido[] produtos = getProdutos();
+            for (ProdutoPedido prodPedido : produtos) {
                 if (prodPedido != null) {
                     int qtdProd = prodPedido.getQuantidade();
                     Produto p = prodPedido.getProduto();
-                    somaPrecoVenda += p.getPrecoVenda() * qtdProd;
                     somaPrecoCusto += p.getPrecoCusto() * qtdProd;
                 }
             }
             
-            double precoFrete = 0;
             InfoEntrega infoEntrega = this.getInfoEntrega(); 
+            double frete = 0;
             if (infoEntrega != null) {
-                precoFrete = infoEntrega.getPrecoFrete();
+                frete = infoEntrega.getPrecoFrete();
             }
-            
-            this.precoFinal = somaPrecoVenda * taxaDesconto + precoFrete;
+            this.precoFinal = precoFinalVenda(produtos, taxaDesconto, frete);
             this.precoCustoTotal = somaPrecoCusto;
         }
     }
     
-    public static double precoFinal(ProdutoPedido[] produtos, double desconto, InfoEntrega infoEntrega) {
+    public static double precoFinalVenda(ProdutoPedido[] produtos, double desconto, double valorFrete) {
         double somaPrecoVenda = 0;
         double taxaDesconto = desconto;
-
         for (ProdutoPedido prodPedido : produtos) {
             if (prodPedido != null) {
                 int qtdProd = prodPedido.getQuantidade();
@@ -222,12 +217,7 @@ public final class Pedido {
             }
         }
 
-        double precoFrete = 0;
-        if (infoEntrega != null) {
-            precoFrete = infoEntrega.getPrecoFrete();
-        }
-
-        return somaPrecoVenda * taxaDesconto + precoFrete;
+        return somaPrecoVenda - (somaPrecoVenda * taxaDesconto) + valorFrete;
     }
     
     public void setInfoCancelamento(String infoCancelamento) {

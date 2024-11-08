@@ -72,6 +72,10 @@ public final class ProdutoPedidoTableModel extends AbstractTableModel {
         return data.get(row);
     }
     
+    public ProdutoPedido[] getRows() {
+        return this.data.toArray(new ProdutoPedido[getRowCount()]);
+    }
+    
     public void clearRows() {
         this.data.clear();
         fireTableDataChanged();
