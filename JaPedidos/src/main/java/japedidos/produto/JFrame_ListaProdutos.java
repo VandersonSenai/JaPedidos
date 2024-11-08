@@ -17,6 +17,7 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.text.NumberFormat;
 import javax.print.DocFlavor;
+import javax.swing.JOptionPane;
 
 
 public class JFrame_ListaProdutos extends javax.swing.JFrame {
@@ -226,7 +227,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         jtxtf_pesquisa.setBackground(new java.awt.Color(204, 204, 204));
         jtxtf_pesquisa.setForeground(new java.awt.Color(102, 102, 102));
-        jtxtf_pesquisa.setText("Digite aqui que deseja encontrar e pressione ENTER...");
+        jtxtf_pesquisa.setText("Digite aqui que deseja encontrar...");
         jtxtf_pesquisa.setBorder(jtxtf_codigo.getBorder());
         jtxtf_pesquisa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jtxtf_pesquisa.setMargin(new java.awt.Insets(2, 54, 2, 6));
@@ -331,6 +332,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         jlbl_btn_novo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_btn_novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_novo_padrao.png"))); // NOI18N
+        jlbl_btn_novo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jlbl_btn_novo.setNextFocusableComponent(jlbl_btn_excluir);
         jlbl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -343,7 +345,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                 jlbl_btn_novoMouseReleased(evt);
             }
         });
-        jpnl_corpo.add(jlbl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 390, -1, -1));
+        jpnl_corpo.add(jlbl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 390, 86, 33));
 
         jlbl_btn_excluir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_btn_excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_excluir_padrao.png"))); // NOI18N
@@ -475,6 +477,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jlbl_btn_novoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_novoMouseClicked
         // TODO add your handling code here:
+        jlbl_btn_novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_novo_pressionado.png"))); 
     }//GEN-LAST:event_jlbl_btn_novoMouseClicked
 
     private void jlbl_btn_novoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_novoMouseReleased
@@ -553,9 +556,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         cor_padrao_txt_pedidos = new Color(128,128,128);
         cor_padrao_txt_relatorios = new Color(128,128,128);
 
-        
-        
-        
 //        jtb_linhaBranca.setSize(jlbl_clientes.getWidth(), 4 );
 //        jlbl_clientes.setForeground(new Color(255,255,255));
         
@@ -605,6 +605,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             jcmb_categoria.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
             jcmb_unid.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 5));
             jtxtf_valor.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4));  //quase ok
+            jchb_ativo.setSelected((Boolean) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 6));
             
         }
     }//GEN-LAST:event_jtbl_lista_produtosMouseClicked
@@ -612,12 +613,10 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     private void jtxtf_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_pesquisaActionPerformed
         String sql_listaProdutos = "";
         String encontrar = jtxtf_pesquisa.getText();
-//        encontrar = "'%" + encontrar + "%'";
        
         if (jtxtf_pesquisa.getText().equals("")|jtxtf_pesquisa.getText().equals("Digite aqui que deseja encontrar...")){
             sql_listaProdutos = "select * from listaTodosProdutos group by nome ";
         } else {
-//            sql_listaProdutos = "select * from listaTodosProdutos group by nome having nome LIKE " + encontrar;
             sql_listaProdutos = "select * from listaTodosProdutos group by nome having nome LIKE " ;
             sql_listaProdutos =     sql_listaProdutos + "'%" +
                                     encontrar + "%'" + " or categoria LIKE " +
@@ -660,12 +659,14 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     private void jlbl_encontrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_encontrarMouseClicked
         String sql_listaProdutos = "";
         String encontrar = jtxtf_pesquisa.getText();
-        encontrar = "'%" + encontrar + "%'";
-        
-        if (jtxtf_pesquisa.getText().equals("")|jtxtf_pesquisa.getText().equals("Digite aqui que deseja encontrar...")){
+       
+        if (jtxtf_pesquisa.getText().equals("") | jtxtf_pesquisa.getText().equals("Digite aqui que deseja encontrar e pressione ENTER...")){
             sql_listaProdutos = "select * from listaTodosProdutos group by nome ";
         } else {
-            sql_listaProdutos = "select * from listaTodosProdutos group by nome having nome LIKE " + encontrar;
+            sql_listaProdutos = "select * from listaTodosProdutos group by nome having nome LIKE " ;
+            sql_listaProdutos =     sql_listaProdutos + "'%" +
+                                               encontrar + "%'" + " or categoria LIKE " +
+                                               "'%" + encontrar + "%'" + " ORDER BY nome ASC";
         }
         
         String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
@@ -675,10 +676,32 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
        try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
             
             load_DB2_components.loadJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
-            
         } catch (SQLException e) {
             e.printStackTrace();
         }
+//       
+//
+//        String sql_listaProdutos = "";
+//        String encontrar = jtxtf_pesquisa.getText();
+//        encontrar = "'%" + encontrar + "%'";
+//        
+//        if (jtxtf_pesquisa.getText().equals("")|jtxtf_pesquisa.getText().equals("Digite aqui que deseja encontrar...")){
+//            sql_listaProdutos = "select * from listaTodosProdutos group by nome ";
+//        } else {
+//            sql_listaProdutos = "select * from listaTodosProdutos group by nome having nome LIKE " + encontrar;
+//        }
+//        
+//        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+//        String usuario = "root";
+//        String senha = "";
+//
+//       try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
+//            
+//            load_DB2_components.loadJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
+//            
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
         
     }//GEN-LAST:event_jlbl_encontrarMouseClicked
 
@@ -704,15 +727,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jtbl_lista_produtosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbl_lista_produtosMousePressed
         if (jtbl_lista_produtos.getRowCount()>=1){
-            
-            NumberFormat formatter = NumberFormat.getCurrencyInstance();
-            NumberFormat decimal = new DecimalFormat("#,##0.00"); 
-/*
-            System.out.println( "\n Linha - " + jtbl_lista_produtos.getSelectedRow()+
-                                "\n Coluna - " + jtbl_lista_produtos.getSelectedColumn()+
-                                "\n Descricao :  - " + jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 
-                                                    1));
-            */
+//            NumberFormat formatter = NumberFormat.getCurrencyInstance();
+//            NumberFormat decimal = new DecimalFormat("#,##0.00"); 
+//            System.out.println( "\n Linha - " + jtbl_lista_produtos.getSelectedRow()+
+//                                "\n Coluna - " + jtbl_lista_produtos.getSelectedColumn()+
+//                                "\n Descricao :  - " + jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 
+//                                                    1));
+
             jtxtf_codigo.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 0));
             jtxtf_descricao.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 1));
             jcmb_categoria.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
@@ -728,51 +749,56 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jtbl_lista_produtosFocusGained
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        NumberFormat decimal = new DecimalFormat("#,##0.00");
-        Connection banco = null;
-//        PreparedStatement stm_lista_produtos_view = null;
-        //
-        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
-        String usuario = "root";
-        String senha = "";
-        //        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
-        //       String usuario = "titanw25_japedidos_hml";
-        //      String senha = "seNai@2024proj";
-
-        try
-        {
-            banco = DriverManager.getConnection(url, usuario, senha);
-            String sql_lista_produtos_view = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
-            
-            PreparedStatement stm_lista_produtos_view = banco.prepareStatement(sql_lista_produtos_view);
-            
-//            stm_lista_produtos_view.execute(); // cria o vetor
-            ResultSet resultado_lista_produtos_view = stm_lista_produtos_view.executeQuery(sql_lista_produtos_view);
-
-//          Define modelo de tabela a partir da  que ja existe neste frame
-            DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
-//          Zera a lista caso ja exista algum dado anterior
-            model.setRowCount(0);
-            while(resultado_lista_produtos_view.next())
-            {
-                model.addRow(new Object[]
-                    {
-                        //  Retorna os dados da tabela do lista_produtos_view, cada campo e um coluna.
-                        resultado_lista_produtos_view.getString("id"),
-                        resultado_lista_produtos_view.getString("nome"),
-                        resultado_lista_produtos_view.getString("categoria"),
-                        decimal.format(resultado_lista_produtos_view.getDouble("preco_custo")),
-                        decimal.format(resultado_lista_produtos_view.getDouble("preco_venda")),
-                        resultado_lista_produtos_view.getString("unidade"),
-                        resultado_lista_produtos_view.getBoolean("estado")
-                    });
-                }
-            stm_lista_produtos_view.close();
-            }
-            catch (SQLException ex)
-            {
-                System.out.println("O erro foi  X:  " +ex);
-            }
+//        NumberFormat decimal = new DecimalFormat("#,##0.00");
+//        Connection banco = null;
+////        PreparedStatement stm_lista_produtos_view = null;
+//        //
+//        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+//        String usuario = "root";
+//        String senha = "";
+//        //        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
+//        //       String usuario = "titanw25_japedidos_hml";
+//        //      String senha = "seNai@2024proj";
+//
+//        try
+//        {
+//            banco = DriverManager.getConnection(url, usuario, senha);
+//            String sql_lista_produtos_view = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
+//            
+//            PreparedStatement stm_lista_produtos_view = banco.prepareStatement(sql_lista_produtos_view);
+//            
+////            stm_lista_produtos_view.execute(); // cria o vetor
+//            ResultSet resultado_lista_produtos_view = stm_lista_produtos_view.executeQuery(sql_lista_produtos_view);
+//
+////          Define modelo de tabela a partir da  que ja existe neste frame
+//            DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
+////          Zera a lista caso ja exista algum dado anterior
+//            model.setRowCount(0);
+//            while(resultado_lista_produtos_view.next())
+//            {
+//                model.addRow(new Object[]
+//                    {
+//                        //  Retorna os dados da tabela do lista_produtos_view, cada campo e um coluna.
+//                        resultado_lista_produtos_view.getString("id"),
+//                        resultado_lista_produtos_view.getString("nome"),
+//                        resultado_lista_produtos_view.getString("categoria"),
+//                        decimal.format(resultado_lista_produtos_view.getDouble("preco_custo")),
+//                        decimal.format(resultado_lista_produtos_view.getDouble("preco_venda")),
+//                        resultado_lista_produtos_view.getString("unidade"),
+//                        resultado_lista_produtos_view.getBoolean("estado")
+//                    });
+//                }
+//            stm_lista_produtos_view.close();
+//            }
+//            catch (SQLException ex)
+//            {
+//                JOptionPane.showMessageDialog(null, 
+//                "Nao foi possivel conectar ao banco  \n", 
+//                "Erro ao conectar ao banco", 
+//                JOptionPane.INFORMATION_MESSAGE);
+//                System.out.println("O erro foi : " +ex);
+//
+//            }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -801,6 +827,10 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             
         } catch (SQLException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, 
+            "Nao foi possivel conectar ao banco  \n", 
+            "Erro ao conectar ao banco", 
+            JOptionPane.INFORMATION_MESSAGE);
         }
 
     }//GEN-LAST:event_formWindowOpened
@@ -814,12 +844,10 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-
         Path currentRelativePath = Paths.get("");
         String caminhoImagens = currentRelativePath.toAbsolutePath().toString();
         caminhoImagens = Paths.get(".").toAbsolutePath().normalize().toString();
-        System.out.print("O diretorio atual : " + caminhoImagens + "\n");
-        
+        System.out.print("O diretorio atual NORMAL: " + caminhoImagens + "\n");
                 
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -841,7 +869,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

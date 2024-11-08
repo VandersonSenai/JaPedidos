@@ -302,7 +302,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Digite aqui que deseja encontrar e pressione ENTER..."/>
+            <Property name="text" type="java.lang.String" value="Digite aqui que deseja encontrar..."/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection component="jtxtf_codigo" name="border" type="property"/>
             </Property>
@@ -566,6 +566,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/btn_novo_padrao.png"/>
             </Property>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="jlbl_btn_excluir"/>
             </Property>
@@ -577,7 +578,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="890" y="390" width="-1" height="-1"/>
+              <AbsoluteConstraints x="890" y="390" width="86" height="33"/>
             </Constraint>
           </Constraints>
         </Component>
