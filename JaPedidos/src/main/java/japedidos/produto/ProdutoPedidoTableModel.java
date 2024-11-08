@@ -54,10 +54,21 @@ public final class ProdutoPedidoTableModel extends AbstractTableModel {
         if (p == null) {
             return;
         }
+        // Ibcrementa quantidade de produto se já existir na tabela
+        for (int i = 0; i < getRows().length; i++) {
+            ProdutoPedido prodPed = getRow(i);
+            if (prodPed.getProduto().equals(p.getProduto())) {
+                int novaQuant = prodPed.getQuantidade();
+                novaQuant += p.getQuantidade();
+                prodPed.setQuantidade(novaQuant);
+                fireTableRowsUpdated(i, i);
+                return;
+            }
+        }
         
         data.add(p);
-        int row = getRowCount() - 1;
-        fireTableRowsInserted(row, row);
+        int r = getRowCount()-1;
+        fireTableRowsInserted(r, r);
     }
     
     public ProdutoPedido getRow(int row) {
@@ -120,7 +131,7 @@ public final class ProdutoPedidoTableModel extends AbstractTableModel {
             case 2 -> data.get(row).getProduto().getCategoria();
             case 3 -> data.get(row).getQuantidade();
             case 4 -> data.get(row).getProduto().getUnidade().getAbreviacao();
-            case 5 -> String.format("R$ %1.2f", data.get(row).getProduto().getPrecoVenda());
+            case 5 -> String.format("R$ %1.2f", data.get(row).getProduto().getPrecoVenda() * data.get(row).getQuantidade());
             default -> null;
         };
     }

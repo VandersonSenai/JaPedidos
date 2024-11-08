@@ -283,4 +283,9 @@ public class Produto {
     public String toString() {
         return nome;
     }
+    
+    public boolean equals(Object o) {
+        Produto p = (Produto)o;
+        return this.getId() == p.getId();
+    }
 }

@@ -70,7 +70,7 @@ public final class Pedido {
         }
         
         try {
-            setProdutos(produtosPedido);
+            setProdutos(produtoPedido);
         } catch (IllegalProdutoPedidoArrayException ex) {
             exs.addCause(ex);
         }
@@ -155,6 +155,12 @@ public final class Pedido {
             throw new IllegalEstadoPedidoException("Estado é nulo.");
         } else {
             this.estadoAtual = estadoAtual;
+            if (this.estadosPedido == null) {
+                this.estadosPedido = new EstadoPedido[1];
+                this.estadosPedido[0] = estadoAtual;
+            } else {
+                // Adicionar outro estado
+            }
         }
     }
     
@@ -163,6 +169,12 @@ public final class Pedido {
             throw new IllegalEstadoPedidoArrayException("Estados são nulos.");
         } else {
             this.estadosPedido = estadosPedido;
+            if (this.estadosPedido == null) {
+                EstadoPedido ultimo = estadosPedido[estadosPedido.length - 1];
+                if (ultimo != null) {
+                    setEstadoAtual(ultimo);
+                }
+            }
         }
     
     }
@@ -239,6 +251,10 @@ public final class Pedido {
     
     public int getId() {
         return this.id;
+    }
+    
+    public Cliente getCliente() {
+        return this.cliente;
     }
     
     public int getProdutoCount() {

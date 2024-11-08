@@ -1,9 +1,12 @@
 package japedidos.pedidos;
 
+import japedidos.exception.IllegalArgumentsException;
 import japedidos.exception.IllegalBairroException;
 import japedidos.exception.IllegalCidadeException;
+import japedidos.exception.IllegalEstadoException;
 import japedidos.exception.IllegalLogradouroException;
 import japedidos.exception.IllegalNumeroException;
+import japedidos.exception.IllegalPaisException;
 
 /**
  *
@@ -20,12 +23,47 @@ public class Destino {
     }
     
     public Destino(String logradouro, String numero, String bairro, String cidade, String estado, String pais) {
-        setLogradouro(logradouro);
-        setNumero(numero);
-        setBairro(bairro);
-        setCidade(cidade);
-        setEstado(estado);
-        setPais(pais);
+        IllegalArgumentsException exs = new IllegalArgumentsException();
+        
+        try {
+            setLogradouro(logradouro);
+        } catch (IllegalLogradouroException ex) {
+            exs.addCause(ex);
+        }
+        
+        try {
+            setNumero(numero);
+        } catch (IllegalNumeroException ex) {
+            exs.addCause(ex);
+        }
+        
+        try {
+            setBairro(bairro);
+        } catch (IllegalBairroException ex) {
+            exs.addCause(ex);
+        }
+        
+        try {
+            setCidade(cidade);
+        } catch (IllegalCidadeException ex) {
+            exs.addCause(ex);
+        }
+        
+        try {
+            setEstado(estado);
+        } catch (IllegalEstadoException ex) {
+            exs.addCause(ex);
+        }
+        
+        try {
+            setPais(pais);
+        } catch (IllegalPaisException ex) {
+            exs.addCause(ex);
+        }
+        
+        if (exs.size() > 0) {
+            throw exs;
+        }
     }
 
     public final void setLogradouro(String logradouro) {
@@ -94,14 +132,14 @@ public class Destino {
 
     private final void setEstado(String estado) {
         if (estado == null) {
-            throw new IllegalCidadeException("Estado é nulo.");
+            throw new IllegalEstadoException("Estado é nulo.");
         } else {
            estado = estado.trim();
         
             if (estado.isEmpty()) {
-                throw new IllegalCidadeException("Estado é vazio.");
+                throw new IllegalEstadoException("Estado é vazio.");
             } else if (estado.length() > 45) {
-                throw new IllegalCidadeException("Estado excede 45 caracteres.");
+                throw new IllegalEstadoException("Estado excede 45 caracteres.");
             } else {
                 this.estado = estado;
             }
@@ -110,14 +148,14 @@ public class Destino {
     
     private final void setPais(String pais) {
         if (pais == null) {
-            throw new IllegalCidadeException("País é nulo.");
+            throw new IllegalPaisException("País é nulo.");
         } else {
            pais = pais.trim();
         
             if (pais.isEmpty()) {
-                throw new IllegalCidadeException("País é vazio.");
+                throw new IllegalPaisException("País é vazio.");
             } else if (pais.length() > 45) {
-                throw new IllegalCidadeException("País excede 45 caracteres.");
+                throw new IllegalPaisException("País excede 45 caracteres.");
             } else {
                 this.pais = pais;
             }
