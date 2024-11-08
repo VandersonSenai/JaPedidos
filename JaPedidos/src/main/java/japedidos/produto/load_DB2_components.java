@@ -83,7 +83,7 @@ public class load_DB2_components {
     return jTablecomponent;
     }
     
-    public static void excluirRegistro(String url, String usuario, String senha, String sqlQuery)  throws SQLException {
+        public static void excluirRegistro(String url, String usuario, String senha, String sqlQuery)  throws SQLException {
 
         try (Connection banco = DriverManager.getConnection(url, usuario, senha); PreparedStatement stm_tabela = banco.prepareStatement(sqlQuery)) {
         

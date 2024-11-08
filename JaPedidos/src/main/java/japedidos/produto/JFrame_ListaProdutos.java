@@ -16,6 +16,8 @@ import java.awt.Dimension;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.text.NumberFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.print.DocFlavor;
 import javax.swing.JOptionPane;
 
@@ -351,6 +353,9 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jlbl_btn_excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_excluir_padrao.png"))); // NOI18N
         jlbl_btn_excluir.setNextFocusableComponent(jlbl_btn_salvar);
         jlbl_btn_excluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlbl_btn_excluirMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jlbl_btn_excluirMousePressed(evt);
             }
@@ -835,6 +840,20 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formWindowOpened
 
+    private void jlbl_btn_excluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_excluirMouseClicked
+        // TODO add your handling code here:
+//        excluirRegistro(String url, String usuario, String senha, String sqlQuery)
+        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+        String usuario = "root";
+        String senha = "";
+        String sqlQuery = "DELETE from produto where id = " + jtxtf_codigo.getText();
+        try {
+            load_DB2_components.excluirRegistro(url, usuario, senha, sqlQuery);
+        } catch (SQLException ex) {
+            Logger.getLogger(JFrame_ListaProdutos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jlbl_btn_excluirMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -847,7 +866,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         Path currentRelativePath = Paths.get("");
         String caminhoImagens = currentRelativePath.toAbsolutePath().toString();
         caminhoImagens = Paths.get(".").toAbsolutePath().normalize().toString();
-        System.out.print("O diretorio atual NORMAL: " + caminhoImagens + "\n");
+        System.out.print("O diretorio atual : " + caminhoImagens + "\n");
                 
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
