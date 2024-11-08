@@ -284,6 +284,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         jtxtf_codigo.setBackground(new java.awt.Color(204, 204, 204));
         jtxtf_codigo.setForeground(new java.awt.Color(0, 0, 0));
+        jtxtf_codigo.setEnabled(false);
         jtxtf_codigo.setNextFocusableComponent(jtxtf_descricao);
         jpnl_corpo.add(jtxtf_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 390, 70, 30));
 
@@ -470,13 +471,10 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         // TODO add your handling code here:
 //        jlbl_btn_novo.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\btn_novo_pressionado.png")); 
         jlbl_btn_novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_novo_pressionado.png"))); 
-        
     }//GEN-LAST:event_jlbl_btn_novoMousePressed
 
     private void jlbl_btn_novoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_novoMouseClicked
         // TODO add your handling code here:
-    
-
     }//GEN-LAST:event_jlbl_btn_novoMouseClicked
 
     private void jlbl_btn_novoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_novoMouseReleased
@@ -596,87 +594,47 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             
             NumberFormat formatter = NumberFormat.getCurrencyInstance();
             NumberFormat decimal = new DecimalFormat("#,##0.00"); 
-/*
-            System.out.println( "\n Linha - " + jtbl_lista_produtos.getSelectedRow()+
-                                "\n Coluna - " + jtbl_lista_produtos.getSelectedColumn()+
-                                "\n Descricao :  - " + jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 
-                                                    1));
-            */
+
+//            System.out.println( "\n Linha - " + jtbl_lista_produtos.getSelectedRow()+
+//                                "\n Coluna - " + jtbl_lista_produtos.getSelectedColumn()+
+//                                "\n Descricao :  - " + jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 
+//                                1));
+            
             jtxtf_codigo.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 0));
             jtxtf_descricao.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 1));
             jcmb_categoria.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
             jcmb_unid.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 5));
             jtxtf_valor.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4));  //quase ok
             
-            
-        };
+        }
     }//GEN-LAST:event_jtbl_lista_produtosMouseClicked
 
     private void jtxtf_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_pesquisaActionPerformed
-        // TODO add your handling code here:
-//          String sql_lista_produtos_view = "select * from produto group by nome having nome LIKE '%PIZZA%'";
-          //String encontrar = jtxtf_pesquisa.getText();
-          String sql_lista_produtos_view = "select * from listaTodosProdutos group by nome having nome LIKE ";
-          
-
-        Connection conexao = null;
-        PreparedStatement statement = null;
+        String sql_listaProdutos = "";
+        String encontrar = jtxtf_pesquisa.getText();
+//        encontrar = "'%" + encontrar + "%'";
+       
+        if (jtxtf_pesquisa.getText().equals("")|jtxtf_pesquisa.getText().equals("Digite aqui que deseja encontrar...")){
+            sql_listaProdutos = "select * from listaTodosProdutos group by nome ";
+        } else {
+//            sql_listaProdutos = "select * from listaTodosProdutos group by nome having nome LIKE " + encontrar;
+            sql_listaProdutos = "select * from listaTodosProdutos group by nome having nome LIKE " ;
+            sql_listaProdutos =     sql_listaProdutos + "'%" +
+                                    encontrar + "%'" + " or categoria LIKE " +
+                                    "'%" + encontrar + "%'" + " ORDER BY nome ASC";
+        }
+        
         String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
         String usuario = "root";
         String senha = "";
-/*
-        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
-        String usuario = "titanw25_japedidos_hml";
-        String senha = "seNai@2024proj";
-        */
-        try
-        {
-            String encontrar = jtxtf_pesquisa.getText();
+
+       try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
             
-            sql_lista_produtos_view = sql_lista_produtos_view + "'%" +
-                                                                encontrar + "%'" + " or categoria LIKE " +
-                                                                "'%" + encontrar + "%'" + " ORDER BY nome ASC";
-
-            conexao = DriverManager.getConnection(url, usuario, senha);
-            statement = conexao.prepareStatement(sql_lista_produtos_view);
-/*
-            String encontrar = jtxtf_pesquisa.getText();
-            System.out.println("Texto = " + encontrar);
-            statement.setString(1, encontrar);
-*/
-                    
-            statement.execute();
-            ResultSet resultado = statement.executeQuery(sql_lista_produtos_view);
-
-            DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
-            model.setNumRows(0);
-            model.getDataVector().removeAllElements();
-            model.fireTableDataChanged();
-
-
-
-            while(resultado.next())
-            {
-                model.addRow(new Object[] 
-                { 
-                   //retorna os dados da tabela do BD, cada campo e um coluna.
-                   resultado.getString("id"),
-                   resultado.getString("nome"),
-                   resultado.getString("categoria"),
-//                   resultado.getDouble("preco_custo"),
-                   resultado.getBigDecimal("preco_custo"),
-                   resultado.getDouble("preco_venda"),
-                   resultado.getString("unidade"),
-                   resultado.getBoolean("estado")
-                }); 
-           } 
-            statement.close();
-            statement.close();
+            load_DB2_components.loadJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-          catch (SQLException ex)
-          {
-             System.out.println("o erro foi " +ex);
-            }        
+
     }//GEN-LAST:event_jtxtf_pesquisaActionPerformed
 
     private void jtxtf_pesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtf_pesquisaFocusGained
@@ -700,128 +658,32 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jlbl_encontrarMouseReleased
 
     private void jlbl_encontrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_encontrarMouseClicked
+        String sql_listaProdutos = "";
         String encontrar = jtxtf_pesquisa.getText();
-        String sql_lista_produtos_view = "";
-
         encontrar = "'%" + encontrar + "%'";
+        
         if (jtxtf_pesquisa.getText().equals("")|jtxtf_pesquisa.getText().equals("Digite aqui que deseja encontrar...")){
-            sql_lista_produtos_view = "select * from listaTodosProdutos group by nome ";
+            sql_listaProdutos = "select * from listaTodosProdutos group by nome ";
         } else {
-            sql_lista_produtos_view = "select * from listaTodosProdutos group by nome having nome LIKE " + encontrar;
+            sql_listaProdutos = "select * from listaTodosProdutos group by nome having nome LIKE " + encontrar;
         }
-               
-
-        Connection conexao = null;
-        PreparedStatement statement = null;
-
+        
         String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
         String usuario = "root";
         String senha = "";
-/*
-        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
-        String usuario = "titanw25_japedidos_hml";
-        String senha = "seNai@2024proj";
-        */
-        try
-        {
-            conexao = DriverManager.getConnection(url, usuario, senha);
-            statement = conexao.prepareStatement(sql_lista_produtos_view);
 
-            statement.execute();
-            ResultSet resultado = statement.executeQuery(sql_lista_produtos_view);
-
-            DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
-            model.setRowCount(0);
-            model.setNumRows(0);
-
-            while(resultado.next())
-            {
-                model.addRow(new Object[] 
-                { 
-                   //retorna os dados da tabela do BD, cada campo e um coluna.
-                   resultado.getString("id"),
-                   resultado.getString("nome"),
-                   resultado.getString("categoria"),
-                   resultado.getDouble("preco_custo"),
-                   resultado.getDouble("preco_venda"),
-                   resultado.getString("unidade"),
-                   resultado.getBoolean("estado")
-                }); 
-           } 
-            statement.close();
+       try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
+            
+            load_DB2_components.loadJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-          catch (SQLException ex)
-          {
-             System.out.println("o erro foi " +ex);
-            }
         
     }//GEN-LAST:event_jlbl_encontrarMouseClicked
 
     private void jtxtf_pesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtf_pesquisaKeyTyped
-/*
-NumberFormat formatter = NumberFormat.getCurrencyInstance();
-        
-        if ( (jtxtf_pesquisa.getText().length()>=2) & (!jtxtf_pesquisa.getText().equals("Digite aqui que deseja encontrar...")) ){
-        String encontrar = jtxtf_pesquisa.getText();
-        String sql_lista_produtos_view = "";
-        
-        encontrar = "'%" + encontrar + "%'";
-        sql_lista_produtos_view = "select * from listaTodosProdutos group by nome having nome LIKE " + encontrar;
-                      
 
-        Connection conexao = null;
-        PreparedStatement statement = null;
-
-//        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
-//        String usuario = "root";
-//        String senha = "";
-
-        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
-        String usuario = "titanw25_japedidos_hml";
-        String senha = "seNai@2024proj";
-  
-        try
-        {
-            conexao = DriverManager.getConnection(url, usuario, senha);
-            statement = conexao.prepareStatement(sql_lista_produtos_view);
-
-            statement.execute();
-            ResultSet resultado = statement.executeQuery(sql_lista_produtos_view);
-            
-
-//            String encontrar = jtxtf_pesquisa.getText();
-//          System.out.println("Texto = " + encontrar);
-//          statement.setString(1, encontrar);
-//
-
-            DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
-            model.setRowCount(0);
-            model.setNumRows(0);
-
-            while(resultado.next())
-            {
-                model.addRow(new Object[] 
-                { 
-                   //retorna os dados da tabela do BD, cada campo e um coluna.
-                   resultado.getString("id"),
-                   resultado.getString("nome"),
-                   resultado.getString("categoria"),
-                   resultado.getDouble("preco_custo"),
-                   resultado.getDouble("preco_venda"),
-                   resultado.getString("unidade"),
-                   resultado.getBoolean("estado")
-                }); 
-           } 
-            statement.close();
-        }
-          catch (SQLException ex)
-          {
-             System.out.println("o erro foi : " +ex);
-            }
-        
-            
-        }
-*/      
     }//GEN-LAST:event_jtxtf_pesquisaKeyTyped
 
     private void jcmb_unidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmb_unidActionPerformed
@@ -915,26 +777,27 @@ NumberFormat formatter = NumberFormat.getCurrencyInstance();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-        NumberFormat decimal = new DecimalFormat("#,##0.00");
-        Connection banco = null;
+//        TODO add your handling code here:
+//        NumberFormat decimal = new DecimalFormat("#,##0.00");
 //        PreparedStatement stm_lista_produtos_view = null;
+
+//       String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
+//       String usuario = "titanw25_japedidos_hml";
+//       String senha = "seNai@2024proj";
 
         String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
         String usuario = "root";
         String senha = "";
 
-        
-        HashMap<Integer, String[]> categoriaMap = new HashMap<>();
-        HashMap<Integer, String[]> unidadeMap = new HashMap<>();
-
        try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
+           
             String sql_combCategoria = "SELECT id, nome, descricao FROM categoria ORDER BY nome ASC"; 
             String sql_combUnidade = "SELECT id, abreviacao FROM unidade ORDER BY abreviacao ASC";
-
+            String sql_listaProdutos = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
             
             load_DB2_components.loadComboBox(jcmb_categoria, conn, sql_combCategoria);
             load_DB2_components.loadComboBox(jcmb_unid, conn, sql_combUnidade);
+            load_DB2_components.loadJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
             
         } catch (SQLException e) {
             e.printStackTrace();
