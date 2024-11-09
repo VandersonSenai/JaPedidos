@@ -80,7 +80,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jtxtf_uf.setText(null);
         jtxta_observacoes.setText(null);
         clearProdutoFieldsInfo();
-        jspn_valorEntrega.setValue(0);
+        jspn_valorEntrega.setValue(0.0);
         jspn_desconto.setValue(0);
     }
     
@@ -133,18 +133,24 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         dthrEntregar = LocalDateTime.of(dataEntregar, horaEntregar);
         
         // Criação do destino de entrega
-        rua = jtxtf_rua.getText().trim();
-        numeroDestino = jtxtf_numero.getText().trim();
-        bairro = jtxtf_bairro.getText().trim();
-        cidade = jtxtf_cidade.getText().trim();
-        uf = jtxtf_uf.getText().trim();
-        observacoes = jtxta_observacoes.getText().trim();
-        try {
-            destinoEntrega = new Destino(rua, numeroDestino, bairro, cidade, uf);
-        } catch (IllegalArgumentsException newExs) {
-            exs.addCause(newExs.getCauses());
+        if (tipoEntrega == TipoEntrega.ENVIO) {
+            rua = jtxtf_rua.getText().trim();
+            numeroDestino = jtxtf_numero.getText().trim();
+            bairro = jtxtf_bairro.getText().trim();
+            cidade = jtxtf_cidade.getText().trim();
+            uf = jtxtf_uf.getText().trim();
+            
+            try {
+                destinoEntrega = new Destino(rua, numeroDestino, bairro, cidade, uf);
+            } catch (IllegalArgumentsException newExs) {
+                exs.addCause(newExs.getCauses());
+                destinoEntrega = null;
+            }
+        } else {
             destinoEntrega = null;
         }
+        observacoes = jtxta_observacoes.getText().trim();
+        
         
         // Info de entrega
         try {

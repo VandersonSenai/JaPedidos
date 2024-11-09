@@ -281,7 +281,7 @@ public class Produto {
     
     @Override
     public String toString() {
-        return nome;
+        return String.format("%s (%s)", this.getNome(), this.getUnidade().getAbreviacao());
     }
     
     public boolean equals(Object o) {
