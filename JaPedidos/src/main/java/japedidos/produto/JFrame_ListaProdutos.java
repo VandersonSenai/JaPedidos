@@ -50,6 +50,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         jpnl_sideMenu = new javax.swing.JPanel();
         jtb_linhaBranca = new javax.swing.JToolBar();
         jlbl_clientes = new javax.swing.JLabel();
@@ -60,6 +61,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_background_01 = new javax.swing.JLabel();
         jpnl_corpo = new javax.swing.JPanel();
         jtb_linhaEncontrar = new javax.swing.JToolBar();
+        jLabel1 = new javax.swing.JLabel();
         jlbl_encontrar = new javax.swing.JLabel();
         jtxtf_pesquisa = new javax.swing.JTextField();
         jlbl_descricao = new javax.swing.JLabel();
@@ -74,15 +76,20 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtxtf_valor = new javax.swing.JTextField();
         jlbl_ativo = new javax.swing.JLabel();
         jchb_ativo = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
         jlbl_btn_novo = new javax.swing.JLabel();
         jlbl_btn_excluir = new javax.swing.JLabel();
         jlbl_btn_salvar = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
         jtbl_listaprodutos = new javax.swing.JScrollPane();
         jtbl_lista_produtos = new javax.swing.JTable();
         jpnl_background_02 = new javax.swing.JLabel();
         jtb_linhaBranca1 = new javax.swing.JToolBar();
+
+        jButton1.setText("TESTE CONSULTA");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFocusCycleRoot(false);
@@ -131,7 +138,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         jlbl_produtos.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_produtos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_produtos.setForeground(new Color(255,255,255));
+        jlbl_produtos.setForeground(new java.awt.Color(255, 255, 255));
         jlbl_produtos.setText("PRODUTOS");
         jlbl_produtos.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -212,6 +219,19 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtb_linhaEncontrar.setRequestFocusEnabled(false);
         jpnl_corpo.add(jtb_linhaEncontrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 76, 3, 22));
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel1MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel1MouseReleased(evt);
+            }
+        });
+        jpnl_corpo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 380, 86, 33));
+
         jlbl_encontrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon_encontrar.png"))); // NOI18N
         jlbl_encontrar.setNextFocusableComponent(jtxtf_pesquisa);
         jlbl_encontrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -252,7 +272,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                 jtxtf_pesquisaKeyTyped(evt);
             }
         });
-        jpnl_corpo.add(jtxtf_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 680, 34));
+        jpnl_corpo.add(jtxtf_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 690, 34));
 
         jlbl_descricao.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_descricao.setForeground(new java.awt.Color(0, 0, 0));
@@ -324,18 +344,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_corpo.add(jlbl_ativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 470, 70, -1));
         jpnl_corpo.add(jchb_ativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 470, -1, 30));
 
-        jButton1.setText("TESTE CONSULTA");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jpnl_corpo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 10, -1, -1));
-
         jlbl_btn_novo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_btn_novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_novo_padrao.png"))); // NOI18N
-        jlbl_btn_novo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jlbl_btn_novo.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         jlbl_btn_novo.setNextFocusableComponent(jlbl_btn_excluir);
+        jlbl_btn_novo.setPreferredSize(null);
         jlbl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jlbl_btn_novoMouseClicked(evt);
@@ -351,7 +364,9 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         jlbl_btn_excluir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_btn_excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_excluir_padrao.png"))); // NOI18N
+        jlbl_btn_excluir.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         jlbl_btn_excluir.setNextFocusableComponent(jlbl_btn_salvar);
+        jlbl_btn_excluir.setPreferredSize(null);
         jlbl_btn_excluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jlbl_btn_excluirMouseClicked(evt);
@@ -363,10 +378,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                 jlbl_btn_excluirMouseReleased(evt);
             }
         });
-        jpnl_corpo.add(jlbl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 430, -1, -1));
+        jpnl_corpo.add(jlbl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 430, 86, 33));
 
+        jlbl_btn_salvar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_btn_salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_salvar_padrao.png"))); // NOI18N
+        jlbl_btn_salvar.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         jlbl_btn_salvar.setNextFocusableComponent(jtxtf_pesquisa);
+        jlbl_btn_salvar.setPreferredSize(null);
         jlbl_btn_salvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jlbl_btn_salvarMousePressed(evt);
@@ -375,8 +393,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                 jlbl_btn_salvarMouseReleased(evt);
             }
         });
-        jpnl_corpo.add(jlbl_btn_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 470, -1, -1));
-        jpnl_corpo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, -1, -1));
+        jpnl_corpo.add(jlbl_btn_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 470, 86, 33));
 
         jtbl_listaprodutos.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jtbl_listaprodutos.setAutoscrolls(true);
@@ -445,7 +462,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             jtbl_lista_produtos.getColumnModel().getColumn(6).setPreferredWidth(50);
         }
 
-        jpnl_corpo.add(jtbl_listaprodutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 680, 250));
+        jpnl_corpo.add(jtbl_listaprodutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 690, 250));
 
         jpnl_background_02.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jpnl_background_02.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_produtos_075x.png"))); // NOI18N
@@ -482,7 +499,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jlbl_btn_novoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_novoMouseClicked
         // TODO add your handling code here:
-        jlbl_btn_novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_novo_pressionado.png"))); 
+        
     }//GEN-LAST:event_jlbl_btn_novoMouseClicked
 
     private void jlbl_btn_novoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_novoMouseReleased
@@ -839,44 +856,66 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jlbl_btn_excluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_excluirMouseClicked
         // TODO add your handling code here:
-//        excluirRegistro(String url, String usuario, String senha, String sqlQuery)
-        
-        if ( jtxtf_codigo.getText().length()>1){
-            String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
-            String usuario = "root";
-            String senha = "";
-            String sqlQuery = "DELETE from produto where id = " + jtxtf_codigo.getText();
-            try {
-                load_DB2_components.excluirRegistro(url, usuario, senha, sqlQuery);
-            } catch (SQLException ex) {
-                Logger.getLogger(JFrame_ListaProdutos.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, 
-                "Falha ao excluir\n", 
-                "JaPedidos", 
-                JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-        
         String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
         String usuario = "root";
         String senha = "";
 
-       try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
-            String sql_combCategoria = "SELECT id, nome, descricao FROM categoria ORDER BY nome ASC"; 
-            String sql_combUnidade = "SELECT id, abreviacao FROM unidade ORDER BY abreviacao ASC";
-            String sql_listaProdutos = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
-            load_DB2_components.loadComboBox(jcmb_categoria, conn, sql_combCategoria);
-            load_DB2_components.loadComboBox(jcmb_unid, conn, sql_combUnidade);
-            load_DB2_components.loadJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, 
-            "Nao foi possivel conectar ao banco  \n", 
-            "Erro ao conectar ao banco", 
-            JOptionPane.INFORMATION_MESSAGE);
-        }
+        if ( jtxtf_codigo.getText().length()<1){
+            JOptionPane.showMessageDialog(null,
+            "\nNenhum item selecionado\n",
+            "JaPedidos",
+            JOptionPane.WARNING_MESSAGE);                
+        } else {
+
+                int  confirmaExclusao = JOptionPane.showConfirmDialog(jpnl_corpo,
+                                                "\nConfirma a exclusão do item : \n" + 
+                                                jtxtf_codigo.getText() + " - " + jtxtf_descricao.getText() + "\n",
+                                                "JaPedidos",
+                                                JOptionPane.YES_NO_OPTION,
+                                                JOptionPane.WARNING_MESSAGE);
+                if (confirmaExclusao==0){
+                    System.out.print("\nSim = "+ confirmaExclusao);
+                    String sqlQuery = "DELETE from produto where id = " + jtxtf_codigo.getText();
+                    try {
+                            load_DB2_components.excluirRegistro(jpnl_corpo, url, usuario, senha, sqlQuery);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(JFrame_ListaProdutos.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(jpnl_corpo, 
+                            "Falha ao excluir\n", 
+                            "JaPedidos", 
+                            JOptionPane.INFORMATION_MESSAGE);
+                        }
+                }
+                
+                try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
+                     String sql_combCategoria = "SELECT id, nome, descricao FROM categoria ORDER BY nome ASC"; 
+                     String sql_combUnidade = "SELECT id, abreviacao FROM unidade ORDER BY abreviacao ASC";
+                     String sql_listaProdutos = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
+                     load_DB2_components.loadComboBox(jcmb_categoria, conn, sql_combCategoria);
+                     load_DB2_components.loadComboBox(jcmb_unid, conn, sql_combUnidade);
+                     load_DB2_components.loadJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
+                 } catch (SQLException e) {
+                     e.printStackTrace();
+                     JOptionPane.showMessageDialog(jpnl_corpo, 
+                     "Nao foi possivel conectar ao banco  \n", 
+                     "Erro ao conectar ao banco", 
+                     JOptionPane.INFORMATION_MESSAGE);
+                 }
+        }  
         
     }//GEN-LAST:event_jlbl_btn_excluirMouseClicked
+
+    private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
+        // TODO add your handling code here:
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_novo_pressionado.png"))); 
+        jLabel1.setBounds(610, 380, 86, 33);
+    }//GEN-LAST:event_jLabel1MousePressed
+
+    private void jLabel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseReleased
+        // TODO add your handling code here:
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_novo_padrao.png"))); 
+        jLabel1.setBounds(610, 380, 86, 33);
+    }//GEN-LAST:event_jLabel1MouseReleased
 
     /**
      * @param args the command line arguments
@@ -926,7 +965,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JCheckBox jchb_ativo;
     private javax.swing.JComboBox<String> jcmb_categoria;
     private javax.swing.JComboBox<String> jcmb_unid;
