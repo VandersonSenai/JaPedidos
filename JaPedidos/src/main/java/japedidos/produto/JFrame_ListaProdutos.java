@@ -861,7 +861,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         String senha = "";
 
         if ( jtxtf_codigo.getText().length()<1){
-            JOptionPane.showMessageDialog(null,
+            JOptionPane.showMessageDialog(jpnl_corpo,
             "\nNenhum item selecionado\n",
             "JaPedidos",
             JOptionPane.WARNING_MESSAGE);                
