@@ -821,15 +821,12 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         String senha = "";
 
        try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
-           
             String sql_combCategoria = "SELECT id, nome, descricao FROM categoria ORDER BY nome ASC"; 
             String sql_combUnidade = "SELECT id, abreviacao FROM unidade ORDER BY abreviacao ASC";
             String sql_listaProdutos = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
-            
             load_DB2_components.loadComboBox(jcmb_categoria, conn, sql_combCategoria);
             load_DB2_components.loadComboBox(jcmb_unid, conn, sql_combUnidade);
             load_DB2_components.loadJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
-            
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, 
@@ -843,19 +840,42 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     private void jlbl_btn_excluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_excluirMouseClicked
         // TODO add your handling code here:
 //        excluirRegistro(String url, String usuario, String senha, String sqlQuery)
+        
+        if ( jtxtf_codigo.getText().length()>1){
+            String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+            String usuario = "root";
+            String senha = "";
+            String sqlQuery = "DELETE from produto where id = " + jtxtf_codigo.getText();
+            try {
+                load_DB2_components.excluirRegistro(url, usuario, senha, sqlQuery);
+            } catch (SQLException ex) {
+                Logger.getLogger(JFrame_ListaProdutos.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, 
+                "Falha ao excluir\n", 
+                "JaPedidos", 
+                JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        
         String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
         String usuario = "root";
         String senha = "";
-        String sqlQuery = "DELETE from produto where id = " + jtxtf_codigo.getText();
-        try {
-            load_DB2_components.excluirRegistro(url, usuario, senha, sqlQuery);
-        } catch (SQLException ex) {
-            Logger.getLogger(JFrame_ListaProdutos.class.getName()).log(Level.SEVERE, null, ex);
+
+       try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
+            String sql_combCategoria = "SELECT id, nome, descricao FROM categoria ORDER BY nome ASC"; 
+            String sql_combUnidade = "SELECT id, abreviacao FROM unidade ORDER BY abreviacao ASC";
+            String sql_listaProdutos = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
+            load_DB2_components.loadComboBox(jcmb_categoria, conn, sql_combCategoria);
+            load_DB2_components.loadComboBox(jcmb_unid, conn, sql_combUnidade);
+            load_DB2_components.loadJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
+        } catch (SQLException e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(null, 
-            "Falha ao excluir\n", 
-            "JaPedidos", 
+            "Nao foi possivel conectar ao banco  \n", 
+            "Erro ao conectar ao banco", 
             JOptionPane.INFORMATION_MESSAGE);
         }
+        
     }//GEN-LAST:event_jlbl_btn_excluirMouseClicked
 
     /**
