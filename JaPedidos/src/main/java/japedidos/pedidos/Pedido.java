@@ -16,6 +16,7 @@ import japedidos.exception.IllegalRegistroException;
 import japedidos.exception.IllegalTaxaDescontoException;
 import japedidos.produto.*;
 import japedidos.usuario.Registro;
+import japedidos.usuario.Usuario;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 
@@ -45,6 +46,7 @@ public final class Pedido {
     public Pedido(Cliente cliente, InfoEntrega infoEntrega, ProdutoPedido[] produtoPedido, int taxaDesconto) {
         this(1, cliente, infoEntrega, produtoPedido, taxaDesconto);
         this.id = NULL_ID;
+        setRegistroCriacao(new Registro());
     }
     
     public Pedido(int id, Cliente cliente, InfoEntrega infoEntrega, ProdutoPedido[] produtoPedido, int taxaDesconto) {
@@ -271,5 +273,21 @@ public final class Pedido {
     
     public double getTaxaDesconto() {
         return this.taxaDesconto / 100.0;
+    }
+    
+    public Registro getRegistroCriacao() {
+        return this.criacao;
+    }
+    
+    public LocalDate getDataVencimentoPagamento() {
+        return this.dtVencimentoPagamento;
+    }
+    
+    public double getPrecoFinal() {
+        return this.precoFinal;
+    }
+    
+    public double getCustoTotal() {
+        return this.precoCustoTotal;
     }
 }

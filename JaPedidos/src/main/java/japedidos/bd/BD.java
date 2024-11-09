@@ -1,13 +1,16 @@
 package japedidos.bd;
 
+import japedidos.pedidos.InfoEntrega;
 import japedidos.usuario.Registro;
 import japedidos.usuario.Usuario;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
@@ -16,7 +19,7 @@ public final class BD {
     public static final String SGBD = "mysql";
 //    public static final String IP = "162.241.203.86";
     public static final String PORT = "3306";
-    public static final String NAME = "titanw25_japedidos_hml";
+    public static final String NAME = "japedidos";
 //    public static final String USER = "titanw25_japedidos_hml";
 //    public static final String USER_PWD = "seNai@2024proj";
     
@@ -38,6 +41,57 @@ public final class BD {
             System.exit(-1);
         }
         return null;
+    }
+    
+    static public class Pedido {
+        public static final String TABLE = "pedido";
+        
+        public static int insert(japedidos.pedidos.Pedido p) {
+            if (p != null) {
+                try {
+                    Connection conn = BD.getConnection();
+                    PreparedStatement insert = conn.prepareStatement(
+                            String.format("INSERT INTO %s(id_cliente, id_usuario_autor, dthr_criacao, tipo_entrega, dthr_entregar, preco_frete, tx_desconto, preco_final, dt_venc_pagamento, preco_custo_total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", TABLE));
+                    int i=1;
+                    int id_cliente = p.getCliente().getId();
+                    
+                    insert.setInt(i++, id_cliente);
+                    
+                    Registro reg = p.getRegistroCriacao();
+                    insert.setInt(i++, reg.AUTOR.getId());
+                    insert.setTimestamp(i++, Timestamp.valueOf(reg.DATA_HORA));
+                    
+                    InfoEntrega infoEntrega = p.getInfoEntrega();
+                    insert.setString(i++, infoEntrega.getTipoEntrega().toString());
+                    insert.setTimestamp(i++, Timestamp.valueOf(infoEntrega.getDataHoraEntregar())); // dthr_entregar
+                    insert.setDouble(i++, infoEntrega.getPrecoFrete()); // preco_frete
+                    insert.setInt(i++, (int)p.getTaxaDesconto()); // tx_desconto
+                    insert.setDouble(i++, p.getPrecoFinal());// preco_final
+                    
+                    // dt_venc_pagamento
+                    LocalDate venc_LocalDate = p.getDataVencimentoPagamento();
+                    Date venc_Date = null;
+                    if (venc_LocalDate != null) {
+                        venc_Date = Date.valueOf(venc_LocalDate);
+                    }
+                    insert.setDate(i++, venc_Date);
+                    
+                    insert.setDouble(i++, p.getCustoTotal());// preco_custo_total
+                    
+                    int r = insert.executeUpdate();
+
+                    insert.close();
+                    conn.close();
+                    return r;
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de cadastro", JOptionPane.ERROR_MESSAGE);
+                    return -1;
+                }
+            
+            } else {
+                return 0;
+            }
+        }
     }
     
     static public class Usuario {

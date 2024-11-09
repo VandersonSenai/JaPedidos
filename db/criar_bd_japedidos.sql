@@ -24,7 +24,7 @@ USE `japedidos` ;
 DROP TABLE IF EXISTS `japedidos`.`usuario` ;
 
 CREATE TABLE IF NOT EXISTS `japedidos`.`usuario` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(48) NOT NULL,
   `login` VARCHAR(20) NOT NULL,
   `senha` VARCHAR(32) NOT NULL,
@@ -39,7 +39,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `japedidos`.`est_andamento` ;
 
 CREATE TABLE IF NOT EXISTS `japedidos`.`est_andamento` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(16) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -51,7 +51,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `japedidos`.`cliente` ;
 
 CREATE TABLE IF NOT EXISTS `japedidos`.`cliente` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(80) NOT NULL,
   `telefone` VARCHAR(20) NOT NULL,
   `id_usuario_alt` INT NULL COMMENT 'Necessário para controle de alterações, conforme [RNF 06] Controle de alteração de dados',
@@ -176,7 +176,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `japedidos`.`categoria` ;
 
 CREATE TABLE IF NOT EXISTS `japedidos`.`categoria` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(24) NOT NULL,
   `descricao` VARCHAR(120) NULL,
   PRIMARY KEY (`id`))
@@ -189,7 +189,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `japedidos`.`unidade` ;
 
 CREATE TABLE IF NOT EXISTS `japedidos`.`unidade` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(16) NOT NULL,
   `abreviacao` CHAR(5) NOT NULL,
   PRIMARY KEY (`id`))
@@ -202,7 +202,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `japedidos`.`produto` ;
 
 CREATE TABLE IF NOT EXISTS `japedidos`.`produto` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `id_categoria` INT NOT NULL,
   `id_unidade` INT NOT NULL,
   `nome` VARCHAR(32) NOT NULL,

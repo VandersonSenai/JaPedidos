@@ -112,6 +112,8 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         
         try {
             cliente = new Cliente(nome, telefone);
+            cliente.setInfoAdicional(infoAdicionalCliente);
+            cliente.setId(1); // RETIRAR quando tiver método de criar usuario
         } catch (IllegalArgumentsException newExs) {
             exs.addCause(newExs.getCauses());
             cliente = null;
@@ -194,11 +196,11 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         } catch (IllegalArgumentsException newExs) {
             Throwable[] causes = newExs.getCauses();
             for (Throwable t : causes) {
-//                if (t instanceof IllegalTaxaDescontoException) {
+                if (t instanceof IllegalTaxaDescontoException) {
                     exs.addCause(t);
-//                } else if (t instanceof IllegalProdutoException) {
-//                    exs.addCause(t);
-//                }
+                } else if (t instanceof IllegalProdutoException) {
+                    exs.addCause(t);
+                }
             }
             
             p = null;
@@ -377,7 +379,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_erro_valorEntrega = new javax.swing.JLabel();
         jlbl_erro_valorTotal = new javax.swing.JLabel();
         jspn_desconto = new javax.swing.JSpinner(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
-        jspn_valorEntrega = new javax.swing.JSpinner(new javax.swing.SpinnerNumberModel(0.0, 0.0, 100000, 0.01));
+        jspn_valorEntrega = new javax.swing.JSpinner(new javax.swing.SpinnerNumberModel(0.0, 0.0, 100000.0, 0.01));
         jpnl_historicoPedidos = new javax.swing.JPanel();
         jtxtf_pesquisarHistoricoPedido = new javax.swing.JTextField();
         jlbl_filtroHistoricoPedido = new javax.swing.JLabel();
@@ -944,13 +946,14 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
 
     private void jbtn_criarPedido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_criarPedido1ActionPerformed
         Pedido p = getFieldsInfo();
-//        if (p != null) {
-//            int r = BD.Pedido.ins
-//                clearFieldsInfo();ert(p);
-//            if (r > 0) {
-//            }
-//        }
-        System.out.println(p.getProdutoCount());
+        if (p != null) {
+            int r = BD.Pedido.insert(p);
+            
+            if (r > 0) {
+                clearFieldsInfo();
+                System.out.println("SUCESSO");
+            }
+        }
     }//GEN-LAST:event_jbtn_criarPedido1ActionPerformed
 
     private void jbtn_incluirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_incluirProdutoActionPerformed

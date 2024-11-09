@@ -38,7 +38,7 @@ public class Usuario {
         
     }
     
-    private static Usuario atual;
+    private static Usuario atual = BD.Usuario.selectLast();
     
     /** Constroe um novo objeto Usuário para registro no banco de dados.
      * 
