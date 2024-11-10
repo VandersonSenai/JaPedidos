@@ -12,6 +12,7 @@ import japedidos.usuario.Registro;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
@@ -211,7 +212,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         if (recebido != null) {
             estadoInicial = new EstadoPedido(recebido);
         } else {
-            estadoInicial = null;
+            estadoInicial = new EstadoPedido(Estado.ABERTO);
         }
         // Tentativa de criação do Pedido
         try {
@@ -989,7 +990,9 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             
             if (r > 0) {
                 clearFieldsInfo();
-                System.out.println("SUCESSO");
+                JOptionPane.showConfirmDialog(null, "Pedido cadastrado com sucesso!", "Cadastro de pedido", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showConfirmDialog(null, "Cadastro do pedido falhou!", "Cadastro de pedido", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jbtn_criarPedido1ActionPerformed

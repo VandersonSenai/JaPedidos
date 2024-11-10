@@ -150,10 +150,29 @@ public final class Pedido {
             if (this.estadosPedido == null) {
                 this.estadosPedido = new EstadoPedido[1];
                 this.estadosPedido[0] = estadoAtual;
-            } else {
-                // Adicionar outro estado
+            } else { // Se já houverem estados, adicionar outro à array
+                int qtdEst = getEstadosPedidoCount();
+                EstadoPedido[] novosEstados = new EstadoPedido[qtdEst]; // Abre espaço para mais um estado
+                EstadoPedido[] estadosAtuais = getEstadosPedido();
+                for (int i = 0; i < qtdEst; i++) {
+                    novosEstados[i] = estadosAtuais[i];
+                }
+                novosEstados[qtdEst] = estadosAtuais[qtdEst-1];
+                setEstadosPedido(novosEstados); // Atualiza estados e define o atual como o último
             }
         }
+    }
+    
+    public int getEstadosPedidoCount() {
+        return this.estadosPedido.length;
+    }
+    
+    public EstadoPedido[] getEstadosPedido() {
+        return this.estadosPedido;
+    }
+    
+    public EstadoPedido getEstadoAtualPedido() {
+        return this.estadoAtual;
     }
     
     public void setEstadosPedido(EstadoPedido[] estadosPedido) {

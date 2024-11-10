@@ -3,6 +3,7 @@ package japedidos.bd;
 import japedidos.clientes.Cliente;
 import japedidos.clientes.Cliente.InfoAdicional;
 import japedidos.pedidos.Destino;
+import japedidos.pedidos.EstadoPedido;
 import japedidos.pedidos.InfoEntrega;
 import japedidos.pedidos.TipoEntrega;
 import japedidos.produto.ProdutoPedido;
@@ -192,6 +193,9 @@ public final class BD {
                             insertInfoAdicionalCliente.executeUpdate();
                         }
                     }
+                    
+                    // Cadastro do estado inicial do pedido
+                    EstadoPedido estadoInicial = p.getEstadoAtualPedido();
                     
                     conn.commit();
                 } catch (SQLException e) {

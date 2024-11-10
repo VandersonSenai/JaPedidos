@@ -40,7 +40,7 @@ DROP TABLE IF EXISTS `japedidos`.`est_andamento` ;
 
 CREATE TABLE IF NOT EXISTS `japedidos`.`est_andamento` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(16) NOT NULL,
+  `nome` VARCHAR(24) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
