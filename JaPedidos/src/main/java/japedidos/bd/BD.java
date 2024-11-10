@@ -196,6 +196,12 @@ public final class BD {
                     
                     // Cadastro do estado inicial do pedido
                     EstadoPedido estadoInicial = p.getEstadoAtualPedido();
+                    insertEstadoPedido = conn.prepareStatement("INSERT INTO est_andamento_pedido(id_est_andamento, id_pedido, id_usuario_autor, dthr_criacao) VALUE (?, ?, ?, ?)");
+                    insertEstadoPedido.setInt(1, estadoInicial.ESTADO.ID);
+                    insertEstadoPedido.setInt(2, id_pedido);
+                    insertEstadoPedido.setInt(3, estadoInicial.AUTOR.getId());
+                    insertEstadoPedido.setTimestamp(4, Timestamp.valueOf(estadoInicial.CRIACAO));
+                    insertEstadoPedido.executeUpdate();
                     
                     conn.commit();
                 } catch (SQLException e) {

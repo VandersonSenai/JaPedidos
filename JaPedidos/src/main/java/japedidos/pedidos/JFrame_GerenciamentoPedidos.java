@@ -100,6 +100,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jspn_desconto.setValue(0);
         infoAdicionalCliente = null;
         jTable_ProdutoPedido.getModel().clearRows();
+        
     }
     
     public Pedido getFieldsInfo() {
@@ -214,9 +215,12 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         } else {
             estadoInicial = new EstadoPedido(Estado.ABERTO);
         }
+        
         // Tentativa de criação do Pedido
         try {
             p = new Pedido(cliente, infoEntrega, produtosAdicionados, txDesconto);
+            p.setEstadoAtual(estadoInicial);
+            // TODO: definir data de vencimento do pagamento, se houver
         } catch (IllegalArgumentsException newExs) {
             Throwable[] causes = newExs.getCauses();
             for (Throwable t : causes) {
@@ -990,9 +994,10 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             
             if (r > 0) {
                 clearFieldsInfo();
-                JOptionPane.showConfirmDialog(null, "Pedido cadastrado com sucesso!", "Cadastro de pedido", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                atualizarValoresPedido();
+                JOptionPane.showMessageDialog(null, "Pedido cadastrado com sucesso!", "Cadastro de pedido", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showConfirmDialog(null, "Cadastro do pedido falhou!", "Cadastro de pedido", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Cadastro do pedido falhou!", "Cadastro de pedido", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jbtn_criarPedido1ActionPerformed
