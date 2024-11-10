@@ -97,6 +97,8 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         clearProdutoFieldsInfo();
         jspn_valorEntrega.setValue(0.0);
         jspn_desconto.setValue(0);
+        infoAdicionalCliente = null;
+        jTable_ProdutoPedido.getModel().clearRows();
     }
     
     public Pedido getFieldsInfo() {
