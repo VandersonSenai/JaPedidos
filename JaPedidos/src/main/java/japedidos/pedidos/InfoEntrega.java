@@ -101,6 +101,10 @@ public class InfoEntrega {
         return this.tipoEntrega;
     }
     
+    public Destino getDestino() {
+        return this.destino;
+    }
+    
     public String getDestinatario() {
         return this.destinatario;
     }

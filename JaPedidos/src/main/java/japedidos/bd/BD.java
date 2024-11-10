@@ -1,7 +1,9 @@
 package japedidos.bd;
 
 import japedidos.clientes.Cliente;
+import japedidos.pedidos.Destino;
 import japedidos.pedidos.InfoEntrega;
+import japedidos.pedidos.TipoEntrega;
 import japedidos.produto.ProdutoPedido;
 import japedidos.usuario.Registro;
 import japedidos.usuario.Usuario;
@@ -120,6 +122,32 @@ public final class BD {
                     if (rsUltimoPedido.next()) {
                         id_pedido = rsUltimoPedido.getInt("id");
                     }
+                    
+                    // Controle do cadastro de novo destino
+                    if (p.getInfoEntrega().getTipoEntrega() == TipoEntrega.ENVIO) {
+                        Destino destino = p.getInfoEntrega().getDestino();
+                        
+                         // Insere destino do pedido
+                        insertDestino = conn.prepareStatement("INSERT INTO destino(id_pedido, logradouro, numero, bairro, cidade, estado, pais) VALUE (?, ?, ?, ?, ?, ?, ?)");
+                        int j = 1;
+                        insertDestino.setInt(j++, id_pedido);
+                        insertDestino.setString(j++, destino.getLogradouro());
+                        insertDestino.setString(j++, destino.getNumero());
+                        insertDestino.setString(j++, destino.getBairro());
+                        insertDestino.setString(j++, destino.getCidade());
+                        insertDestino.setString(j++, destino.getEstado());
+                        insertDestino.setString(j++, destino.getPais());
+                        insertDestino.executeUpdate();
+                    }
+                    
+                    //Controle do cadastro de destinatário
+                    if (p.getInfoEntrega().getDestinatario() != null) {
+                        insertDestinatario = conn.prepareStatement("INSERT INTO destinatario(id_pedido, info) VALUE (?, ?)");
+                        insertDestinatario.setInt(1, id_pedido);
+                        insertDestinatario.setString(2, p.getInfoEntrega().getDestinatario());
+                        insertDestinatario.executeUpdate();
+                    }
+                   
                     
                     
                     // Inserindo produtos do pedido

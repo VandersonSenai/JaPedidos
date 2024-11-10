@@ -13,7 +13,7 @@ import japedidos.exception.IllegalPaisException;
  * @author thiago
  */
 public class Destino {
-    public static final String DEFAULT_ESTADO = "Espírito Santo";
+    public static final String DEFAULT_ESTADO = "ES";
     public static final String DEFAULT_PAIS = "Brasil";
     
     private String logradouro, numero, bairro, cidade, estado, pais;
@@ -160,5 +160,29 @@ public class Destino {
                 this.pais = pais;
             }
         }
+    }
+    
+    public String getLogradouro() {
+        return this.logradouro;
+    }
+    
+    public String getNumero() {
+        return this.numero;
+    }
+    
+    public String getBairro() {
+        return this.bairro;
+    }
+    
+    public String getCidade() {
+        return this.cidade;
+    }
+    
+    public String getEstado() {
+        return this.estado;
+    }
+    
+    public String getPais() {
+        return this.pais;
     }
 }

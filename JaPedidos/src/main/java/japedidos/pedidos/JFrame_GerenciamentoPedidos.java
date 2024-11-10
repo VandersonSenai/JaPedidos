@@ -18,7 +18,7 @@ import javax.swing.SpinnerNumberModel;
  *
  * @author t.baiense
  */
-public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements InfoAdicionalReceiver{
+public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements InfoAdicionalReceiver {
     Cliente.InfoAdicional infoAdicionalCliente;
 
     /**
@@ -77,7 +77,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jtxtf_numero.setText(null);
         jtxtf_bairro.setText(null);
         jtxtf_cidade.setText(null);
-        jtxtf_uf.setText(null);
+        jcmb_uf.setSelectedIndex(7);
         jtxta_observacoes.setText(null);
         clearProdutoFieldsInfo();
         jspn_valorEntrega.setValue(0.0);
@@ -138,7 +138,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             numeroDestino = jtxtf_numero.getText().trim();
             bairro = jtxtf_bairro.getText().trim();
             cidade = jtxtf_cidade.getText().trim();
-            uf = jtxtf_uf.getText().trim();
+            uf = (String)jcmb_uf.getSelectedItem();
             
             try {
                 destinoEntrega = new Destino(rua, numeroDestino, bairro, cidade, uf);
@@ -343,7 +343,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jcmb_produto = new javax.swing.JComboBox<>();
         jlbl_cidade = new javax.swing.JLabel();
         jlbl_estadoInicial = new javax.swing.JLabel();
-        jtxtf_uf = new javax.swing.JTextField();
         jlbl_tipoEntrega = new javax.swing.JLabel();
         jtxtf_rua = new javax.swing.JTextField();
         jlbl_uf = new javax.swing.JLabel();
@@ -386,6 +385,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_erro_valorTotal = new javax.swing.JLabel();
         jspn_desconto = new javax.swing.JSpinner(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
         jspn_valorEntrega = new javax.swing.JSpinner(new javax.swing.SpinnerNumberModel(0.0, 0.0, 100000.0, 0.01));
+        jcmb_uf = new javax.swing.JComboBox<>();
         jpnl_historicoPedidos = new javax.swing.JPanel();
         jtxtf_pesquisarHistoricoPedido = new javax.swing.JTextField();
         jlbl_filtroHistoricoPedido = new javax.swing.JLabel();
@@ -411,6 +411,12 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jpnl_principal.setMinimumSize(new java.awt.Dimension(1024, 576));
         jpnl_principal.setPreferredSize(new java.awt.Dimension(1024, 576));
         jpnl_principal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
 
         jpnl_pedidosAberto.setOpaque(false);
         jpnl_pedidosAberto.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -554,7 +560,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_estadoInicial.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_estadoInicial.setText("ESTADO INICIAL:");
         jpnl_incluirPedido.add(jlbl_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 430, 150, 20));
-        jpnl_incluirPedido.add(jtxtf_uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 170, 80, -1));
 
         jlbl_tipoEntrega.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_tipoEntrega.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -606,6 +611,12 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_dataEntrega.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_dataEntrega.setText("DATA:");
         jpnl_incluirPedido.add(jlbl_dataEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 60, 20));
+
+        jspn_quantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jspn_quantidadeKeyPressed(evt);
+            }
+        });
         jpnl_incluirPedido.add(jspn_quantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 250, 90, -1));
 
         jlbl_observações.setBackground(new java.awt.Color(0, 0, 0));
@@ -774,6 +785,10 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             }
         });
         jpnl_incluirPedido.add(jspn_valorEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 90, -1));
+
+        jcmb_uf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        jcmb_uf.setSelectedIndex(7);
+        jpnl_incluirPedido.add(jcmb_uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 170, 80, -1));
 
         jTabbedPane1.addTab("Incluir pedido", jpnl_incluirPedido);
 
@@ -1004,6 +1019,18 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         atualizarValoresPedido();
     }//GEN-LAST:event_jspn_descontoFocusLost
 
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+    
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void jspn_quantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jspn_quantidadeKeyPressed
+        // TODO add your handling code here:
+        System.out.println("Tecla pressionada!");
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            jbtn_incluirProduto.doClick();
+        }
+    }//GEN-LAST:event_jspn_quantidadeKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -1061,6 +1088,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private javax.swing.JComboBox<japedidos.pedidos.Estado> jcmb_estadoInicial;
     private javax.swing.JComboBox<japedidos.produto.Produto> jcmb_produto;
     private javax.swing.JComboBox<japedidos.pedidos.TipoEntrega> jcmb_tipoEntrega;
+    private javax.swing.JComboBox<String> jcmb_uf;
     private javax.swing.JLabel jlbl_bairro;
     private javax.swing.JLabel jlbl_cidade;
     private javax.swing.JLabel jlbl_clientes;
@@ -1134,7 +1162,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private javax.swing.JTextField jtxtf_pesquisarPedidos;
     private javax.swing.JTextField jtxtf_rua;
     private javax.swing.JTextField jtxtf_telefoneCliente;
-    private javax.swing.JTextField jtxtf_uf;
     private javax.swing.JTextField jtxtf_valorTotal;
     // End of variables declaration//GEN-END:variables
 }
