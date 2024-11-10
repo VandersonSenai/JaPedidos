@@ -16,7 +16,10 @@ import java.awt.Dimension;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.text.NumberFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.print.DocFlavor;
+import javax.swing.JOptionPane;
 
 
 public class JFrame_ListaProdutos extends javax.swing.JFrame {
@@ -47,6 +50,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         jpnl_sideMenu = new javax.swing.JPanel();
         jtb_linhaBranca = new javax.swing.JToolBar();
         jlbl_clientes = new javax.swing.JLabel();
@@ -57,6 +61,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_background_01 = new javax.swing.JLabel();
         jpnl_corpo = new javax.swing.JPanel();
         jtb_linhaEncontrar = new javax.swing.JToolBar();
+        jLabel1 = new javax.swing.JLabel();
         jlbl_encontrar = new javax.swing.JLabel();
         jtxtf_pesquisa = new javax.swing.JTextField();
         jlbl_descricao = new javax.swing.JLabel();
@@ -71,15 +76,20 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtxtf_valor = new javax.swing.JTextField();
         jlbl_ativo = new javax.swing.JLabel();
         jchb_ativo = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
         jlbl_btn_novo = new javax.swing.JLabel();
         jlbl_btn_excluir = new javax.swing.JLabel();
         jlbl_btn_salvar = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
         jtbl_listaprodutos = new javax.swing.JScrollPane();
         jtbl_lista_produtos = new javax.swing.JTable();
         jpnl_background_02 = new javax.swing.JLabel();
         jtb_linhaBranca1 = new javax.swing.JToolBar();
+
+        jButton1.setText("TESTE CONSULTA");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFocusCycleRoot(false);
@@ -128,7 +138,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         jlbl_produtos.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_produtos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_produtos.setForeground(new Color(255,255,255));
+        jlbl_produtos.setForeground(new java.awt.Color(255, 255, 255));
         jlbl_produtos.setText("PRODUTOS");
         jlbl_produtos.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -209,6 +219,19 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtb_linhaEncontrar.setRequestFocusEnabled(false);
         jpnl_corpo.add(jtb_linhaEncontrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 76, 3, 22));
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel1MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel1MouseReleased(evt);
+            }
+        });
+        jpnl_corpo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 380, 86, 33));
+
         jlbl_encontrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon_encontrar.png"))); // NOI18N
         jlbl_encontrar.setNextFocusableComponent(jtxtf_pesquisa);
         jlbl_encontrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -226,7 +249,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         jtxtf_pesquisa.setBackground(new java.awt.Color(204, 204, 204));
         jtxtf_pesquisa.setForeground(new java.awt.Color(102, 102, 102));
-        jtxtf_pesquisa.setText("Digite aqui que deseja encontrar e pressione ENTER...");
+        jtxtf_pesquisa.setText("Digite aqui que deseja encontrar...");
         jtxtf_pesquisa.setBorder(jtxtf_codigo.getBorder());
         jtxtf_pesquisa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jtxtf_pesquisa.setMargin(new java.awt.Insets(2, 54, 2, 6));
@@ -249,7 +272,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                 jtxtf_pesquisaKeyTyped(evt);
             }
         });
-        jpnl_corpo.add(jtxtf_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 680, 34));
+        jpnl_corpo.add(jtxtf_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 690, 34));
 
         jlbl_descricao.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_descricao.setForeground(new java.awt.Color(0, 0, 0));
@@ -321,17 +344,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_corpo.add(jlbl_ativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 470, 70, -1));
         jpnl_corpo.add(jchb_ativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 470, -1, 30));
 
-        jButton1.setText("TESTE CONSULTA");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jpnl_corpo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 10, -1, -1));
-
         jlbl_btn_novo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_btn_novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_novo_padrao.png"))); // NOI18N
+        jlbl_btn_novo.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         jlbl_btn_novo.setNextFocusableComponent(jlbl_btn_excluir);
+        jlbl_btn_novo.setPreferredSize(null);
         jlbl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jlbl_btn_novoMouseClicked(evt);
@@ -343,12 +360,17 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                 jlbl_btn_novoMouseReleased(evt);
             }
         });
-        jpnl_corpo.add(jlbl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 390, -1, -1));
+        jpnl_corpo.add(jlbl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 390, 86, 33));
 
         jlbl_btn_excluir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_btn_excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_excluir_padrao.png"))); // NOI18N
+        jlbl_btn_excluir.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         jlbl_btn_excluir.setNextFocusableComponent(jlbl_btn_salvar);
+        jlbl_btn_excluir.setPreferredSize(null);
         jlbl_btn_excluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlbl_btn_excluirMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jlbl_btn_excluirMousePressed(evt);
             }
@@ -356,10 +378,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                 jlbl_btn_excluirMouseReleased(evt);
             }
         });
-        jpnl_corpo.add(jlbl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 430, -1, -1));
+        jpnl_corpo.add(jlbl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 430, 86, 33));
 
+        jlbl_btn_salvar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_btn_salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_salvar_padrao.png"))); // NOI18N
+        jlbl_btn_salvar.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         jlbl_btn_salvar.setNextFocusableComponent(jtxtf_pesquisa);
+        jlbl_btn_salvar.setPreferredSize(null);
         jlbl_btn_salvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jlbl_btn_salvarMousePressed(evt);
@@ -368,8 +393,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                 jlbl_btn_salvarMouseReleased(evt);
             }
         });
-        jpnl_corpo.add(jlbl_btn_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 470, -1, -1));
-        jpnl_corpo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, -1, -1));
+        jpnl_corpo.add(jlbl_btn_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 470, 86, 33));
 
         jtbl_listaprodutos.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jtbl_listaprodutos.setAutoscrolls(true);
@@ -438,7 +462,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             jtbl_lista_produtos.getColumnModel().getColumn(6).setPreferredWidth(50);
         }
 
-        jpnl_corpo.add(jtbl_listaprodutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 680, 250));
+        jpnl_corpo.add(jtbl_listaprodutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 690, 250));
 
         jpnl_background_02.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jpnl_background_02.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_produtos_075x.png"))); // NOI18N
@@ -475,6 +499,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jlbl_btn_novoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_novoMouseClicked
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jlbl_btn_novoMouseClicked
 
     private void jlbl_btn_novoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_novoMouseReleased
@@ -553,9 +578,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         cor_padrao_txt_pedidos = new Color(128,128,128);
         cor_padrao_txt_relatorios = new Color(128,128,128);
 
-        
-        
-        
 //        jtb_linhaBranca.setSize(jlbl_clientes.getWidth(), 4 );
 //        jlbl_clientes.setForeground(new Color(255,255,255));
         
@@ -605,6 +627,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             jcmb_categoria.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
             jcmb_unid.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 5));
             jtxtf_valor.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 4));  //quase ok
+            jchb_ativo.setSelected((Boolean) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 6));
             
         }
     }//GEN-LAST:event_jtbl_lista_produtosMouseClicked
@@ -612,12 +635,10 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     private void jtxtf_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_pesquisaActionPerformed
         String sql_listaProdutos = "";
         String encontrar = jtxtf_pesquisa.getText();
-//        encontrar = "'%" + encontrar + "%'";
        
         if (jtxtf_pesquisa.getText().equals("")|jtxtf_pesquisa.getText().equals("Digite aqui que deseja encontrar...")){
             sql_listaProdutos = "select * from listaTodosProdutos group by nome ";
         } else {
-//            sql_listaProdutos = "select * from listaTodosProdutos group by nome having nome LIKE " + encontrar;
             sql_listaProdutos = "select * from listaTodosProdutos group by nome having nome LIKE " ;
             sql_listaProdutos =     sql_listaProdutos + "'%" +
                                     encontrar + "%'" + " or categoria LIKE " +
@@ -660,12 +681,14 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     private void jlbl_encontrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_encontrarMouseClicked
         String sql_listaProdutos = "";
         String encontrar = jtxtf_pesquisa.getText();
-        encontrar = "'%" + encontrar + "%'";
-        
-        if (jtxtf_pesquisa.getText().equals("")|jtxtf_pesquisa.getText().equals("Digite aqui que deseja encontrar...")){
+       
+        if (jtxtf_pesquisa.getText().equals("") | jtxtf_pesquisa.getText().equals("Digite aqui que deseja encontrar e pressione ENTER...")){
             sql_listaProdutos = "select * from listaTodosProdutos group by nome ";
         } else {
-            sql_listaProdutos = "select * from listaTodosProdutos group by nome having nome LIKE " + encontrar;
+            sql_listaProdutos = "select * from listaTodosProdutos group by nome having nome LIKE " ;
+            sql_listaProdutos =     sql_listaProdutos + "'%" +
+                                               encontrar + "%'" + " or categoria LIKE " +
+                                               "'%" + encontrar + "%'" + " ORDER BY nome ASC";
         }
         
         String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
@@ -675,10 +698,32 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
        try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
             
             load_DB2_components.loadJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
-            
         } catch (SQLException e) {
             e.printStackTrace();
         }
+//       
+//
+//        String sql_listaProdutos = "";
+//        String encontrar = jtxtf_pesquisa.getText();
+//        encontrar = "'%" + encontrar + "%'";
+//        
+//        if (jtxtf_pesquisa.getText().equals("")|jtxtf_pesquisa.getText().equals("Digite aqui que deseja encontrar...")){
+//            sql_listaProdutos = "select * from listaTodosProdutos group by nome ";
+//        } else {
+//            sql_listaProdutos = "select * from listaTodosProdutos group by nome having nome LIKE " + encontrar;
+//        }
+//        
+//        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+//        String usuario = "root";
+//        String senha = "";
+//
+//       try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
+//            
+//            load_DB2_components.loadJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
+//            
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
         
     }//GEN-LAST:event_jlbl_encontrarMouseClicked
 
@@ -704,15 +749,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jtbl_lista_produtosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbl_lista_produtosMousePressed
         if (jtbl_lista_produtos.getRowCount()>=1){
-            
-            NumberFormat formatter = NumberFormat.getCurrencyInstance();
-            NumberFormat decimal = new DecimalFormat("#,##0.00"); 
-/*
-            System.out.println( "\n Linha - " + jtbl_lista_produtos.getSelectedRow()+
-                                "\n Coluna - " + jtbl_lista_produtos.getSelectedColumn()+
-                                "\n Descricao :  - " + jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 
-                                                    1));
-            */
+//            NumberFormat formatter = NumberFormat.getCurrencyInstance();
+//            NumberFormat decimal = new DecimalFormat("#,##0.00"); 
+//            System.out.println( "\n Linha - " + jtbl_lista_produtos.getSelectedRow()+
+//                                "\n Coluna - " + jtbl_lista_produtos.getSelectedColumn()+
+//                                "\n Descricao :  - " + jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 
+//                                                    1));
+
             jtxtf_codigo.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 0));
             jtxtf_descricao.setText((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 1));
             jcmb_categoria.setSelectedItem((String) jtbl_lista_produtos.getValueAt(jtbl_lista_produtos.getSelectedRow(), 2));
@@ -728,51 +771,56 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jtbl_lista_produtosFocusGained
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        NumberFormat decimal = new DecimalFormat("#,##0.00");
-        Connection banco = null;
-//        PreparedStatement stm_lista_produtos_view = null;
-        //
-        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
-        String usuario = "root";
-        String senha = "";
-        //        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
-        //       String usuario = "titanw25_japedidos_hml";
-        //      String senha = "seNai@2024proj";
-
-        try
-        {
-            banco = DriverManager.getConnection(url, usuario, senha);
-            String sql_lista_produtos_view = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
-            
-            PreparedStatement stm_lista_produtos_view = banco.prepareStatement(sql_lista_produtos_view);
-            
-//            stm_lista_produtos_view.execute(); // cria o vetor
-            ResultSet resultado_lista_produtos_view = stm_lista_produtos_view.executeQuery(sql_lista_produtos_view);
-
-//          Define modelo de tabela a partir da  que ja existe neste frame
-            DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
-//          Zera a lista caso ja exista algum dado anterior
-            model.setRowCount(0);
-            while(resultado_lista_produtos_view.next())
-            {
-                model.addRow(new Object[]
-                    {
-                        //  Retorna os dados da tabela do lista_produtos_view, cada campo e um coluna.
-                        resultado_lista_produtos_view.getString("id"),
-                        resultado_lista_produtos_view.getString("nome"),
-                        resultado_lista_produtos_view.getString("categoria"),
-                        decimal.format(resultado_lista_produtos_view.getDouble("preco_custo")),
-                        decimal.format(resultado_lista_produtos_view.getDouble("preco_venda")),
-                        resultado_lista_produtos_view.getString("unidade"),
-                        resultado_lista_produtos_view.getBoolean("estado")
-                    });
-                }
-            stm_lista_produtos_view.close();
-            }
-            catch (SQLException ex)
-            {
-                System.out.println("O erro foi  X:  " +ex);
-            }
+//        NumberFormat decimal = new DecimalFormat("#,##0.00");
+//        Connection banco = null;
+////        PreparedStatement stm_lista_produtos_view = null;
+//        //
+//        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+//        String usuario = "root";
+//        String senha = "";
+//        //        String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
+//        //       String usuario = "titanw25_japedidos_hml";
+//        //      String senha = "seNai@2024proj";
+//
+//        try
+//        {
+//            banco = DriverManager.getConnection(url, usuario, senha);
+//            String sql_lista_produtos_view = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
+//            
+//            PreparedStatement stm_lista_produtos_view = banco.prepareStatement(sql_lista_produtos_view);
+//            
+////            stm_lista_produtos_view.execute(); // cria o vetor
+//            ResultSet resultado_lista_produtos_view = stm_lista_produtos_view.executeQuery(sql_lista_produtos_view);
+//
+////          Define modelo de tabela a partir da  que ja existe neste frame
+//            DefaultTableModel model =(DefaultTableModel) jtbl_lista_produtos.getModel();
+////          Zera a lista caso ja exista algum dado anterior
+//            model.setRowCount(0);
+//            while(resultado_lista_produtos_view.next())
+//            {
+//                model.addRow(new Object[]
+//                    {
+//                        //  Retorna os dados da tabela do lista_produtos_view, cada campo e um coluna.
+//                        resultado_lista_produtos_view.getString("id"),
+//                        resultado_lista_produtos_view.getString("nome"),
+//                        resultado_lista_produtos_view.getString("categoria"),
+//                        decimal.format(resultado_lista_produtos_view.getDouble("preco_custo")),
+//                        decimal.format(resultado_lista_produtos_view.getDouble("preco_venda")),
+//                        resultado_lista_produtos_view.getString("unidade"),
+//                        resultado_lista_produtos_view.getBoolean("estado")
+//                    });
+//                }
+//            stm_lista_produtos_view.close();
+//            }
+//            catch (SQLException ex)
+//            {
+//                JOptionPane.showMessageDialog(null, 
+//                "Nao foi possivel conectar ao banco  \n", 
+//                "Erro ao conectar ao banco", 
+//                JOptionPane.INFORMATION_MESSAGE);
+//                System.out.println("O erro foi : " +ex);
+//
+//            }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -790,20 +838,84 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         String senha = "";
 
        try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
-           
             String sql_combCategoria = "SELECT id, nome, descricao FROM categoria ORDER BY nome ASC"; 
             String sql_combUnidade = "SELECT id, abreviacao FROM unidade ORDER BY abreviacao ASC";
             String sql_listaProdutos = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
-            
             load_DB2_components.loadComboBox(jcmb_categoria, conn, sql_combCategoria);
             load_DB2_components.loadComboBox(jcmb_unid, conn, sql_combUnidade);
             load_DB2_components.loadJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
-            
         } catch (SQLException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, 
+            "Nao foi possivel conectar ao banco  \n", 
+            "Erro ao conectar ao banco", 
+            JOptionPane.INFORMATION_MESSAGE);
         }
 
     }//GEN-LAST:event_formWindowOpened
+
+    private void jlbl_btn_excluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_excluirMouseClicked
+        // TODO add your handling code here:
+        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+        String usuario = "root";
+        String senha = "";
+
+        if ( jtxtf_codigo.getText().length()<1){
+            JOptionPane.showMessageDialog(jpnl_corpo,
+            "\nNenhum item selecionado\n",
+            "JaPedidos",
+            JOptionPane.WARNING_MESSAGE);                
+        } else {
+
+                int  confirmaExclusao = JOptionPane.showConfirmDialog(jpnl_corpo,
+                                                "\nConfirma a exclusão do item : \n" + 
+                                                jtxtf_codigo.getText() + " - " + jtxtf_descricao.getText() + "\n",
+                                                "JaPedidos",
+                                                JOptionPane.YES_NO_OPTION,
+                                                JOptionPane.WARNING_MESSAGE);
+                if (confirmaExclusao==0){
+                    System.out.print("\nSim = "+ confirmaExclusao);
+                    String sqlQuery = "DELETE from produto where id = " + jtxtf_codigo.getText();
+                    try {
+                            load_DB2_components.excluirRegistro(jpnl_corpo, url, usuario, senha, sqlQuery);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(JFrame_ListaProdutos.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(jpnl_corpo, 
+                            "Falha ao excluir\n", 
+                            "JaPedidos", 
+                            JOptionPane.INFORMATION_MESSAGE);
+                        }
+                }
+                
+                try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
+                     String sql_combCategoria = "SELECT id, nome, descricao FROM categoria ORDER BY nome ASC"; 
+                     String sql_combUnidade = "SELECT id, abreviacao FROM unidade ORDER BY abreviacao ASC";
+                     String sql_listaProdutos = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
+                     load_DB2_components.loadComboBox(jcmb_categoria, conn, sql_combCategoria);
+                     load_DB2_components.loadComboBox(jcmb_unid, conn, sql_combUnidade);
+                     load_DB2_components.loadJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
+                 } catch (SQLException e) {
+                     e.printStackTrace();
+                     JOptionPane.showMessageDialog(jpnl_corpo, 
+                     "Nao foi possivel conectar ao banco  \n", 
+                     "Erro ao conectar ao banco", 
+                     JOptionPane.INFORMATION_MESSAGE);
+                 }
+        }  
+        
+    }//GEN-LAST:event_jlbl_btn_excluirMouseClicked
+
+    private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
+        // TODO add your handling code here:
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_novo_pressionado.png"))); 
+        jLabel1.setBounds(610, 380, 86, 33);
+    }//GEN-LAST:event_jLabel1MousePressed
+
+    private void jLabel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseReleased
+        // TODO add your handling code here:
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_novo_padrao.png"))); 
+        jLabel1.setBounds(610, 380, 86, 33);
+    }//GEN-LAST:event_jLabel1MouseReleased
 
     /**
      * @param args the command line arguments
@@ -814,12 +926,10 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-
         Path currentRelativePath = Paths.get("");
         String caminhoImagens = currentRelativePath.toAbsolutePath().toString();
         caminhoImagens = Paths.get(".").toAbsolutePath().normalize().toString();
         System.out.print("O diretorio atual : " + caminhoImagens + "\n");
-        
                 
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -841,7 +951,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -856,7 +965,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JCheckBox jchb_ativo;
     private javax.swing.JComboBox<String> jcmb_categoria;
     private javax.swing.JComboBox<String> jcmb_unid;

@@ -4,14 +4,17 @@
  */
 package japedidos.produto;
 
+import java.awt.Component;
 import javax.swing.JComboBox;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class load_DB2_components {
     
-    public static JComboBox<String> loadComboBox(JComboBox<String> comboBox, Connection banco, String sqlQuery) {
+    public static JComboBox<String> loadComboBox(JComboBox<String> comboBox, Connection banco, String sqlQuery) throws SQLException {
         comboBox.removeAllItems();  // Limpa os itens existentes
         HashMap<Integer, String[]> comboBoxMap = new HashMap<>();
         
@@ -45,10 +48,9 @@ public class load_DB2_components {
 
         return comboBox;
     }
+       
     
-    
-    
-    public static JTable loadJTable(JTable  jTablecomponent, Connection banco, String sqlQuery) {
+    public static JTable loadJTable(JTable  jTablecomponent, Connection banco, String sqlQuery)  throws SQLException {
         NumberFormat decimal = new DecimalFormat("#,##0.00");
 
         try
@@ -80,5 +82,35 @@ public class load_DB2_components {
             }
         
     return jTablecomponent;
+    }
+    
+        public static void excluirRegistro(Component jframe,  String url, String usuario, String senha, String sqlQuery)  throws SQLException {
+
+        try (Connection banco = DriverManager.getConnection(url, usuario, senha); PreparedStatement stm_tabela = banco.prepareStatement(sqlQuery)) {
+        
+            int linhasAfetadas = stm_tabela.executeUpdate();
+            if (linhasAfetadas > 0) {
+                
+                System.out.println("Dados excluidos com sucesso!");
+                JOptionPane.showMessageDialog(jframe, 
+                "Excluido com sucesso.\n", 
+                "JaPedidos", 
+                JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                System.out.println("Nenhum dado excluido.");
+                JOptionPane.showMessageDialog(jframe, 
+                "Nenhum dado excluido.\n", 
+                "JaPedidos", 
+                JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            catch (SQLException ex)
+            {
+                System.out.println("O erro foi : " +ex);
+                JOptionPane.showMessageDialog(jframe, 
+                "Erro ao acessar banco.\n", 
+                "JaPedidos", 
+                JOptionPane.INFORMATION_MESSAGE);
+            }
     }
 }
