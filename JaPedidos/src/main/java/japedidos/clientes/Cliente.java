@@ -14,7 +14,7 @@ public class Cliente {
     /** Representa a chave primária do registro do cliente no BD. Se o cliente
      houver registro associado no BD, seu id será maior que zero. Do contrário,
      será -1.*/
-    private int id = -1;
+    private int id = NULL_ID;
     private String nome;
     private String telefone;
     private Pedido ultimoPedido;

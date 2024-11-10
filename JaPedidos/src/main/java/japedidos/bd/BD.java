@@ -1,5 +1,6 @@
 package japedidos.bd;
 
+import japedidos.clientes.Cliente;
 import japedidos.pedidos.InfoEntrega;
 import japedidos.produto.ProdutoPedido;
 import japedidos.usuario.Registro;
@@ -52,18 +53,41 @@ public final class BD {
             Connection conn = null;
             PreparedStatement insertPedido = null;
             PreparedStatement selectLastPedido = null;
+            PreparedStatement insertCliente = null;
+            PreparedStatement selectCliente = null;
+            PreparedStatement insertDestino = null;
+            PreparedStatement insertDestinatario = null;
             PreparedStatement insertProdutosPedido = null;
+            PreparedStatement insertInfoAdicionalCliente = null;
+            PreparedStatement insertEstadoPedido = null;
+            
             if (p != null) {
                 try {
                     conn = BD.getConnection();
                     conn.setAutoCommit(false);
                     
+                    // Controle de cadastro de cliente
+                    japedidos.clientes.Cliente cliente = p.getCliente();
+                    int id_cliente;
+                    if (cliente.isNew()) {
+                        // Cadastro do novo cliente
+                        insertCliente = conn.prepareStatement("INSERT INTO cliente(nome, telefone) VALUE (?, ?)");
+                        insertCliente.setString(1, cliente.getNome());
+                        insertCliente.setString(2, cliente.getTelefone());
+                        insertCliente.executeUpdate();
+                        // Busca do novo cliente já cadastrado
+                        selectCliente = conn.prepareStatement("SELECT id FROM cliente ORDER BY id DESC LIMIT 1");
+                        ResultSet rsCliente = selectCliente.executeQuery();
+                        rsCliente.next();
+                        id_cliente = rsCliente.getInt("id");
+                    } else {
+                        id_cliente = cliente.getId();
+                    }
+                    
                     // Inserção do pedido
                     insertPedido = conn.prepareStatement(
                             String.format("INSERT INTO %s(id_cliente, id_usuario_autor, dthr_criacao, tipo_entrega, dthr_entregar, preco_frete, tx_desconto, preco_final, dt_venc_pagamento, preco_custo_total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", TABLE));
                     int i=1;
-                    int id_cliente = p.getCliente().getId();
-                    
                     insertPedido.setInt(i++, id_cliente);
                     
                     Registro reg = p.getRegistroCriacao();
@@ -74,7 +98,7 @@ public final class BD {
                     insertPedido.setString(i++, infoEntrega.getTipoEntrega().toString());
                     insertPedido.setTimestamp(i++, Timestamp.valueOf(infoEntrega.getDataHoraEntregar())); // dthr_entregar
                     insertPedido.setDouble(i++, infoEntrega.getPrecoFrete()); // preco_frete
-                    insertPedido.setInt(i++, (int)p.getTaxaDesconto()); // tx_desconto
+                    insertPedido.setInt(i++, (int)(100.0 * p.getTaxaDesconto())); // tx_desconto
                     insertPedido.setDouble(i++, p.getPrecoFinal());// preco_final
                     
                         // Definindo dt_venc_pagamento
@@ -89,7 +113,7 @@ public final class BD {
                     
                     r = insertPedido.executeUpdate();
                     
-                    // Inserindo produtos do pedido
+                    // Busca do id do pedido cadastrado
                     int id_pedido = -1;
                     selectLastPedido = conn.prepareStatement("SELECT id FROM " + TABLE +" ORDER BY id DESC LIMIT 1");
                     ResultSet rsUltimoPedido = selectLastPedido.executeQuery();
@@ -97,6 +121,8 @@ public final class BD {
                         id_pedido = rsUltimoPedido.getInt("id");
                     }
                     
+                    
+                    // Inserindo produtos do pedido
                     String strStmt = "INSERT INTO produto_pedido(id_produto, id_pedido, quantidade, preco_venda, preco_custo, info_adicional) VALUES (?, ?, ?, ?, ?, ?)";
                     insertProdutosPedido = conn.prepareStatement(strStmt);
                     for (japedidos.produto.ProdutoPedido prodPed : p.getProdutos()) {
@@ -142,10 +168,74 @@ public final class BD {
                     if (insertPedido != null) {
                         try {
                            insertPedido.close();
-                           conn.close();
+                        } catch (SQLException ex) {
+                           System.out.println("Não foi possível fechar conexão com o banco.");
+                        }
+                    }
+                    if (selectLastPedido != null) {
+                        try {
+                           selectLastPedido.close();
                         } catch (SQLException ex) {
                            System.out.println("Não foi possível fechar conexão com o banco.");
                         }                        
+                    }
+                    if (insertCliente != null) {
+                        try {
+                           insertCliente.close();
+                        } catch (SQLException ex) {
+                           System.out.println("Não foi possível fechar conexão com o banco.");
+                        }                        
+                    }
+                    if (selectCliente != null){
+                        try {
+                           selectCliente.close();
+                        } catch (SQLException ex) {
+                           System.out.println("Não foi possível fechar conexão com o banco.");
+                        }                        
+                    }
+                    if (insertDestino != null) {
+                        try {
+                           insertDestino.close();
+                        } catch (SQLException ex) {
+                           System.out.println("Não foi possível fechar conexão com o banco.");
+                        }                        
+                    }
+                    
+                    if (insertDestinatario != null) {
+                        try {
+                           insertDestinatario.close();
+                        } catch (SQLException ex) {
+                           System.out.println("Não foi possível fechar conexão com o banco.");
+                        }                        
+                    }
+                    if (insertProdutosPedido != null) {
+                        try {
+                           insertProdutosPedido.close();
+                        } catch (SQLException ex) {
+                           System.out.println("Não foi possível fechar conexão com o banco.");
+                        }                        
+                    }
+                    
+                    if (insertInfoAdicionalCliente != null) {
+                        try {
+                           insertInfoAdicionalCliente.close();
+                        } catch (SQLException ex) {
+                           System.out.println("Não foi possível fechar conexão com o banco.");
+                        }                        
+                    }
+                    if (insertEstadoPedido != null) {
+                        try {
+                           insertEstadoPedido.close();
+                        } catch (SQLException ex) {
+                           System.out.println("Não foi possível fechar conexão com o banco.");
+                        }                        
+                    }
+                    
+                    
+                    try {
+                        conn.close();
+                    } catch (SQLException ex) {
+                        
                     }
                 }
  

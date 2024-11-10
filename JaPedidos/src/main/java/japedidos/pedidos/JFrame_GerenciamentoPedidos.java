@@ -113,7 +113,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         try {
             cliente = new Cliente(nome, telefone);
             cliente.setInfoAdicional(infoAdicionalCliente);
-            cliente.setId(1); // RETIRAR quando tiver método de criar usuario
+//            cliente.setId(1); // RETIRAR quando tiver método de criar usuario
         } catch (IllegalArgumentsException newExs) {
             exs.addCause(newExs.getCauses());
             cliente = null;

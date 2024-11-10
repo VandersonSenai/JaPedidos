@@ -2,18 +2,7 @@ package japedidos.pedidos;
 
 import java.util.ArrayList;
 import japedidos.clientes.Cliente;
-import japedidos.exception.IllegalArgumentsException;
-import japedidos.exception.IllegalClienteException;
-import japedidos.exception.IllegalDataPagoException;
-import japedidos.exception.IllegalDataVencimentoPagamentoException;
-import japedidos.exception.IllegalEstadoPedidoArrayException;
-import japedidos.exception.IllegalEstadoPedidoException;
-import japedidos.exception.IllegalIdException;
-import japedidos.exception.IllegalInfoCancelamentoException;
-import japedidos.exception.IllegalInfoEntregaException;
-import japedidos.exception.IllegalProdutoPedidoArrayException;
-import japedidos.exception.IllegalRegistroException;
-import japedidos.exception.IllegalTaxaDescontoException;
+import japedidos.exception.*;
 import japedidos.produto.*;
 import japedidos.usuario.Registro;
 import japedidos.usuario.Usuario;
@@ -72,16 +61,17 @@ public final class Pedido {
         }
         
         try {
+            setTaxaDesconto(taxaDesconto); // Deve ser definido antes de adicionar os produtos para o calculo do preço final estar correto.
+        } catch (IllegalTaxaDescontoException ex) {
+            exs.addCause(ex);
+        }
+        
+        try {
             setProdutos(produtoPedido);
         } catch (IllegalProdutoPedidoArrayException ex) {
             exs.addCause(ex);
         }
         
-        try {
-            setTaxaDesconto(taxaDesconto);
-        } catch (IllegalTaxaDescontoException ex) {
-            exs.addCause(ex);
-        }
         
         if (exs.size() > 0) {
             throw exs;
