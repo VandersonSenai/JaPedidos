@@ -10,6 +10,7 @@ import japedidos.exception.IllegalQuantidadeException;
 public class ProdutoPedido {
     private Produto produto;
     private int quantidade;
+    private String infoAdicional;
     
     public ProdutoPedido(Produto produto, int quantidade) {
         IllegalArgumentsException exs = new IllegalArgumentsException();
@@ -41,6 +42,14 @@ public class ProdutoPedido {
         } else {
             this.quantidade = quantidade;
         }
+    }
+    
+    public void setInfoAdicional(String infoAdicional) {
+        // TODO:
+    }
+    
+    public String getInfoAdicional() {
+        return this.infoAdicional;
     }
     
     public int getQuantidade() {

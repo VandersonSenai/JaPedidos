@@ -1,6 +1,7 @@
 package japedidos.bd;
 
 import japedidos.pedidos.InfoEntrega;
+import japedidos.produto.ProdutoPedido;
 import japedidos.usuario.Registro;
 import japedidos.usuario.Usuario;
 import java.sql.Connection;
@@ -47,52 +48,115 @@ public final class BD {
         public static final String TABLE = "pedido";
         
         public static int insert(japedidos.pedidos.Pedido p) {
+            int r;
+            Connection conn = null;
+            PreparedStatement insertPedido = null;
+            PreparedStatement selectLastPedido = null;
+            PreparedStatement insertProdutosPedido = null;
             if (p != null) {
                 try {
-                    Connection conn = BD.getConnection();
-                    PreparedStatement insert = conn.prepareStatement(
+                    conn = BD.getConnection();
+                    conn.setAutoCommit(false);
+                    
+                    // Inserção do pedido
+                    insertPedido = conn.prepareStatement(
                             String.format("INSERT INTO %s(id_cliente, id_usuario_autor, dthr_criacao, tipo_entrega, dthr_entregar, preco_frete, tx_desconto, preco_final, dt_venc_pagamento, preco_custo_total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", TABLE));
                     int i=1;
                     int id_cliente = p.getCliente().getId();
                     
-                    insert.setInt(i++, id_cliente);
+                    insertPedido.setInt(i++, id_cliente);
                     
                     Registro reg = p.getRegistroCriacao();
-                    insert.setInt(i++, reg.AUTOR.getId());
-                    insert.setTimestamp(i++, Timestamp.valueOf(reg.DATA_HORA));
+                    insertPedido.setInt(i++, reg.AUTOR.getId());
+                    insertPedido.setTimestamp(i++, Timestamp.valueOf(reg.DATA_HORA));
                     
                     InfoEntrega infoEntrega = p.getInfoEntrega();
-                    insert.setString(i++, infoEntrega.getTipoEntrega().toString());
-                    insert.setTimestamp(i++, Timestamp.valueOf(infoEntrega.getDataHoraEntregar())); // dthr_entregar
-                    insert.setDouble(i++, infoEntrega.getPrecoFrete()); // preco_frete
-                    insert.setInt(i++, (int)p.getTaxaDesconto()); // tx_desconto
-                    insert.setDouble(i++, p.getPrecoFinal());// preco_final
+                    insertPedido.setString(i++, infoEntrega.getTipoEntrega().toString());
+                    insertPedido.setTimestamp(i++, Timestamp.valueOf(infoEntrega.getDataHoraEntregar())); // dthr_entregar
+                    insertPedido.setDouble(i++, infoEntrega.getPrecoFrete()); // preco_frete
+                    insertPedido.setInt(i++, (int)p.getTaxaDesconto()); // tx_desconto
+                    insertPedido.setDouble(i++, p.getPrecoFinal());// preco_final
                     
-                    // dt_venc_pagamento
+                        // Definindo dt_venc_pagamento
                     LocalDate venc_LocalDate = p.getDataVencimentoPagamento();
                     Date venc_Date = null;
                     if (venc_LocalDate != null) {
                         venc_Date = Date.valueOf(venc_LocalDate);
                     }
-                    insert.setDate(i++, venc_Date);
+                    insertPedido.setDate(i++, venc_Date);
                     
-                    insert.setDouble(i++, p.getCustoTotal());// preco_custo_total
+                    insertPedido.setDouble(i++, p.getCustoTotal());// preco_custo_total
                     
-                    int r = insert.executeUpdate();
-
-                    insert.close();
-                    conn.close();
-                    return r;
+                    r = insertPedido.executeUpdate();
+                    
+                    // Inserindo produtos do pedido
+                    int id_pedido = -1;
+                    selectLastPedido = conn.prepareStatement("SELECT id FROM " + TABLE +" ORDER BY id DESC LIMIT 1");
+                    ResultSet rsUltimoPedido = selectLastPedido.executeQuery();
+                    if (rsUltimoPedido.next()) {
+                        id_pedido = rsUltimoPedido.getInt("id");
+                    }
+                    
+                    String strStmt = "INSERT INTO produto_pedido(id_produto, id_pedido, quantidade, preco_venda, preco_custo, info_adicional) VALUES (?, ?, ?, ?, ?, ?)";
+                    insertProdutosPedido = conn.prepareStatement(strStmt);
+                    for (japedidos.produto.ProdutoPedido prodPed : p.getProdutos()) {
+                        if (prodPed != null) {
+                            int j = 1;
+                            japedidos.produto.Produto prod = prodPed.getProduto();
+                            insertProdutosPedido.setInt(j++, prod.getId());
+                            insertProdutosPedido.setInt(j++, id_pedido);
+                            insertProdutosPedido.setInt(j++, prodPed.getQuantidade());
+                            insertProdutosPedido.setDouble(j++, prod.getPrecoVenda());
+                            insertProdutosPedido.setDouble(j++, prod.getPrecoCusto());
+                            String infoAdicional = prodPed.getInfoAdicional();
+                            if (infoAdicional != null) {
+                                insertProdutosPedido.setString(j++, infoAdicional);
+                            } else {
+                                insertProdutosPedido.setNull(j++, java.sql.Types.VARCHAR);
+                            }
+                            insertProdutosPedido.addBatch();
+                        }
+                    }
+                    insertProdutosPedido.executeBatch();
+                    
+                    conn.commit();
                 } catch (SQLException e) {
+                    if (conn != null) {
+                        try {
+                            conn.rollback();
+                        } catch (SQLException ex) {
+                            
+                        }
+                    }
+                   
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de cadastro", JOptionPane.ERROR_MESSAGE);
-                    return -1;
+                    r = -1;
                 }
+                
+                if (conn != null) {
+                    try {
+                        conn.setAutoCommit(true);
+                    } catch (SQLException ex) {
+                       System.out.println("Não foi possível definir autoCommit como true");
+                    }
+                    if (insertPedido != null) {
+                        try {
+                           insertPedido.close();
+                           conn.close();
+                        } catch (SQLException ex) {
+                           System.out.println("Não foi possível fechar conexão com o banco.");
+                        }                        
+                    }
+                }
+ 
             
             } else {
-                return 0;
+                r = 0;
             }
+            return r;
         }
     }
+    
     
     static public class Usuario {
         public static final String TABLE = "usuario";
