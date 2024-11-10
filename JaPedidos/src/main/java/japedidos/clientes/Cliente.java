@@ -168,6 +168,14 @@ public class Cliente {
                 this.nome = nome;
                 this.cpf = new CPF(cpf).toString();
             }
+            
+            public String getNome() {
+                return this.nome;
+            }
+            
+            public String getCpf() {
+                return this.cpf;
+            }
         }
     static public class InfoPJ extends InfoAdicional {
         public String nomeFantasia;
@@ -183,6 +191,18 @@ public class Cliente {
             this.nomeFantasia = nomeFantasia;
             this.razaoSocial = razaoSocial;
             this.cnpj = cnpj;
+        }
+        
+        public String getNomeFantasia() {
+            return this.nomeFantasia;
+        }
+        
+        public String getRazaoSocial() {
+            return this.razaoSocial;
+        }
+        
+        public String getCnpj() {
+            return this.cnpj;
         }
     }
 }

@@ -12,6 +12,7 @@ import japedidos.usuario.Registro;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 /**
@@ -48,6 +49,20 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         
         jspn_desconto.addChangeListener((e) -> {
             atualizarValoresPedido();
+        });
+        
+        // Faz com que o produto selecionado seja adicionado ao pressionar ENTER no JSpinner de quantidade
+        ((JSpinner.NumberEditor)jspn_quantidade.getEditor()).getTextField().addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent ev) {
+                if (ev.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+                    javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            jbtn_incluirProduto.doClick();
+                        }
+                    });
+                }
+            }
         });
     }
     public void fillEstadosComboBoxPedido() {
@@ -1025,10 +1040,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
 
     private void jspn_quantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jspn_quantidadeKeyPressed
         // TODO add your handling code here:
-        System.out.println("Tecla pressionada!");
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            jbtn_incluirProduto.doClick();
-        }
+        
     }//GEN-LAST:event_jspn_quantidadeKeyPressed
 
     /**

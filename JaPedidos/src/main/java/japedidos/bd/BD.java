@@ -1,6 +1,7 @@
 package japedidos.bd;
 
 import japedidos.clientes.Cliente;
+import japedidos.clientes.Cliente.InfoAdicional;
 import japedidos.pedidos.Destino;
 import japedidos.pedidos.InfoEntrega;
 import japedidos.pedidos.TipoEntrega;
@@ -147,8 +148,6 @@ public final class BD {
                         insertDestinatario.setString(2, p.getInfoEntrega().getDestinatario());
                         insertDestinatario.executeUpdate();
                     }
-                   
-                    
                     
                     // Inserindo produtos do pedido
                     String strStmt = "INSERT INTO produto_pedido(id_produto, id_pedido, quantidade, preco_venda, preco_custo, info_adicional) VALUES (?, ?, ?, ?, ?, ?)";
@@ -172,6 +171,27 @@ public final class BD {
                         }
                     }
                     insertProdutosPedido.executeBatch();
+                    
+                    // Controle de cadastro de informação adicional do cliente
+                    InfoAdicional infoAdicionalCliente = cliente.getInfoAdicional();
+                    if (infoAdicionalCliente != null) {
+                        if (infoAdicionalCliente.isPF()) { // Se for pessoa física
+                            Cliente.InfoPF infoPF = (Cliente.InfoPF)infoAdicionalCliente;
+                            insertInfoAdicionalCliente = conn.prepareStatement("INSERT INTO info_pf(id_pedido, nome_cliente, cpf) VALUE (?, ?, ?)");
+                            insertInfoAdicionalCliente.setInt(1, id_pedido);
+                            insertInfoAdicionalCliente.setString(2, infoPF.getNome());
+                            insertInfoAdicionalCliente.setString(3, infoPF.getCpf());
+                            insertInfoAdicionalCliente.executeUpdate();
+                        } else {
+                            Cliente.InfoPJ infoPJ = (Cliente.InfoPJ)infoAdicionalCliente;
+                            insertInfoAdicionalCliente = conn.prepareStatement("INSERT INTO info_pj(id_pedido, cnpj, nome_fantasia, nome_empresarial) VALUE (?, ?, ?, ?)");
+                            insertInfoAdicionalCliente.setInt(1, id_pedido);
+                            insertInfoAdicionalCliente.setString(2, infoPJ.getCnpj());
+                            insertInfoAdicionalCliente.setString(3, infoPJ.getNomeFantasia());
+                            insertInfoAdicionalCliente.setString(4, infoPJ.getRazaoSocial());
+                            insertInfoAdicionalCliente.executeUpdate();
+                        }
+                    }
                     
                     conn.commit();
                 } catch (SQLException e) {
