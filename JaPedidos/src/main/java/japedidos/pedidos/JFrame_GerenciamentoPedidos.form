@@ -381,7 +381,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="660" y="10" width="-1" height="20"/>
+                      <AbsoluteConstraints x="650" y="10" width="-1" height="20"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -423,19 +423,6 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jtxtf_dataEntrega">
-                  <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="cc" green="cc" red="cc" type="rgb"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="22/22/24"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="550" y="30" width="70" height="-1"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
                 <Component class="javax.swing.JLabel" name="jpnl_btn_novo">
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jpnl_btn_novoMouseClicked"/>
@@ -445,19 +432,6 @@
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                       <AbsoluteConstraints x="200" y="390" width="-1" height="-1"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jtxtf_horaEntrega">
-                  <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="cc" green="cc" red="cc" type="rgb"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="24:00"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="660" y="30" width="50" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -598,6 +572,30 @@
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                       <AbsoluteConstraints x="420" y="10" width="-1" height="20"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="com.github.lgooddatepicker.components.DatePicker" name="datePicker1">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.github.lgooddatepicker.components.DatePicker(dateSettings)"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="DatePickerSettings dateSettings = new DatePickerSettings();&#xa;dateSettings.setFormatForDatesCommonEra(&quot;d MMM yyyy&quot;);&#xa;dateSettings.setFormatForDatesBeforeCommonEra(&quot;d MMM uuuu&quot;);&#xa;dateSettings.setAllowEmptyDates(false);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="datePicker1.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));&#xa;datePicker1.setDateToToday();&#xa;&#xa;javax.swing.JButton datePickerButton = datePicker1.getComponentToggleCalendarButton();&#xa;datePickerButton.setPreferredSize(new java.awt.Dimension(22, 22));&#xa;datePickerButton.setMargin(new java.awt.Insets(0, 0, 0, 0));&#xa;datePickerButton.setBorder(null);&#xa;datePickerButton.setText(&quot;&quot;);&#xa;&#xa;javax.swing.ImageIcon dateExampleIcon = new javax.swing.ImageIcon(getClass().getResource(&quot;/datepickerbutton1.png&quot;));&#xa;java.awt.Dimension newDateButtonSize = new java.awt.Dimension(dateExampleIcon.getIconWidth() + 4, dateExampleIcon.getIconHeight() + 4);&#xa;datePickerButton.setIcon(dateExampleIcon);&#xa;datePickerButton.setPreferredSize(newDateButtonSize);&#xa;datePickerButton.setOpaque(false);&#xa;datePickerButton.setContentAreaFilled(false);&#xa;datePickerButton.setBorderPainted(false);&#xa;datePickerButton.setFocusPainted(false);"/>
+                  </AuxValues>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="520" y="30" width="110" height="30"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="com.github.lgooddatepicker.components.TimePicker" name="timePicker1">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new TimePicker(timeSettings)"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="TimePickerSettings timeSettings = new TimePickerSettings();&#xa;timeSettings.setAllowEmptyTimes(false);&#xa;timeSettings.use24HourClockFormat();&#xa;timeSettings.initialTime = LocalTime.of(java.time.LocalTime.now().getHour(), 00);&#xa;timeSettings.generatePotentialMenuTimes(TimePickerSettings.TimeIncrement.FifteenMinutes, null, null);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="timePicker1.getComponentTimeTextField().setPreferredSize(new java.awt.Dimension(40, 20));&#xa;javax.swing.JButton timePickerButton = timePicker1.getComponentToggleTimeMenuButton();&#xa;timePickerButton.setText(&quot;&quot;);&#xa;javax.swing.ImageIcon timeExampleIcon = new javax.swing.ImageIcon(this.getClass().getResource(&quot;/timepickerbutton1.png&quot;));&#xa;timePickerButton.setIcon(timeExampleIcon);&#xa;// Adjust the button size to fit the new icon.&#xa;java.awt.Dimension newTimeButtonSize =&#xa;new java.awt.Dimension(timeExampleIcon.getIconWidth() + 4, timeExampleIcon.getIconHeight() + 4);&#xa;timePickerButton.setPreferredSize(newTimeButtonSize);"/>
+                  </AuxValues>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="650" y="30" width="90" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -745,7 +743,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="550" y="10" width="60" height="20"/>
+                      <AbsoluteConstraints x="520" y="10" width="60" height="20"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -971,7 +969,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="660" y="56" width="80" height="-1"/>
+                      <AbsoluteConstraints x="650" y="60" width="80" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -1106,7 +1104,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="420" y="56" width="120" height="-1"/>
+                      <AbsoluteConstraints x="420" y="56" width="80" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -1123,7 +1121,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="550" y="56" width="100" height="20"/>
+                      <AbsoluteConstraints x="520" y="60" width="80" height="20"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -1262,6 +1260,18 @@
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                       <AbsoluteConstraints x="320" y="170" width="80" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel1">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/datepickerbutton1.png"/>
+                    </Property>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="600" y="30" width="-1" height="30"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -1475,7 +1485,7 @@
         <Container class="javax.swing.JPanel" name="jpnl_sideMenu">
           <Properties>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Default Cursor"/>
+              <Color id="Cursor Padr&#xe3;o"/>
             </Property>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[250, 576]"/>
@@ -1483,10 +1493,10 @@
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[250, 576]"/>
             </Property>
-            <Property name="opaque" type="boolean" value="false"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[250, 576]"/>
             </Property>
+            <Property name="opaque" type="boolean" value="false"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

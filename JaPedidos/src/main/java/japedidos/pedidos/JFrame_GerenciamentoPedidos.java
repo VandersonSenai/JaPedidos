@@ -15,6 +15,7 @@ import java.time.LocalTime;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import com.github.lgooddatepicker.components.*;
 
 /**
  *
@@ -89,6 +90,9 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         if (jcmb_tipoEntrega.getItemCount() > 0) {
             jcmb_tipoEntrega.setSelectedIndex(0);
         }
+        
+        datePicker1.setDateToToday();
+        timePicker1.setTime(java.time.LocalTime.of(java.time.LocalTime.now().getHour(), 00));
         jtxtf_rua.setText(null);
         jtxtf_numero.setText(null);
         jtxtf_bairro.setText(null);
@@ -141,14 +145,8 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         // Tipo de entrega
         tipoEntrega = (TipoEntrega)jcmb_tipoEntrega.getSelectedItem();
         
-//        strDataEntregar = jtxtf_dataEntrega.getText().trim();
-//        dataEntregar = LocalDate.parse(strDataEntregar.subSequence(0, strDataEntregar.length()));
-//        strHoraEntregar = jtxtf_horaEntrega.getText().trim();
-//        horaEntregar = LocalTime.parse(strHoraEntregar.subSequence(0, strHoraEntregar.length())); 
-//        dthrEntregar = LocalDateTime.of(dataEntregar, horaEntregar);
-//        System.out.println(dthrEntregar);
-        dataEntregar = LocalDate.now();
-        horaEntregar = LocalTime.now();
+        dataEntregar = datePicker1.getDate();
+        horaEntregar = timePicker1.getTime();
         dthrEntregar = LocalDateTime.of(dataEntregar, horaEntregar);
         
         // Criação do destino de entrega
@@ -353,9 +351,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jSeparator1 = new javax.swing.JSeparator();
         jbtn_incluirProduto = new javax.swing.JButton();
         jtxtf_valorTotal = new javax.swing.JTextField();
-        jtxtf_dataEntrega = new javax.swing.JTextField();
         jpnl_btn_novo = new javax.swing.JLabel();
-        jtxtf_horaEntrega = new javax.swing.JTextField();
         jcmb_tipoEntrega = new javax.swing.JComboBox<>();
         jtxtf_nomeCliente = new javax.swing.JTextField();
         jlbl_pct = new javax.swing.JLabel();
@@ -366,6 +362,17 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_cidade = new javax.swing.JLabel();
         jlbl_estadoInicial = new javax.swing.JLabel();
         jlbl_tipoEntrega = new javax.swing.JLabel();
+        DatePickerSettings dateSettings = new DatePickerSettings();
+        dateSettings.setFormatForDatesCommonEra("d MMM yyyy");
+        dateSettings.setFormatForDatesBeforeCommonEra("d MMM uuuu");
+        dateSettings.setAllowEmptyDates(false);
+        datePicker1 = new com.github.lgooddatepicker.components.DatePicker(dateSettings);
+        TimePickerSettings timeSettings = new TimePickerSettings();
+        timeSettings.setAllowEmptyTimes(false);
+        timeSettings.use24HourClockFormat();
+        timeSettings.initialTime = LocalTime.of(java.time.LocalTime.now().getHour(), 00);
+        timeSettings.generatePotentialMenuTimes(TimePickerSettings.TimeIncrement.FifteenMinutes, null, null);
+        timePicker1 = new TimePicker(timeSettings);
         jtxtf_rua = new javax.swing.JTextField();
         jlbl_uf = new javax.swing.JLabel();
         jtxtf_bairro = new javax.swing.JTextField();
@@ -408,6 +415,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jspn_desconto = new javax.swing.JSpinner(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
         jspn_valorEntrega = new javax.swing.JSpinner(new javax.swing.SpinnerNumberModel(0.0, 0.0, 100000.0, 0.01));
         jcmb_uf = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
         jpnl_historicoPedidos = new javax.swing.JPanel();
         jtxtf_pesquisarHistoricoPedido = new javax.swing.JTextField();
         jlbl_filtroHistoricoPedido = new javax.swing.JLabel();
@@ -516,7 +524,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_horaEntrega.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_horaEntrega.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_horaEntrega.setText("HORA:");
-        jpnl_incluirPedido.add(jlbl_horaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, -1, 20));
+        jpnl_incluirPedido.add(jlbl_horaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 10, -1, 20));
 
         jSeparator1.setFont(new java.awt.Font("sansserif", 0, 36)); // NOI18N
         jpnl_incluirPedido.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 730, 10));
@@ -533,10 +541,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jtxtf_valorTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jpnl_incluirPedido.add(jtxtf_valorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 450, 100, -1));
 
-        jtxtf_dataEntrega.setForeground(new java.awt.Color(204, 204, 204));
-        jtxtf_dataEntrega.setText("22/22/24");
-        jpnl_incluirPedido.add(jtxtf_dataEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, 70, -1));
-
         jpnl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jpnl_btn_novoMouseClicked(evt);
@@ -549,10 +553,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             }
         });
         jpnl_incluirPedido.add(jpnl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 390, -1, -1));
-
-        jtxtf_horaEntrega.setForeground(new java.awt.Color(204, 204, 204));
-        jtxtf_horaEntrega.setText("24:00");
-        jpnl_incluirPedido.add(jtxtf_horaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 50, -1));
 
         jpnl_incluirPedido.add(jcmb_tipoEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 90, -1));
         jpnl_incluirPedido.add(jtxtf_nomeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 250, -1));
@@ -589,6 +589,36 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_tipoEntrega.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_tipoEntrega.setText("ENTREGA:");
         jpnl_incluirPedido.add(jlbl_tipoEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, -1, 20));
+
+        datePicker1.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));
+        datePicker1.setDateToToday();
+
+        javax.swing.JButton datePickerButton = datePicker1.getComponentToggleCalendarButton();
+        datePickerButton.setPreferredSize(new java.awt.Dimension(22, 22));
+        datePickerButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        datePickerButton.setBorder(null);
+        datePickerButton.setText("");
+
+        javax.swing.ImageIcon dateExampleIcon = new javax.swing.ImageIcon(getClass().getResource("/datepickerbutton1.png"));
+        java.awt.Dimension newDateButtonSize = new java.awt.Dimension(dateExampleIcon.getIconWidth() + 4, dateExampleIcon.getIconHeight() + 4);
+        datePickerButton.setIcon(dateExampleIcon);
+        datePickerButton.setPreferredSize(newDateButtonSize);
+        datePickerButton.setOpaque(false);
+        datePickerButton.setContentAreaFilled(false);
+        datePickerButton.setBorderPainted(false);
+        datePickerButton.setFocusPainted(false);
+        jpnl_incluirPedido.add(datePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, 110, 30));
+
+        timePicker1.getComponentTimeTextField().setPreferredSize(new java.awt.Dimension(40, 20));
+        javax.swing.JButton timePickerButton = timePicker1.getComponentToggleTimeMenuButton();
+        timePickerButton.setText("");
+        javax.swing.ImageIcon timeExampleIcon = new javax.swing.ImageIcon(this.getClass().getResource("/timepickerbutton1.png"));
+        timePickerButton.setIcon(timeExampleIcon);
+        // Adjust the button size to fit the new icon.
+        java.awt.Dimension newTimeButtonSize =
+        new java.awt.Dimension(timeExampleIcon.getIconWidth() + 4, timeExampleIcon.getIconHeight() + 4);
+        timePickerButton.setPreferredSize(newTimeButtonSize);
+        jpnl_incluirPedido.add(timePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, 90, -1));
         jpnl_incluirPedido.add(jtxtf_rua, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 300, -1));
 
         jlbl_uf.setBackground(new java.awt.Color(0, 0, 0));
@@ -634,7 +664,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_dataEntrega.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_dataEntrega.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbl_dataEntrega.setText("DATA:");
-        jpnl_incluirPedido.add(jlbl_dataEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 60, 20));
+        jpnl_incluirPedido.add(jlbl_dataEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 60, 20));
 
         jspn_quantidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -717,7 +747,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_erro_horaEntrega.setForeground(new java.awt.Color(255, 255, 255));
         jlbl_erro_horaEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_horaEntrega.setText("Info inválida!");
-        jpnl_incluirPedido.add(jlbl_erro_horaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 56, 80, -1));
+        jpnl_incluirPedido.add(jlbl_erro_horaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 60, 80, -1));
 
         jlbl_erro_observacoesEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jlbl_erro_observacoesEntrega.setForeground(new java.awt.Color(255, 255, 255));
@@ -764,13 +794,13 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_erro_tipoEntrega.setForeground(new java.awt.Color(255, 255, 255));
         jlbl_erro_tipoEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_tipoEntrega.setText("Info inválida!");
-        jpnl_incluirPedido.add(jlbl_erro_tipoEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 56, 120, -1));
+        jpnl_incluirPedido.add(jlbl_erro_tipoEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 56, 80, -1));
 
         jlbl_erro_dataEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jlbl_erro_dataEntrega.setForeground(new java.awt.Color(255, 255, 255));
         jlbl_erro_dataEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_dataEntrega.setText("Info inválida!");
-        jpnl_incluirPedido.add(jlbl_erro_dataEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 56, 100, 20));
+        jpnl_incluirPedido.add(jlbl_erro_dataEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 80, 20));
 
         jlbl_erro_produto.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jlbl_erro_produto.setForeground(new java.awt.Color(255, 0, 0));
@@ -813,6 +843,9 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jcmb_uf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
         jcmb_uf.setSelectedIndex(7);
         jpnl_incluirPedido.add(jcmb_uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 170, 80, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/datepickerbutton1.png"))); // NOI18N
+        jpnl_incluirPedido.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, -1, 30));
 
         jTabbedPane1.addTab("Incluir pedido", jpnl_incluirPedido);
 
@@ -875,8 +908,8 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jpnl_sideMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jpnl_sideMenu.setMaximumSize(new java.awt.Dimension(250, 576));
         jpnl_sideMenu.setMinimumSize(new java.awt.Dimension(250, 576));
-        jpnl_sideMenu.setOpaque(false);
         jpnl_sideMenu.setPreferredSize(new java.awt.Dimension(250, 576));
+        jpnl_sideMenu.setOpaque(false);
         jpnl_sideMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlbl_clientes.setBackground(new java.awt.Color(0, 0, 0));
@@ -1098,10 +1131,12 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.github.lgooddatepicker.components.DatePicker datePicker1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private japedidos.produto.JTable_ProdutoPedido jTable_ProdutoPedido;
@@ -1178,8 +1213,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private javax.swing.JTextArea jtxta_observacoes;
     private javax.swing.JTextField jtxtf_bairro;
     private javax.swing.JTextField jtxtf_cidade;
-    private javax.swing.JTextField jtxtf_dataEntrega;
-    private javax.swing.JTextField jtxtf_horaEntrega;
     private javax.swing.JTextField jtxtf_nomeCliente;
     private javax.swing.JTextField jtxtf_numero;
     private javax.swing.JTextField jtxtf_pesquisarHistoricoPedido;
@@ -1187,5 +1220,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private javax.swing.JTextField jtxtf_rua;
     private javax.swing.JTextField jtxtf_telefoneCliente;
     private javax.swing.JTextField jtxtf_valorTotal;
+    private com.github.lgooddatepicker.components.TimePicker timePicker1;
     // End of variables declaration//GEN-END:variables
 }

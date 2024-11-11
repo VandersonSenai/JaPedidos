@@ -296,7 +296,7 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
             } else {
                 Cliente.InfoPF pf = (Cliente.InfoPF)infoEnviar;
                 pf.nome = nome;
-                pf.cpf = cpf;
+                pf.cpf = cpf; // 
                 infoEnviar = pf;
                 enviar = true;
 //                System.out.println(pf.cpf);
