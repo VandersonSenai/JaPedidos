@@ -534,7 +534,8 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jpnl_incluirPedido.add(jtxtf_valorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 450, 100, -1));
 
         jtxtf_dataEntrega.setForeground(new java.awt.Color(204, 204, 204));
-        jpnl_incluirPedido.add(jtxtf_dataEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, 100, -1));
+        jtxtf_dataEntrega.setText("22/22/24");
+        jpnl_incluirPedido.add(jtxtf_dataEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, 70, -1));
 
         jpnl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -550,9 +551,10 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jpnl_incluirPedido.add(jpnl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 390, -1, -1));
 
         jtxtf_horaEntrega.setForeground(new java.awt.Color(204, 204, 204));
-        jpnl_incluirPedido.add(jtxtf_horaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 80, -1));
+        jtxtf_horaEntrega.setText("24:00");
+        jpnl_incluirPedido.add(jtxtf_horaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 50, -1));
 
-        jpnl_incluirPedido.add(jcmb_tipoEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 120, -1));
+        jpnl_incluirPedido.add(jcmb_tipoEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 90, -1));
         jpnl_incluirPedido.add(jtxtf_nomeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 250, -1));
 
         jlbl_pct.setBackground(new java.awt.Color(0, 0, 0));
