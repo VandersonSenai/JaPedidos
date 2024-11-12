@@ -858,8 +858,8 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                  } catch (SQLException e) {
                      e.printStackTrace();
                      JOptionPane.showMessageDialog(jpnl_corpo, 
-                     "Nao foi possivel conectar ao banco  \n", 
-                     "Erro ao conectar ao banco", 
+                             "Nao foi possivel conectar ao banco", 
+                              "JaPedidos", 
                      JOptionPane.INFORMATION_MESSAGE);
                  }
         }  
@@ -868,14 +868,27 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jlbl_btn_salvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_salvarMouseClicked
         // TODO add your handling code here:
-                if ( jtxtf_descricao.getText().length()<1 | jtxtf_valor_venda.getText().length()<1) {
+                if ( jtxtf_descricao.getText().length()<1 | jtxtf_valor_venda.getText().length()<1 | jtxtf_valor_custo.getText().length()<1) {
             JOptionPane.showMessageDialog(jpnl_corpo,
-            "\nPara Salvar ou atualizar um item,\n" + 
-            "\né necessario entrar com a descricao e valor do mesmo\n",
+            "\nPara Salvar ou Atualizar um item, é necessario" + 
+            "\nentrar com os campos descricao/categoria/unidade/"+
+            "\nvalor de custo/valor de venda e se o produto esta ativo.\n",
             "JaPedidos",
             JOptionPane.WARNING_MESSAGE);                
-        } else {
+        } else if (jtxtf_codigo.getText().length()>1) {
+            
+                    JOptionPane.showMessageDialog(jpnl_corpo, 
+                     "Atualizar Item \n", 
+                     "JaPedidos", 
+                     JOptionPane.INFORMATION_MESSAGE);
+                }   else if (jtxtf_codigo.getText().length()<1) {
+            
+                    JOptionPane.showMessageDialog(jpnl_corpo, 
+                     "Novo Item \n", 
+                     "JaPedidos", 
+                     JOptionPane.INFORMATION_MESSAGE);
                 }
+                
                 
     }//GEN-LAST:event_jlbl_btn_salvarMouseClicked
 

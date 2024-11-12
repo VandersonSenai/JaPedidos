@@ -113,4 +113,33 @@ public class load_DB2_components {
                 JOptionPane.INFORMATION_MESSAGE);
             }
     }
+    public static void salvaRegistro(Component jframe,  String url, String usuario, String senha, String sqlQuery)  throws SQLException {
+
+        try (Connection banco = DriverManager.getConnection(url, usuario, senha); PreparedStatement stm_tabela = banco.prepareStatement(sqlQuery)) {
+        
+            int linhasAfetadas = stm_tabela.executeUpdate();
+            if (linhasAfetadas > 0) {
+                
+                System.out.println("Dados excluidos com sucesso!");
+                JOptionPane.showMessageDialog(jframe, 
+                "Excluido com sucesso.\n", 
+                "JaPedidos", 
+                JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                System.out.println("Nenhum dado excluido.");
+                JOptionPane.showMessageDialog(jframe, 
+                "Nenhum dado excluido.\n", 
+                "JaPedidos", 
+                JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            catch (SQLException ex)
+            {
+                System.out.println("O erro foi : " +ex);
+                JOptionPane.showMessageDialog(jframe, 
+                "Erro ao acessar banco.\n", 
+                "JaPedidos", 
+                JOptionPane.INFORMATION_MESSAGE);
+            }
+    }
 }
