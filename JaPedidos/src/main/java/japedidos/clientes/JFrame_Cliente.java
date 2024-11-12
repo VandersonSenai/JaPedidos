@@ -28,6 +28,7 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         jLbl_Relatorio = new javax.swing.JLabel();
         jLbl_pedido = new javax.swing.JLabel();
         jLbl_Cliente = new javax.swing.JLabel();
+        jtb_linhaBranca = new javax.swing.JToolBar();
         jLbl_Filtro = new javax.swing.JLabel();
         jLbl_novo = new javax.swing.JLabel();
         jLblLupa = new javax.swing.JLabel();
@@ -57,16 +58,19 @@ public class JFrame_Cliente extends javax.swing.JFrame {
 
         jLbl_Produto.setBackground(new java.awt.Color(255, 255, 255));
         jLbl_Produto.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jLbl_Produto.setForeground(new java.awt.Color(128, 128, 128));
         jLbl_Produto.setText("PRODUTOS");
         getContentPane().add(jLbl_Produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 100, 20));
 
         jLbl_Relatorio.setBackground(new java.awt.Color(0, 0, 0));
         jLbl_Relatorio.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jLbl_Relatorio.setForeground(new java.awt.Color(128, 128, 128));
         jLbl_Relatorio.setText("RELATÓRIOS");
         getContentPane().add(jLbl_Relatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 120, 20));
 
         jLbl_pedido.setBackground(new java.awt.Color(255, 255, 255));
         jLbl_pedido.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jLbl_pedido.setForeground(new java.awt.Color(128, 128, 128));
         jLbl_pedido.setText("PEDIDOS");
         getContentPane().add(jLbl_pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 80, 20));
 
@@ -75,6 +79,13 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         jLbl_Cliente.setForeground(new java.awt.Color(255, 255, 255));
         jLbl_Cliente.setText("CLIENTES");
         getContentPane().add(jLbl_Cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 90, 20));
+
+        jtb_linhaBranca.setBackground(new java.awt.Color(255, 255, 255));
+        jtb_linhaBranca.setBorder(null);
+        jtb_linhaBranca.setForeground(new java.awt.Color(255, 255, 255));
+        jtb_linhaBranca.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jtb_linhaBranca.setBorderPainted(false);
+        getContentPane().add(jtb_linhaBranca, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 224, 90, 4));
 
         jLbl_Filtro.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLbl_Filtro.setText("FILTRO:");
@@ -99,24 +110,22 @@ public class JFrame_Cliente extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
+                {"00001", "manuel da silva ne gonzales", "+55 27 999295178"},
                 {null, null, null}
             },
             new String [] {
                 "CÓDIGO", "NOME DO CLIENTE", "TELEFONE"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Byte.class, java.lang.String.class, java.lang.Double.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         jScrollPane2.setViewportView(jTable2);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(0).setResizable(false);
+            jTable2.getColumnModel().getColumn(0).setPreferredWidth(60);
+            jTable2.getColumnModel().getColumn(1).setMinWidth(400);
+            jTable2.getColumnModel().getColumn(1).setPreferredWidth(400);
+            jTable2.getColumnModel().getColumn(2).setResizable(false);
+            jTable2.getColumnModel().getColumn(2).setPreferredWidth(100);
+        }
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, 730, 370));
 
@@ -203,5 +212,6 @@ public class JFrame_Cliente extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTxtFnomeFiltra;
     private javax.swing.JTextField jTxtFpesquisa;
+    private javax.swing.JToolBar jtb_linhaBranca;
     // End of variables declaration//GEN-END:variables
 }
