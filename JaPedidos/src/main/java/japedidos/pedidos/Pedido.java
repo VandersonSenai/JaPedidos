@@ -32,6 +32,8 @@ public final class Pedido {
     private ProdutoPedido[] produtosPedido;
     private String infoCancelamento;
     
+    Pedido() {}
+    
     public Pedido(Cliente cliente, InfoEntrega infoEntrega, ProdutoPedido[] produtoPedido, int taxaDesconto) {
         this(1, cliente, infoEntrega, produtoPedido, taxaDesconto);
         this.id = NULL_ID;
