@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package japedidos.pedidos;
-
+import japedidos.bd.BD;
 /**
  *
  * @author thiago
@@ -26,17 +26,25 @@ public class JFrame_Pedido_Resumido extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTable_Pedido_Resumido1 = new japedidos.pedidos.JTable_Pedido_Resumido();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTable_Pedido_Resumido1, javax.swing.GroupLayout.PREFERRED_SIZE, 982, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTable_Pedido_Resumido1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -72,11 +80,18 @@ public class JFrame_Pedido_Resumido extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFrame_Pedido_Resumido().setVisible(true);
+                JFrame_Pedido_Resumido frame = new JFrame_Pedido_Resumido();
+                frame.setVisible(true);
+                frame.preencher();
             }
         });
     }
+    
+    public void preencher() {
+        jTable_Pedido_Resumido1.getModel().fillRows(BD.Pedido.selectByEstado(Estado.ABERTO));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private japedidos.pedidos.JTable_Pedido_Resumido jTable_Pedido_Resumido1;
     // End of variables declaration//GEN-END:variables
 }

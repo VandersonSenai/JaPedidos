@@ -28,11 +28,11 @@ public class JTable_Pedido_Resumido extends JPanel {
         this.model = model;
         JTable table = new JTable(model);
         this.table = table;
-        getTable().setDefaultRenderer(EstadoPedido.class, new EstadoRenderer());
-        JComboBox<EstadoPedido> jcmb_estados = new JComboBox<>();
-        jcmb_estados.addItem(new EstadoPedido(Estado.ABERTO));
-        jcmb_estados.addItem(new EstadoPedido(Estado.AGUARDANDO_PAGAMENTO));
-        getTable().setDefaultEditor(EstadoPedido.class, new DefaultCellEditor(jcmb_estados));
+//        getTable().setDefaultRenderer(EstadoPedido.class, new EstadoRenderer());
+//        JComboBox<EstadoPedido> jcmb_estados = new JComboBox<>();
+//        jcmb_estados.addItem(new EstadoPedido(Estado.ABERTO));
+//        jcmb_estados.addItem(new EstadoPedido(Estado.AGUARDANDO_PAGAMENTO));
+//        getTable().setDefaultEditor(EstadoPedido.class, new DefaultCellEditor(jcmb_estados));
         table.setPreferredScrollableViewportSize(new Dimension(600, 300));
         table.setFillsViewportHeight(true);
         table.getTableHeader().setReorderingAllowed(false);
@@ -55,6 +55,10 @@ public class JTable_Pedido_Resumido extends JPanel {
     
     public PedidoTableModel getModel() {
         return this.model;
+    }
+    
+    public void preencher(japedidos.pedidos.Estado estado) {
+        this.getModel().fillRows(japedidos.bd.BD.Pedido.selectByEstado(estado));
     }
     
     public static void test() {

@@ -29,7 +29,8 @@ public class Usuario {
      ao utilizador com acesso a todas as funcionalidades implementadas.*/
     static public enum Tipo {
         ATENDENTE ("atendente"), 
-        ADMINISTRADOR ("administrador");
+        ADMINISTRADOR ("administrador"),
+        INDEFINIDO ("indefinido");
     
         Tipo(String string) {
             this.string = string;
@@ -87,10 +88,22 @@ public class Usuario {
             
             this.id = id;
             setNome(nome);
-            setLogin(null);
+            this.login = null;
             setTipo(tipo);
     }
 
+    // Somente para exibição
+    public Usuario(int id, String nome) {
+            if (id <= 0) {
+                throw new IllegalArgumentException("id de usuario inválido");
+            }
+            
+            this.id = id;
+            setNome(nome);
+            setLogin(null);
+            setTipo(Tipo.INDEFINIDO);
+    }
+    
     /** Constroe um novo objeto Usuário que representa o usuário atual do sistema
      * com base em registro do banco de dados. Deverá ser invocado logo após a 
      * autenticação bem-sucedida do utilizador.
@@ -154,14 +167,15 @@ public class Usuario {
         if (login == null) {
 //            throw new NullPointerException();
             this.login = null;
-        }
-        login = login.trim();
+        } else {
+            login = login.trim();
         
-        if (login.isEmpty() || login.length() > 48) {
-            throw new IllegalArgumentException();
+            if (login.isEmpty() || login.length() > 48) {
+                throw new IllegalArgumentException();
+            }
+
+            this.login = login;
         }
-        
-        this.login = login;
     }
     
     public String getLogin() {

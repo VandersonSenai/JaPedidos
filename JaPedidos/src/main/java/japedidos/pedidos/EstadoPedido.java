@@ -30,4 +30,6 @@ public class EstadoPedido {
         this.AUTOR = autor;
         this.CRIACAO = criacao;
     }
+    
+    
 }

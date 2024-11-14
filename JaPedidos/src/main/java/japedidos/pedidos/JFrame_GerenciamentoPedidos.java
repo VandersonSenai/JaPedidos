@@ -342,6 +342,12 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jcmb_filtro_pedidos_aberto = new javax.swing.JComboBox<>();
         jcmb_filtro_pedidos_aberto.addItem(japedidos.pedidos.Estado.ABERTO);
         jcmb_filtro_pedidos_aberto.addItem(japedidos.pedidos.Estado.AGUARDANDO_PAGAMENTO);
+        jcmb_filtro_pedidos_aberto.addItemListener((e) -> {
+            if (e.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+                japedidos.pedidos.Estado estadoSelecionado = (japedidos.pedidos.Estado)e.getItem();
+                jTable_Pedido_Resumido1.preencher(estadoSelecionado);
+            }
+        });
         jTable_Pedido_Resumido1 = new japedidos.pedidos.JTable_Pedido_Resumido();
         jpnl_incluirPedido = new javax.swing.JPanel();
         jTable_ProdutoPedido = new japedidos.produto.JTable_ProdutoPedido();
@@ -450,6 +456,16 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         });
 
         jpnl_pedidosAberto.setOpaque(false);
+        jpnl_pedidosAberto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jpnl_pedidosAbertoFocusGained(evt);
+            }
+        });
+        jpnl_pedidosAberto.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jpnl_pedidosAbertoComponentShown(evt);
+            }
+        });
         jpnl_pedidosAberto.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         // Pegar pedidos do BD
         javax.swing.SwingUtilities.invokeLater(() -> {});
@@ -1062,6 +1078,19 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         
     }//GEN-LAST:event_jspn_quantidadeKeyPressed
 
+    private void preencherHistoricoPedidos() {
+        jTable_Pedido_Resumido1.preencher((japedidos.pedidos.Estado)jcmb_filtro_pedidos_aberto.getSelectedItem());
+    }
+    
+    private void jpnl_pedidosAbertoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpnl_pedidosAbertoFocusGained
+        
+    }//GEN-LAST:event_jpnl_pedidosAbertoFocusGained
+
+    private void jpnl_pedidosAbertoComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jpnl_pedidosAbertoComponentShown
+        // TODO add your handling code here:
+        preencherHistoricoPedidos();
+    }//GEN-LAST:event_jpnl_pedidosAbertoComponentShown
+
     /**
      * @param args the command line arguments
      */
@@ -1099,7 +1128,9 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFrame_GerenciamentoPedidos().setVisible(true);
+                JFrame_GerenciamentoPedidos frame = new JFrame_GerenciamentoPedidos();
+                frame.preencherHistoricoPedidos();
+                frame.setVisible(true);
             }
         });
     }

@@ -37,6 +37,7 @@ public class PedidoTableModel extends AbstractTableModel {
     }
     
     public void fillRows(Pedido... pedidos) {
+        this.clearRows();
         if (pedidos == null) {
             return;
         }
@@ -117,7 +118,7 @@ public class PedidoTableModel extends AbstractTableModel {
             case 3 -> data.get(row).getInfoEntrega().getDataHoraEntregar().toLocalDate();
             case 4 -> data.get(row).getInfoEntrega().getDataHoraEntregar().toLocalTime();
             case 5 -> String.format("R$ %1.2f", data.get(row).getPrecoFinal());
-//            case 6 -> data.get(row).isAtivo();
+            case 6 -> data.get(row).getEstadoAtualPedido().ESTADO;
             default -> null;
         };
     }
@@ -134,7 +135,7 @@ public class PedidoTableModel extends AbstractTableModel {
             case 3 -> java.time.LocalDate.class;
             case 4 -> java.time.LocalTime.class;
             case 5 -> String.class; // Precos
-            case 6 -> EstadoPedido.class;
+            case 6 -> japedidos.pedidos.Estado.class;
             default -> String.class;
         };
     }

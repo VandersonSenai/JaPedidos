@@ -76,6 +76,10 @@
               <Properties>
                 <Property name="opaque" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jpnl_pedidosAbertoFocusGained"/>
+                <EventHandler event="componentShown" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="jpnl_pedidosAbertoComponentShown"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="// Pegar pedidos do BD&#xa;javax.swing.SwingUtilities.invokeLater(() -&gt; {});"/>
               </AuxValues>
@@ -162,7 +166,7 @@
                     </Property>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jcmb_filtro_pedidos_aberto.addItem(japedidos.pedidos.Estado.ABERTO);&#xa;jcmb_filtro_pedidos_aberto.addItem(japedidos.pedidos.Estado.AGUARDANDO_PAGAMENTO);"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jcmb_filtro_pedidos_aberto.addItem(japedidos.pedidos.Estado.ABERTO);&#xa;jcmb_filtro_pedidos_aberto.addItem(japedidos.pedidos.Estado.AGUARDANDO_PAGAMENTO);&#xa;jcmb_filtro_pedidos_aberto.addItemListener((e) -&gt; {&#xa;    if (e.getStateChange() == java.awt.event.ItemEvent.SELECTED) {&#xa;        japedidos.pedidos.Estado estadoSelecionado = (japedidos.pedidos.Estado)e.getItem();&#xa;        jTable_Pedido_Resumido1.preencher(estadoSelecionado);&#xa;    }&#xa;});"/>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;japedidos.pedidos.Estado&gt;"/>
                   </AuxValues>
                   <Constraints>
@@ -172,6 +176,9 @@
                   </Constraints>
                 </Component>
                 <Component class="japedidos.pedidos.JTable_Pedido_Resumido" name="jTable_Pedido_Resumido1">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new japedidos.pedidos.JTable_Pedido_Resumido()"/>
+                  </AuxValues>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                       <AbsoluteConstraints x="0" y="70" width="720" height="410"/>

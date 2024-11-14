@@ -39,7 +39,9 @@ CREATE OR REPLACE VIEW vw_pedido AS
         u_e_p.nome_est AS nome_ultimo_est,
         u_e_p.id_usuario_autor_est AS id_usuario_autor_ultimo_est,
         u_e_p.nome_usuario_autor_est AS nome_usuario_autor_ultimo_est,
-        u_e_p.dthr_criacao_est AS dthr_criacao_ultimo_est
+        u_e_p.dthr_criacao_est AS dthr_criacao_ultimo_est,
+        -- Cancelamento
+        info_canc.justificativa AS info_cancelamento
     FROM 
         pedido AS p
         -- Informações básicas do pedido
@@ -61,4 +63,6 @@ CREATE OR REPLACE VIEW vw_pedido AS
         -- Estado atual do pedido
         INNER JOIN vw_ultimo_estado_pedido AS u_e_p 
             ON u_e_p.id_pedido = p.id
+        -- Info de cancelamento
+        LEFT JOIN info_cancelamento AS info_canc ON info_canc.id_pedido = p.id
     ORDER BY p.id;

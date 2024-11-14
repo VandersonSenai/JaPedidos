@@ -36,10 +36,10 @@ public final class BD {
     public static final String USER = "root";
     public static final String USER_PWD = "tmb";
     
-    public static void main(String[] args) {
-        japedidos.pedidos.Pedido[] ped = BD.Pedido.selectByEstado(japedidos.pedidos.Estado.ABERTO);
-        System.out.println(ped[0]);
-    }
+//    public static void main(String[] args) {
+//        japedidos.pedidos.Pedido[] ped = BD.Pedido.selectByEstado(japedidos.pedidos.Estado.ABERTO);
+//        System.out.println(ped[0]);
+//    }
     
     private BD() {}
     
@@ -347,7 +347,7 @@ public final class BD {
     
         /** Recebe um resultSet contendo informações de um pedido obtido por meio
          * da view vw_pedido. Recebe as informações básicas do pedido, do cliente
-         * e dos produtos contidos e gera um array de Pedido.
+         * e dos produtos contidos e gera um array de Pedido. Não traz todos os estados dos pedidos, mas apenas o atual.
          * 
          */
         public static japedidos.pedidos.Pedido[] parseView_pedido(ResultSet rs) {
@@ -411,9 +411,6 @@ public final class BD {
                     
                     japedidos.pedidos.Pedido p = new japedidos.pedidos.Pedido(id_pedido, cliente, infoEntrega, produtosPedido, taxaDesconto);
                     
-                    // Registros de criação e alteração
-                    japedidos.usuario.Registro criacao;
-                    japedidos.usuario.Registro alteracao;
                     
                     // Informações de pagamento
                     LocalDate dtPago = null;
@@ -429,14 +426,38 @@ public final class BD {
                         p.setDataVencimentoPagamento(dtVencimentoPagamento);
                     }
                     
-                    // Estados
-                    japedidos.pedidos.EstadoPedido estadoAtual;
-                    japedidos.pedidos.EstadoPedido[] estadosPedido; // TODO: pegar outros estados
+                    // Registros de criação e alteração
+                    japedidos.usuario.Registro criacao = null;
+                    int id_usuario_autor = rs.getInt("id_usuario_autor");
+                    Timestamp tsCriacao = rs.getTimestamp("dthr_criacao");
+                    if (id_usuario_autor != 0 && tsCriacao != null) { 
+                        japedidos.usuario.Usuario usr = new japedidos.usuario.Usuario(id_usuario_autor, rs.getString("nome_usuario_autor"));
+                        criacao = new japedidos.usuario.Registro(usr, tsCriacao.toLocalDateTime());
+                        p.setRegistroCriacao(criacao);
+                    }
                     
+                    japedidos.usuario.Registro alteracao;
+                    int id_usuario_alt = rs.getInt("id_usuario_alt");
+                    Timestamp tsAlt = rs.getTimestamp("dthr_alt");
+                    if (id_usuario_alt != 0 && tsAlt != null) { 
+                        japedidos.usuario.Usuario usr = new japedidos.usuario.Usuario(id_usuario_alt, rs.getString("nome_usuario_alt"));
+                        alteracao = new japedidos.usuario.Registro(usr, tsAlt.toLocalDateTime());
+                        p.setRegistroAlteracao(alteracao);
+                    }
+                    
+                    // Estados
+                    japedidos.pedidos.Estado estado = Estado.getEstado(rs.getInt("id_ultimo_est"));
+                    japedidos.usuario.Usuario usrEstado = new japedidos.usuario.Usuario(rs.getInt("id_usuario_autor_ultimo_est"), rs.getString("nome_usuario_autor_ultimo_est"));
+                    LocalDateTime dthr_criacao_ultimo_est = rs.getTimestamp("dthr_criacao_ultimo_est").toLocalDateTime();
+                    
+                    japedidos.pedidos.EstadoPedido estadoAtual = new japedidos.pedidos.EstadoPedido(estado, usrEstado, dthr_criacao_ultimo_est);
+                    p.setEstadoAtual(estadoAtual);
                     
                     // Informação de cancelamento
-                    String infoCancelamento; // TODO: pegar info de cancelamento da view (atualizar a view)
-                    
+                    String infoCancelamento = rs.getString("info_cancelamento");
+                    if (infoCancelamento != null) {
+                        p.setInfoCancelamento(infoCancelamento);
+                    }
                     
                     pList.add(p);
                 }
