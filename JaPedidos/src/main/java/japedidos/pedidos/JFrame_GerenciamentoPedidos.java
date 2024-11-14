@@ -336,12 +336,13 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jpnl_pedidosAberto = new javax.swing.JPanel();
         jtxtf_pesquisarPedidos = new javax.swing.JTextField();
         jlbl_filtroPedidosEmAberto = new javax.swing.JLabel();
-        jscp_pedidosEmAberto = new javax.swing.JScrollPane();
-        jtbl_pedidosEmAberto = new javax.swing.JTable();
         jlbl_img_intercorrencia = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jcmb_filtro_pedidos_aberto = new javax.swing.JComboBox<>();
+        jcmb_filtro_pedidos_aberto.addItem(japedidos.pedidos.Estado.ABERTO);
+        jcmb_filtro_pedidos_aberto.addItem(japedidos.pedidos.Estado.AGUARDANDO_PAGAMENTO);
+        jTable_Pedido_Resumido1 = new japedidos.pedidos.JTable_Pedido_Resumido();
         jpnl_incluirPedido = new javax.swing.JPanel();
         jTable_ProdutoPedido = new japedidos.produto.JTable_ProdutoPedido();
         jscp_destinatario = new javax.swing.JScrollPane();
@@ -450,6 +451,8 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
 
         jpnl_pedidosAberto.setOpaque(false);
         jpnl_pedidosAberto.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        // Pegar pedidos do BD
+        javax.swing.SwingUtilities.invokeLater(() -> {});
 
         jtxtf_pesquisarPedidos.setText("PESQUISAR..");
         jtxtf_pesquisarPedidos.setPreferredSize(new java.awt.Dimension(96, 22));
@@ -464,47 +467,18 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_filtroPedidosEmAberto.setText("FILTRO:");
         jpnl_pedidosAberto.add(jlbl_filtroPedidosEmAberto, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, -1, -1));
 
-        jtbl_pedidosEmAberto.setBackground(new java.awt.Color(153, 204, 255));
-        jtbl_pedidosEmAberto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jtbl_pedidosEmAberto.setForeground(new java.awt.Color(255, 255, 255));
-        jtbl_pedidosEmAberto.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                { new Integer(1), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO", null},
-                { new Integer(2), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO", null},
-                { new Integer(3), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO", null},
-                { new Integer(4), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO", null},
-                { new Integer(5), "NOME",  new Integer(279999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0), "ABERTO", null}
-            },
-            new String [] {
-                "CODIGO", "NOME", "TELEFONE", "ENDEREÇO", "DATA/HORA ENTREGA", "VALOR", "STAUS PEDIDO", ""
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jtbl_pedidosEmAberto.setMinimumSize(new java.awt.Dimension(20, 160));
-        jtbl_pedidosEmAberto.setPreferredSize(new java.awt.Dimension(655, 204));
-        jscp_pedidosEmAberto.setViewportView(jtbl_pedidosEmAberto);
-
-        jpnl_pedidosAberto.add(jscp_pedidosEmAberto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 730, 390));
-
         jlbl_img_intercorrencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Intercorrencia.png"))); // NOI18N
-        jpnl_pedidosAberto.add(jlbl_img_intercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 470, -1, 30));
+        jpnl_pedidosAberto.add(jlbl_img_intercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 480, 30, 30));
 
-        jButton1.setFont(new java.awt.Font("Noto Sans", 0, 13)); // NOI18N
         jButton1.setText("Alterar pedido");
-        jpnl_pedidosAberto.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 490, 140, 30));
+        jButton1.setFont(new java.awt.Font("Noto Sans", 0, 13)); // NOI18N
+        jpnl_pedidosAberto.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 480, 140, 30));
 
         jButton2.setText("Relatar intercorrência");
-        jpnl_pedidosAberto.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 470, -1, 30));
+        jpnl_pedidosAberto.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 480, -1, 30));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jpnl_pedidosAberto.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(536, 20, 180, 40));
+        jpnl_pedidosAberto.add(jcmb_filtro_pedidos_aberto, new org.netbeans.lib.awtextra.AbsoluteConstraints(536, 20, 180, 40));
+        jpnl_pedidosAberto.add(jTable_Pedido_Resumido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 720, 410));
 
         jTabbedPane1.addTab("Pedidos em aberto", jpnl_pedidosAberto);
 
@@ -1135,16 +1109,17 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private japedidos.pedidos.JTable_Pedido_Resumido jTable_Pedido_Resumido1;
     private japedidos.produto.JTable_ProdutoPedido jTable_ProdutoPedido;
     private javax.swing.JButton jbtn_criarPedido1;
     private javax.swing.JButton jbtn_excluirProduto;
     private javax.swing.JButton jbtn_incluirProduto;
     private javax.swing.JButton jbtn_visualizarPedido;
     private javax.swing.JComboBox<japedidos.pedidos.Estado> jcmb_estadoInicial;
+    private javax.swing.JComboBox<japedidos.pedidos.Estado> jcmb_filtro_pedidos_aberto;
     private javax.swing.JComboBox<japedidos.produto.Produto> jcmb_produto;
     private javax.swing.JComboBox<japedidos.pedidos.TipoEntrega> jcmb_tipoEntrega;
     private javax.swing.JComboBox<String> jcmb_uf;
@@ -1203,13 +1178,11 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private javax.swing.JPanel jpnl_principal;
     private javax.swing.JPanel jpnl_sideMenu;
     private javax.swing.JScrollPane jscp_destinatario;
-    private javax.swing.JScrollPane jscp_pedidosEmAberto;
     private javax.swing.JScrollPane jscp_pedidosEmAberto1;
     private javax.swing.JSpinner jspn_desconto;
     private javax.swing.JSpinner jspn_quantidade;
     private javax.swing.JSpinner jspn_valorEntrega;
     private javax.swing.JTable jtbl_HistoricoPedido;
-    private javax.swing.JTable jtbl_pedidosEmAberto;
     private javax.swing.JTextArea jtxta_observacoes;
     private javax.swing.JTextField jtxtf_bairro;
     private javax.swing.JTextField jtxtf_cidade;

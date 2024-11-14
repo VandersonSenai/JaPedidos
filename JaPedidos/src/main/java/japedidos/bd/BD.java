@@ -304,6 +304,8 @@ public final class BD {
             }
             return r;
         }
+    
+    
     }
     
     
@@ -984,5 +986,9 @@ public final class BD {
             }
             return null;
         }
+    }
+    
+    static {
+        japedidos.usuario.Usuario.setAtual(BD.Usuario.selectLast());
     }
 }
