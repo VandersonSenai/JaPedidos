@@ -1,11 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package japedidos.clientes;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import japedidos.clientes.Cliente;
+import japedidos.exception.IllegalCnpjException;
+import japedidos.exception.IllegalCpfException;
 import japedidos.pedidos.JFrame_GerenciamentoPedidos;
 import javax.swing.JOptionPane;
 /**
@@ -294,11 +292,16 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
             if (nome.isEmpty() || cpf.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Os campos não podem estar vazios!");
             } else {
-                Cliente.InfoPF pf = (Cliente.InfoPF)infoEnviar;
-                pf.nome = nome;
-                pf.cpf = cpf; // 
-                infoEnviar = pf;
-                enviar = true;
+                try {
+                    Cliente.InfoPF pf = (Cliente.InfoPF)infoEnviar;
+                    pf.cpf = new CPF(cpf).toString(); // Throw IllegalCpfException se inválido
+                    pf.nome = nome;
+                    infoEnviar = pf;
+                    enviar = true;
+                } catch (IllegalCpfException exCpf) {
+                    JOptionPane.showMessageDialog(null, "CPF inválido! Tente novamente.", "Erro ao inserir informações", JOptionPane.ERROR_MESSAGE);
+                }
+                
 //                System.out.println(pf.cpf);
             }
         } else if (infoEnviar instanceof Cliente.InfoPJ) {
@@ -311,12 +314,17 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
             if (nomeFantasia.isEmpty() || razaoSocial.isEmpty() || cnpj.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Os campos não podem estar vazios!");
             } else {
-                Cliente.InfoPJ pj = (Cliente.InfoPJ)infoEnviar;
-                pj.nomeFantasia = nomeFantasia;
-                pj.razaoSocial = razaoSocial;
-                pj.cnpj = cnpj;
-                infoEnviar = pj;
-                enviar = true;
+                try {
+                    Cliente.InfoPJ pj = (Cliente.InfoPJ)infoEnviar;
+                    pj.nomeFantasia = nomeFantasia;
+                    pj.razaoSocial = razaoSocial;
+                    pj.cnpj = new CNPJ(cnpj).toString();
+                    infoEnviar = pj;
+                    enviar = true;
+                } catch (IllegalCnpjException exCpf) {
+                    JOptionPane.showMessageDialog(null, "CNPJ inválido! Tente novamente.", "Erro ao inserir informações", JOptionPane.ERROR_MESSAGE);
+                }
+                
 //                System.out.println(pj.cnpj);
             }
 

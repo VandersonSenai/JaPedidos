@@ -1,5 +1,7 @@
 package japedidos.clientes;
 
+import japedidos.exception.IllegalCpfException;
+
 /** A classe CPF representa o número de Cadastro de Pessoa Física.
  * Seu formato é composto por 11 dígitos ao total, sendo os últimos 2 digitos
  * usados para a verificação dos anteriores. Um CPF é considerado formatado 
@@ -28,7 +30,7 @@ public class CPF {
 	public CPF(String str) {
                 String numerico = toNumerico(str); // Retira pontuacao, se houver
 		if(!eValido(numerico)) { 
-			throw new IllegalArgumentException("CPF invalido");
+			throw new IllegalCpfException("CPF invalido");
 		}
 		this.numerico = numerico;
 	}
