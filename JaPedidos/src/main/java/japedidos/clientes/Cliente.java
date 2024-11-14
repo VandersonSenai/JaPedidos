@@ -35,6 +35,12 @@ public class Cliente {
         IllegalArgumentsException exs = new IllegalArgumentsException();
         
         try {
+            setId(id);
+        } catch (IllegalIdException ex) {
+            exs.addCause(ex);
+        }
+        
+        try {
             setNome(nome); 
         } catch (IllegalNomeException ex) {
             exs.addCause(ex);

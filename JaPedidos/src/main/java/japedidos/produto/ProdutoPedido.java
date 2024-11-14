@@ -56,4 +56,8 @@ public class ProdutoPedido {
         return this.quantidade;
     }
     
+    @Override
+    public String toString() {
+        return String.format("%s (%d %s)", this.getProduto().getNome(), this.getQuantidade(), this.getProduto().getUnidade().getAbreviacao());
+    }
 }

@@ -8,6 +8,7 @@ import japedidos.bd.BD;
  * @author t.baiense
  */
 public class Usuario {
+    
     /** A chave primária do registro do Usuário no banco de dados. Ao ser
      instanciado, o construtor deverá receber o valor para atribuição à variável
      * diretamente do banco de dados configurado.*/
@@ -35,6 +36,11 @@ public class Usuario {
         }
         
         private final String string;
+        
+        @Override
+        public String toString() {
+            return this.string;
+        }
         
     }
     
@@ -70,6 +76,18 @@ public class Usuario {
             this.id = id;
             setNome(nome);
             setLogin(login);
+            setTipo(tipo);
+    }
+    
+    // Somente para exibição
+    public Usuario(int id, String nome, Usuario.Tipo tipo) {
+            if (id <= 0) {
+                throw new IllegalArgumentException("id de usuario inválido");
+            }
+            
+            this.id = id;
+            setNome(nome);
+            setLogin(null);
             setTipo(tipo);
     }
 
@@ -134,7 +152,8 @@ public class Usuario {
     
     private void setLogin(String login) {
         if (login == null) {
-            throw new NullPointerException();
+//            throw new NullPointerException();
+            this.login = null;
         }
         login = login.trim();
         

@@ -3,12 +3,14 @@ package japedidos.bd;
 import japedidos.clientes.Cliente;
 import japedidos.clientes.Cliente.InfoAdicional;
 import japedidos.pedidos.Destino;
+import japedidos.pedidos.Estado;
 import japedidos.pedidos.EstadoPedido;
 import japedidos.pedidos.InfoEntrega;
 import japedidos.pedidos.TipoEntrega;
 import japedidos.produto.ProdutoPedido;
 import japedidos.usuario.Registro;
 import japedidos.usuario.Usuario;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -33,6 +35,11 @@ public final class BD {
     public static final String IP = "10.0.0.109";
     public static final String USER = "root";
     public static final String USER_PWD = "tmb";
+    
+    public static void main(String[] args) {
+        japedidos.pedidos.Pedido[] ped = BD.Pedido.selectByEstado(japedidos.pedidos.Estado.ABERTO);
+        System.out.println(ped[0]);
+    }
     
     private BD() {}
     
@@ -305,6 +312,145 @@ public final class BD {
             return r;
         }
     
+        public static japedidos.pedidos.Pedido[] selectByEstado(Estado e) {
+            japedidos.pedidos.Pedido[] p = null;
+            if (e != null && e.ID != -1) {
+                Connection conn = null;
+                CallableStatement cstmt = null;
+                ResultSet rs = null;
+                try {
+                    conn = BD.getConnection();
+                    cstmt = conn.prepareCall("call select_pedidos_by_estado(?)");
+                    cstmt.setInt(1, e.ID);
+                    rs = cstmt.executeQuery();
+                    
+                    p = parseView_pedido(rs);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                // Fechamento da conexão
+                try {
+                    if (conn != null) {
+                        conn.close();
+                        if (cstmt != null) {
+                            cstmt.close();
+                        }
+                    }
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            }
+            return p;
+        }
+    
+        /** Recebe um resultSet contendo informações de um pedido obtido por meio
+         * da view vw_pedido. Recebe as informações básicas do pedido, do cliente
+         * e dos produtos contidos e gera um array de Pedido.
+         * 
+         */
+        public static japedidos.pedidos.Pedido[] parseView_pedido(ResultSet rs) {
+            ArrayList<japedidos.pedidos.Pedido> pList = new ArrayList<>();
+            japedidos.pedidos.Pedido[] pedidos = null;
+            try {
+                while(rs.next()) {
+                    
+                    int id_pedido = rs.getInt("id");
+                    
+                    // Cliente
+                    int id_cliente = rs.getInt("id_cliente");
+                    String nome_cliente = rs.getString("nome_cliente");
+                    String telefone_cliente = rs.getString("telefone_cliente");
+
+                    japedidos.clientes.Cliente cliente = new japedidos.clientes.Cliente(id_cliente, nome_cliente, telefone_cliente);
+
+                    // Info adicional do cliente
+                    japedidos.clientes.Cliente.InfoAdicional infoAdicional = null;
+                    String cpf, cnpj;
+                    if ((cpf = rs.getString("cpf_info_pf")) != null) { // Se houver info de pessoa física
+                        String nome_cliente_info_pf = rs.getString("nome_cliente_info_pf");
+                        japedidos.clientes.Cliente.InfoPF infoPF = new japedidos.clientes.Cliente.InfoPF(nome_cliente_info_pf, cpf);
+                        infoAdicional = infoPF;
+                    } else if ((cnpj = rs.getString("cnpj_info_pj")) != null) { // se houver info de pessoa juridica
+                        String nome_fantasia_info_pj = rs.getString("nome_fantasia_info_pj");
+                        String nome_empresarial_info_pj = rs.getString("nome_empresarial_info_pj");
+                        japedidos.clientes.Cliente.InfoPJ infoPJ = new japedidos.clientes.Cliente.InfoPJ(nome_fantasia_info_pj, nome_empresarial_info_pj, cnpj) ;
+                        infoAdicional = infoPJ;
+                    }
+
+                    cliente.setInfoAdicional(infoAdicional);
+                    
+                    // Entrega
+                    japedidos.pedidos.TipoEntrega tipoEntrega = japedidos.pedidos.TipoEntrega.valueOf(rs.getString("tipo_entrega"));
+                    
+                    LocalDateTime dthrEntregar = rs.getTimestamp("dthr_entregar").toLocalDateTime();
+                    double precoFrete = rs.getDouble("preco_frete");
+                    japedidos.pedidos.InfoEntrega infoEntrega = new japedidos.pedidos.InfoEntrega(tipoEntrega, dthrEntregar, precoFrete);
+                    
+                    japedidos.pedidos.Destino destino = null;
+                    if (tipoEntrega == japedidos.pedidos.TipoEntrega.ENVIO) {
+                        destino = new japedidos.pedidos.Destino(
+                                rs.getString("logradouro_destino"), 
+                                rs.getString("numero_destino"), 
+                                rs.getString("bairro_destino"), 
+                                rs.getString("cidade_destino"), 
+                                rs.getString("estado_destino"), 
+                                rs.getString("pais_destino"));
+                    }
+                    infoEntrega.setDestino(destino);
+                    
+                    String destinatario = rs.getString("info_destinatario");
+                    infoEntrega.setDestinatario(destinatario);
+                    
+                    // Produtos
+                    japedidos.produto.ProdutoPedido[] produtosPedido = BD.ProdutoPedido.selectAllBy_id_pedido(id_pedido);
+                    
+                    // Desconto
+                    int taxaDesconto = rs.getInt("tx_desconto");
+                    
+                    japedidos.pedidos.Pedido p = new japedidos.pedidos.Pedido(id_pedido, cliente, infoEntrega, produtosPedido, taxaDesconto);
+                    
+                    // Registros de criação e alteração
+                    japedidos.usuario.Registro criacao;
+                    japedidos.usuario.Registro alteracao;
+                    
+                    // Informações de pagamento
+                    LocalDate dtPago = null;
+                    Date dt = rs.getDate("dt_pago");
+                    if (dt != null) {
+                        dtPago = dt.toLocalDate();
+                        p.setDataPago(dtPago);
+                    }
+                    LocalDate dtVencimentoPagamento = null;
+                    Date dtV = rs.getDate("dt_venc_pagamento");
+                    if (dtV != null) {
+                        dtVencimentoPagamento = dtV.toLocalDate();
+                        p.setDataVencimentoPagamento(dtVencimentoPagamento);
+                    }
+                    
+                    // Estados
+                    japedidos.pedidos.EstadoPedido estadoAtual;
+                    japedidos.pedidos.EstadoPedido[] estadosPedido; // TODO: pegar outros estados
+                    
+                    
+                    // Informação de cancelamento
+                    String infoCancelamento; // TODO: pegar info de cancelamento da view (atualizar a view)
+                    
+                    
+                    pList.add(p);
+                }
+                
+                if (!pList.isEmpty()) {
+                    pedidos = new japedidos.pedidos.Pedido[pList.size()];
+                    pList.toArray(pedidos);
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de parse", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            return pedidos;
+        }
     
     }
     
@@ -439,6 +585,116 @@ public final class BD {
             }
             
             return null;
+        }
+    }
+    
+    static public class ProdutoPedido {
+        public static japedidos.produto.ProdutoPedido[] selectAllBy_id_pedido(int id_pedido) {
+            japedidos.produto.ProdutoPedido[] p = null;
+            if (id_pedido != -1) {
+                Connection conn = null;
+                CallableStatement cstmt = null;
+                ResultSet rs = null;
+                try {
+                    conn = BD.getConnection();
+                    cstmt = conn.prepareCall("call select_produtos_pedido(?)");
+                    cstmt.setInt(1, id_pedido);
+                    rs = cstmt.executeQuery();
+                    
+                    p = parseView_produtos_pedido(rs);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                // Fechamento da conexão
+                try {
+                    if (conn != null) {
+                        conn.close();
+                        if (cstmt != null) {
+                            cstmt.close();
+                        }
+                    }
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            }
+            return p;
+        }
+    
+        public static japedidos.produto.ProdutoPedido[] parseView_produtos_pedido(ResultSet rs) {
+            ArrayList<japedidos.produto.ProdutoPedido> pList = new ArrayList<>();
+            japedidos.produto.ProdutoPedido[] produtosPedido = null;
+            try {
+                while (rs.next()) {
+                    // Criação da Categoria
+                    int id_categoria = rs.getInt("id_categoria");
+                    String nome_categoria = rs.getString("nome_categoria");
+                    String descricao_categoria = rs.getString("descricao_categoria");
+                    japedidos.produto.Categoria categoria = new japedidos.produto.Categoria(id_categoria, nome_categoria, descricao_categoria);
+                    
+                    
+                    // Criacao da Unidade
+                    int id_unidade = rs.getInt("id_unidade");
+                    String nome_unidade = rs.getString("nome_unidade");
+                    String abreviacao_unidade = rs.getString("abreviacao_unidade");
+                    japedidos.produto.Unidade unidade = new japedidos.produto.Unidade(id_unidade, nome_unidade, abreviacao_unidade);
+                    
+                    // Criação do Produto
+                    int id_produto = rs.getInt("id_produto");
+                    String nome_produto = rs.getString("nome_produto");
+                    double preco_venda = rs.getDouble("preco_venda");
+                    double preco_custo = rs.getDouble("preco_custo");
+                    boolean estado = rs.getBoolean("estado");
+                    
+                    japedidos.produto.Produto produto = new japedidos.produto.Produto(id_produto, nome_produto, categoria, unidade, preco_custo, preco_venda );
+                    produto.setAtivo(estado);
+                    
+                    // Criação do registro de alteração, se houver
+                    japedidos.usuario.Registro alteracao = null;
+                    int id_usuario_alt = rs.getInt("id_usuario_alt");
+                    LocalDateTime dthr_alt = null;
+                    Timestamp tsAlt = rs.getTimestamp("dthr_alt");
+                    if (tsAlt != null) {
+                        dthr_alt = tsAlt.toLocalDateTime();
+                    }
+                    
+                    if (id_usuario_alt != 0 && dthr_alt != null) {
+                        
+                        String nome_usuario_alt = rs.getString("nome_usuario_alt");
+                        String strTipo_usuario = rs.getString("tipo_usuario");
+                        japedidos.usuario.Usuario.Tipo tipo_usuario = null;
+                        if (strTipo_usuario.equals(japedidos.usuario.Usuario.Tipo.ADMINISTRADOR.toString())) {
+                            tipo_usuario = japedidos.usuario.Usuario.Tipo.ADMINISTRADOR;
+                        } else if (strTipo_usuario.equals(japedidos.usuario.Usuario.Tipo.ATENDENTE.toString())) {
+                            tipo_usuario = japedidos.usuario.Usuario.Tipo.ATENDENTE;
+                        }
+                        
+                        japedidos.usuario.Usuario usuario = new japedidos.usuario.Usuario(id_usuario_alt, nome_usuario_alt, tipo_usuario);
+                        alteracao = new japedidos.usuario.Registro(usuario, dthr_alt);
+                        produto.setAlteracao(alteracao);
+                    }
+                    
+                    // Criacao do ProdutoPedido
+                    int quantidade_produto = rs.getInt("quantidade_produto");
+                    japedidos.produto.ProdutoPedido prodPed = new japedidos.produto.ProdutoPedido(produto, quantidade_produto);
+                    String info_adicional = rs.getString("info_adicional_produto_pedido");
+                    if (info_adicional != null) {
+                        prodPed.setInfoAdicional(info_adicional);
+                    }
+                    
+                    pList.add(prodPed);
+                }
+                
+                if (!pList.isEmpty()) {
+                    produtosPedido = new japedidos.produto.ProdutoPedido[pList.size()];
+                    pList.toArray(produtosPedido);
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de parse", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            return produtosPedido;
         }
     }
     
