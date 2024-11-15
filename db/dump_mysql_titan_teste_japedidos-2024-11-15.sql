@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS `japedidos`;
-CREATE DATABASE `japedidos`;
+DROP DATABASE IF EXISTS `titanw25_japedidos_hml`;
+CREATE DATABASE `titanw25_japedidos_hml`;
 
-USE `japedidos`;
+USE `titanw25_japedidos_hml`;
 
 --
 -- Table structure for table `categoria`
