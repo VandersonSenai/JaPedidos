@@ -2,6 +2,7 @@ package japedidos.bd;
 
 import japedidos.clientes.Cliente;
 import japedidos.clientes.Cliente.InfoAdicional;
+import japedidos.exception.IllegalArgumentsException;
 import japedidos.pedidos.Destino;
 import japedidos.pedidos.Estado;
 import japedidos.pedidos.EstadoPedido;
@@ -32,9 +33,9 @@ public final class BD {
 //    public static final String USER = "titanw25_japedidos_hml";
 //    public static final String USER_PWD = "seNai@2024proj";
     
-    public static final String IP = "10.0.0.109";
+    public static final String IP = "localhost";
     public static final String USER = "root";
-    public static final String USER_PWD = "tmb";
+    public static final String USER_PWD = "";
     
 //    public static void main(String[] args) {
 //        japedidos.pedidos.Pedido[] ped = BD.Pedido.selectByEstado(japedidos.pedidos.Estado.ABERTO);
@@ -161,25 +162,30 @@ public final class BD {
                     // Inserindo produtos do pedido
                     String strStmt = "INSERT INTO produto_pedido(id_produto, id_pedido, quantidade, preco_venda, preco_custo, info_adicional) VALUES (?, ?, ?, ?, ?, ?)";
                     insertProdutosPedido = conn.prepareStatement(strStmt);
-                    for (japedidos.produto.ProdutoPedido prodPed : p.getProdutos()) {
-                        if (prodPed != null) {
-                            int j = 1;
-                            japedidos.produto.Produto prod = prodPed.getProduto();
-                            insertProdutosPedido.setInt(j++, prod.getId());
-                            insertProdutosPedido.setInt(j++, id_pedido);
-                            insertProdutosPedido.setInt(j++, prodPed.getQuantidade());
-                            insertProdutosPedido.setDouble(j++, prod.getPrecoVenda());
-                            insertProdutosPedido.setDouble(j++, prod.getPrecoCusto());
-                            String infoAdicional = prodPed.getInfoAdicional();
-                            if (infoAdicional != null) {
-                                insertProdutosPedido.setString(j++, infoAdicional);
-                            } else {
-                                insertProdutosPedido.setNull(j++, java.sql.Types.VARCHAR);
+                    japedidos.produto.ProdutoPedido[] produtosPedido = p.getProdutos();
+                    if (produtosPedido != null) {
+                        for (japedidos.produto.ProdutoPedido prodPed : produtosPedido) {
+                            if (prodPed != null) {
+                                int j = 1;
+                                japedidos.produto.Produto prod = prodPed.getProduto();
+                                insertProdutosPedido.setInt(j++, prod.getId());
+                                insertProdutosPedido.setInt(j++, id_pedido);
+                                insertProdutosPedido.setInt(j++, prodPed.getQuantidade());
+                                insertProdutosPedido.setDouble(j++, prod.getPrecoVenda());
+                                insertProdutosPedido.setDouble(j++, prod.getPrecoCusto());
+                                String infoAdicional = prodPed.getInfoAdicional();
+                                if (infoAdicional != null) {
+                                    insertProdutosPedido.setString(j++, infoAdicional);
+                                } else {
+                                    insertProdutosPedido.setNull(j++, java.sql.Types.VARCHAR);
+                                }
+                                insertProdutosPedido.addBatch();
                             }
-                            insertProdutosPedido.addBatch();
                         }
+                        insertProdutosPedido.executeBatch();
+                    } else {
+                        throw new SQLException("Pedido não possui produtos");
                     }
-                    insertProdutosPedido.executeBatch();
                     
                     // Controle de cadastro de informação adicional do cliente
                     InfoAdicional infoAdicionalCliente = cliente.getInfoAdicional();
@@ -409,8 +415,13 @@ public final class BD {
                     // Desconto
                     int taxaDesconto = rs.getInt("tx_desconto");
                     
-                    japedidos.pedidos.Pedido p = new japedidos.pedidos.Pedido(id_pedido, cliente, infoEntrega, produtosPedido, taxaDesconto);
-                    
+                    japedidos.pedidos.Pedido p = null;
+                    try {
+                        p = new japedidos.pedidos.Pedido(id_pedido, cliente, infoEntrega, produtosPedido, taxaDesconto); // Throw illegalArgumentsException se argumentos forem inválidos
+                    } catch (IllegalArgumentsException exs) {
+                        System.out.println(String.format("ERRO AO RECEBER PEDIDO ID %d: %s", id_pedido, exs.getMessage()));
+                        continue;
+                    }
                     
                     // Informações de pagamento
                     LocalDate dtPago = null;

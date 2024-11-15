@@ -201,7 +201,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         }
         
         // Produtos adicionados
-        produtosAdicionados = jTable_ProdutoPedido.getModel().getRows();
+        produtosAdicionados = jTable_ProdutoPedido.getModel().getRows(); // Retorna null, se não houverem itens na tabela
         
         // Desconto
         txDesconto = (int)jspn_desconto.getValue();
@@ -224,7 +224,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             for (Throwable t : causes) {
                 if (t instanceof IllegalTaxaDescontoException) {
                     exs.addCause(t);
-                } else if (t instanceof IllegalProdutoException) {
+                } else if (t instanceof IllegalProdutoPedidoArrayException) {
                     exs.addCause(t);
                 }
             }
@@ -271,6 +271,8 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                 } else if (t instanceof IllegalDestinatarioException) {
                     jlbl_erro_observacoesEntrega.setVisible(true);
                     jlbl_erro_observacoesEntrega.setText(t.getMessage());
+                } if (t instanceof IllegalProdutoPedidoArrayException) {
+                    JOptionPane.showMessageDialog(null, "Insira ao menos um produto antes de completar o pedido.", "Falha ao cadastrar pedido", JOptionPane.INFORMATION_MESSAGE);
                 } else if (t instanceof IllegalTaxaDescontoException) {
                     jlbl_erro_desconto.setVisible(true);
                     jlbl_erro_desconto.setText(t.getMessage());

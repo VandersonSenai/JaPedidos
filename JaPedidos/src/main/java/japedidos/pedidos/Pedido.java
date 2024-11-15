@@ -234,14 +234,15 @@ public final class Pedido {
     public static double precoFinalVenda(ProdutoPedido[] produtos, double desconto, double valorFrete) {
         double somaPrecoVenda = 0;
         double taxaDesconto = desconto;
-        for (ProdutoPedido prodPedido : produtos) {
-            if (prodPedido != null) {
-                int qtdProd = prodPedido.getQuantidade();
-                Produto p = prodPedido.getProduto();
-                somaPrecoVenda += p.getPrecoVenda() * qtdProd;
+        if (produtos != null) { // Soma preços de produtos se não forem null
+            for (ProdutoPedido prodPedido : produtos) {
+                if (prodPedido != null) {
+                    int qtdProd = prodPedido.getQuantidade();
+                    Produto p = prodPedido.getProduto();
+                    somaPrecoVenda += p.getPrecoVenda() * qtdProd;
+                }
             }
         }
-
         return somaPrecoVenda - (somaPrecoVenda * taxaDesconto) + valorFrete;
     }
     

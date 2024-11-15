@@ -54,8 +54,8 @@ public final class ProdutoPedidoTableModel extends AbstractTableModel {
         if (p == null) {
             return;
         }
-        // Ibcrementa quantidade de produto se já existir na tabela
-        for (int i = 0; i < getRows().length; i++) {
+        // Incrementa quantidade de produto se já existir na tabela
+        for (int i = 0; i < getRowCount(); i++) {
             ProdutoPedido prodPed = getRow(i);
             if (prodPed.getProduto().equals(p.getProduto())) {
                 int novaQuant = prodPed.getQuantidade();
@@ -84,7 +84,12 @@ public final class ProdutoPedidoTableModel extends AbstractTableModel {
     }
     
     public ProdutoPedido[] getRows() {
-        return this.data.toArray(new ProdutoPedido[getRowCount()]);
+        int rows = getRowCount();
+        if (rows > 0) {
+            return this.data.toArray(new ProdutoPedido[getRowCount()]);
+        } else {
+            return null;
+        }
     }
     
     public void clearRows() {
