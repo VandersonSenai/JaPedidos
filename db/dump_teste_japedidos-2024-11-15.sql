@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS `japedidos`;
-CREATE DATABASE `japedidos`;
+DROP DATABASE IF EXISTS `titanw25_japedidos_hml`;
+CREATE DATABASE `titanw25_japedidos_hml`;
 
-USE `japedidos`;
+USE `titanw25_japedidos_hml`;
 
 --
 -- Table structure for table `categoria`
@@ -350,7 +350,7 @@ CREATE OR REPLACE VIEW vw_ultimo_estado_pedido AS
                 id_est_andamento,
                 id_usuario_autor,
                 dthr_criacao,
-                MAX(dthr_criacao) OVER (PARTITION BY id_pedido) AS dthr_ultimo
+                (SELECT MAX(dthr_criacao) FROM est_andamento_pedido AS E WHERE E.id_pedido = est_andamento_pedido.id_pedido) AS dthr_ultimo
             FROM est_andamento_pedido
         ) AS ultimo_estado_pedido
         INNER JOIN est_andamento AS e_a
@@ -514,7 +514,7 @@ DELIMITER ;
 
 -- Seleciona todos os pedidos a partir do id do estado em questão.
 DELIMITER //
-CREATE OR REPLACE PROCEDURE select_pedidos_by_estado(IN id_est INT) READS SQL DATA
+CREATE  PROCEDURE select_pedidos_by_estado(IN id_est INT) READS SQL DATA
 BEGIN
   SELECT * FROM vw_pedido WHERE id_ultimo_est = id_est;
 END
