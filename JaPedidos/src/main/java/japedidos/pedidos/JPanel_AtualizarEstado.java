@@ -27,6 +27,7 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
     private Estado atual;
     private Usuario alterador;
     private Runnable updateAction;
+    private EstadoPedido[] estadosExistentes;
     /**
      * Creates new form JPanel_AtualizarEstado
      */
@@ -44,6 +45,7 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
         this.pedido = p;
         this.pedidoFoiPago = pedido.getDataPago() != null;
         this.pedidoTemDataVencimento = pedido.getDataVencimentoPagamento() != null;
+        this.estadosExistentes = BD.EstadoPedido.selectAllByPedido(p);
         this.atual = atual;
         this.alterador = alterador;
         this.updateAction = updateAction;
@@ -62,9 +64,22 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
 
         jpnl_mudanca_estado = new javax.swing.JPanel();
         jcmb_novo_estado = new javax.swing.JComboBox<>();
-        for (Estado e : Estado.getAll()) {
-            if (!e.equals(atual)) {
-                jcmb_novo_estado.addItem(e);
+        if (!atual.equals(Estado.CONCLUIDO) && !atual.equals(Estado.CANCELADO)) {
+            for (Estado e : Estado.getAll()) {
+                boolean adicionar = true;
+                if (pedidoFoiPago && e.equals(Estado.AGUARDANDO_PAGAMENTO) || pedidoTemDataVencimento && e.equals(Estado.AGUARDANDO_PAGAMENTO) || ((atual.equals(Estado.SAIU_PARA_ENTREGA) || atual.equals(Estado.AGUARDANDO_RETIRADA)) && ( e.equals(Estado.AGUARDANDO_ENVIO) || e.equals(Estado.AGUARDANDO_RETIRADA) || e.equals(Estado.EM_PREPARO)))) {
+                    adicionar = false;
+                } else {
+                    for (EstadoPedido ep : estadosExistentes) {
+                        if (e.equals(ep.ESTADO)) {
+                            adicionar = false;
+                            break;
+                        }
+                    }
+                }
+                if (adicionar) {
+                    jcmb_novo_estado.addItem(e);
+                }
             }
         }
         jTextField1 = new javax.swing.JTextField(atual.NOME);
@@ -235,7 +250,7 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
             dtp_pago.setDate(pedido.getDataPago());
         }
 
-        dateSettings2.setDateRangeLimits(LocalDate.now().minusMonths(3), LocalDate.now());
+        dateSettings2.setDateRangeLimits(pedido.getRegistroCriacao().DATA_HORA.toLocalDate(), LocalDate.now());
         javax.swing.JButton datePickerButton2 = dtp_pago.getComponentToggleCalendarButton();
         datePickerButton2.setPreferredSize(new java.awt.Dimension(22, 22));
         datePickerButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -438,6 +453,7 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
         jpnl_pagamentoPendente.setEnabled(false);
         jtxta_justificativa.setText(null);
         jchb_foi_pago.setEnabled(!pedidoFoiPago);
+        jchb_foi_pago.setSelected(pedidoFoiPago);
         dtp_pago.setDate(pedido.getDataPago());
         
         if (selecionado.equals(Estado.AGUARDANDO_PAGAMENTO)) {

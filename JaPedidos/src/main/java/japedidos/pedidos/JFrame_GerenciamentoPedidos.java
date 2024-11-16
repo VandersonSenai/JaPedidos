@@ -1109,11 +1109,19 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         int rSel = jTable_Pedido_Resumido1.getTable().getSelectedRow();
         if (rSel != -1) {
             Pedido pSelecionado = jTable_Pedido_Resumido1.getModel().getRow(rSel);
-            JFrame frame = new JFrame("Atualizar estado do pedido");
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frame.add(new JPanel_AtualizarEstado(pSelecionado, pSelecionado.getEstadoAtualPedido().ESTADO, Usuario.getAtual(), this::preencherHistoricoPedidos));
-            frame.pack();
-            frame.setVisible(true);
+            Estado estadoAtual = pSelecionado.getEstadoAtualPedido().ESTADO;
+            if (!estadoAtual.equals(Estado.CANCELADO) && !estadoAtual.equals(Estado.CONCLUIDO)) {
+                JFrame frame = new JFrame("Atualizar estado do pedido");
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.add(new JPanel_AtualizarEstado(pSelecionado, pSelecionado.getEstadoAtualPedido().ESTADO, Usuario.getAtual(), this::preencherHistoricoPedidos));
+                frame.pack();
+                int x = this.getX() + this.getWidth() / 2 - frame.getWidth() / 2;
+                int y = this.getY() + this.getHeight()/ 2 - frame.getHeight() / 2;
+                frame.setLocation(x, y);
+                frame.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Não é possível alterar o estado de um pedido cancelado ou concluído.", "Atualizar pedido", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 

@@ -209,7 +209,7 @@ public final class BD {
                     }
                     
                     // Cadastro do estado inicial do pedido
-                    EstadoPedido estadoInicial = p.getEstadoAtualPedido();
+                    japedidos.pedidos.EstadoPedido estadoInicial = p.getEstadoAtualPedido();
                     insertEstadoPedido = conn.prepareStatement("INSERT INTO est_andamento_pedido(id_est_andamento, id_pedido, id_usuario_autor, dthr_criacao) VALUE (?, ?, ?, ?)");
                     insertEstadoPedido.setInt(1, estadoInicial.ESTADO.ID);
                     insertEstadoPedido.setInt(2, id_pedido);
@@ -372,7 +372,7 @@ public final class BD {
                     if (e.ESTADO.equals(japedidos.pedidos.Estado.CANCELADO)) {
                         insertInfoCancelamento = conn.prepareStatement("INSERT INTO est_andamento_pedido (id_pedido, id_est_andamento, id_usuario_autor, dthr_criacao) VALUE (?, ?, ?, CURRENT_TIME())");
                         insertInfoCancelamento.setInt(1, id_pedido);
-                        insertInfoCancelamento.setInt(2, japedidos.pedidos.Estado.PAGO.ID);
+                        insertInfoCancelamento.setInt(2, japedidos.pedidos.Estado.CANCELADO.ID);
                         insertInfoCancelamento.setInt(3, autor.getId());
                         r += insertInfoCancelamento.executeUpdate();
                         
@@ -614,9 +614,83 @@ public final class BD {
     
     }
     
+    static public class EstadoPedido {
+        public static final String TABLE = "est_andamento_pedido";
+        
+        public static japedidos.pedidos.EstadoPedido[] selectAllByPedido(japedidos.pedidos.Pedido p) {
+            japedidos.pedidos.EstadoPedido[] e = null;
+            if (p != null && !p.isNew()) {
+                Connection conn = null;
+                CallableStatement cstmt = null;
+                ResultSet rs = null;
+                try {
+                    conn = BD.getConnection();
+                    cstmt = conn.prepareCall("call select_estados_pedido(?)");
+                    cstmt.setInt(1, p.getId());
+                    rs = cstmt.executeQuery();
+                    
+                    e = parseViewEstadoPedido(rs);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                // Fechamento da conexão
+                try {
+                    if (conn != null) {
+                        conn.close();
+                        if (cstmt != null) {
+                            cstmt.close();
+                        }
+                    }
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            }
+            return e;
+        }
+        
+        public static japedidos.pedidos.EstadoPedido[] parseViewEstadoPedido(ResultSet rs) {
+            ArrayList<japedidos.pedidos.EstadoPedido> eList = new ArrayList<>();
+            japedidos.pedidos.EstadoPedido[] estados = null;
+            japedidos.usuario.Usuario usrAtual = japedidos.usuario.Usuario.getAtual();
+            try {
+                while(rs.next()) {
+                    
+                    int id_pedido = rs.getInt("id_pedido");
+                    
+                    // Estados
+                    japedidos.pedidos.Estado estado = japedidos.pedidos.Estado.getEstado(rs.getInt("id_est_andamento"));
+                    
+                    japedidos.usuario.Usuario usrEstado;
+                    int id_usr = rs.getInt("id_usuario_autor");
+                    if (id_usr == usrAtual.getId()) {
+                        usrEstado = usrAtual;
+                    } else {
+                        usrEstado = new japedidos.usuario.Usuario(id_usr, rs.getString("nome_usuario_autor"));
+                    }
+                    LocalDateTime dthr_criacao_ultimo_est = rs.getTimestamp("dthr_criacao").toLocalDateTime();
+                    
+                    japedidos.pedidos.EstadoPedido estadoRecebido = new japedidos.pedidos.EstadoPedido(estado, usrEstado, dthr_criacao_ultimo_est);
+
+                    eList.add(estadoRecebido);
+                }
+                
+                if (!eList.isEmpty()) {
+                    estados = new japedidos.pedidos.EstadoPedido[eList.size()];
+                    eList.toArray(estados);
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de parse", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            return estados;
+        }
+    }
     
     static public class Usuario {
         public static final String TABLE = "usuario";
+        private static int get;
         
         public static int insert(japedidos.usuario.Usuario u) {           
             if (u != null && u.getId() == -1 && u.getSenha() != null) { // Só cadastra se não houver id, e tiver senha inserida
