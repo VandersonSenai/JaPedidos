@@ -166,7 +166,7 @@
                     </Property>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jcmb_filtro_pedidos_aberto.addItem(japedidos.pedidos.Estado.ABERTO);&#xa;jcmb_filtro_pedidos_aberto.addItem(japedidos.pedidos.Estado.AGUARDANDO_PAGAMENTO);&#xa;jcmb_filtro_pedidos_aberto.addItemListener((e) -&gt; {&#xa;    if (e.getStateChange() == java.awt.event.ItemEvent.SELECTED) {&#xa;        japedidos.pedidos.Estado estadoSelecionado = (japedidos.pedidos.Estado)e.getItem();&#xa;        jTable_Pedido_Resumido1.preencher(estadoSelecionado);&#xa;    }&#xa;});"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="for (var e : japedidos.pedidos.Estado.getAll()) {&#xa;    jcmb_filtro_pedidos_aberto.addItem(e);&#xa;}&#xa;jcmb_filtro_pedidos_aberto.addItemListener((e) -&gt; {&#xa;    if (e.getStateChange() == java.awt.event.ItemEvent.SELECTED) {&#xa;        japedidos.pedidos.Estado estadoSelecionado = (japedidos.pedidos.Estado)e.getItem();&#xa;        jTable_Pedido_Resumido1.preencher(estadoSelecionado);&#xa;    }&#xa;});"/>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;japedidos.pedidos.Estado&gt;"/>
                   </AuxValues>
                   <Constraints>

@@ -344,8 +344,9 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jcmb_filtro_pedidos_aberto = new javax.swing.JComboBox<>();
-        jcmb_filtro_pedidos_aberto.addItem(japedidos.pedidos.Estado.ABERTO);
-        jcmb_filtro_pedidos_aberto.addItem(japedidos.pedidos.Estado.AGUARDANDO_PAGAMENTO);
+        for (var e : japedidos.pedidos.Estado.getAll()) {
+            jcmb_filtro_pedidos_aberto.addItem(e);
+        }
         jcmb_filtro_pedidos_aberto.addItemListener((e) -> {
             if (e.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
                 japedidos.pedidos.Estado estadoSelecionado = (japedidos.pedidos.Estado)e.getItem();
@@ -1110,7 +1111,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             Pedido pSelecionado = jTable_Pedido_Resumido1.getModel().getRow(rSel);
             JFrame frame = new JFrame("Atualizar estado do pedido");
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frame.add(new JPanel_AtualizarEstado(pSelecionado, pSelecionado.getEstadoAtualPedido().ESTADO, Usuario.getAtual()));
+            frame.add(new JPanel_AtualizarEstado(pSelecionado, pSelecionado.getEstadoAtualPedido().ESTADO, Usuario.getAtual(), this::preencherHistoricoPedidos));
             frame.pack();
             frame.setVisible(true);
         }

@@ -14,6 +14,7 @@ import java.awt.event.ItemEvent;
 import javax.swing.JFrame;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,26 +23,30 @@ import java.time.LocalDateTime;
 public class JPanel_AtualizarEstado extends javax.swing.JPanel {
     private Pedido pedido;
     private boolean pedidoFoiPago;
+    private boolean pedidoTemDataVencimento;
     private Estado atual;
     private Usuario alterador;
+    private Runnable updateAction;
     /**
      * Creates new form JPanel_AtualizarEstado
      */
     
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Teste de alteração de pedido");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Pedido[] p = BD.Pedido.selectByEstado(Estado.ABERTO);
-        frame.add(new JPanel_AtualizarEstado(p[0], p[0].getEstadoAtualPedido().ESTADO, Usuario.getAtual()));
-        frame.pack();
-        frame.setVisible(true);
-    }
+//    public static void main(String[] args) {
+//        JFrame frame = new JFrame("Teste de alteração de pedido");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        Pedido[] p = BD.Pedido.selectByEstado(Estado.ABERTO);
+//        frame.add(new JPanel_AtualizarEstado(p[0], p[0].getEstadoAtualPedido().ESTADO, Usuario.getAtual()));
+//        frame.pack();
+//        frame.setVisible(true);
+//    }
     
-    public JPanel_AtualizarEstado(Pedido p, Estado atual, Usuario alterador) {
+    public JPanel_AtualizarEstado(Pedido p, Estado atual, Usuario alterador, Runnable updateAction) {
         this.pedido = p;
         this.pedidoFoiPago = pedido.getDataPago() != null;
+        this.pedidoTemDataVencimento = pedido.getDataVencimentoPagamento() != null;
         this.atual = atual;
         this.alterador = alterador;
+        this.updateAction = updateAction;
         initComponents();
         gerenciarCampos();
     }
@@ -121,22 +126,22 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
             .addGroup(jpnl_mudanca_estadoLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jpnl_mudanca_estadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(jpnl_mudanca_estadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jcmb_novo_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcmb_novo_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jpnl_mudanca_estadoLayout.setVerticalGroup(
             jpnl_mudanca_estadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnl_mudanca_estadoLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addGroup(jpnl_mudanca_estadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnl_mudanca_estadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
                 .addGroup(jpnl_mudanca_estadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jcmb_novo_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -159,6 +164,7 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
 
         jpnl_pagamentoPendente.setMaximumSize(new java.awt.Dimension(195, 39));
         jpnl_pagamentoPendente.setPreferredSize(new java.awt.Dimension(195, 39));
+        jpnl_pagamentoPendente.setEnabled(false);
         jpnl_pagamentoPendente.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 jpnl_pagamentoPendenteComponentShown(evt);
@@ -174,8 +180,14 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
         jpnl_pagamentoPendente.add(jlbl_data_vencimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 140, -1));
 
         //datePicker1.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));
-        dtp_vencimento_pagamento.setDate(LocalDate.now().plusWeeks(1));
-        dateSettings.setDateRangeLimits(LocalDate.now().plusDays(1), LocalDate.now().plusYears(1));
+        if (pedidoTemDataVencimento) {
+            dtp_vencimento_pagamento.setDate(pedido.getDataVencimentoPagamento());
+        } else {
+            dateSettings.setAllowEmptyDates(true);
+            dateSettings.setDateRangeLimits(LocalDate.now().plusDays(1), LocalDate.now().plusYears(1));
+            dtp_vencimento_pagamento.setDate(null);
+        }
+
         javax.swing.JButton datePickerButton = dtp_vencimento_pagamento.getComponentToggleCalendarButton();
         datePickerButton.setPreferredSize(new java.awt.Dimension(22, 22));
         datePickerButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -257,7 +269,10 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
             }
         });
 
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
         jtxta_justificativa.setColumns(20);
+        jtxta_justificativa.setLineWrap(true);
         jtxta_justificativa.setRows(5);
         jScrollPane1.setViewportView(jtxta_justificativa);
 
@@ -339,21 +354,27 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
         Estado novoEstado = (Estado)jcmb_novo_estado.getSelectedItem();
         EstadoPedido novoEstadoPedido = new EstadoPedido(novoEstado, alterador, LocalDateTime.now());
         
-        if (novoEstado.equals(Estado.CANCELADO)) {
+        if (novoEstado.equals(Estado.CANCELADO) && jpnl_cancelamento.isEnabled()) {
             String info = jtxta_justificativa.getText().trim();
             if (!info.isEmpty()) {
                 novoEstadoPedido.setInfoCancelamento(info);
             }
-        } else if (novoEstado.equals(Estado.AGUARDANDO_PAGAMENTO)) {
-            if (jchb_data_vencimento.isSelected()) {
-                novoEstadoPedido.setDataVencimentoPagamento(dtp_vencimento_pagamento.getDate());
-            }
+        } else if (novoEstado.equals(Estado.AGUARDANDO_PAGAMENTO) && jchb_data_vencimento.isSelected() && jpnl_pagamentoPendente.isEnabled()) {
+            novoEstadoPedido.setDataVencimentoPagamento(dtp_vencimento_pagamento.getDate());
         } else if (!pedidoFoiPago) { // Qualquer outro estado e o pedido não foi pago
             if (jchb_foi_pago.isSelected()) {
                 novoEstadoPedido.setDataPago(dtp_pago.getDate());
             } else if (novoEstado.equals(Estado.CONCLUIDO)) {
-                novoEstadoPedido.setDataPago(LocalDate.now()); // Pega data atual se 
+                novoEstadoPedido.setDataPago(LocalDate.now()); // Pega data atual se pedido foi concluido sem data de pagamento
             }
+        }
+        
+        if (BD.Pedido.atualizarEstado(pedido, novoEstadoPedido) > 0) {
+            JOptionPane.showMessageDialog(null, "Estado atualizado com sucesso!", "Alteração de estado", JOptionPane.INFORMATION_MESSAGE);
+            this.updateAction.run();
+            ((java.awt.Window)this.getTopLevelAncestor()).dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Não foi possível atualizar o estado do pedido.", "Alteração de estado", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbtn_alterarActionPerformed
 
@@ -379,7 +400,13 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
         boolean ativarData = jpnl_pagamentoPendente.isEnabled() && jchb_data_vencimento.isSelected();
         jlbl_data_vencimento.setEnabled(ativarData);
         dtp_vencimento_pagamento.setEnabled(ativarData);
-        
+        if (ativarData) {
+            dtp_vencimento_pagamento.setDate(LocalDate.now().plusWeeks(1));
+            dtp_vencimento_pagamento.getSettings().setAllowEmptyDates(false);
+        } else {
+            dtp_vencimento_pagamento.getSettings().setAllowEmptyDates(true);
+            dtp_vencimento_pagamento.setDate(pedido.getDataVencimentoPagamento());
+        }
     }//GEN-LAST:event_jchb_data_vencimentoItemStateChanged
 
     private void jchb_foi_pagoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jchb_foi_pagoItemStateChanged
@@ -405,7 +432,7 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
         dtp_pago.getSettings().setAllowEmptyDates(true);
         Estado selecionado = (Estado)jcmb_novo_estado.getSelectedItem();
         jchb_data_vencimento.setEnabled(false);
-        jchb_data_vencimento.setSelected(false);
+        jchb_data_vencimento.setSelected(pedidoTemDataVencimento);
         jpnl_pago.setEnabled(false);
         jpnl_cancelamento.setEnabled(false);
         jpnl_pagamentoPendente.setEnabled(false);
@@ -414,9 +441,10 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
         dtp_pago.setDate(pedido.getDataPago());
         
         if (selecionado.equals(Estado.AGUARDANDO_PAGAMENTO)) {
-            jpnl_pagamentoPendente.setEnabled(true);
-            jchb_data_vencimento.setEnabled(true);
+            jpnl_pagamentoPendente.setEnabled(!pedidoTemDataVencimento && !pedidoFoiPago);
+            jchb_data_vencimento.setEnabled(!pedidoTemDataVencimento && !pedidoFoiPago);
             jtbp_info_estado.setSelectedIndex(0);
+            jpnl_pago.setEnabled(false);
             jchb_foi_pago.setEnabled(false);
         } else {
             jpnl_pago.setEnabled(!pedidoFoiPago);
@@ -427,6 +455,7 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
                 dtp_pago.getSettings().setAllowEmptyDates(false);
                 jchb_foi_pago.setEnabled(false);
                 jchb_foi_pago.setSelected(true);
+                jtbp_info_estado.setSelectedIndex(1);
                 
             } else if (!selecionado.equals(Estado.ABERTO)) {
                 if (!pedidoFoiPago && selecionado.equals(Estado.CONCLUIDO)) { // Qualquer outro estado e o pedido não foi pago
@@ -435,7 +464,7 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
                     jchb_foi_pago.setSelected(true);
                     dtp_pago.setDate(LocalDate.now());
                 } else {
-                    jpnl_pago.setEnabled(true);
+                    jpnl_pago.setEnabled(!pedidoFoiPago);
                 }
 
 
@@ -457,6 +486,10 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
         boolean ativarData = jpnl_pagamentoPendente.isEnabled() && jchb_data_vencimento.isSelected();
         jlbl_data_vencimento.setEnabled(ativarData);
         dtp_vencimento_pagamento.setEnabled(ativarData);
+        if (ativarData) {
+            dtp_vencimento_pagamento.setDate(LocalDate.now().plusWeeks(1));
+            dtp_vencimento_pagamento.getSettings().setAllowEmptyDates(false);
+        }
         
         // Cancelamento
         jlbl_justificativa.setEnabled(jpnl_cancelamento.isEnabled());

@@ -351,66 +351,133 @@ public final class BD {
             return p;
         }
     
-//        public static int atualizarEstado(japedidos.pedidos.Pedido p, japedidos.pedidos.EstadoPedido e) {
-//            int r = 0;
-//            Connection conn = null;
-//            PreparedStatement insertEstado = null;
-//            PreparedStatement insertInfoCancelamento = null;
-//            PreparedStatement insertDataVencimento = null;
-//            if (p != null && e != null && !p.isNew()) {
-//                try {
-//                    conn = BD.getConnection();
-//                    conn.setAutoCommit(false);
-//                    
-//                    int id_pedido = p.getId();
-//                    int id_estado = e.ESTADO.ID;
-//                    japedidos.usuario.Usuario autor = e.AUTOR;
-//                    // Inserindo novo estado
-//                    insertEstado = conn.prepareStatement("INSERT INTO est_andamento_pedido (id_pedido, id_est_andamento, id_usuario_autor, dthr_criacao) VALUE (?, ?, ?, CURRENT_TIME())");
-//                    
-//                    conn.commit();
-//                } catch (SQLException ex) {
-//                    if (conn != null) {
-//                        try {
-//                            conn.rollback();
-//                        } catch (SQLException ex2) {
-//                            
-//                        }
-//                    }
-//                   
-//                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de atualização de estado", JOptionPane.ERROR_MESSAGE);
-//                    r = -1;
-//                }
-//                
-//                if (conn != null) {
-//                    try {
-//                        conn.setAutoCommit(true);
-//                    } catch (SQLException ex) {
-//                       System.out.println("Não foi possível definir autoCommit como true");
-//                    }
-//                    if (insertEstado != null) {
-//                        try {
-//                           insertEstado.close();
-//                        } catch (SQLException ex) {
-//                           System.out.println("Não foi possível fechar conexão com o banco.");
-//                        }
-//                    }
-//                    if (insertInfoCancelamento != null) {
-//                        try {
-//                           insertInfoCancelamento.close();
-//                        } catch (SQLException ex) {
-//                           System.out.println("Não foi possível fechar conexão com o banco.");
-//                        }                        
-//                    }
-//                    
-//                    try {
-//                        conn.close();
-//                    } catch (SQLException ex) {
-//                        
-//                    }
-//                }
-//            }
-//        }
+        public static int atualizarEstado(japedidos.pedidos.Pedido p, japedidos.pedidos.EstadoPedido e) {
+            int r = 0;
+            Connection conn = null;
+            PreparedStatement insertEstado = null;
+            PreparedStatement insertInfoCancelamento = null;
+            PreparedStatement insertDataVencimento = null;
+            PreparedStatement insertDataPago = null;
+            
+            if (p != null && e != null && !p.isNew()) {
+                try {
+                    conn = BD.getConnection();
+                    conn.setAutoCommit(false);
+                    
+                    int id_pedido = p.getId();
+                    int id_estado = e.ESTADO.ID;
+                    japedidos.usuario.Usuario autor = e.AUTOR;
+                    
+                    // Inserindo cancelamento
+                    if (e.ESTADO.equals(japedidos.pedidos.Estado.CANCELADO)) {
+                        insertInfoCancelamento = conn.prepareStatement("INSERT INTO est_andamento_pedido (id_pedido, id_est_andamento, id_usuario_autor, dthr_criacao) VALUE (?, ?, ?, CURRENT_TIME())");
+                        insertInfoCancelamento.setInt(1, id_pedido);
+                        insertInfoCancelamento.setInt(2, japedidos.pedidos.Estado.PAGO.ID);
+                        insertInfoCancelamento.setInt(3, autor.getId());
+                        r += insertInfoCancelamento.executeUpdate();
+                        
+                        // Adiciona info de cancelamento, houver
+                        insertInfoCancelamento = conn.prepareStatement("INSERT INTO info_cancelamento (id_pedido, justificativa) VALUE (?, ?)");
+                        insertInfoCancelamento.setInt(1, id_pedido);
+                        insertInfoCancelamento.setString(2, e.getInfoCancelamento());
+                        r += insertInfoCancelamento.executeUpdate();
+                        
+                    } else {
+                        // Inserindo data de vencimento de pagamento
+                        if (e.getDataVencimentoPagamento() != null) {
+                            insertDataVencimento = conn.prepareStatement("INSERT INTO est_andamento_pedido (id_pedido, id_est_andamento, id_usuario_autor, dthr_criacao) VALUE (?, ?, ?, CURRENT_TIME())");
+                            insertDataVencimento.setInt(1, id_pedido);
+                            insertDataVencimento.setInt(2, japedidos.pedidos.Estado.AGUARDANDO_PAGAMENTO.ID);
+                            insertDataVencimento.setInt(3, autor.getId());
+                            r += insertDataVencimento.executeUpdate();
+
+                            // Atualizando pedido
+                            insertDataVencimento = conn.prepareStatement("UPDATE pedido SET dt_venc_pagamento = ? WHERE id = ?");
+                            insertDataVencimento.setDate(1, Date.valueOf(e.getDataVencimentoPagamento()));
+                            insertDataVencimento.setInt(2, id_pedido);
+                            r += insertDataVencimento.executeUpdate();
+                        }
+
+                        // Inserindo data de pagamento
+                        if (e.getDataPago() != null) {
+                            insertDataPago = conn.prepareStatement("INSERT INTO est_andamento_pedido (id_pedido, id_est_andamento, id_usuario_autor, dthr_criacao) VALUE (?, ?, ?, CURRENT_TIME())");
+                            insertDataPago.setInt(1, id_pedido);
+                            insertDataPago.setInt(2, japedidos.pedidos.Estado.PAGO.ID);
+                            insertDataPago.setInt(3, autor.getId());
+                            r += insertDataPago.executeUpdate();
+
+                            // Atualizando pedido
+                            insertDataPago = conn.prepareStatement("UPDATE pedido SET dt_pago = ? WHERE id = ?");
+                            insertDataPago.setDate(1, Date.valueOf(e.getDataPago()));
+                            insertDataPago.setInt(2, id_pedido);
+                            r += insertDataPago.executeUpdate();
+                        }
+
+                        // Inserindo novo estado genérico
+                        if (!e.ESTADO.equals(japedidos.pedidos.Estado.AGUARDANDO_PAGAMENTO) && !e.ESTADO.equals(japedidos.pedidos.Estado.PAGO)) {
+                            insertEstado = conn.prepareStatement("INSERT INTO est_andamento_pedido (id_pedido, id_est_andamento, id_usuario_autor, dthr_criacao) VALUE (?, ?, ?, CURRENT_TIME())");
+                            insertEstado.setInt(1, id_pedido);
+                            insertEstado.setInt(2, id_estado);
+                            insertEstado.setInt(3, autor.getId());
+                            r += insertEstado.executeUpdate();
+                        }
+                    }
+                    conn.commit();
+                } catch (SQLException ex) {
+                    if (conn != null) {
+                        try {
+                            conn.rollback();
+                        } catch (SQLException ex2) {
+                            
+                        }
+                    }
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de atualização de estado", JOptionPane.ERROR_MESSAGE);
+                    r = -1;
+                }
+                
+                if (conn != null) {
+                    try {
+                        conn.setAutoCommit(true);
+                    } catch (SQLException ex) {
+                       System.out.println("Não foi possível definir autoCommit como true");
+                    }
+                    if (insertEstado != null) {
+                        try {
+                           insertEstado.close();
+                        } catch (SQLException ex) {
+                           System.out.println("Não foi possível fechar conexão com o banco.");
+                        }
+                    }
+                    if (insertInfoCancelamento != null) {
+                        try {
+                           insertInfoCancelamento.close();
+                        } catch (SQLException ex) {
+                           System.out.println("Não foi possível fechar conexão com o banco.");
+                        }                        
+                    }
+                    if (insertDataVencimento != null) {
+                        try {
+                           insertDataVencimento.close();
+                        } catch (SQLException ex) {
+                           System.out.println("Não foi possível fechar conexão com o banco.");
+                        }                        
+                    }
+                    if (insertDataPago != null) {
+                        try {
+                           insertDataPago.close();
+                        } catch (SQLException ex) {
+                           System.out.println("Não foi possível fechar conexão com o banco.");
+                        }                        
+                    }
+                    try {
+                        conn.close();
+                    } catch (SQLException ex) {
+                        
+                    }
+                }
+            }
+            return r;
+        }
         
         /** Recebe um resultSet contendo informações de um pedido obtido por meio
          * da view vw_pedido. Recebe as informações básicas do pedido, do cliente
