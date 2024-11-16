@@ -40,7 +40,7 @@ public class Estado {
     public static Estado[] getAll() {
         Estado[] estados = new Estado[QUANTIDADE];
         for (int i=1; i <= QUANTIDADE; i++) {
-            estados[i] = getEstado(i);
+            estados[i-1] = getEstado(i);
         }
         return estados;
     }

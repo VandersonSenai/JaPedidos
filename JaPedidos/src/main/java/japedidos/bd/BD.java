@@ -33,9 +33,9 @@ public final class BD {
 //    public static final String USER = "titanw25_japedidos_hml";
 //    public static final String USER_PWD = "seNai@2024proj";
     
-    public static final String IP = "localhost";
+    public static final String IP = "10.0.0.109";
     public static final String USER = "root";
-    public static final String USER_PWD = "";
+    public static final String USER_PWD = "tmb";
     
 //    public static void main(String[] args) {
 //        japedidos.pedidos.Pedido[] ped = BD.Pedido.selectByEstado(japedidos.pedidos.Estado.ABERTO);
@@ -318,7 +318,7 @@ public final class BD {
             return r;
         }
     
-        public static japedidos.pedidos.Pedido[] selectByEstado(Estado e) {
+        public static japedidos.pedidos.Pedido[] selectByEstado(japedidos.pedidos.Estado e) {
             japedidos.pedidos.Pedido[] p = null;
             if (e != null && e.ID != -1) {
                 Connection conn = null;
@@ -351,6 +351,68 @@ public final class BD {
             return p;
         }
     
+//        public static int atualizarEstado(japedidos.pedidos.Pedido p, japedidos.pedidos.EstadoPedido e, LocalDate dataVencimentoPagamento, String infoCancelamento) {
+//            int r = 0;
+//            Connection conn = null;
+//            PreparedStatement insertEstado = null;
+//            PreparedStatement insertInfoCancelamento = null;
+//            PreparedStatement insertDataVencimento = null;
+//            if (p != null && e != null && !p.isNew()) {
+//                try {
+//                    conn = BD.getConnection();
+//                    conn.setAutoCommit(false);
+//                    
+//                    int id_pedido = p.getId();
+//                    int id_estado = e.ESTADO.ID;
+//                    japedidos.usuario.Usuario autor = e.AUTOR;
+//                    LocalDateTime dthr = e.CRIACAO;
+//                    // Inserindo novo estado
+//                    insertEstado = conn.prepareStatement("INSERT INTO est_andamento_pedido (id_pedido, id_est_andamento, id_usuario_autor, dthr_criacao) VALUE (?, ?, ?, ?)");
+//                    
+//                    conn.commit();
+//                } catch (SQLException ex) {
+//                    if (conn != null) {
+//                        try {
+//                            conn.rollback();
+//                        } catch (SQLException ex2) {
+//                            
+//                        }
+//                    }
+//                   
+//                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de atualização de estado", JOptionPane.ERROR_MESSAGE);
+//                    r = -1;
+//                }
+//                
+//                if (conn != null) {
+//                    try {
+//                        conn.setAutoCommit(true);
+//                    } catch (SQLException ex) {
+//                       System.out.println("Não foi possível definir autoCommit como true");
+//                    }
+//                    if (insertEstado != null) {
+//                        try {
+//                           insertEstado.close();
+//                        } catch (SQLException ex) {
+//                           System.out.println("Não foi possível fechar conexão com o banco.");
+//                        }
+//                    }
+//                    if (insertInfoCancelamento != null) {
+//                        try {
+//                           insertInfoCancelamento.close();
+//                        } catch (SQLException ex) {
+//                           System.out.println("Não foi possível fechar conexão com o banco.");
+//                        }                        
+//                    }
+//                    
+//                    try {
+//                        conn.close();
+//                    } catch (SQLException ex) {
+//                        
+//                    }
+//                }
+//            }
+//        }
+        
         /** Recebe um resultSet contendo informações de um pedido obtido por meio
          * da view vw_pedido. Recebe as informações básicas do pedido, do cliente
          * e dos produtos contidos e gera um array de Pedido. Não traz todos os estados dos pedidos, mas apenas o atual.

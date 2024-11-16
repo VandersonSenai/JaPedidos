@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import com.github.lgooddatepicker.components.*;
+import japedidos.usuario.Usuario;
+import javax.swing.JFrame;
 
 /**
  *
@@ -351,6 +353,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             }
         });
         jTable_Pedido_Resumido1 = new japedidos.pedidos.JTable_Pedido_Resumido();
+        jButton3 = new javax.swing.JButton();
         jpnl_incluirPedido = new javax.swing.JPanel();
         jTable_ProdutoPedido = new japedidos.produto.JTable_ProdutoPedido();
         jscp_destinatario = new javax.swing.JScrollPane();
@@ -490,13 +493,21 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
 
         jButton1.setText("Alterar pedido");
         jButton1.setFont(new java.awt.Font("Noto Sans", 0, 13)); // NOI18N
-        jpnl_pedidosAberto.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 480, 140, 30));
+        jpnl_pedidosAberto.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 480, 140, 30));
 
         jButton2.setText("Relatar intercorrência");
         jpnl_pedidosAberto.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 480, -1, 30));
 
         jpnl_pedidosAberto.add(jcmb_filtro_pedidos_aberto, new org.netbeans.lib.awtextra.AbsoluteConstraints(536, 20, 180, 40));
         jpnl_pedidosAberto.add(jTable_Pedido_Resumido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 720, 410));
+
+        jButton3.setText("Alterar estado");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jpnl_pedidosAberto.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 480, 120, -1));
 
         jTabbedPane1.addTab("Pedidos em aberto", jpnl_pedidosAberto);
 
@@ -794,10 +805,10 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_erro_dataEntrega.setText("Info inválida!");
         jpnl_incluirPedido.add(jlbl_erro_dataEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 80, 20));
 
-        jlbl_erro_produto.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jlbl_erro_produto.setForeground(new java.awt.Color(255, 0, 0));
         jlbl_erro_produto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_produto.setText("Info inválida!");
+        jlbl_erro_produto.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jlbl_erro_produto.setForeground(new java.awt.Color(255, 0, 0));
         jpnl_incluirPedido.add(jlbl_erro_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 276, 240, 20));
 
         jlbl_erro_quantidadeProduto.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -1093,6 +1104,18 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         preencherHistoricoPedidos();
     }//GEN-LAST:event_jpnl_pedidosAbertoComponentShown
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int rSel = jTable_Pedido_Resumido1.getTable().getSelectedRow();
+        if (rSel != -1) {
+            Pedido pSelecionado = jTable_Pedido_Resumido1.getModel().getRow(rSel);
+            JFrame frame = new JFrame("Atualizar estado do pedido");
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.add(new JPanel_AtualizarEstado(pSelecionado, pSelecionado.getEstadoAtualPedido().ESTADO, Usuario.getAtual()));
+            frame.pack();
+            frame.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1141,6 +1164,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private com.github.lgooddatepicker.components.DatePicker datePicker1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;

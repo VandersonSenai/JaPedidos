@@ -295,6 +295,10 @@ public final class Pedido {
         return this.dtVencimentoPagamento;
     }
     
+    public LocalDate getDataPago() {
+        return this.dtPago;
+    }
+    
     public double getPrecoFinal() {
         return this.precoFinal;
     }
