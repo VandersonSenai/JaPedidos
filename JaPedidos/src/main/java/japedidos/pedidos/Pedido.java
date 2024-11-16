@@ -246,6 +246,10 @@ public final class Pedido {
         return somaPrecoVenda - (somaPrecoVenda * taxaDesconto) + valorFrete;
     }
     
+    public String getInfoCancelamento() {
+        return this.infoCancelamento;
+    }
+    
     public void setInfoCancelamento(String infoCancelamento) {
         if (infoCancelamento == null) {
 //            throw new IllegalInfoCancelamentoException("Informação de cancelamento é nula.");

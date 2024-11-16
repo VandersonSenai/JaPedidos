@@ -13,6 +13,7 @@ import japedidos.usuario.Usuario;
 import java.awt.event.ItemEvent;
 import javax.swing.JFrame;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -76,19 +77,19 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
         dateSettings.setVisiblePreviousYearButton(false);
         dateSettings.setVisibleNextYearButton(false);
         dateSettings.setVisibleTodayButton(true);
-        datePicker1 = new com.github.lgooddatepicker.components.DatePicker(dateSettings);
+        dtp_vencimento_pagamento = new com.github.lgooddatepicker.components.DatePicker(dateSettings);
         jchb_data_vencimento = new javax.swing.JCheckBox();
         jpnl_pago = new javax.swing.JPanel();
         jlbl_data_pago = new javax.swing.JLabel();
         DatePickerSettings dateSettings2 = new DatePickerSettings();
         //dateSettings2.setFormatForDatesCommonEra("d MMM yyyy");
         //dateSettings2.setFormatForDatesBeforeCommonEra("d MMM uuuu");
-        dateSettings2.setAllowEmptyDates(false);
+
         dateSettings2.setEnableYearMenu(false);
         dateSettings2.setVisiblePreviousYearButton(false);
         dateSettings2.setVisibleNextYearButton(false);
         dateSettings2.setVisibleTodayButton(true);
-        datePicker2 = new com.github.lgooddatepicker.components.DatePicker(dateSettings2);
+        dtp_pago = new com.github.lgooddatepicker.components.DatePicker(dateSettings2);
         jchb_foi_pago = new javax.swing.JCheckBox();
         jpnl_cancelamento = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -173,9 +174,9 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
         jpnl_pagamentoPendente.add(jlbl_data_vencimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 140, -1));
 
         //datePicker1.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));
-        datePicker1.setDate(LocalDate.now().plusWeeks(1));
+        dtp_vencimento_pagamento.setDate(LocalDate.now().plusWeeks(1));
         dateSettings.setDateRangeLimits(LocalDate.now().plusDays(1), LocalDate.now().plusYears(1));
-        javax.swing.JButton datePickerButton = datePicker1.getComponentToggleCalendarButton();
+        javax.swing.JButton datePickerButton = dtp_vencimento_pagamento.getComponentToggleCalendarButton();
         datePickerButton.setPreferredSize(new java.awt.Dimension(22, 22));
         datePickerButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         datePickerButton.setBorder(null);
@@ -189,7 +190,7 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
         datePickerButton.setContentAreaFilled(false);
         datePickerButton.setBorderPainted(false);
         datePickerButton.setFocusPainted(false);
-        jpnl_pagamentoPendente.add(datePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, -1, -1));
+        jpnl_pagamentoPendente.add(dtp_vencimento_pagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, -1, -1));
 
         jchb_data_vencimento.setText("Definir data de vencimento");
         jchb_data_vencimento.addItemListener(new java.awt.event.ItemListener() {
@@ -218,9 +219,12 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
         jpnl_pago.add(jlbl_data_pago, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 140, -1));
 
         //datePicker2.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));
-        datePicker2.setDate(LocalDate.now());
+        if (pedidoFoiPago) {
+            dtp_pago.setDate(pedido.getDataPago());
+        }
+
         dateSettings2.setDateRangeLimits(LocalDate.now().minusMonths(3), LocalDate.now());
-        javax.swing.JButton datePickerButton2 = datePicker2.getComponentToggleCalendarButton();
+        javax.swing.JButton datePickerButton2 = dtp_pago.getComponentToggleCalendarButton();
         datePickerButton2.setPreferredSize(new java.awt.Dimension(22, 22));
         datePickerButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));
         datePickerButton2.setBorder(null);
@@ -232,7 +236,7 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
         datePickerButton2.setContentAreaFilled(false);
         datePickerButton2.setBorderPainted(false);
         datePickerButton2.setFocusPainted(false);
-        jpnl_pago.add(datePicker2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, -1, -1));
+        jpnl_pago.add(dtp_pago, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, -1, -1));
 
         jchb_foi_pago.setText("Foi pago");
         jchb_foi_pago.addItemListener(new java.awt.event.ItemListener() {
@@ -328,11 +332,29 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_cancelarActionPerformed
-        // TODO add your handling code here:
+        ((java.awt.Window)this.getTopLevelAncestor()).dispose();
     }//GEN-LAST:event_jbtn_cancelarActionPerformed
 
     private void jbtn_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_alterarActionPerformed
-        // TODO add your handling code here:
+        Estado novoEstado = (Estado)jcmb_novo_estado.getSelectedItem();
+        EstadoPedido novoEstadoPedido = new EstadoPedido(novoEstado, alterador, LocalDateTime.now());
+        
+        if (novoEstado.equals(Estado.CANCELADO)) {
+            String info = jtxta_justificativa.getText().trim();
+            if (!info.isEmpty()) {
+                novoEstadoPedido.setInfoCancelamento(info);
+            }
+        } else if (novoEstado.equals(Estado.AGUARDANDO_PAGAMENTO)) {
+            if (jchb_data_vencimento.isSelected()) {
+                novoEstadoPedido.setDataVencimentoPagamento(dtp_vencimento_pagamento.getDate());
+            }
+        } else if (!pedidoFoiPago) { // Qualquer outro estado e o pedido não foi pago
+            if (jchb_foi_pago.isSelected()) {
+                novoEstadoPedido.setDataPago(dtp_pago.getDate());
+            } else if (novoEstado.equals(Estado.CONCLUIDO)) {
+                novoEstadoPedido.setDataPago(LocalDate.now()); // Pega data atual se 
+            }
+        }
     }//GEN-LAST:event_jbtn_alterarActionPerformed
 
     private void jtbp_info_estadoComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jtbp_info_estadoComponentShown
@@ -356,7 +378,8 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
     private void jchb_data_vencimentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jchb_data_vencimentoItemStateChanged
         boolean ativarData = jpnl_pagamentoPendente.isEnabled() && jchb_data_vencimento.isSelected();
         jlbl_data_vencimento.setEnabled(ativarData);
-        datePicker1.setEnabled(ativarData);
+        dtp_vencimento_pagamento.setEnabled(ativarData);
+        
     }//GEN-LAST:event_jchb_data_vencimentoItemStateChanged
 
     private void jchb_foi_pagoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jchb_foi_pagoItemStateChanged
@@ -364,7 +387,14 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
         // Pago
         boolean ativarDataPago = jpnl_pago.isEnabled() && jchb_foi_pago.isSelected();
         jlbl_data_pago.setEnabled(ativarDataPago);
-        datePicker2.setEnabled(ativarDataPago);
+        dtp_pago.setEnabled(ativarDataPago);
+        if (ativarDataPago) {
+            dtp_pago.getSettings().setAllowEmptyDates(false);
+            dtp_pago.setDate(LocalDate.now());
+        } else {
+            dtp_pago.getSettings().setAllowEmptyDates(true);
+            dtp_pago.setDate(pedido.getDataPago());
+        }
     }//GEN-LAST:event_jchb_foi_pagoItemStateChanged
 
     private void jpnl_pagoComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jpnl_pagoComponentShown
@@ -372,6 +402,7 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
     }//GEN-LAST:event_jpnl_pagoComponentShown
 
     private void gerenciarCampos() {
+        dtp_pago.getSettings().setAllowEmptyDates(true);
         Estado selecionado = (Estado)jcmb_novo_estado.getSelectedItem();
         jchb_data_vencimento.setEnabled(false);
         jchb_data_vencimento.setSelected(false);
@@ -379,29 +410,53 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
         jpnl_cancelamento.setEnabled(false);
         jpnl_pagamentoPendente.setEnabled(false);
         jtxta_justificativa.setText(null);
-        jchb_foi_pago.setEnabled(false);
+        jchb_foi_pago.setEnabled(!pedidoFoiPago);
+        dtp_pago.setDate(pedido.getDataPago());
         
         if (selecionado.equals(Estado.AGUARDANDO_PAGAMENTO)) {
             jpnl_pagamentoPendente.setEnabled(true);
             jchb_data_vencimento.setEnabled(true);
             jtbp_info_estado.setSelectedIndex(0);
-        } else if (selecionado.equals(Estado.CANCELADO)) {
-            jpnl_cancelamento.setEnabled(true);
-            jtbp_info_estado.setSelectedIndex(2);
-        } else if (!selecionado.equals(Estado.ABERTO)) {
+            jchb_foi_pago.setEnabled(false);
+        } else {
             jpnl_pago.setEnabled(!pedidoFoiPago);
-            jchb_foi_pago.setEnabled(!pedidoFoiPago);
-            jtbp_info_estado.setSelectedIndex(1);
+            if (selecionado.equals(Estado.CANCELADO)) {
+                jpnl_cancelamento.setEnabled(true);
+                jtbp_info_estado.setSelectedIndex(2);
+            } else if (selecionado.equals(Estado.PAGO)) {
+                dtp_pago.getSettings().setAllowEmptyDates(false);
+                jchb_foi_pago.setEnabled(false);
+                jchb_foi_pago.setSelected(true);
+                
+            } else if (!selecionado.equals(Estado.ABERTO)) {
+                if (!pedidoFoiPago && selecionado.equals(Estado.CONCLUIDO)) { // Qualquer outro estado e o pedido não foi pago
+                    dtp_pago.getSettings().setAllowEmptyDates(false);
+                    jchb_foi_pago.setEnabled(false);
+                    jchb_foi_pago.setSelected(true);
+                    dtp_pago.setDate(LocalDate.now());
+                } else {
+                    jpnl_pago.setEnabled(true);
+                }
+
+
+                jtbp_info_estado.setSelectedIndex(1);
+            }
         }
-        jchb_foi_pago.setSelected(pedidoFoiPago);
+        if (!selecionado.equals(Estado.CONCLUIDO) && !selecionado.equals(Estado.PAGO)) {
+            jchb_foi_pago.setSelected(pedidoFoiPago);
+        }
         
         boolean ativarDataPago = jpnl_pago.isEnabled() && jchb_foi_pago.isSelected();
         jlbl_data_pago.setEnabled(ativarDataPago);
-        datePicker2.setEnabled(ativarDataPago);
+        dtp_pago.setEnabled(ativarDataPago);
+        if (ativarDataPago) {
+            dtp_pago.getSettings().setAllowEmptyDates(false);
+            dtp_pago.setDate(LocalDate.now());
+        }
         
         boolean ativarData = jpnl_pagamentoPendente.isEnabled() && jchb_data_vencimento.isSelected();
         jlbl_data_vencimento.setEnabled(ativarData);
-        datePicker1.setEnabled(ativarData);
+        dtp_vencimento_pagamento.setEnabled(ativarData);
         
         // Cancelamento
         jlbl_justificativa.setEnabled(jpnl_cancelamento.isEnabled());
@@ -409,8 +464,8 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.github.lgooddatepicker.components.DatePicker datePicker1;
-    private com.github.lgooddatepicker.components.DatePicker datePicker2;
+    private com.github.lgooddatepicker.components.DatePicker dtp_pago;
+    private com.github.lgooddatepicker.components.DatePicker dtp_vencimento_pagamento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;

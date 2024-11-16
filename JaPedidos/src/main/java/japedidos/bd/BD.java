@@ -351,7 +351,7 @@ public final class BD {
             return p;
         }
     
-//        public static int atualizarEstado(japedidos.pedidos.Pedido p, japedidos.pedidos.EstadoPedido e, LocalDate dataVencimentoPagamento, String infoCancelamento) {
+//        public static int atualizarEstado(japedidos.pedidos.Pedido p, japedidos.pedidos.EstadoPedido e) {
 //            int r = 0;
 //            Connection conn = null;
 //            PreparedStatement insertEstado = null;
@@ -365,9 +365,8 @@ public final class BD {
 //                    int id_pedido = p.getId();
 //                    int id_estado = e.ESTADO.ID;
 //                    japedidos.usuario.Usuario autor = e.AUTOR;
-//                    LocalDateTime dthr = e.CRIACAO;
 //                    // Inserindo novo estado
-//                    insertEstado = conn.prepareStatement("INSERT INTO est_andamento_pedido (id_pedido, id_est_andamento, id_usuario_autor, dthr_criacao) VALUE (?, ?, ?, ?)");
+//                    insertEstado = conn.prepareStatement("INSERT INTO est_andamento_pedido (id_pedido, id_est_andamento, id_usuario_autor, dthr_criacao) VALUE (?, ?, ?, CURRENT_TIME())");
 //                    
 //                    conn.commit();
 //                } catch (SQLException ex) {
