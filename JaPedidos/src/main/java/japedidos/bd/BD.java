@@ -370,7 +370,7 @@ public final class BD {
                     
                     // Inserindo cancelamento
                     if (e.ESTADO.equals(japedidos.pedidos.Estado.CANCELADO)) {
-                        insertInfoCancelamento = conn.prepareStatement("INSERT INTO est_andamento_pedido (id_pedido, id_est_andamento, id_usuario_autor, dthr_criacao) VALUE (?, ?, ?, CURRENT_TIME())");
+                        insertInfoCancelamento = conn.prepareStatement("INSERT INTO est_andamento_pedido (id_pedido, id_est_andamento, id_usuario_autor, dthr_criacao) VALUE (?, ?, ?, CURRENT_TIME(3))");
                         insertInfoCancelamento.setInt(1, id_pedido);
                         insertInfoCancelamento.setInt(2, japedidos.pedidos.Estado.CANCELADO.ID);
                         insertInfoCancelamento.setInt(3, autor.getId());
@@ -385,7 +385,7 @@ public final class BD {
                     } else {
                         // Inserindo data de vencimento de pagamento
                         if (e.getDataVencimentoPagamento() != null) {
-                            insertDataVencimento = conn.prepareStatement("INSERT INTO est_andamento_pedido (id_pedido, id_est_andamento, id_usuario_autor, dthr_criacao) VALUE (?, ?, ?, CURRENT_TIME())");
+                            insertDataVencimento = conn.prepareStatement("INSERT INTO est_andamento_pedido (id_pedido, id_est_andamento, id_usuario_autor, dthr_criacao) VALUE (?, ?, ?, CURRENT_TIME(3))");
                             insertDataVencimento.setInt(1, id_pedido);
                             insertDataVencimento.setInt(2, japedidos.pedidos.Estado.AGUARDANDO_PAGAMENTO.ID);
                             insertDataVencimento.setInt(3, autor.getId());
@@ -400,7 +400,7 @@ public final class BD {
 
                         // Inserindo data de pagamento
                         if (e.getDataPago() != null) {
-                            insertDataPago = conn.prepareStatement("INSERT INTO est_andamento_pedido (id_pedido, id_est_andamento, id_usuario_autor, dthr_criacao) VALUE (?, ?, ?, CURRENT_TIME())");
+                            insertDataPago = conn.prepareStatement("INSERT INTO est_andamento_pedido (id_pedido, id_est_andamento, id_usuario_autor, dthr_criacao) VALUE (?, ?, ?, CURRENT_TIME(3))");
                             insertDataPago.setInt(1, id_pedido);
                             insertDataPago.setInt(2, japedidos.pedidos.Estado.PAGO.ID);
                             insertDataPago.setInt(3, autor.getId());
@@ -415,7 +415,7 @@ public final class BD {
 
                         // Inserindo novo estado genérico
                         if (!e.ESTADO.equals(japedidos.pedidos.Estado.AGUARDANDO_PAGAMENTO) && !e.ESTADO.equals(japedidos.pedidos.Estado.PAGO)) {
-                            insertEstado = conn.prepareStatement("INSERT INTO est_andamento_pedido (id_pedido, id_est_andamento, id_usuario_autor, dthr_criacao) VALUE (?, ?, ?, CURRENT_TIME())");
+                            insertEstado = conn.prepareStatement("INSERT INTO est_andamento_pedido (id_pedido, id_est_andamento, id_usuario_autor, dthr_criacao) VALUE (?, ?, ?, CURRENT_TIME(3))");
                             insertEstado.setInt(1, id_pedido);
                             insertEstado.setInt(2, id_estado);
                             insertEstado.setInt(3, autor.getId());
