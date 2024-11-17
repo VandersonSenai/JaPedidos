@@ -58,7 +58,9 @@ public class JTable_Pedido_Resumido extends JPanel {
     }
     
     public void preencher(japedidos.pedidos.Estado estado) {
+        this.setEnabled(false);
         this.getModel().fillRows(japedidos.bd.BD.Pedido.selectByEstado(estado));
+        this.setEnabled(true);
     }
     
     public static void test() {

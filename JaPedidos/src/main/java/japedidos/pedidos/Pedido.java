@@ -267,6 +267,14 @@ public final class Pedido {
         }
     }
     
+    public void setCustoTotal(double custo) {
+        this.precoCustoTotal = custo;
+    }
+    
+    public void setPrecoFinal(double preco) {
+        this.precoFinal = preco;
+    }
+    
     public int getId() {
         return this.id;
     }

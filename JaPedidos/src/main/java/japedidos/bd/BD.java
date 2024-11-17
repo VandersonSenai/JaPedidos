@@ -26,16 +26,16 @@ import java.util.ArrayList;
 
 public final class BD {
     public static final String SGBD = "mysql";
-//    public static final String IP = "162.241.203.86";
+    public static final String IP = "162.241.203.86";
     public static final String PORT = "3306";
-    public static final String NAME = "japedidos";
-//    public static final String NAME = "titanw25_japedidos_hml";
-//    public static final String USER = "titanw25_japedidos_hml";
-//    public static final String USER_PWD = "seNai@2024proj";
+    public static final String NAME = "titanw25_japedidos_hml";
+    public static final String USER = "titanw25_japedidos_hml";
+    public static final String USER_PWD = "seNai@2024proj";
     
-    public static final String IP = "10.0.0.109";
-    public static final String USER = "root";
-    public static final String USER_PWD = "tmb";
+//    public static final String IP = "10.0.0.109";
+//    public static final String NAME = "japedidos";
+//    public static final String USER = "root";
+//    public static final String USER_PWD = "tmb";
     
 //    public static void main(String[] args) {
 //        japedidos.pedidos.Pedido[] ped = BD.Pedido.selectByEstado(japedidos.pedidos.Estado.ABERTO);
@@ -485,6 +485,11 @@ public final class BD {
          * 
          */
         public static japedidos.pedidos.Pedido[] parseView_pedido(ResultSet rs) {
+            return parseView_pedido(rs, false, false);
+        }
+        
+        
+        public static japedidos.pedidos.Pedido[] parseView_pedido(ResultSet rs, boolean getProdutos, boolean getEstados) {
             ArrayList<japedidos.pedidos.Pedido> pList = new ArrayList<>();
             japedidos.pedidos.Pedido[] pedidos = null;
             try {
@@ -538,7 +543,12 @@ public final class BD {
                     infoEntrega.setDestinatario(destinatario);
                     
                     // Produtos
-                    japedidos.produto.ProdutoPedido[] produtosPedido = BD.ProdutoPedido.selectAllBy_id_pedido(id_pedido);
+                    japedidos.produto.ProdutoPedido[] produtosPedido;
+                    if (getProdutos) {
+                        produtosPedido = BD.ProdutoPedido.selectAllBy_id_pedido(id_pedido);
+                    } else {
+                        produtosPedido = new japedidos.produto.ProdutoPedido[1];
+                    }
                     
                     // Desconto
                     int taxaDesconto = rs.getInt("tx_desconto");
@@ -546,6 +556,8 @@ public final class BD {
                     japedidos.pedidos.Pedido p = null;
                     try {
                         p = new japedidos.pedidos.Pedido(id_pedido, cliente, infoEntrega, produtosPedido, taxaDesconto); // Throw illegalArgumentsException se argumentos forem inválidos
+                        p.setPrecoFinal(rs.getDouble("preco_final"));
+                        p.setCustoTotal(rs.getDouble("preco_custo_total"));
                     } catch (IllegalArgumentsException exs) {
                         System.out.println(String.format("ERRO AO RECEBER PEDIDO ID %d: %s", id_pedido, exs.getMessage()));
                         continue;
@@ -585,12 +597,18 @@ public final class BD {
                     }
                     
                     // Estados
-                    japedidos.pedidos.Estado estado = Estado.getEstado(rs.getInt("id_ultimo_est"));
-                    japedidos.usuario.Usuario usrEstado = new japedidos.usuario.Usuario(rs.getInt("id_usuario_autor_ultimo_est"), rs.getString("nome_usuario_autor_ultimo_est"));
-                    LocalDateTime dthr_criacao_ultimo_est = rs.getTimestamp("dthr_criacao_ultimo_est").toLocalDateTime();
+                    if (getEstados) {
+                        japedidos.pedidos.EstadoPedido[] estados = BD.EstadoPedido.selectAllByPedido(p);
+                        p.setEstadosPedido(estados);
+                    } else { // Pega só o atual
+                        japedidos.pedidos.Estado estado = Estado.getEstado(rs.getInt("id_ultimo_est"));
+                        japedidos.usuario.Usuario usrEstado = new japedidos.usuario.Usuario(rs.getInt("id_usuario_autor_ultimo_est"), rs.getString("nome_usuario_autor_ultimo_est"));
+                        LocalDateTime dthr_criacao_ultimo_est = rs.getTimestamp("dthr_criacao_ultimo_est").toLocalDateTime();
+
+                        japedidos.pedidos.EstadoPedido estadoAtual = new japedidos.pedidos.EstadoPedido(estado, usrEstado, dthr_criacao_ultimo_est);
+                        p.setEstadoAtual(estadoAtual);
+                    }
                     
-                    japedidos.pedidos.EstadoPedido estadoAtual = new japedidos.pedidos.EstadoPedido(estado, usrEstado, dthr_criacao_ultimo_est);
-                    p.setEstadoAtual(estadoAtual);
                     
                     // Informação de cancelamento
                     String infoCancelamento = rs.getString("info_cancelamento");
@@ -934,6 +952,8 @@ public final class BD {
     
     static public class Produto {
         public static final String TABLE = "produto";
+        public static final String VIEW = "vw_produto";
+        
         
         public static int insert(japedidos.produto.Produto p) {
             if (p != null) {
@@ -1041,10 +1061,10 @@ public final class BD {
             try {
                 Connection conn = BD.getConnection();
                 PreparedStatement select = conn.prepareStatement(
-                    String.format("SELECT id, id_categoria, id_unidade, nome, preco_venda, preco_custo, id_usuario_alt, dthr_alt, estado FROM %s ORDER BY id DESC LIMIT 1", TABLE));
+                    String.format("SELECT * FROM %s ORDER BY id DESC LIMIT 1", VIEW));
                 ResultSet rs = select.executeQuery();
                 
-                japedidos.produto.Produto[] produto = parse(rs);
+                japedidos.produto.Produto[] produto = parseView(rs);
                 
                 if (produto == null) {
                     return null;
@@ -1061,10 +1081,10 @@ public final class BD {
         public static japedidos.produto.Produto[] selectAll() {
             try {
                 Connection conn = BD.getConnection();
-                PreparedStatement select = conn.prepareStatement(String.format("SELECT id, id_categoria, id_unidade, nome, preco_venda, preco_custo, id_usuario_alt, dthr_alt, estado FROM %s ORDER BY nome ASC", TABLE));
+                PreparedStatement select = conn.prepareStatement(String.format("SELECT * FROM %s ORDER BY nome_produto ASC", VIEW));
                 ResultSet rs = select.executeQuery();
                 
-                japedidos.produto.Produto[] produtos = parse(rs);
+                japedidos.produto.Produto[] produtos = parseView(rs);
                 
                 select.close();
                 conn.close();
@@ -1082,12 +1102,12 @@ public final class BD {
                 try {
                     Connection conn = BD.getConnection();
                     PreparedStatement select = conn.prepareStatement(
-                        String.format("SELECT id, id_categoria, id_unidade, nome, preco_venda, preco_custo, id_usuario_alt, dthr_alt, estado FROM %s WHERE id = ?", TABLE));
+                        String.format("SELECT * FROM %s WHERE id = ?", VIEW));
                     select.setInt(1, id);
                     
                     ResultSet rs = select.executeQuery();
 
-                    japedidos.produto.Produto[] produto = parse(rs);
+                    japedidos.produto.Produto[] produto = parseView(rs);
 
                     if (produto == null) {
                         return null;
@@ -1160,6 +1180,82 @@ public final class BD {
             
             return null;
         }
+    
+        public static japedidos.produto.Produto[] parseView(ResultSet rs) {
+            ArrayList<japedidos.produto.Produto> pList = new ArrayList<japedidos.produto.Produto>();
+            japedidos.usuario.Usuario usrAtual = japedidos.usuario.Usuario.getAtual();
+            int id_usuario_atual = usrAtual.getId();
+            try {
+                while (rs.next()) {
+                    int id_produto, id_categoria, id_unidade, id_usuario_alt;
+                    String nome_produto;
+                    double preco_venda, preco_custo;
+                    boolean estado;
+                    LocalDateTime dthr_alt = null;
+                    
+                    id_produto = rs.getInt("id");
+                    
+                    nome_produto = rs.getString("nome_produto");
+                    preco_venda = rs.getDouble("preco_venda");
+                    preco_custo = rs.getDouble("preco_custo");
+                    id_usuario_alt = rs.getInt("id_usuario_alt");
+                    
+                    Timestamp ts = rs.getTimestamp("dthr_alt");
+                    if (ts != null) {
+                        dthr_alt = ts.toLocalDateTime();
+                    }
+                    
+                    estado = rs.getBoolean("estado");
+                    
+                    // Busca de unidade e categoria
+                    id_categoria = rs.getInt("id_categoria");
+                    String nome_categoria = rs.getString("nome_categoria");
+                    String descricao_categoria = rs.getString("descricao_categoria");
+                    japedidos.produto.Categoria categoria = new japedidos.produto.Categoria(id_categoria, nome_categoria, descricao_categoria);
+                    
+                    
+                    id_unidade = rs.getInt("id_unidade");
+                    String nome_unidade = rs.getString("nome_unidade");
+                    String abreviacao_unidade = rs.getString("abreviacao_unidade");
+                    japedidos.produto.Unidade unidade = new japedidos.produto.Unidade(id_unidade, nome_unidade, abreviacao_unidade);
+                    
+                    japedidos.produto.Produto p = new japedidos.produto.Produto(id_produto, nome_produto, categoria, unidade, preco_custo, preco_venda );
+                    p.setAtivo(estado);
+                    
+                    Registro alteracao = null;
+                    if (id_usuario_alt != 0 && dthr_alt != null) {
+                        japedidos.usuario.Usuario usrAlt;
+                        if (id_usuario_alt == id_usuario_atual) {
+                            usrAlt = usrAtual;
+                        } else {
+                            String nome_usuario_alt = rs.getString("nome_usuario_alt");
+                            usrAlt = new japedidos.usuario.Usuario(id_usuario_alt, nome_usuario_alt);
+                        }
+                        alteracao = new Registro(usrAlt, dthr_alt); // TODO: ADICIONAR BUSCA DE USUARIO
+                    }
+                    
+                    if (alteracao != null) {
+                        p.setAlteracao(alteracao);
+                    }
+                    
+                    pList.add(p);
+                }
+                
+                if (!pList.isEmpty()) {
+                    japedidos.produto.Produto[] produtos = new japedidos.produto.Produto[pList.size()];
+                    pList.toArray(produtos);
+                    
+                    return produtos;
+                }
+                
+                return null;
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de parse", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            return null;
+        }
+    
     }
     
     static public class Categoria {

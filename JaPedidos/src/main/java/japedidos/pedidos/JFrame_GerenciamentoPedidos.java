@@ -37,16 +37,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         hideErrorLabels();
         jspn_quantidade.setValue(1);
         
-        // Preencher lista de produtos
-        Produto[] recebidos = BD.Produto.selectAll();
-        if (recebidos != null) {
-            for (Produto p : recebidos) {
-                if (p != null) {
-                    jcmb_produto.addItem(p);
-                }
-            }
-        }
-        
         jspn_valorEntrega.addChangeListener((e) -> {
             atualizarValoresPedido();
         });
@@ -460,6 +450,11 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                 jTabbedPane1MouseClicked(evt);
             }
         });
+        jTabbedPane1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jTabbedPane1ComponentShown(evt);
+            }
+        });
 
         jpnl_pedidosAberto.setOpaque(false);
         jpnl_pedidosAberto.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -513,6 +508,11 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jTabbedPane1.addTab("Pedidos em aberto", jpnl_pedidosAberto);
 
         jpnl_incluirPedido.setOpaque(false);
+        jpnl_incluirPedido.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jpnl_incluirPedidoComponentShown(evt);
+            }
+        });
         jpnl_incluirPedido.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jpnl_incluirPedido.add(jTable_ProdutoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 730, 110));
 
@@ -577,6 +577,12 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jpnl_incluirPedido.add(jlbl_rua, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
         jpnl_incluirPedido.add(jtxtf_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 120, -1));
 
+        jcmb_produto.setEnabled(false);
+        jcmb_produto.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jcmb_produtoComponentShown(evt);
+            }
+        });
         jpnl_incluirPedido.add(jcmb_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 260, -1));
 
         jlbl_cidade.setBackground(new java.awt.Color(0, 0, 0));
@@ -1084,7 +1090,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     }//GEN-LAST:event_jspn_descontoFocusLost
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-    
+        // TODO add your handling code here:
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void jspn_quantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jspn_quantidadeKeyPressed
@@ -1124,6 +1130,40 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             }
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTabbedPane1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTabbedPane1ComponentShown
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTabbedPane1ComponentShown
+
+    private void jcmb_produtoComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jcmb_produtoComponentShown
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jcmb_produtoComponentShown
+
+    private void jpnl_incluirPedidoComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jpnl_incluirPedidoComponentShown
+        // TODO add your handling code here:
+        if (jcmb_produto.getItemCount() == 0) {
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                // Preencher lista de produtos
+                jlbl_erro_produto.setText("Recebendo produtos...");
+                jlbl_erro_produto.setEnabled(true);
+                Produto[] recebidos = BD.Produto.selectAll();
+                if (recebidos != null) {
+                    for (Produto p : recebidos) {
+                        if (p != null) {
+                            jcmb_produto.addItem(p);
+                        }
+                    }
+                    jlbl_erro_produto.setText("Produtos recebidos!");
+                    jlbl_erro_produto.setEnabled(false);
+                    jcmb_produto.setEnabled(true);
+                } else {
+                    jlbl_erro_produto.setText("Nenhum produto recebido.");
+                }
+            });
+        }
+    }//GEN-LAST:event_jpnl_incluirPedidoComponentShown
 
     /**
      * @param args the command line arguments

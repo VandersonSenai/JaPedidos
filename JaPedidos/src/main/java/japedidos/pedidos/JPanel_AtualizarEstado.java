@@ -45,7 +45,7 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
         this.pedido = p;
         this.pedidoFoiPago = pedido.getDataPago() != null;
         this.pedidoTemDataVencimento = pedido.getDataVencimentoPagamento() != null;
-        this.estadosExistentes = BD.EstadoPedido.selectAllByPedido(p);
+        this.estadosExistentes = (p.getEstadosPedido().length > 1) ? p.getEstadosPedido() : BD.EstadoPedido.selectAllByPedido(p);
         this.atual = atual;
         this.alterador = alterador;
         this.updateAction = updateAction;
@@ -386,8 +386,10 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
         
         if (BD.Pedido.atualizarEstado(pedido, novoEstadoPedido) > 0) {
             JOptionPane.showMessageDialog(null, "Estado atualizado com sucesso!", "Alteração de estado", JOptionPane.INFORMATION_MESSAGE);
+            javax.swing.JFrame frame = ((javax.swing.JFrame)this.getTopLevelAncestor());
+            frame.setVisible(false);
             this.updateAction.run();
-            ((java.awt.Window)this.getTopLevelAncestor()).dispose();
+            frame.dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Não foi possível atualizar o estado do pedido.", "Alteração de estado", JOptionPane.ERROR_MESSAGE);
         }
