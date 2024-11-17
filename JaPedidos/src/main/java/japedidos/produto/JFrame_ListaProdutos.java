@@ -879,22 +879,22 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                                                       """,
             "JaPedidos",
             JOptionPane.WARNING_MESSAGE);                
-        } else if (jtxtf_descricao.getText().length()>1 | jtxtf_valor_venda.getText().length()>1 | jtxtf_valor_custo.getText().length()>1) {
+        } else if (jtxtf_descricao.getText().length()>1 | jtxtf_valor_venda.getText().length()>1 | 
+                jtxtf_valor_custo.getText().length()>1 | jcmb_categoria.getSelectedIndex()>0 |  jcmb_unid.getSelectedIndex()>0 ) {
                     String salvaItem = "INSERT INTO produto ( nome, id_categoria, id_unidade, preco_venda, preco_custo, estado ) VALUES (?, ?, ?, ?, ?, ?)";
-
-//                    try
-//                    {
-//                    String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
-//                    String usuario = "root";
-//                    String senha = "";
-//                    Connection banco = DriverManager.getConnection(url, usuario, senha);
-//                    load_DB2_components.salvaProduto(this,  banco , salvaItem);
-//                    }
-//                    catch (SQLException ex)
-//                    {
-//                        
-//                        System.out.println("O erro foi : " +ex);
-//                    }
+                    try
+                    {
+                    String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+                    String usuario = "root";
+                    String senha = "";
+                    Connection banco = DriverManager.getConnection(url, usuario, senha);
+                    load_DB2_components.salvaProduto(jpnl_corpo,  banco , salvaItem);
+                    }
+                    catch (SQLException ex)
+                    {
+                        
+                        System.out.println("O erro foi : " +ex);
+                    }
                     
                     JOptionPane.showMessageDialog(jpnl_corpo, 
                      "Atualizar Item \n", 

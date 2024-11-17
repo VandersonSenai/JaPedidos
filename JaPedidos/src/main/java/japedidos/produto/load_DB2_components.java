@@ -16,6 +16,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -121,17 +122,22 @@ public class load_DB2_components {
                 JOptionPane.INFORMATION_MESSAGE);
             }
     }
-    public static void salvaProduto(Component referencia,  Connection banco , String sqlQuery)  throws SQLException {
+    public static void salvaProduto(JPanel referencia,  Connection banco , String sqlQuery)  throws SQLException {
 
         
         try (PreparedStatement stm_tabela = banco.prepareStatement(sqlQuery)) {
-//
-//            stm_tabela.setString(1, referencia.jtxtf_descricao.getText()); // descricao do item.
-//            stm_tabela.setString(1, referencia.jtxtf_descricao.getText()); // descricao do item.
-//            stm_tabela.setString(1, referencia.jtxtf_descricao.getText()); // descricao do item.
-//            stm_tabela.setString(1, referencia.jtxtf_descricao.getText()); // descricao do item.
-//            stm_tabela.setString(1, referencia.jtxtf_descricao.getText()); // descricao do item.
-//            stm_tabela.setString(1, referencia.jtxtf_descricao.getText()); // descricao do item.
+
+            stm_tabela.setString(1, referencia.jtxtf_descricao.getText()); // descricao do item.
+            stm_tabela.setString(2, referencia.jcmb_categoria.getSelectedItem()); // descricao do item.
+            stm_tabela.setString(3, referencia.jcmb_unid.getSelectedItem()); // descricao do item.
+            stm_tabela.setString(4, referencia.jtxtf_valor_venda.getText()); // descricao do item.
+            stm_tabela.setString(5, referencia.jtxtf_valor_custo.getText()); // descricao do item.
+            if (referencia.jchb_ativo.isSelected()){
+                stm_tabela.setString(6, "1"); // descricao do item.
+            } else {
+                stm_tabela.setString(6, "0"); // descricao do item.
+            }
+
             int linhasAfetadas = stm_tabela.executeUpdate();
             if (linhasAfetadas > 0) {
                 
