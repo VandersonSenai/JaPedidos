@@ -44,6 +44,7 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
         jlbl_clientes = new javax.swing.JLabel();
         jlbl_produtos = new javax.swing.JLabel();
         jlbl_pedidos = new javax.swing.JLabel();
+        jtb_linhaBranca = new javax.swing.JToolBar();
         jlbl_relatorios = new javax.swing.JLabel();
         jpnl_img_etiqueta = new javax.swing.JLabel();
         jpnl_background = new javax.swing.JLabel();
@@ -126,29 +127,39 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
 
         jlbl_clientes.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_clientes.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_clientes.setForeground(new java.awt.Color(128, 128, 128));
         jlbl_clientes.setText("CLIENTES");
-        jpnl_sideMenu.add(jlbl_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
+        jpnl_sideMenu.add(jlbl_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 210, -1, -1));
 
         jlbl_produtos.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_produtos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_produtos.setForeground(new java.awt.Color(204, 204, 204));
+        jlbl_produtos.setForeground(new java.awt.Color(128, 128, 128));
         jlbl_produtos.setText("PRODUTOS");
         jlbl_produtos.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jlbl_produtosFocusGained(evt);
             }
         });
-        jpnl_sideMenu.add(jlbl_produtos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
+        jpnl_sideMenu.add(jlbl_produtos, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 250, -1, -1));
 
         jlbl_pedidos.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_pedidos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_pedidos.setForeground(new java.awt.Color(255, 255, 255));
         jlbl_pedidos.setText("PEDIDOS");
-        jpnl_sideMenu.add(jlbl_pedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
+        jpnl_sideMenu.add(jlbl_pedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 290, -1, -1));
+
+        jtb_linhaBranca.setBackground(new java.awt.Color(255, 255, 255));
+        jtb_linhaBranca.setBorder(null);
+        jtb_linhaBranca.setForeground(new java.awt.Color(255, 255, 255));
+        jtb_linhaBranca.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jtb_linhaBranca.setBorderPainted(false);
+        jpnl_sideMenu.add(jtb_linhaBranca, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 320, 80, 4));
 
         jlbl_relatorios.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_relatorios.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_relatorios.setForeground(new java.awt.Color(128, 128, 128));
         jlbl_relatorios.setText("RELATÓRIOS");
-        jpnl_sideMenu.add(jlbl_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, -1));
+        jpnl_sideMenu.add(jlbl_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 330, -1, -1));
 
         jpnl_img_etiqueta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/painel_comandos_esquerda_05x.png"))); // NOI18N
         jpnl_img_etiqueta.setText("jLabel2");
@@ -226,6 +237,7 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jpnl_img_etiqueta;
     private javax.swing.JPanel jpnl_incluirPedido;
     private javax.swing.JPanel jpnl_sideMenu;
+    private javax.swing.JToolBar jtb_linhaBranca;
     private javax.swing.JTextArea jtxta_detalhes;
     private javax.swing.JTextField jtxtf_codigoPedido;
     private javax.swing.JTextField jtxtf_dataIntercorrencia;
