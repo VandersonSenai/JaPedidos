@@ -185,4 +185,21 @@ public class Destino {
     public String getPais() {
         return this.pais;
     }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (o != null && o instanceof Destino) {
+            Destino d = (Destino)o;
+            return (
+                this.getBairro().equals(d.getBairro()) 
+                && this.getLogradouro().equals(d.getLogradouro())
+                && this.getNumero().equals(d.getNumero())
+                && this.getCidade().equals(d.getCidade())
+                && this.getEstado().equals(d.getEstado())
+                && this.getPais().equals(d.getPais())) 
+                ? true : false;
+        } else {
+            return false;
+        }
+    }
 }

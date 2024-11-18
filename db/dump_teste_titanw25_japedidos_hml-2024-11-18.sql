@@ -1,8 +1,8 @@
 -- MariaDB dump 10.19  Distrib 10.11.6-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Host: 10.0.0.109    Database: titanw25_japedidos_hml
+-- Host: 162.241.203.86    Database: titanw25_japedidos_hml
 -- ------------------------------------------------------
--- Server version	10.11.6-MariaDB-0+deb12u1
+-- Server version	5.7.23-23
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -21,7 +21,7 @@
 
 /*!40000 DROP DATABASE IF EXISTS `titanw25_japedidos_hml`*/;
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `titanw25_japedidos_hml` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `titanw25_japedidos_hml` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
 USE `titanw25_japedidos_hml`;
 
@@ -37,7 +37,7 @@ CREATE TABLE `categoria` (
   `nome` varchar(24) NOT NULL,
   `descricao` varchar(120) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +76,7 @@ CREATE TABLE `cliente` (
   PRIMARY KEY (`id`),
   KEY `id_usuario_alt` (`id_usuario_alt`),
   CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`id_usuario_alt`) REFERENCES `usuario` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,7 +99,9 @@ INSERT INTO `cliente` (`id`, `nome`, `telefone`, `id_usuario_alt`, `dthr_alt`) V
 (13,'Walmira Andrade Ritchtofen','11999694578',NULL,NULL),
 (14,'Antônio Márcio','27998485766',NULL,NULL),
 (15,'Roberto Marciano Gaulês','2833245968',NULL,NULL),
-(16,'Thiago Moura Baiense','27999483254',NULL,NULL);
+(16,'Thiago Moura Baiense','27999483254',NULL,NULL),
+(17,'José María Trindade','27998875468',NULL,NULL),
+(18,'Rosemilda Andrade','40085922',NULL,NULL);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +117,7 @@ CREATE TABLE `destinatario` (
   `info` varchar(120) NOT NULL,
   PRIMARY KEY (`id_pedido`),
   CONSTRAINT `destinatario_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +130,9 @@ INSERT INTO `destinatario` (`id_pedido`, `info`) VALUES (1,'Dados destinatário,
 (3,'Entregar ao porteiro'),
 (5,'Em cima da Padaria Renovada, ao lado do supermercado.'),
 (6,'Dados destinatário, ponto de referência...'),
-(16,'Entregar ao porteiro do condomínio');
+(16,'Entregar ao porteiro do condomínio'),
+(17,'Entregar em horário comercial'),
+(18,'Dados destinatário, ponto de referência...');
 /*!40000 ALTER TABLE `destinatario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +153,7 @@ CREATE TABLE `destino` (
   `pais` varchar(45) NOT NULL,
   PRIMARY KEY (`id_pedido`),
   CONSTRAINT `destino_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,7 +169,9 @@ INSERT INTO `destino` (`id_pedido`, `logradouro`, `numero`, `bairro`, `cidade`, 
 (9,'Rua Serra de Bragança','454','Vila Gomes Cardim','São Paulo','ES','Brasil'),
 (11,'Rua Carlos Augusto Cornelsen','342','Bom Retiro','Curitiba','PR','Brasil'),
 (13,'Rua Serra de Bragança','32','Vila Gomes Cardim','São Paulo','SP','Brasil'),
-(16,'Rua das Mariposas Ciganas','213','Itamarajó','Capiúba','ES','Brasil');
+(16,'Rua das Mariposas Ciganas','213','Itamarajó','Capiúba','ES','Brasil'),
+(17,'Belmira Altares','232','Itararé','Campo Belo','RJ','Brasil'),
+(18,'Palmeiras Cintilantes','32','Planalto Mineiro','Carapicuíba','SC','Brasil');
 /*!40000 ALTER TABLE `destino` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,7 +186,7 @@ CREATE TABLE `est_andamento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(24) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,12 +218,12 @@ CREATE TABLE `est_andamento_pedido` (
   `id_est_andamento` int(11) NOT NULL,
   `id_pedido` int(11) NOT NULL,
   `id_usuario_autor` int(11) NOT NULL COMMENT 'Usuário responsável pela atribuição do estado ao pedido',
-  `dthr_criacao` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+  `dthr_criacao` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   PRIMARY KEY (`id_est_andamento`,`id_pedido`),
   KEY `id_pedido` (`id_pedido`),
   CONSTRAINT `est_andamento_pedido_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id`),
   CONSTRAINT `est_andamento_pedido_ibfk_2` FOREIGN KEY (`id_est_andamento`) REFERENCES `est_andamento` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -241,6 +247,8 @@ INSERT INTO `est_andamento_pedido` (`id_est_andamento`, `id_pedido`, `id_usuario
 (1,14,1,'2024-11-16 14:42:04.000'),
 (1,15,1,'2024-11-17 11:57:45.000'),
 (1,16,1,'2024-11-17 12:05:10.000'),
+(1,17,1,'2024-11-18 08:58:27.543'),
+(1,18,1,'2024-11-18 16:27:56.001'),
 (2,1,1,'2024-11-16 11:17:43.000'),
 (2,6,1,'2024-11-16 14:14:40.000'),
 (2,9,1,'2024-11-16 14:43:15.000'),
@@ -254,6 +262,7 @@ INSERT INTO `est_andamento_pedido` (`id_est_andamento`, `id_pedido`, `id_usuario
 (3,7,1,'2024-11-16 14:23:17.000'),
 (3,12,1,'2024-11-16 14:43:28.000'),
 (3,14,1,'2024-11-16 14:43:54.000'),
+(3,16,1,'2024-11-17 16:04:26.836'),
 (4,1,1,'2024-11-16 11:27:26.000'),
 (4,14,1,'2024-11-16 14:43:54.000'),
 (5,1,1,'2024-11-16 11:27:47.000'),
@@ -285,7 +294,7 @@ CREATE TABLE `info_cancelamento` (
   `justificativa` varchar(120) NOT NULL,
   PRIMARY KEY (`id_pedido`),
   CONSTRAINT `info_cancelamento_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -311,7 +320,7 @@ CREATE TABLE `info_pagamento` (
   `dt_pago` date DEFAULT NULL,
   PRIMARY KEY (`id_pedido`),
   CONSTRAINT `info_pagamento_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -336,7 +345,7 @@ CREATE TABLE `info_pf` (
   `cpf` varchar(11) NOT NULL,
   PRIMARY KEY (`id_pedido`),
   CONSTRAINT `info_pf_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -364,7 +373,7 @@ CREATE TABLE `info_pj` (
   `nome_empresarial` varchar(60) NOT NULL,
   PRIMARY KEY (`id_pedido`),
   CONSTRAINT `info_pj_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -373,7 +382,8 @@ CREATE TABLE `info_pj` (
 
 LOCK TABLES `info_pj` WRITE;
 /*!40000 ALTER TABLE `info_pj` DISABLE KEYS */;
-INSERT INTO `info_pj` (`id_pedido`, `cnpj`, `nome_fantasia`, `nome_empresarial`) VALUES (11,'03909786000152','Empresa Legal','EMPRESA LEGAL LTDA');
+INSERT INTO `info_pj` (`id_pedido`, `cnpj`, `nome_fantasia`, `nome_empresarial`) VALUES (11,'03909786000152','Empresa Legal','EMPRESA LEGAL LTDA'),
+(17,'47477453000177','EMPRESA JOSE','JOSE COMERCIO LTDA');
 /*!40000 ALTER TABLE `info_pj` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -388,14 +398,14 @@ CREATE TABLE `intercorrencia` (
   `id_intercorrencia` int(11) NOT NULL,
   `id_pedido` int(11) NOT NULL,
   `descricao` varchar(200) NOT NULL,
-  `dthr_criacao` datetime NOT NULL DEFAULT current_timestamp(),
+  `dthr_criacao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_usuario_autor` int(11) NOT NULL,
   PRIMARY KEY (`id_intercorrencia`,`id_pedido`,`id_usuario_autor`),
   KEY `id_pedido` (`id_pedido`),
   KEY `id_usuario_autor` (`id_usuario_autor`),
   CONSTRAINT `intercorrencia_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id`),
   CONSTRAINT `intercorrencia_ibfk_2` FOREIGN KEY (`id_usuario_autor`) REFERENCES `usuario` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -436,13 +446,13 @@ CREATE TABLE `pedido` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_cliente` int(11) NOT NULL,
   `id_usuario_autor` int(11) NOT NULL,
-  `dthr_criacao` datetime NOT NULL DEFAULT current_timestamp(),
+  `dthr_criacao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_usuario_alt` int(11) DEFAULT NULL COMMENT 'Necessário para controle de alterações, conforme [RNF 06] Controle de alteração de dados\nAo haver alteração em qualquer informação do pedido, deverá haver o registro do autor da alteração e do horário. Alterações no estado do pedido serão registrados independentemente\n',
   `dthr_alt` datetime DEFAULT NULL COMMENT 'Necessário para controle de alterações, conforme [RNF 06] Controle de alteração de dados\nAo haver alteração em qualquer informação do pedido, deverá haver o registro do autor da alteração e do horário. Alterações no estado do pedido serão registrados independentemente\n',
   `tipo_entrega` enum('ENVIO','RETIRADA') NOT NULL,
   `dthr_entregar` datetime NOT NULL,
-  `preco_frete` decimal(8,2) NOT NULL DEFAULT 0.00,
-  `tx_desconto` int(11) NOT NULL DEFAULT 0,
+  `preco_frete` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `tx_desconto` int(11) NOT NULL DEFAULT '0',
   `preco_final` decimal(10,2) NOT NULL,
   `dt_venc_pagamento` date DEFAULT NULL,
   `dt_pago` date DEFAULT NULL,
@@ -450,7 +460,7 @@ CREATE TABLE `pedido` (
   PRIMARY KEY (`id`,`id_cliente`),
   KEY `id_cliente` (`id_cliente`),
   CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -459,7 +469,7 @@ CREATE TABLE `pedido` (
 
 LOCK TABLES `pedido` WRITE;
 /*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
-INSERT INTO `pedido` (`id`, `id_cliente`, `id_usuario_autor`, `dthr_criacao`, `id_usuario_alt`, `dthr_alt`, `tipo_entrega`, `dthr_entregar`, `preco_frete`, `tx_desconto`, `preco_final`, `dt_venc_pagamento`, `dt_pago`, `preco_custo_total`) VALUES (1,1,1,'2024-11-15 15:21:32',NULL,NULL,'ENVIO','2024-11-29 16:45:00',15.00,10,407.18,'2024-11-23','2024-11-16',152.75),
+INSERT INTO `pedido` (`id`, `id_cliente`, `id_usuario_autor`, `dthr_criacao`, `id_usuario_alt`, `dthr_alt`, `tipo_entrega`, `dthr_entregar`, `preco_frete`, `tx_desconto`, `preco_final`, `dt_venc_pagamento`, `dt_pago`, `preco_custo_total`) VALUES (1,1,1,'2024-11-15 15:21:32',NULL,NULL,'ENVIO','2024-11-29 16:45:00',15.00,10,52.80,'2024-11-23','2024-11-16',27.00),
 (2,2,1,'2024-11-16 11:37:28',NULL,NULL,'RETIRADA','2024-11-22 18:00:00',0.00,5,155.80,NULL,'2024-11-16',39.00),
 (3,3,1,'2024-11-14 18:45:10',NULL,NULL,'ENVIO','2024-11-26 12:00:00',15.00,10,141.90,NULL,'2024-11-16',41.45),
 (4,4,1,'2024-11-14 18:45:10',NULL,NULL,'RETIRADA','2024-11-19 05:00:00',0.00,0,18.75,NULL,'2024-11-16',13.15),
@@ -473,7 +483,9 @@ INSERT INTO `pedido` (`id`, `id_cliente`, `id_usuario_autor`, `dthr_criacao`, `i
 (13,13,1,'2024-11-16 14:40:42',NULL,NULL,'ENVIO','2024-11-16 14:00:00',0.00,5,120.18,NULL,NULL,31.50),
 (14,14,1,'2024-11-16 14:42:04',NULL,NULL,'RETIRADA','2024-11-28 17:00:00',0.00,0,55.50,NULL,'2024-11-16',20.50),
 (15,15,1,'2024-11-17 11:57:45',NULL,NULL,'RETIRADA','2024-12-30 22:00:00',0.00,0,279.00,NULL,NULL,63.00),
-(16,16,1,'2024-11-17 12:05:10',NULL,NULL,'ENVIO','2024-11-18 12:45:00',20.00,15,163.44,NULL,NULL,43.15);
+(16,16,1,'2024-11-17 12:05:10',NULL,NULL,'ENVIO','2024-11-18 12:45:00',20.00,15,163.44,NULL,'2024-11-17',43.15),
+(17,17,1,'2024-11-18 08:58:28',NULL,NULL,'ENVIO','2024-11-20 10:00:00',15.00,10,466.80,NULL,NULL,157.65),
+(18,18,1,'2024-11-18 16:27:56',NULL,NULL,'ENVIO','2024-11-24 16:00:00',0.00,10,12.60,NULL,NULL,9.00);
 /*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -489,8 +501,8 @@ CREATE TABLE `produto` (
   `id_categoria` int(11) NOT NULL,
   `id_unidade` int(11) NOT NULL,
   `nome` varchar(32) NOT NULL,
-  `preco_venda` decimal(8,2) NOT NULL DEFAULT 0.00,
-  `preco_custo` decimal(8,2) NOT NULL DEFAULT 0.00,
+  `preco_venda` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `preco_custo` decimal(8,2) NOT NULL DEFAULT '0.00',
   `id_usuario_alt` int(11) DEFAULT NULL,
   `dthr_alt` datetime DEFAULT NULL,
   `estado` bit(1) NOT NULL DEFAULT b'1',
@@ -501,7 +513,7 @@ CREATE TABLE `produto` (
   CONSTRAINT `produto_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`),
   CONSTRAINT `produto_ibfk_2` FOREIGN KEY (`id_unidade`) REFERENCES `unidade` (`id`),
   CONSTRAINT `produto_ibfk_3` FOREIGN KEY (`id_usuario_alt`) REFERENCES `usuario` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -551,7 +563,7 @@ CREATE TABLE `produto_pedido` (
   KEY `id_pedido` (`id_pedido`),
   CONSTRAINT `produto_pedido_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id`),
   CONSTRAINT `produto_pedido_ibfk_2` FOREIGN KEY (`id_produto`) REFERENCES `produto` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -561,46 +573,59 @@ CREATE TABLE `produto_pedido` (
 LOCK TABLES `produto_pedido` WRITE;
 /*!40000 ALTER TABLE `produto_pedido` DISABLE KEYS */;
 INSERT INTO `produto_pedido` (`id_produto`, `id_pedido`, `quantidade`, `preco_venda`, `preco_custo`, `info_adicional`) VALUES (1,3,1,19.50,12.45,NULL),
-(3,1,5,18.75,13.15,NULL),
+(1,17,1,19.50,12.45,NULL),
+(2,17,1,21.75,14.15,NULL),
 (3,4,1,18.75,13.15,NULL),
 (3,6,3,18.75,13.15,NULL),
 (3,11,2,18.75,13.15,NULL),
 (3,16,1,18.75,13.15,NULL),
+(3,17,1,18.75,13.15,NULL),
 (4,1,3,14.00,9.00,NULL),
 (4,13,1,14.00,9.00,NULL),
+(4,17,1,14.00,9.00,NULL),
+(4,18,1,14.00,9.00,NULL),
 (5,3,1,9.00,6.50,NULL),
 (5,5,3,9.00,6.50,NULL),
 (5,8,2,9.00,6.50,NULL),
 (5,14,2,9.00,6.50,NULL),
+(5,17,1,9.00,6.50,NULL),
 (6,2,1,14.00,9.00,NULL),
 (7,12,2,9.00,6.50,NULL),
+(7,17,1,9.00,6.50,NULL),
 (8,15,1,16.50,10.50,NULL),
+(8,17,1,16.50,10.50,NULL),
 (9,5,3,14.00,9.50,NULL),
+(9,17,1,14.00,9.50,NULL),
 (10,8,1,0.75,0.15,NULL),
 (10,14,50,0.75,0.15,NULL),
+(10,17,1,0.75,0.15,NULL),
 (12,3,50,0.75,0.15,NULL),
 (12,7,50,0.75,0.15,NULL),
-(12,8,2,0.75,0.15,NULL),
 (12,9,25,0.75,0.15,NULL),
-(14,1,1,75.00,15.00,NULL),
+(12,17,1,0.75,0.15,NULL),
+(13,17,1,0.75,0.15,NULL),
 (14,5,2,75.00,15.00,NULL),
-(14,8,1,75.00,15.00,NULL),
 (14,12,1,75.00,15.00,NULL),
 (14,15,1,75.00,15.00,NULL),
 (14,16,1,75.00,15.00,NULL),
-(15,1,1,75.00,15.00,NULL),
+(14,17,1,75.00,15.00,NULL),
+(15,17,1,75.00,15.00,NULL),
 (16,2,2,75.00,15.00,NULL),
 (16,6,1,75.00,15.00,NULL),
 (16,15,1,75.00,15.00,NULL),
-(17,1,2,75.00,15.00,NULL),
+(16,17,1,75.00,15.00,NULL),
 (17,3,1,75.00,15.00,NULL),
 (17,11,1,75.00,15.00,NULL),
 (17,13,1,75.00,15.00,NULL),
 (17,15,1,75.00,15.00,NULL),
 (17,16,1,75.00,15.00,NULL),
+(17,17,1,75.00,15.00,NULL),
 (18,5,1,75.00,15.00,NULL),
+(18,17,1,75.00,15.00,NULL),
 (19,15,50,0.75,0.15,NULL),
-(20,13,50,0.75,0.15,NULL);
+(19,17,1,0.75,0.15,NULL),
+(20,13,50,0.75,0.15,NULL),
+(20,17,2,0.75,0.15,NULL);
 /*!40000 ALTER TABLE `produto_pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -616,7 +641,7 @@ CREATE TABLE `unidade` (
   `nome` varchar(16) NOT NULL,
   `abreviacao` char(5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -654,7 +679,7 @@ CREATE TABLE `usuario` (
   `senha` varchar(32) NOT NULL,
   `tipo` enum('administrador','atendente') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -823,6 +848,102 @@ SET character_set_client = @saved_cs_client;
 -- Dumping routines for database 'titanw25_japedidos_hml'
 --
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP FUNCTION IF EXISTS `preco_custo_produto` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+DELIMITER ;;
+CREATE FUNCTION `preco_custo_produto`(id_prod INT) RETURNS decimal(8,2)
+BEGIN
+    DECLARE r DECIMAL(8,2);
+    SELECT preco_custo INTO r FROM produto  WHERE id = id_prod LIMIT 1;
+    RETURN r;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP FUNCTION IF EXISTS `preco_venda_produto` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+DELIMITER ;;
+CREATE FUNCTION `preco_venda_produto`(id_prod INT) RETURNS decimal(8,2)
+BEGIN
+    DECLARE r DECIMAL(8,2);
+    SELECT preco_venda INTO r FROM produto  WHERE id = id_prod LIMIT 1;
+    RETURN r;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `atualizar_precos_pedido` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+DELIMITER ;;
+CREATE PROCEDURE `atualizar_precos_pedido`(IN id_ped INT)
+    MODIFIES SQL DATA
+BEGIN
+        DECLARE soma_custo DECIMAL(8,2);
+        DECLARE soma_venda DECIMAL(8,2);
+        DECLARE valor_preco_final DECIMAL(8,2);
+        DECLARE valor_preco_frete DECIMAL (8,2);
+        DECLARE valor_tx_desconto INT;
+    
+        -- Definição de valores auxilires
+        SELECT 
+            p.preco_frete, p.tx_desconto 
+        INTO valor_preco_frete, valor_tx_desconto 
+        FROM pedido p
+        WHERE 
+            p.id = id_ped 
+        LIMIT 1;
+        
+        -- Soma precos dos produtos
+        SELECT 
+            SUM(pp.preco_venda * pp.quantidade) AS pv_total, 
+            SUM(pp.preco_custo * pp.quantidade) AS pc_total
+        INTO
+            soma_venda,
+            soma_custo
+        FROM produto_pedido pp 
+        WHERE
+            pp.id_pedido = id_ped;
+        
+        -- Cálculos finais
+        SET valor_preco_final = soma_venda - (soma_venda * CAST(valor_tx_desconto/100 AS DECIMAL(3,2))) + valor_preco_frete;
+    
+        UPDATE 
+            pedido 
+        SET 
+            preco_final = valor_preco_final, 
+            preco_custo_total = soma_custo 
+        WHERE id = id_ped;
+    END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `select_estados_pedido` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -868,9 +989,9 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb3 */ ;
-/*!50003 SET character_set_results = utf8mb3 */ ;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
 DELIMITER ;;
 CREATE PROCEDURE `select_produtos_pedido`(IN id_ped INT)
     READS SQL DATA
@@ -884,7 +1005,7 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
--- Current Database: `japedidos`
+-- Current Database: `titanw25_japedidos_hml`
 --
 
 USE `titanw25_japedidos_hml`;
@@ -897,11 +1018,11 @@ USE `titanw25_japedidos_hml`;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb3 */;
-/*!50001 SET character_set_results     = utf8mb3 */;
-/*!50001 SET collation_connection      = utf8mb3_general_ci */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `listaTodosProdutos` AS select `p`.`id` AS `id`,`p`.`nome` AS `nome`,`c`.`nome` AS `categoria`,`p`.`preco_venda` AS `preco_venda`,`p`.`preco_custo` AS `preco_custo`,`u`.`abreviacao` AS `unidade`,`p`.`estado` AS `estado` from ((`produto` `p` left join `categoria` `c` on(`p`.`id_categoria` = `c`.`id`)) left join `unidade` `u` on(`p`.`id_unidade` = `u`.`id`)) */;
+/*!50001 VIEW `listaTodosProdutos` AS select `p`.`id` AS `id`,`p`.`nome` AS `nome`,`c`.`nome` AS `categoria`,`p`.`preco_venda` AS `preco_venda`,`p`.`preco_custo` AS `preco_custo`,`u`.`abreviacao` AS `unidade`,`p`.`estado` AS `estado` from ((`produto` `p` left join `categoria` `c` on((`p`.`id_categoria` = `c`.`id`))) left join `unidade` `u` on((`p`.`id_unidade` = `u`.`id`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -918,7 +1039,7 @@ USE `titanw25_japedidos_hml`;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `vw_est_andamento_pedido` AS select `e_a_p`.`id_pedido` AS `id_pedido`,`e_a_p`.`id_est_andamento` AS `id_est_andamento`,`e_a`.`nome` AS `nome_est_andamento`,`e_a_p`.`id_usuario_autor` AS `id_usuario_autor`,`u`.`nome` AS `nome_usuario_autor`,`e_a_p`.`dthr_criacao` AS `dthr_criacao` from ((`est_andamento_pedido` `e_a_p` join `est_andamento` `e_a` on(`e_a`.`id` = `e_a_p`.`id_est_andamento`)) join `usuario` `u` on(`u`.`id` = `e_a_p`.`id_usuario_autor`)) order by `e_a_p`.`id_pedido`,`e_a_p`.`dthr_criacao`,`e_a_p`.`id_est_andamento` */;
+/*!50001 VIEW `vw_est_andamento_pedido` AS select `e_a_p`.`id_pedido` AS `id_pedido`,`e_a_p`.`id_est_andamento` AS `id_est_andamento`,`e_a`.`nome` AS `nome_est_andamento`,`e_a_p`.`id_usuario_autor` AS `id_usuario_autor`,`u`.`nome` AS `nome_usuario_autor`,`e_a_p`.`dthr_criacao` AS `dthr_criacao` from ((`est_andamento_pedido` `e_a_p` join `est_andamento` `e_a` on((`e_a`.`id` = `e_a_p`.`id_est_andamento`))) join `usuario` `u` on((`u`.`id` = `e_a_p`.`id_usuario_autor`))) order by `e_a_p`.`id_pedido`,`e_a_p`.`dthr_criacao`,`e_a_p`.`id_est_andamento` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -931,11 +1052,11 @@ USE `titanw25_japedidos_hml`;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb3 */;
-/*!50001 SET character_set_results     = utf8mb3 */;
-/*!50001 SET collation_connection      = utf8mb3_general_ci */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `vw_estadoProduto` AS select `p`.`id` AS `id`,`p`.`nome` AS `nome`,`c`.`nome` AS `categoria`,`u`.`nome` AS `unidade`,case when `p`.`estado` = 0x01 then 'ATIVO' else 'DESATIVADO' end AS `estado` from ((`produto` `p` join `categoria` `c` on(`c`.`id` = `p`.`id_categoria`)) join `unidade` `u` on(`u`.`id` = `p`.`id_unidade`)) */;
+/*!50001 VIEW `vw_estadoProduto` AS select `p`.`id` AS `id`,`p`.`nome` AS `nome`,`c`.`nome` AS `categoria`,`u`.`nome` AS `unidade`,(case when (`p`.`estado` = 0x01) then 'ATIVO' else 'DESATIVADO' end) AS `estado` from ((`produto` `p` join `categoria` `c` on((`c`.`id` = `p`.`id_categoria`))) join `unidade` `u` on((`u`.`id` = `p`.`id_unidade`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -948,11 +1069,11 @@ USE `titanw25_japedidos_hml`;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb3 */;
-/*!50001 SET character_set_results     = utf8mb3 */;
-/*!50001 SET collation_connection      = utf8mb3_general_ci */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `vw_pedido` AS select `p`.`id` AS `id`,`p`.`id_cliente` AS `id_cliente`,`c`.`telefone` AS `telefone_cliente`,`c`.`nome` AS `nome_cliente`,`info_pf`.`nome_cliente` AS `nome_cliente_info_pf`,`info_pf`.`cpf` AS `cpf_info_pf`,`info_pj`.`cnpj` AS `cnpj_info_pj`,`info_pj`.`nome_fantasia` AS `nome_fantasia_info_pj`,`info_pj`.`nome_empresarial` AS `nome_empresarial_info_pj`,`p`.`tipo_entrega` AS `tipo_entrega`,`p`.`dthr_entregar` AS `dthr_entregar`,`p`.`preco_frete` AS `preco_frete`,`d`.`logradouro` AS `logradouro_destino`,`d`.`numero` AS `numero_destino`,`d`.`bairro` AS `bairro_destino`,`d`.`cidade` AS `cidade_destino`,`d`.`estado` AS `estado_destino`,`d`.`pais` AS `pais_destino`,`destinatario`.`info` AS `info_destinatario`,`p`.`id_usuario_autor` AS `id_usuario_autor`,`u`.`nome` AS `nome_usuario_autor`,`p`.`dthr_criacao` AS `dthr_criacao`,`p`.`id_usuario_alt` AS `id_usuario_alt`,`u_alt`.`nome` AS `nome_usuario_alt`,`p`.`dthr_alt` AS `dthr_alt`,`p`.`tx_desconto` AS `tx_desconto`,`p`.`preco_final` AS `preco_final`,`p`.`dt_venc_pagamento` AS `dt_venc_pagamento`,`p`.`dt_pago` AS `dt_pago`,`p`.`preco_custo_total` AS `preco_custo_total`,`u_e_p`.`id_est` AS `id_ultimo_est`,`u_e_p`.`nome_est` AS `nome_ultimo_est`,`u_e_p`.`id_usuario_autor_est` AS `id_usuario_autor_ultimo_est`,`u_e_p`.`nome_usuario_autor_est` AS `nome_usuario_autor_ultimo_est`,`u_e_p`.`dthr_criacao_est` AS `dthr_criacao_ultimo_est`,`info_canc`.`justificativa` AS `info_cancelamento` from (((((((((`pedido` `p` join `usuario` `u` on(`u`.`id` = `p`.`id_usuario_autor`)) left join `usuario` `u_alt` on(`u_alt`.`id` = `p`.`id_usuario_alt`)) join `cliente` `c` on(`c`.`id` = `p`.`id_cliente`)) left join `destino` `d` on(`d`.`id_pedido` = `p`.`id`)) left join `destinatario` on(`destinatario`.`id_pedido` = `p`.`id`)) left join `info_pf` on(`info_pf`.`id_pedido` = `p`.`id`)) left join `info_pj` on(`info_pj`.`id_pedido` = `p`.`id`)) join `vw_ultimo_estado_pedido` `u_e_p` on(`u_e_p`.`id_pedido` = `p`.`id`)) left join `info_cancelamento` `info_canc` on(`info_canc`.`id_pedido` = `p`.`id`)) order by `p`.`id` */;
+/*!50001 VIEW `vw_pedido` AS select `p`.`id` AS `id`,`p`.`id_cliente` AS `id_cliente`,`c`.`telefone` AS `telefone_cliente`,`c`.`nome` AS `nome_cliente`,`titanw25_japedidos_hml`.`info_pf`.`nome_cliente` AS `nome_cliente_info_pf`,`titanw25_japedidos_hml`.`info_pf`.`cpf` AS `cpf_info_pf`,`titanw25_japedidos_hml`.`info_pj`.`cnpj` AS `cnpj_info_pj`,`titanw25_japedidos_hml`.`info_pj`.`nome_fantasia` AS `nome_fantasia_info_pj`,`titanw25_japedidos_hml`.`info_pj`.`nome_empresarial` AS `nome_empresarial_info_pj`,`p`.`tipo_entrega` AS `tipo_entrega`,`p`.`dthr_entregar` AS `dthr_entregar`,`p`.`preco_frete` AS `preco_frete`,`d`.`logradouro` AS `logradouro_destino`,`d`.`numero` AS `numero_destino`,`d`.`bairro` AS `bairro_destino`,`d`.`cidade` AS `cidade_destino`,`d`.`estado` AS `estado_destino`,`d`.`pais` AS `pais_destino`,`titanw25_japedidos_hml`.`destinatario`.`info` AS `info_destinatario`,`p`.`id_usuario_autor` AS `id_usuario_autor`,`u`.`nome` AS `nome_usuario_autor`,`p`.`dthr_criacao` AS `dthr_criacao`,`p`.`id_usuario_alt` AS `id_usuario_alt`,`u_alt`.`nome` AS `nome_usuario_alt`,`p`.`dthr_alt` AS `dthr_alt`,`p`.`tx_desconto` AS `tx_desconto`,`p`.`preco_final` AS `preco_final`,`p`.`dt_venc_pagamento` AS `dt_venc_pagamento`,`p`.`dt_pago` AS `dt_pago`,`p`.`preco_custo_total` AS `preco_custo_total`,`u_e_p`.`id_est` AS `id_ultimo_est`,`u_e_p`.`nome_est` AS `nome_ultimo_est`,`u_e_p`.`id_usuario_autor_est` AS `id_usuario_autor_ultimo_est`,`u_e_p`.`nome_usuario_autor_est` AS `nome_usuario_autor_ultimo_est`,`u_e_p`.`dthr_criacao_est` AS `dthr_criacao_ultimo_est`,`info_canc`.`justificativa` AS `info_cancelamento` from (((((((((`titanw25_japedidos_hml`.`pedido` `p` join `titanw25_japedidos_hml`.`usuario` `u` on((`u`.`id` = `p`.`id_usuario_autor`))) left join `titanw25_japedidos_hml`.`usuario` `u_alt` on((`u_alt`.`id` = `p`.`id_usuario_alt`))) join `titanw25_japedidos_hml`.`cliente` `c` on((`c`.`id` = `p`.`id_cliente`))) left join `titanw25_japedidos_hml`.`destino` `d` on((`d`.`id_pedido` = `p`.`id`))) left join `titanw25_japedidos_hml`.`destinatario` on((`titanw25_japedidos_hml`.`destinatario`.`id_pedido` = `p`.`id`))) left join `titanw25_japedidos_hml`.`info_pf` on((`titanw25_japedidos_hml`.`info_pf`.`id_pedido` = `p`.`id`))) left join `titanw25_japedidos_hml`.`info_pj` on((`titanw25_japedidos_hml`.`info_pj`.`id_pedido` = `p`.`id`))) join `titanw25_japedidos_hml`.`vw_ultimo_estado_pedido` `u_e_p` on((`u_e_p`.`id_pedido` = `p`.`id`))) left join `titanw25_japedidos_hml`.`info_cancelamento` `info_canc` on((`info_canc`.`id_pedido` = `p`.`id`))) order by `p`.`id` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -969,7 +1090,7 @@ USE `titanw25_japedidos_hml`;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `vw_produto` AS select `prod`.`id` AS `id`,`prod`.`nome` AS `nome_produto`,`prod`.`id_categoria` AS `id_categoria`,`cat`.`nome` AS `nome_categoria`,`cat`.`descricao` AS `descricao_categoria`,`prod`.`id_unidade` AS `id_unidade`,`unid`.`nome` AS `nome_unidade`,`unid`.`abreviacao` AS `abreviacao_unidade`,`prod`.`preco_venda` AS `preco_venda`,`prod`.`preco_custo` AS `preco_custo`,`prod`.`id_usuario_alt` AS `id_usuario_alt`,`usr`.`nome` AS `nome_usuario_alt`,`usr`.`tipo` AS `tipo_usuario`,`prod`.`dthr_alt` AS `dthr_alt`,`prod`.`estado` AS `estado` from (((`produto` `prod` join `categoria` `cat` on(`cat`.`id` = `prod`.`id_categoria`)) join `unidade` `unid` on(`unid`.`id` = `prod`.`id_unidade`)) left join `usuario` `usr` on(`usr`.`id` = `prod`.`id_usuario_alt`)) */;
+/*!50001 VIEW `vw_produto` AS select `prod`.`id` AS `id`,`prod`.`nome` AS `nome_produto`,`prod`.`id_categoria` AS `id_categoria`,`cat`.`nome` AS `nome_categoria`,`cat`.`descricao` AS `descricao_categoria`,`prod`.`id_unidade` AS `id_unidade`,`unid`.`nome` AS `nome_unidade`,`unid`.`abreviacao` AS `abreviacao_unidade`,`prod`.`preco_venda` AS `preco_venda`,`prod`.`preco_custo` AS `preco_custo`,`prod`.`id_usuario_alt` AS `id_usuario_alt`,`usr`.`nome` AS `nome_usuario_alt`,`usr`.`tipo` AS `tipo_usuario`,`prod`.`dthr_alt` AS `dthr_alt`,`prod`.`estado` AS `estado` from (((`produto` `prod` join `categoria` `cat` on((`cat`.`id` = `prod`.`id_categoria`))) join `unidade` `unid` on((`unid`.`id` = `prod`.`id_unidade`))) left join `usuario` `usr` on((`usr`.`id` = `prod`.`id_usuario_alt`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -982,11 +1103,11 @@ USE `titanw25_japedidos_hml`;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb3 */;
-/*!50001 SET character_set_results     = utf8mb3 */;
-/*!50001 SET collation_connection      = utf8mb3_general_ci */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `vw_produtos_pedido` AS select `prod_ped`.`id_pedido` AS `id_pedido`,`prod_ped`.`id_produto` AS `id_produto`,`prod`.`nome` AS `nome_produto`,`prod_ped`.`quantidade` AS `quantidade_produto`,`prod_ped`.`info_adicional` AS `info_adicional_produto_pedido`,`prod`.`id_categoria` AS `id_categoria`,`cat`.`nome` AS `nome_categoria`,`cat`.`descricao` AS `descricao_categoria`,`prod`.`id_unidade` AS `id_unidade`,`unid`.`nome` AS `nome_unidade`,`unid`.`abreviacao` AS `abreviacao_unidade`,`prod_ped`.`preco_venda` AS `preco_venda`,`prod_ped`.`preco_custo` AS `preco_custo`,`prod`.`id_usuario_alt` AS `id_usuario_alt`,`usr`.`nome` AS `nome_usuario_alt`,`usr`.`tipo` AS `tipo_usuario`,`prod`.`dthr_alt` AS `dthr_alt`,`prod`.`estado` AS `estado` from ((((`produto_pedido` `prod_ped` join `produto` `prod` on(`prod`.`id` = `prod_ped`.`id_produto`)) join `categoria` `cat` on(`cat`.`id` = `prod`.`id_categoria`)) join `unidade` `unid` on(`unid`.`id` = `prod`.`id_unidade`)) left join `usuario` `usr` on(`usr`.`id` = `prod`.`id_usuario_alt`)) */;
+/*!50001 VIEW `vw_produtos_pedido` AS select `prod_ped`.`id_pedido` AS `id_pedido`,`prod_ped`.`id_produto` AS `id_produto`,`prod`.`nome` AS `nome_produto`,`prod_ped`.`quantidade` AS `quantidade_produto`,`prod_ped`.`info_adicional` AS `info_adicional_produto_pedido`,`prod`.`id_categoria` AS `id_categoria`,`cat`.`nome` AS `nome_categoria`,`cat`.`descricao` AS `descricao_categoria`,`prod`.`id_unidade` AS `id_unidade`,`unid`.`nome` AS `nome_unidade`,`unid`.`abreviacao` AS `abreviacao_unidade`,`prod_ped`.`preco_venda` AS `preco_venda`,`prod_ped`.`preco_custo` AS `preco_custo`,`prod`.`id_usuario_alt` AS `id_usuario_alt`,`usr`.`nome` AS `nome_usuario_alt`,`usr`.`tipo` AS `tipo_usuario`,`prod`.`dthr_alt` AS `dthr_alt`,`prod`.`estado` AS `estado` from ((((`produto_pedido` `prod_ped` join `produto` `prod` on((`prod`.`id` = `prod_ped`.`id_produto`))) join `categoria` `cat` on((`cat`.`id` = `prod`.`id_categoria`))) join `unidade` `unid` on((`unid`.`id` = `prod`.`id_unidade`))) left join `usuario` `usr` on((`usr`.`id` = `prod`.`id_usuario_alt`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1003,7 +1124,7 @@ USE `titanw25_japedidos_hml`;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `vw_ultimo_estado_pedido` AS select `ultimo_estado_pedido`.`id_pedido` AS `id_pedido`,`ultimo_estado_pedido`.`id_est_andamento` AS `id_est`,`e_a`.`nome` AS `nome_est`,`ultimo_estado_pedido`.`id_usuario_autor` AS `id_usuario_autor_est`,`u`.`nome` AS `nome_usuario_autor_est`,`ultimo_estado_pedido`.`dthr_criacao` AS `dthr_criacao_est` from (((select `abc`.`id_pedido` AS `id_pedido`,`abc`.`id_est_andamento` AS `id_est_andamento`,`abc`.`id_usuario_autor` AS `id_usuario_autor`,`abc`.`dthr_criacao` AS `dthr_criacao`,`abc`.`dthr_ultimo` AS `dthr_ultimo` from (select `est_andamento_pedido`.`id_pedido` AS `id_pedido`,`est_andamento_pedido`.`id_est_andamento` AS `id_est_andamento`,`est_andamento_pedido`.`id_usuario_autor` AS `id_usuario_autor`,`est_andamento_pedido`.`dthr_criacao` AS `dthr_criacao`,(select max(`E`.`dthr_criacao`) from `est_andamento_pedido` `E` where `E`.`id_pedido` = `est_andamento_pedido`.`id_pedido`) AS `dthr_ultimo` from `est_andamento_pedido` order by `est_andamento_pedido`.`id_pedido`,(select max(`E`.`dthr_criacao`) from `est_andamento_pedido` `E` where `E`.`id_pedido` = `est_andamento_pedido`.`id_pedido`) desc,`est_andamento_pedido`.`id_est_andamento` desc) `abc` group by `abc`.`id_pedido`) `ultimo_estado_pedido` join `est_andamento` `e_a` on(`e_a`.`id` = `ultimo_estado_pedido`.`id_est_andamento`)) join `usuario` `u` on(`u`.`id` = `ultimo_estado_pedido`.`id_usuario_autor`)) where `ultimo_estado_pedido`.`dthr_criacao` = `ultimo_estado_pedido`.`dthr_ultimo` */;
+/*!50001 VIEW `vw_ultimo_estado_pedido` AS select `ultimo_estado_pedido`.`id_pedido` AS `id_pedido`,`ultimo_estado_pedido`.`id_est_andamento` AS `id_est`,`e_a`.`nome` AS `nome_est`,`ultimo_estado_pedido`.`id_usuario_autor` AS `id_usuario_autor_est`,`u`.`nome` AS `nome_usuario_autor_est`,`ultimo_estado_pedido`.`dthr_criacao` AS `dthr_criacao_est` from ((((select `abc`.`id_pedido` AS `id_pedido`,`abc`.`id_est_andamento` AS `id_est_andamento`,`abc`.`id_usuario_autor` AS `id_usuario_autor`,`abc`.`dthr_criacao` AS `dthr_criacao`,`abc`.`dthr_ultimo` AS `dthr_ultimo` from (select `titanw25_japedidos_hml`.`est_andamento_pedido`.`id_pedido` AS `id_pedido`,`titanw25_japedidos_hml`.`est_andamento_pedido`.`id_est_andamento` AS `id_est_andamento`,`titanw25_japedidos_hml`.`est_andamento_pedido`.`id_usuario_autor` AS `id_usuario_autor`,`titanw25_japedidos_hml`.`est_andamento_pedido`.`dthr_criacao` AS `dthr_criacao`,(select max(`E`.`dthr_criacao`) from `titanw25_japedidos_hml`.`est_andamento_pedido` `E` where (`E`.`id_pedido` = `titanw25_japedidos_hml`.`est_andamento_pedido`.`id_pedido`)) AS `dthr_ultimo` from `titanw25_japedidos_hml`.`est_andamento_pedido` order by `titanw25_japedidos_hml`.`est_andamento_pedido`.`id_pedido`,(select max(`E`.`dthr_criacao`) from `titanw25_japedidos_hml`.`est_andamento_pedido` `E` where (`E`.`id_pedido` = `titanw25_japedidos_hml`.`est_andamento_pedido`.`id_pedido`)) desc,`titanw25_japedidos_hml`.`est_andamento_pedido`.`id_est_andamento` desc) `abc` group by `abc`.`id_pedido`)) `ultimo_estado_pedido` join `titanw25_japedidos_hml`.`est_andamento` `e_a` on((`e_a`.`id` = `ultimo_estado_pedido`.`id_est_andamento`))) join `titanw25_japedidos_hml`.`usuario` `u` on((`u`.`id` = `ultimo_estado_pedido`.`id_usuario_autor`))) where (`ultimo_estado_pedido`.`dthr_criacao` = `ultimo_estado_pedido`.`dthr_ultimo`) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1017,4 +1138,4 @@ USE `titanw25_japedidos_hml`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-17 15:58:56
+-- Dump completed on 2024-11-18 16:36:53

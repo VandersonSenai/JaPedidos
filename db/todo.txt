@@ -1,0 +1,1 @@
+aplicar novas funcoes e procedure de calcular precos ao script japedidos

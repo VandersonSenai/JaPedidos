@@ -275,14 +275,7 @@ public final class BD {
                            System.out.println("Não foi possível fechar conexão com o banco.");
                         }                        
                     }
-                    
-                    if (insertDestinatario != null) {
-                        try {
-                           insertDestinatario.close();
-                        } catch (SQLException ex) {
-                           System.out.println("Não foi possível fechar conexão com o banco.");
-                        }                        
-                    }
+
                     if (insertProdutosPedido != null) {
                         try {
                            insertProdutosPedido.close();
@@ -482,6 +475,7 @@ public final class BD {
             return r;
         }
         
+        // TODO: TESTAR
         public static int atualizarInfoEntrega(final japedidos.pedidos.Pedido pedidoAntigo, final japedidos.pedidos.InfoEntrega novaInfoEntrega, Connection conn) throws SQLException {
             if (conn == null) {
                 throw new NullPointerException("Conexão é nula");
@@ -525,6 +519,15 @@ public final class BD {
                     updatePedido = conn.prepareStatement(String.format("UPDATE %s SET tipo_entrega = ? WHERE id = ?", TABLE));
                     updatePedido.setString(1, tipoEntregaNovo.toString());
                     updatePedido.setInt(2, id_pedido);
+                } else if (tipoEntregaNovo == TipoEntrega.ENVIO){ // Se ambos forem envio
+                    japedidos.pedidos.Destino destinoAtual = infoEntregaPedido.getDestino();
+                    japedidos.pedidos.Destino  destinoNovo = novaInfoEntrega.getDestino();
+                    
+                    if (!destinoNovo.equals(destinoAtual)) { // Se forem minimamente diferentes
+                        // Atualizar destino novo
+                        BD.Destino.update(id_pedido, destinoNovo, conn);
+                    } 
+                    
                 }
                 
                 // Destinatario
@@ -550,13 +553,61 @@ public final class BD {
                 doThrow = ex;
             }
             
-//            try {
-//                if (deleteProdutos != null) {
-//                    deleteProdutos.close();
-//                }
-//            } catch (SQLException ex) {
-//                doThrow = ex;
-//            }
+            try {
+                if (deleteDestino != null) {
+                    deleteDestino.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (updateDestino != null) {
+                    updateDestino.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (insertDestino != null) {
+                    deleteDestino.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (deleteDestinatario != null) {
+                    deleteDestinatario.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (updateDestinatario != null) {
+                    updateDestinatario.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (insertDestinatario != null) {
+                    insertDestinatario.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (updatePedido != null) {
+                    updatePedido.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
             
             if (doThrow != null) {
                 throw new SQLException("Falha ao atualizar informação de entrega: " + doThrow.getMessage());
@@ -853,6 +904,7 @@ public final class BD {
             return r;
         }
     
+        // TODO: TESTAR
         public static int update(int id_pedido, japedidos.pedidos.Destino destino, Connection conn) throws SQLException {
             if (conn == null) {
                 throw new NullPointerException("Conexão é nula");
@@ -901,6 +953,8 @@ public final class BD {
             return r;
         }
         
+        
+        // TODO: TESTAR
         public static int delete(int id_pedido, Connection conn) throws SQLException {
             if (conn == null) {
                 throw new NullPointerException("Conexão é nula");
@@ -984,6 +1038,7 @@ public final class BD {
             return r;
         }
     
+        // TODO: TESTAR
         public static int update(int id_pedido, String destinatario, Connection conn) throws SQLException {
             if (conn == null) {
                 throw new NullPointerException("Conexão é nula");
@@ -1026,6 +1081,7 @@ public final class BD {
             return r;
         }
         
+        // TODO: TESTAR
         public static int delete(int id_pedido, Connection conn) throws SQLException {
             if (conn == null) {
                 throw new NullPointerException("Conexão é nula");
