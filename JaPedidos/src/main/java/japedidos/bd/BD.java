@@ -542,20 +542,17 @@ public final class BD {
                     String destinatario = rs.getString("info_destinatario");
                     infoEntrega.setDestinatario(destinatario);
                     
-                    // Produtos
-                    japedidos.produto.ProdutoPedido[] produtosPedido;
-                    if (getProdutos) {
-                        produtosPedido = BD.ProdutoPedido.selectAllBy_id_pedido(id_pedido);
-                    } else {
-                        produtosPedido = new japedidos.produto.ProdutoPedido[1];
-                    }
                     
                     // Desconto
                     int taxaDesconto = rs.getInt("tx_desconto");
                     
                     japedidos.pedidos.Pedido p = null;
                     try {
-                        p = new japedidos.pedidos.Pedido(id_pedido, cliente, infoEntrega, produtosPedido, taxaDesconto); // Throw illegalArgumentsException se argumentos forem inválidos
+                        p = new japedidos.pedidos.Pedido(id_pedido, cliente, infoEntrega, taxaDesconto); // Throw illegalArgumentsException se argumentos forem inválidos
+                        if (getProdutos) {
+                            p.setProdutos(BD.ProdutoPedido.selectAllBy_id_pedido(id_pedido));
+                        }
+                        
                         p.setPrecoFinal(rs.getDouble("preco_final"));
                         p.setCustoTotal(rs.getDouble("preco_custo_total"));
                     } catch (IllegalArgumentsException exs) {

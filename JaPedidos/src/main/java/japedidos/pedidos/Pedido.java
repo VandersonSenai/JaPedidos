@@ -1,5 +1,6 @@
 package japedidos.pedidos;
 
+import japedidos.bd.BD;
 import java.util.ArrayList;
 import japedidos.clientes.Cliente;
 import japedidos.exception.*;
@@ -38,6 +39,11 @@ public final class Pedido {
         this(1, cliente, infoEntrega, produtoPedido, taxaDesconto);
         this.id = NULL_ID;
         setRegistroCriacao(new Registro());
+    }
+    
+    public Pedido(int id, Cliente cliente, InfoEntrega infoEntrega, int taxaDesconto) {
+        this(id, cliente, infoEntrega, new ProdutoPedido[1], taxaDesconto);
+        this.produtosPedido = null;
     }
     
     public Pedido(int id, Cliente cliente, InfoEntrega infoEntrega, ProdutoPedido[] produtoPedido, int taxaDesconto) {
@@ -284,10 +290,13 @@ public final class Pedido {
     }
     
     public int getProdutoCount() {
-        return this.produtosPedido.length;
+        return this.getProdutos().length;
     }
     
     public ProdutoPedido[] getProdutos() {
+        if (this.produtosPedido == null) { // Se for construído sem produtos
+            this.setProdutos(BD.ProdutoPedido.selectAllBy_id_pedido(this.getId()));
+        }
         return this.produtosPedido;
     }
     

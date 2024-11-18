@@ -58,6 +58,9 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                 }
             }
         });
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            preencherHistoricoPedidos();
+        });
     }
     public void fillEstadosComboBoxPedido() {
         jcmb_estadoInicial.addItem(Estado.ABERTO);
@@ -1036,7 +1039,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         Pedido p = getFieldsInfo();
         if (p != null) {
             int r = BD.Pedido.insert(p);
-            
+            preencherHistoricoPedidos();
             if (r > 0) {
                 clearFieldsInfo();
                 atualizarValoresPedido();
@@ -1045,6 +1048,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                 JOptionPane.showMessageDialog(null, "Cadastro do pedido falhou!", "Cadastro de pedido", JOptionPane.ERROR_MESSAGE);
             }
         }
+        
     }//GEN-LAST:event_jbtn_criarPedido1ActionPerformed
 
     private void jbtn_incluirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_incluirProdutoActionPerformed
@@ -1108,7 +1112,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
 
     private void jpnl_pedidosAbertoComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jpnl_pedidosAbertoComponentShown
         // TODO add your handling code here:
-        preencherHistoricoPedidos();
+        
     }//GEN-LAST:event_jpnl_pedidosAbertoComponentShown
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
