@@ -37,10 +37,29 @@ public final class BD {
 //    public static final String USER = "root";
 //    public static final String USER_PWD = "tmb";
     
-//    public static void main(String[] args) {
-//        japedidos.pedidos.Pedido[] ped = BD.Pedido.selectByEstado(japedidos.pedidos.Estado.ABERTO);
-//        System.out.println(ped[0]);
-//    }
+    public static void main(String[] args) throws SQLException {
+        japedidos.pedidos.Pedido[] ped = BD.Pedido.selectByEstado(japedidos.pedidos.Estado.ABERTO);
+        System.out.println(ped[0].getProdutoCount());
+        japedidos.produto.ProdutoPedido[] prods = ped[0].getProdutos();
+        
+        prods[prods.length-1] = null;
+        
+        
+        final String connStr = String.format("jdbc:%s://%s:%s/%s", SGBD, IP, PORT, NAME);
+        
+        Connection conn = null;
+        try { // Gerar a conexão
+            conn = DriverManager.getConnection(connStr, USER, USER_PWD);
+            System.out.println(Pedido.atualizarProdutos(ped[0], prods, conn));
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
+            System.exit(-1);
+        }
+        
+        if (conn != null) {
+            conn.close();
+        }
+    }
     
     private BD() {}
     
@@ -479,6 +498,78 @@ public final class BD {
             return r;
         }
         
+        public static int atualizarProdutos(japedidos.pedidos.Pedido pedido, japedidos.produto.ProdutoPedido[] produtos, Connection conn) throws SQLException {
+            if (conn == null) {
+                throw new NullPointerException("Conexão é nula");
+            }
+            
+            if (pedido == null) {
+                throw new NullPointerException("Pedido é nulo");
+            } else if (pedido.isNew()) {
+                throw new IllegalArgumentException("Pedido não é cadastrado");
+            }
+            
+            if (produtos == null) {
+                throw new NullPointerException("Novos produtos do pedido são nulos");
+            }
+            
+            
+            PreparedStatement updateProdutos, deleteProdutos;
+            updateProdutos = deleteProdutos = null;
+            int rSoma = 0;
+            Throwable doThrow = null;
+            try {
+                deleteProdutos = conn.prepareStatement(String.format("DELETE FROM %s WHERE id_pedido = ?", ProdutoPedido.TABLE));
+                deleteProdutos.setInt(1, pedido.getId());
+                deleteProdutos.executeUpdate();
+
+                updateProdutos = conn.prepareStatement(
+                        String.format("INSERT INTO %s(id_produto, id_pedido, quantidade, preco_venda, preco_custo, info_adicional) VALUES "
+                                    + "(?, ?, ?, preco_venda_produto(?), preco_custo_produto(?), ?)", ProdutoPedido.TABLE));
+                for(var prodPed : produtos) {
+                    if (prodPed != null) {
+                        int i = 1;
+                        int id_produto = prodPed.getProduto().getId();
+                        updateProdutos.setInt(i++, prodPed.getProduto().getId());
+                        updateProdutos.setInt(i++, pedido.getId());
+                        updateProdutos.setInt(i++, prodPed.getQuantidade());
+                        updateProdutos.setInt(i++, id_produto);
+                        updateProdutos.setInt(i++, id_produto);
+                        updateProdutos.setString(i++, prodPed.getInfoAdicional());
+                        updateProdutos.addBatch();
+                    }
+                }
+                int[] r = updateProdutos.executeBatch();
+                for (int n : r) {
+                    rSoma += n;
+                }                
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (deleteProdutos != null) {
+                    deleteProdutos.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (updateProdutos != null) {
+                    updateProdutos.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            if (doThrow != null) {
+                throw new SQLException("Falha ao atualizar produtos: " + doThrow.getMessage());
+            }
+            
+            return rSoma;
+        }
+        
         /** Recebe um resultSet contendo informações de um pedido obtido por meio
          * da view vw_pedido. Recebe as informações básicas do pedido, do cliente
          * e dos produtos contidos e gera um array de Pedido. Não traz todos os estados dos pedidos, mas apenas o atual.
@@ -838,6 +929,7 @@ public final class BD {
     }
     
     static public class ProdutoPedido {
+        public static final String TABLE = "produto_pedido";
         public static japedidos.produto.ProdutoPedido[] selectAllBy_id_pedido(int id_pedido) {
             japedidos.produto.ProdutoPedido[] p = null;
             if (id_pedido != -1) {
