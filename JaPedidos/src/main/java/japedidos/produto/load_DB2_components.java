@@ -123,29 +123,37 @@ public class load_DB2_components {
                 JOptionPane.INFORMATION_MESSAGE);
             }
     }
-    public static void salvaProduto(JFrame referencia,  Connection banco , String sqlQuery)  throws SQLException {
 
-        JFrame_ListaProdutos frame_listaProduto; 
+    public static void salvaProduto(Component referencia,  Connection banco , String sqlQuery, String[] dados)  throws SQLException {
+
         try (PreparedStatement stm_tabela = banco.prepareStatement(sqlQuery)) {
-            // Se referência for da lista de produtos
-            if (referencia instanceof JFrame_ListaProdutos) {
-                frame_listaProduto = (JFrame_ListaProdutos)referencia; // Faz conversão do frame para JFrame_ListaProdutos, pra acessar variáveis
-                stm_tabela.setString(1, frame_listaProduto.jtxtf_descricao.getText()); // descricao do item.
-                stm_tabela.setString(2, (String)frame_listaProduto.jcmb_categoria.getSelectedItem()); // descricao do item.
-                stm_tabela.setString(3, (String)frame_listaProduto.jcmb_unid.getSelectedItem()); // descricao do item.
-                stm_tabela.setString(4, frame_listaProduto.jtxtf_valor_venda.getText()); // descricao do item.
-                stm_tabela.setString(5, frame_listaProduto.jtxtf_valor_custo.getText()); // descricao do item.
-                if (frame_listaProduto.jchb_ativo.isSelected()){
-    //                JFrame_ListaProdutos.getFrames().getClass().
-                    stm_tabela.setString(6, "1"); // descricao do item.
-                } else {
-                    stm_tabela.setString(6, "0"); // descricao do item.
-                }
+            // se o dados[0]="" que se refere ao codigo estiver em branco significa que é um novo item 
+            // e recebera um codigo automatico/seguencial no banco.
+            // caso contrario estamos apenas atualizando um existente.
+            if (dados[0].equals("")){
+                stm_tabela.setString((1), dados[1]); 
+                stm_tabela.setString((2), dados[2]); 
+                stm_tabela.setString((3), dados[3]); 
+                dados[4] = dados[4].replace(",", ".");
+                stm_tabela.setFloat((4), Float.parseFloat(dados[4])); 
+                dados[5] = dados[5].replace(",", ".");
+                stm_tabela.setFloat((5), Float.parseFloat(dados[5])); 
+                stm_tabela.setBoolean((6), Boolean.parseBoolean(dados[6]));  
+            } else {
+                stm_tabela.setString((1), dados[1]); 
+                stm_tabela.setString((2), dados[2]); 
+                stm_tabela.setString((3), dados[3]); 
+                dados[4] = dados[4].replace(",", ".");
+                stm_tabela.setFloat((4), Float.parseFloat(dados[4])); 
+                dados[5] = dados[5].replace(",", ".");
+                stm_tabela.setFloat((5), Float.parseFloat(dados[5])); 
+                stm_tabela.setBoolean((6), Boolean.parseBoolean(dados[6])); 
+                stm_tabela.setString((7), dados[0]);                 
             }
-
+            
             int linhasAfetadas = stm_tabela.executeUpdate();
+            stm_tabela.close();
             if (linhasAfetadas > 0) {
-                
                 //System.out.println("Dados excluidos com sucesso!");
                 JOptionPane.showMessageDialog(referencia, 
                 "Item atualizado/cadastrado com sucesso.\n", 
@@ -161,11 +169,11 @@ public class load_DB2_components {
             }
             catch (SQLException ex)
             {
-                //System.out.println("O erro foi : " +ex);
+                System.out.println("O erro foi : " +ex);
                 JOptionPane.showMessageDialog(referencia, 
-                "Erro ao acessar banco.\n", 
+                "Erro ao acessar banco. (salvaProduto2)\n" + ex, 
                 "JaPedidos", 
                 JOptionPane.INFORMATION_MESSAGE);
             }
-    }
+    }    
 }

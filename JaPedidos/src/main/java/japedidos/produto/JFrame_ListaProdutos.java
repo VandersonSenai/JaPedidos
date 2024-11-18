@@ -858,30 +858,63 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jlbl_btn_salvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_salvarMouseClicked
         // TODO add your handling code here:
+        int nValuesInsert = 0 ;
+        String[] dados = new String[7];
+        String sqlQuery;
+        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+        String usuario = "root";
+        String senha = "";
+        
+        if (jtxtf_codigo.getText().equals("")){
+            // se o codigo estiver em branco significa que é um novo item e recebera um codigo automatico/seguencial no banco
+            sqlQuery = "INSERT INTO produto ( nome, id_categoria, id_unidade, preco_venda, preco_custo, estado ) VALUES (?, ?, ?, ?, ?, ?)";    
+        } else {
+            sqlQuery = "UPDATE produto SET nome=?, id_categoria=?, id_unidade=?, preco_venda=?, preco_custo=?, estado=? WHERE id=?";    
+        }
+//        for (int i = 0; i < sql.length(); i++) {
+//            if (sql.charAt(i) == '?' ) { // Compara o caractere atual com o desejado
+//                nValuesInsert++;
+//            }
+//        }
+//        dados = new String[nValuesInsert];
+        dados[0]=jtxtf_codigo.getText();
+        dados[1]=jtxtf_descricao.getText();
+        dados[2]=Integer.toString(jcmb_categoria.getSelectedIndex());
+        dados[3]=Integer.toString(jcmb_unid.getSelectedIndex());
+        dados[4]=jtxtf_valor_venda.getText();
+        dados[5]=jtxtf_valor_custo.getText();
+        if (jchb_ativo.isSelected()){
+             dados[6]="1";
+         } else {
+             dados[6]="0";
+         }
+        
         if ( jtxtf_descricao.getText().length()<1 | jtxtf_valor_venda.getText().length()<1 | 
                 jtxtf_valor_custo.getText().length()<1 | jcmb_categoria.getSelectedIndex()==0 |  jcmb_unid.getSelectedIndex()==0 ) {
             JOptionPane.showMessageDialog(jpnl_corpo, """
                                                        Para Salvar ou Atualizar um item, \u00e9 necessario
                                                        entrar com os campos: descricao / categoria / unidade
                                                        valor de custo / valor de venda.
-                                                      """,
-            "JaPedidos",
-            JOptionPane.WARNING_MESSAGE);                
+                                                       """,
+                                                       "JaPedidos",
+                                                       JOptionPane.WARNING_MESSAGE);                
         } else if (jtxtf_descricao.getText().length()>1 | jtxtf_valor_venda.getText().length()>1 | 
                 jtxtf_valor_custo.getText().length()>1 | jcmb_categoria.getSelectedIndex()>0 |  jcmb_unid.getSelectedIndex()>0 ) {
-                    String salvaItem = "INSERT INTO produto ( nome, id_categoria, id_unidade, preco_venda, preco_custo, estado ) VALUES (?, ?, ?, ?, ?, ?)";
+
                     try
                     {
-                    String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
-                    String usuario = "root";
-                    String senha = "";
+
                     Connection banco = DriverManager.getConnection(url, usuario, senha);
-                    load_DB2_components.salvaProduto(this,  banco , salvaItem);
+//                    load_DB2_components.salvaProduto(this,  banco , salvaItem);
+                    load_DB2_components.salvaProduto(this,  banco , sqlQuery, dados);                    
                     }
                     catch (SQLException ex)
                     {
-                        
-                        System.out.println("O erro foi : " +ex);
+                        //System.out.println("O erro foi : " +ex);
+                        JOptionPane.showMessageDialog(this, 
+                        "Erro ao acessar banco.\n" + ex, 
+                        "JaPedidos", 
+                        JOptionPane.INFORMATION_MESSAGE);
                     }
                     
                     JOptionPane.showMessageDialog(jpnl_corpo, 
