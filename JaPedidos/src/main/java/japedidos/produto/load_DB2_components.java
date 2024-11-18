@@ -127,12 +127,13 @@ public class load_DB2_components {
         
         try (PreparedStatement stm_tabela = banco.prepareStatement(sqlQuery)) {
 
-            stm_tabela.setString(1, referencia.jtxtf_descricao.getText()); // descricao do item.
+            stm_tabela.setString(1, JPanel.class.get.jpnl_corpo.jtxtf_descricao.getText()); // descricao do item.
             stm_tabela.setString(2, referencia.jcmb_categoria.getSelectedItem()); // descricao do item.
             stm_tabela.setString(3, referencia.jcmb_unid.getSelectedItem()); // descricao do item.
             stm_tabela.setString(4, referencia.jtxtf_valor_venda.getText()); // descricao do item.
             stm_tabela.setString(5, referencia.jtxtf_valor_custo.getText()); // descricao do item.
             if (referencia.jchb_ativo.isSelected()){
+                JFrame_ListaProdutos.getFrames().getClass().
                 stm_tabela.setString(6, "1"); // descricao do item.
             } else {
                 stm_tabela.setString(6, "0"); // descricao do item.
