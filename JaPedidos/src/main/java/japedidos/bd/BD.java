@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.sql.ResultSet;
+import java.sql.SQLTimeoutException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
@@ -37,29 +38,30 @@ public final class BD {
 //    public static final String USER = "root";
 //    public static final String USER_PWD = "tmb";
     
-    public static void main(String[] args) throws SQLException {
-        japedidos.pedidos.Pedido[] ped = BD.Pedido.selectByEstado(japedidos.pedidos.Estado.ABERTO);
-        System.out.println(ped[0].getProdutoCount());
-        japedidos.produto.ProdutoPedido[] prods = ped[0].getProdutos();
-        
-        prods[prods.length-1] = null;
-        
-        
-        final String connStr = String.format("jdbc:%s://%s:%s/%s", SGBD, IP, PORT, NAME);
-        
-        Connection conn = null;
-        try { // Gerar a conexão
-            conn = DriverManager.getConnection(connStr, USER, USER_PWD);
-            System.out.println(Pedido.atualizarProdutos(ped[0], prods, conn));
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
-            System.exit(-1);
-        }
-        
-        if (conn != null) {
-            conn.close();
-        }
-    }
+    // Testes
+//    public static void main(String[] args) throws SQLException {
+//        japedidos.pedidos.Pedido[] ped = BD.Pedido.selectByEstado(japedidos.pedidos.Estado.ABERTO);
+//        System.out.println(ped[0].getProdutoCount());
+//        japedidos.produto.ProdutoPedido[] prods = ped[0].getProdutos();
+//        
+//        prods[prods.length-1] = null;
+//        
+//        
+//        final String connStr = String.format("jdbc:%s://%s:%s/%s", SGBD, IP, PORT, NAME);
+//        
+//        Connection conn = null;
+//        try { // Gerar a conexão
+//            conn = DriverManager.getConnection(connStr, USER, USER_PWD);
+//            System.out.println(Pedido.atualizarProdutos(ped[0], prods, conn));
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e.getMessage(), "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
+//            System.exit(-1);
+//        }
+//        
+//        if (conn != null) {
+//            conn.close();
+//        }
+//    }
     
     private BD() {}
     
@@ -70,6 +72,9 @@ public final class BD {
         try { // Gerar a conexão
             conn = DriverManager.getConnection(connStr, USER, USER_PWD);
             return conn;
+        } catch (SQLTimeoutException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Banco demorou a responder", JOptionPane.ERROR_MESSAGE);
+            System.exit(-1);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
             System.exit(-1);
@@ -87,8 +92,6 @@ public final class BD {
             PreparedStatement selectLastPedido = null;
             PreparedStatement insertCliente = null;
             PreparedStatement selectCliente = null;
-            PreparedStatement insertDestino = null;
-            PreparedStatement insertDestinatario = null;
             PreparedStatement insertProdutosPedido = null;
             PreparedStatement insertInfoAdicionalCliente = null;
             PreparedStatement insertEstadoPedido = null;
@@ -155,27 +158,15 @@ public final class BD {
                     
                     // Controle do cadastro de novo destino
                     if (p.getInfoEntrega().getTipoEntrega() == TipoEntrega.ENVIO) {
-                        Destino destino = p.getInfoEntrega().getDestino();
+                        japedidos.pedidos.Destino destino = p.getInfoEntrega().getDestino();
                         
-                         // Insere destino do pedido
-                        insertDestino = conn.prepareStatement("INSERT INTO destino(id_pedido, logradouro, numero, bairro, cidade, estado, pais) VALUE (?, ?, ?, ?, ?, ?, ?)");
-                        int j = 1;
-                        insertDestino.setInt(j++, id_pedido);
-                        insertDestino.setString(j++, destino.getLogradouro());
-                        insertDestino.setString(j++, destino.getNumero());
-                        insertDestino.setString(j++, destino.getBairro());
-                        insertDestino.setString(j++, destino.getCidade());
-                        insertDestino.setString(j++, destino.getEstado());
-                        insertDestino.setString(j++, destino.getPais());
-                        insertDestino.executeUpdate();
+                        // Insere destino do pedido
+                        Destino.insert(id_pedido, destino, conn);
                     }
                     
                     //Controle do cadastro de destinatário
                     if (p.getInfoEntrega().getDestinatario() != null) {
-                        insertDestinatario = conn.prepareStatement("INSERT INTO destinatario(id_pedido, info) VALUE (?, ?)");
-                        insertDestinatario.setInt(1, id_pedido);
-                        insertDestinatario.setString(2, p.getInfoEntrega().getDestinatario());
-                        insertDestinatario.executeUpdate();
+                        BD.Destinatario.insert(id_pedido, p.getInfoEntrega().getDestinatario(), conn);
                     }
                     
                     // Inserindo produtos do pedido
@@ -280,13 +271,6 @@ public final class BD {
                     if (selectCliente != null){
                         try {
                            selectCliente.close();
-                        } catch (SQLException ex) {
-                           System.out.println("Não foi possível fechar conexão com o banco.");
-                        }                        
-                    }
-                    if (insertDestino != null) {
-                        try {
-                           insertDestino.close();
                         } catch (SQLException ex) {
                            System.out.println("Não foi possível fechar conexão com o banco.");
                         }                        
@@ -498,40 +482,124 @@ public final class BD {
             return r;
         }
         
-        public static int atualizarProdutos(japedidos.pedidos.Pedido pedido, japedidos.produto.ProdutoPedido[] produtos, Connection conn) throws SQLException {
+        public static int atualizarInfoEntrega(final japedidos.pedidos.Pedido pedidoAntigo, final japedidos.pedidos.InfoEntrega novaInfoEntrega, Connection conn) throws SQLException {
             if (conn == null) {
                 throw new NullPointerException("Conexão é nula");
             }
             
-            if (pedido == null) {
+            if (pedidoAntigo == null) {
                 throw new NullPointerException("Pedido é nulo");
-            } else if (pedido.isNew()) {
+            } else if (pedidoAntigo.isNew()) {
                 throw new IllegalArgumentException("Pedido não é cadastrado");
             }
             
-            if (produtos == null) {
+            if (novaInfoEntrega == null) {
+                throw new NullPointerException("Informações de entrega do pedido são nulas");
+            }
+            
+            
+            PreparedStatement deleteDestino, updateDestino, insertDestino, deleteDestinatario, updateDestinatario, insertDestinatario, updatePedido;
+            deleteDestino = updateDestino = insertDestino = deleteDestinatario = updateDestinatario = insertDestinatario = updatePedido = null;
+            int rSoma = 0;
+            Throwable doThrow = null;
+            
+            // Obtendo informações necessárias para controle da alteração
+            int id_pedido = pedidoAntigo.getId();
+            japedidos.pedidos.InfoEntrega infoEntregaPedido = pedidoAntigo.getInfoEntrega();
+            
+            TipoEntrega tipoEntregaAtual, tipoEntregaNovo;
+            tipoEntregaAtual = infoEntregaPedido.getTipoEntrega();
+            tipoEntregaNovo = novaInfoEntrega.getTipoEntrega();
+            try {
+                // Se tipos de entrega diferem
+                if (tipoEntregaAtual != tipoEntregaNovo) {
+                    if (tipoEntregaAtual == TipoEntrega.ENVIO && tipoEntregaNovo == TipoEntrega.RETIRADA) {
+                        // Apagar destino
+                        BD.Destino.delete(id_pedido, conn);
+                    } else {
+                        // Criar destino
+                        BD.Destino.insert(id_pedido, novaInfoEntrega.getDestino(), conn);
+                    }
+                    
+                    // Atualizar tipo de entrega do pedido
+                    updatePedido = conn.prepareStatement(String.format("UPDATE %s SET tipo_entrega = ? WHERE id = ?", TABLE));
+                    updatePedido.setString(1, tipoEntregaNovo.toString());
+                    updatePedido.setInt(2, id_pedido);
+                }
+                
+                // Destinatario
+                String destinatarioPedido, destinatarioNovo;
+                destinatarioPedido = infoEntregaPedido.getDestinatario();
+                destinatarioNovo = novaInfoEntrega.getDestinatario();
+                
+                if (destinatarioPedido != null && destinatarioNovo != null) {
+                    if (!destinatarioNovo.equals(destinatarioPedido)) {
+                        // Atualizar destinatario
+                        BD.Destinatario.update(id_pedido, destinatarioNovo, conn);
+                    }
+                } else if (destinatarioPedido == null) { // Existe um novo destinatário
+                    // Inserir destinatário
+                    BD.Destinatario.insert(id_pedido, destinatarioNovo, conn);
+                    
+                } else { // Não há mais destinatário
+                    // Apagar destinatário
+                    BD.Destinatario.delete(id_pedido, conn);
+                }
+                
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+//            try {
+//                if (deleteProdutos != null) {
+//                    deleteProdutos.close();
+//                }
+//            } catch (SQLException ex) {
+//                doThrow = ex;
+//            }
+            
+            if (doThrow != null) {
+                throw new SQLException("Falha ao atualizar informação de entrega: " + doThrow.getMessage());
+            }
+            
+            return rSoma;
+        }
+        
+        public static int atualizarProdutos(final japedidos.pedidos.Pedido pedidoAntigo, final japedidos.produto.ProdutoPedido[] novosProdutos, Connection conn) throws SQLException {
+            if (conn == null) {
+                throw new NullPointerException("Conexão é nula");
+            }
+            
+            if (pedidoAntigo == null) {
+                throw new NullPointerException("Pedido é nulo");
+            } else if (pedidoAntigo.isNew()) {
+                throw new IllegalArgumentException("Pedido não é cadastrado");
+            }
+            
+            if (novosProdutos == null) {
                 throw new NullPointerException("Novos produtos do pedido são nulos");
             }
             
             
             PreparedStatement updateProdutos, deleteProdutos;
+            CallableStatement updatePrecosPedido = null;
             updateProdutos = deleteProdutos = null;
             int rSoma = 0;
             Throwable doThrow = null;
             try {
                 deleteProdutos = conn.prepareStatement(String.format("DELETE FROM %s WHERE id_pedido = ?", ProdutoPedido.TABLE));
-                deleteProdutos.setInt(1, pedido.getId());
+                deleteProdutos.setInt(1, pedidoAntigo.getId());
                 deleteProdutos.executeUpdate();
 
                 updateProdutos = conn.prepareStatement(
                         String.format("INSERT INTO %s(id_produto, id_pedido, quantidade, preco_venda, preco_custo, info_adicional) VALUES "
                                     + "(?, ?, ?, preco_venda_produto(?), preco_custo_produto(?), ?)", ProdutoPedido.TABLE));
-                for(var prodPed : produtos) {
+                for(var prodPed : novosProdutos) {
                     if (prodPed != null) {
                         int i = 1;
                         int id_produto = prodPed.getProduto().getId();
                         updateProdutos.setInt(i++, prodPed.getProduto().getId());
-                        updateProdutos.setInt(i++, pedido.getId());
+                        updateProdutos.setInt(i++, pedidoAntigo.getId());
                         updateProdutos.setInt(i++, prodPed.getQuantidade());
                         updateProdutos.setInt(i++, id_produto);
                         updateProdutos.setInt(i++, id_produto);
@@ -540,9 +608,15 @@ public final class BD {
                     }
                 }
                 int[] r = updateProdutos.executeBatch();
+                
                 for (int n : r) {
                     rSoma += n;
-                }                
+                }
+                
+                updatePrecosPedido = conn.prepareCall("call atualizar_precos_pedido(?)");
+                updatePrecosPedido.setInt(1, pedidoAntigo.getId());
+                updatePrecosPedido.executeUpdate();
+                
             } catch (SQLException ex) {
                 doThrow = ex;
             }
@@ -558,6 +632,14 @@ public final class BD {
             try {
                 if (updateProdutos != null) {
                     updateProdutos.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (updatePrecosPedido != null) {
+                    updatePrecosPedido.close();
                 }
             } catch (SQLException ex) {
                 doThrow = ex;
@@ -718,6 +800,268 @@ public final class BD {
             return pedidos;
         }
     
+    }
+    
+    static public class Destino {
+        public static final String TABLE = "destino";
+        
+        public static int insert(int id_pedido, japedidos.pedidos.Destino destino, Connection conn) throws SQLException {
+            if (conn == null) {
+                throw new NullPointerException("Conexão é nula");
+            }
+            
+            if (id_pedido < 1) {
+                throw new IllegalArgumentException("Pedido não é cadastrado");
+            }
+            
+            if (destino == null) {
+                throw new NullPointerException("Destino do pedido é nulo");
+            }
+            
+            
+            PreparedStatement insertDestino = null;
+            int r = 0;
+            Throwable doThrow = null;
+            try {
+                insertDestino = conn.prepareStatement(String.format("INSERT INTO %s(id_pedido, logradouro, numero, bairro, cidade, estado, pais) VALUE (?, ?, ?, ?, ?, ?, ?)", TABLE));
+                int j = 1;
+                insertDestino.setInt(j++, id_pedido);
+                insertDestino.setString(j++, destino.getLogradouro());
+                insertDestino.setString(j++, destino.getNumero());
+                insertDestino.setString(j++, destino.getBairro());
+                insertDestino.setString(j++, destino.getCidade());
+                insertDestino.setString(j++, destino.getEstado());
+                insertDestino.setString(j++, destino.getPais());
+                r = insertDestino.executeUpdate();
+                
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (insertDestino != null) {
+                    insertDestino.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            if (doThrow != null) {
+                throw new SQLException("Falha ao atualizar informação de entrega: " + doThrow.getMessage());
+            }
+            
+            return r;
+        }
+    
+        public static int update(int id_pedido, japedidos.pedidos.Destino destino, Connection conn) throws SQLException {
+            if (conn == null) {
+                throw new NullPointerException("Conexão é nula");
+            }
+            
+            if (id_pedido < 1) {
+                throw new IllegalArgumentException("Pedido não é cadastrado");
+            }
+            
+            if (destino == null) {
+                throw new NullPointerException("Destino do pedido é nulo");
+            }
+            
+            
+            PreparedStatement updateDestino = null;
+            int r = 0;
+            Throwable doThrow = null;
+            try {
+                updateDestino = conn.prepareStatement(String.format("UPDATE %s SET logradouro = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, pais = ? WHERE id_pedido = ?", TABLE));
+                int j = 1;
+                updateDestino.setString(j++, destino.getLogradouro());
+                updateDestino.setString(j++, destino.getNumero());
+                updateDestino.setString(j++, destino.getBairro());
+                updateDestino.setString(j++, destino.getCidade());
+                updateDestino.setString(j++, destino.getEstado());
+                updateDestino.setString(j++, destino.getPais());
+                updateDestino.setInt(j++, id_pedido);
+                r = updateDestino.executeUpdate();
+                
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (updateDestino != null) {
+                    updateDestino.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            if (doThrow != null) {
+                throw new SQLException("Falha ao atualizar destino de entrega: " + doThrow.getMessage());
+            }
+            
+            return r;
+        }
+        
+        public static int delete(int id_pedido, Connection conn) throws SQLException {
+            if (conn == null) {
+                throw new NullPointerException("Conexão é nula");
+            }
+            
+            if (id_pedido < 1) {
+                throw new IllegalArgumentException("Pedido não é cadastrado");
+            }
+            
+            
+            PreparedStatement deleteDestino = null;
+            int r = 0;
+            Throwable doThrow = null;
+            try {
+                deleteDestino = conn.prepareStatement(String.format("DELETE FROM %s WHERE id_pedido = ?", TABLE));
+                deleteDestino.setInt(1, id_pedido);
+                r = deleteDestino.executeUpdate();
+                
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (deleteDestino != null) {
+                    deleteDestino.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            if (doThrow != null) {
+                throw new SQLException("Falha ao deletar destino de entrega: " + doThrow.getMessage());
+            }
+            
+            return r;
+        }
+    }
+    
+    static public class Destinatario {
+        public static final String TABLE = "destinatario";
+        
+        public static int insert(int id_pedido, String destinatario, Connection conn) throws SQLException {
+            if (conn == null) {
+                throw new NullPointerException("Conexão é nula");
+            }
+            
+            if (id_pedido < 1) {
+                throw new IllegalArgumentException("Pedido não é cadastrado");
+            }
+            
+            if (destinatario == null) {
+                throw new NullPointerException("Destinatário do pedido é nulo");
+            }
+            
+            
+            PreparedStatement insertDestinatario = null;
+            int r = 0;
+            Throwable doThrow = null;
+            try {
+                insertDestinatario = conn.prepareStatement(String.format("INSERT INTO %s(id_pedido, info) VALUE (?, ?)", TABLE));
+                insertDestinatario.setInt(1, id_pedido);
+                insertDestinatario.setString(2, destinatario);
+                r = insertDestinatario.executeUpdate();
+                
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (insertDestinatario != null) {
+                    insertDestinatario.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            if (doThrow != null) {
+                throw new SQLException("Falha ao inserir destinatario de entrega: " + doThrow.getMessage());
+            }
+            
+            return r;
+        }
+    
+        public static int update(int id_pedido, String destinatario, Connection conn) throws SQLException {
+            if (conn == null) {
+                throw new NullPointerException("Conexão é nula");
+            }
+            
+            if (id_pedido < 1) {
+                throw new IllegalArgumentException("Pedido não é cadastrado");
+            }
+            
+            if (destinatario == null) {
+                throw new NullPointerException("Destino do pedido é nulo");
+            }
+            
+            
+            PreparedStatement updateDestinatario = null;
+            int r = 0;
+            Throwable doThrow = null;
+            try {
+                 updateDestinatario = conn.prepareStatement(String.format("UPDATE %s SET info = ? WHERE id_pedido = ?", TABLE));
+                updateDestinatario.setString(2, destinatario);
+                updateDestinatario.setInt(1, id_pedido);
+                r = updateDestinatario.executeUpdate();
+                
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (updateDestinatario != null) {
+                    updateDestinatario.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            if (doThrow != null) {
+                throw new SQLException("Falha ao atualizar destinatario de entrega: " + doThrow.getMessage());
+            }
+            
+            return r;
+        }
+        
+        public static int delete(int id_pedido, Connection conn) throws SQLException {
+            if (conn == null) {
+                throw new NullPointerException("Conexão é nula");
+            }
+            
+            if (id_pedido < 1) {
+                throw new IllegalArgumentException("Pedido não é cadastrado");
+            }
+            
+            
+            PreparedStatement deleteDestinatario = null;
+            int r = 0;
+            Throwable doThrow = null;
+            try {
+                deleteDestinatario = conn.prepareStatement(String.format("DELETE FROM %s WHERE id_pedido = ?", TABLE));
+                deleteDestinatario.setInt(1, id_pedido);
+                r = deleteDestinatario.executeUpdate();
+                
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (deleteDestinatario != null) {
+                    deleteDestinatario.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            if (doThrow != null) {
+                throw new SQLException("Falha ao deletar destinatario de entrega: " + doThrow.getMessage());
+            }
+            
+            return r;
+        }
     }
     
     static public class EstadoPedido {
