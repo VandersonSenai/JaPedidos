@@ -205,7 +205,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
         jtb_linhaEncontrar.setBackground(new java.awt.Color(102, 102, 102));
         jtb_linhaEncontrar.setBorder(null);
-        jtb_linhaEncontrar.setFloatable(true);
         jtb_linhaEncontrar.setForeground(new java.awt.Color(102, 102, 102));
         jtb_linhaEncontrar.setBorderPainted(false);
         jtb_linhaEncontrar.setEnabled(false);
@@ -258,18 +257,15 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_corpo.add(jtxtf_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 710, 34));
 
         jlbl_descricao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jlbl_descricao.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_descricao.setText("DESCRIÇÃO :");
         jpnl_corpo.add(jlbl_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 430, -1, -1));
 
         jtxtf_descricao.setBackground(new java.awt.Color(204, 204, 204));
-        jtxtf_descricao.setForeground(new java.awt.Color(0, 0, 0));
-        jtxtf_descricao.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jtxtf_descricao.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jtxtf_descricao.setNextFocusableComponent(jcmb_categoria);
         jpnl_corpo.add(jtxtf_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 428, 310, 30));
 
         jlbl_categoria.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jlbl_categoria.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_categoria.setText("CATEGORIA :");
         jpnl_corpo.add(jlbl_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(686, 430, -1, -1));
 
@@ -285,18 +281,15 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_corpo.add(jcmb_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 430, 90, 30));
 
         jlbl_codigo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jlbl_codigo.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_codigo.setText("CÓDIGO :");
         jpnl_corpo.add(jlbl_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, -1, -1));
 
         jtxtf_codigo.setBackground(new java.awt.Color(204, 204, 204));
-        jtxtf_codigo.setForeground(new java.awt.Color(0, 0, 0));
         jtxtf_codigo.setEnabled(false);
         jtxtf_codigo.setNextFocusableComponent(jchb_ativo);
         jpnl_corpo.add(jtxtf_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 380, 70, 30));
 
         jlbl_unid.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jlbl_unid.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_unid.setText("UND :");
         jpnl_corpo.add(jlbl_unid, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 484, 40, -1));
 
@@ -312,12 +305,10 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_corpo.add(jcmb_unid, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 480, 90, 30));
 
         jlbl_valor_venda.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jlbl_valor_venda.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_valor_venda.setText("VENDA R$ :");
         jpnl_corpo.add(jlbl_valor_venda, new org.netbeans.lib.awtextra.AbsoluteConstraints(686, 484, 90, -1));
 
         jtxtf_valor_venda.setBackground(new java.awt.Color(204, 204, 204));
-        jtxtf_valor_venda.setForeground(new java.awt.Color(0, 0, 0));
         jtxtf_valor_venda.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jtxtf_valor_venda.setName(""); // NOI18N
         jtxtf_valor_venda.setNextFocusableComponent(jlbl_btn_novo);
@@ -329,18 +320,15 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_corpo.add(jtxtf_valor_venda, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 480, 90, 30));
 
         jtxtf_valor_custo.setBackground(new java.awt.Color(204, 204, 204));
-        jtxtf_valor_custo.setForeground(new java.awt.Color(0, 0, 0));
         jtxtf_valor_custo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jtxtf_valor_custo.setNextFocusableComponent(jtxtf_valor_venda);
         jpnl_corpo.add(jtxtf_valor_custo, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 480, 90, 30));
 
         jlbl_valor_custo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jlbl_valor_custo.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_valor_custo.setText("CUSTO R$ :");
         jpnl_corpo.add(jlbl_valor_custo, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 484, -1, -1));
 
         jlbl_ativo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jlbl_ativo.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_ativo.setText("ATIVO :");
         jpnl_corpo.add(jlbl_ativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 380, 70, -1));
 
@@ -888,7 +876,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                     String usuario = "root";
                     String senha = "";
                     Connection banco = DriverManager.getConnection(url, usuario, senha);
-                    load_DB2_components.salvaProduto(jpnl_corpo,  banco , salvaItem);
+                    load_DB2_components.salvaProduto(this,  banco , salvaItem);
                     }
                     catch (SQLException ex)
                     {
@@ -962,39 +950,39 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jchb_ativo;
-    private javax.swing.JComboBox<String> jcmb_categoria;
-    private javax.swing.JComboBox<String> jcmb_unid;
-    private javax.swing.JLabel jlbl_ativo;
-    private javax.swing.JLabel jlbl_btn_excluir;
-    private javax.swing.JLabel jlbl_btn_novo;
-    private javax.swing.JLabel jlbl_btn_salvar;
-    private javax.swing.JLabel jlbl_categoria;
+    javax.swing.JCheckBox jchb_ativo;
+    javax.swing.JComboBox<String> jcmb_categoria;
+    javax.swing.JComboBox<String> jcmb_unid;
+    javax.swing.JLabel jlbl_ativo;
+    javax.swing.JLabel jlbl_btn_excluir;
+    javax.swing.JLabel jlbl_btn_novo;
+    javax.swing.JLabel jlbl_btn_salvar;
+    javax.swing.JLabel jlbl_categoria;
     private javax.swing.JLabel jlbl_clientes;
-    private javax.swing.JLabel jlbl_codigo;
-    private javax.swing.JLabel jlbl_descricao;
-    private javax.swing.JLabel jlbl_encontrar;
+    javax.swing.JLabel jlbl_codigo;
+    javax.swing.JLabel jlbl_descricao;
+    javax.swing.JLabel jlbl_encontrar;
     private javax.swing.JLabel jlbl_pedidos;
     private javax.swing.JLabel jlbl_produtos;
     private javax.swing.JLabel jlbl_relatorios;
-    private javax.swing.JLabel jlbl_unid;
-    private javax.swing.JLabel jlbl_valor_custo;
-    private javax.swing.JLabel jlbl_valor_venda;
+    javax.swing.JLabel jlbl_unid;
+    javax.swing.JLabel jlbl_valor_custo;
+    javax.swing.JLabel jlbl_valor_venda;
     private javax.swing.JLabel jpnl_background_01;
-    private javax.swing.JLabel jpnl_background_02;
-    private javax.swing.JPanel jpnl_corpo;
+    javax.swing.JLabel jpnl_background_02;
+    javax.swing.JPanel jpnl_corpo;
     private javax.swing.JLabel jpnl_img_etiqueta;
     private javax.swing.JPanel jpnl_sideMenu;
     private javax.swing.JToolBar jtb_linhaBranca;
-    private javax.swing.JToolBar jtb_linhaBranca1;
-    private javax.swing.JToolBar jtb_linhaEncontrar;
+    javax.swing.JToolBar jtb_linhaBranca1;
+    javax.swing.JToolBar jtb_linhaEncontrar;
     private javax.swing.JTable jtbl_lista_produtos;
-    private javax.swing.JScrollPane jtbl_listaprodutos;
-    private javax.swing.JTextField jtxtf_codigo;
-    private javax.swing.JTextField jtxtf_descricao;
-    private javax.swing.JTextField jtxtf_pesquisa;
-    private javax.swing.JTextField jtxtf_valor_custo;
-    private javax.swing.JTextField jtxtf_valor_venda;
+    javax.swing.JScrollPane jtbl_listaprodutos;
+    javax.swing.JTextField jtxtf_codigo;
+    javax.swing.JTextField jtxtf_descricao;
+    javax.swing.JTextField jtxtf_pesquisa;
+    javax.swing.JTextField jtxtf_valor_custo;
+    javax.swing.JTextField jtxtf_valor_venda;
     // End of variables declaration//GEN-END:variables
 
 }
