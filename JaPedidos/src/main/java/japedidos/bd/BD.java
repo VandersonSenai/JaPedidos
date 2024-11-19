@@ -40,26 +40,28 @@ public final class BD {
     
     // Testes
     public static void main(String[] args) throws Exception {
-        japedidos.pedidos.Pedido ped = BD.Pedido.selectById(5);
+        japedidos.pedidos.Pedido ped = BD.Pedido.selectById(20);
+        japedidos.pedidos.Pedido ped17 = BD.Pedido.selectById(17);
 //        System.out.println(ped.getProdutoCount());
-        
-        japedidos.pedidos.InfoEntrega novaInfo = (japedidos.pedidos.InfoEntrega)ped.getInfoEntrega().clone();
-//        novaInfo.getDestino().setNumero("32");
-//        novaInfo.setTipoEntrega(TipoEntrega.ENVIO);
-//        novaInfo.setDestino(new japedidos.pedidos.Destino("Antônio Silveira Moraes", "112", "Ataíde Fonseca", "Cariacica", "RJ"));
-        novaInfo.setDestinatario("Entregar na padaria ao lado.");
+        japedidos.clientes.Cliente.InfoAdicional info20 = ped.getCliente().getInfoAdicional();
+        japedidos.clientes.Cliente.InfoPF infoPF = (japedidos.clientes.Cliente.InfoPF)info20;
+        infoPF.nome = "Antônio Carlos";
         
         final String connStr = String.format("jdbc:%s://%s:%s/%s", SGBD, IP, PORT, NAME);
         Connection conn = null;
         try { // Gerar a conexão
             conn = DriverManager.getConnection(connStr, USER, USER_PWD);
-            Pedido.atualizarInfoEntrega(ped, novaInfo, conn);
+            conn.setAutoCommit(false);
+            Pedido.atualizarInfoAdicionalCliente(ped, info20, conn);
+            conn.commit();
         } catch (Exception e) {
+            conn.rollback();
             JOptionPane.showMessageDialog(null, e.getMessage(), "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
             System.exit(-1);
         }
         
         if (conn != null) {
+            conn.setAutoCommit(true);
             conn.close();
         }
     }
@@ -81,6 +83,317 @@ public final class BD {
             System.exit(-1);
         }
         return null;
+    }
+    
+    static public class InfoAdicional {
+        public static int insert(int id_pedido, japedidos.clientes.Cliente.InfoAdicional infoAdicional, Connection conn) throws SQLException {
+            if (infoAdicional == null) {
+                throw  new SQLException("Não é possível inserir info adicional nula");
+            }
+            
+            int r;
+            if (infoAdicional instanceof japedidos.clientes.Cliente.InfoPF) {
+                japedidos.clientes.Cliente.InfoPF infoPF = (japedidos.clientes.Cliente.InfoPF)infoAdicional;
+                r = InfoPF.insert(id_pedido, infoPF, conn);
+            } else {
+                japedidos.clientes.Cliente.InfoPJ infoPJ = (japedidos.clientes.Cliente.InfoPJ)infoAdicional;
+                r = InfoPJ.insert(id_pedido, infoPJ, conn);
+            }
+            
+            return r;
+        }
+    
+        public static int update(int id_pedido, japedidos.clientes.Cliente.InfoAdicional infoAdicional, Connection conn) throws SQLException {
+            if (infoAdicional == null) {
+                throw  new SQLException("Não é possível atualizar info adicional nula");
+            }
+            
+            int r;
+            if (infoAdicional instanceof japedidos.clientes.Cliente.InfoPF) {
+                japedidos.clientes.Cliente.InfoPF infoPF = (japedidos.clientes.Cliente.InfoPF)infoAdicional;
+                r = InfoPF.update(id_pedido, infoPF, conn);
+            } else {
+                japedidos.clientes.Cliente.InfoPJ infoPJ = (japedidos.clientes.Cliente.InfoPJ)infoAdicional;
+                r = InfoPJ.update(id_pedido, infoPJ, conn);
+            }
+            
+            return r;
+        }
+        
+        public static int delete(int id_pedido, japedidos.clientes.Cliente.InfoAdicional infoAdicional, Connection conn) throws SQLException {
+            if (infoAdicional == null) {
+                throw  new SQLException("Não é possível atualizar info adicional nula");
+            }
+            
+            int r;
+            if (infoAdicional instanceof japedidos.clientes.Cliente.InfoPF) {
+                r = InfoPF.delete(id_pedido, conn);
+            } else {
+                r = InfoPJ.delete(id_pedido, conn);
+            }
+            
+            return r;
+        }
+    }
+    
+    static public class InfoPF {
+        public static final String TABLE = "info_pf";
+        
+        public static int insert(int id_pedido, japedidos.clientes.Cliente.InfoPF infoPF, Connection conn) throws SQLException {
+            if (conn == null) {
+                throw new NullPointerException("Conexão é nula");
+            }
+            
+            if (id_pedido < 1) {
+                throw new IllegalArgumentException("Pedido não é cadastrado");
+            }
+            
+            if (infoPF == null) {
+                throw new NullPointerException("Informação adicional de Pessoa Física do cliente do pedido é nula");
+            }
+            
+            
+            PreparedStatement insertInfoPF = null;
+            int r = 0;
+            Throwable doThrow = null;
+            try {
+                insertInfoPF = conn.prepareStatement(String.format("INSERT INTO %s(id_pedido, nome_cliente, cpf) VALUE (?, ?, ?)", TABLE));
+                int j = 1;
+                insertInfoPF.setInt(j++, id_pedido);
+                insertInfoPF.setString(j++, infoPF.getNome());
+                insertInfoPF.setString(j++, infoPF.getCpf());
+                r = insertInfoPF.executeUpdate();
+                
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (insertInfoPF != null) {
+                    insertInfoPF.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            if (doThrow != null) {
+                throw new SQLException("Falha ao atualizar informação adicional de Pessoa Física do cliente do pedido: " + doThrow.getMessage());
+            }
+            
+            return r;
+        }
+    
+        public static int update(int id_pedido, japedidos.clientes.Cliente.InfoPF infoPF, Connection conn) throws SQLException {
+            if (conn == null) {
+                throw new NullPointerException("Conexão é nula");
+            }
+            
+            if (id_pedido < 1) {
+                throw new IllegalArgumentException("Pedido não é cadastrado");
+            }
+            
+            if (infoPF == null) {
+                throw new NullPointerException("informação adicional de Pessoa Física do cliente do pedido é nula");
+            }
+            
+            
+            PreparedStatement updateInfoPF = null;
+            int r = 0;
+            Throwable doThrow = null;
+            try {
+                updateInfoPF = conn.prepareStatement(String.format("UPDATE %s SET nome_cliente = ?, cpf = ? WHERE id_pedido = ?", TABLE));
+                int j = 1;
+                updateInfoPF.setString(j++, infoPF.getNome());
+                updateInfoPF.setString(j++, infoPF.getCpf());
+                updateInfoPF.setInt(j++, id_pedido);
+                r = updateInfoPF.executeUpdate();
+                
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (updateInfoPF != null) {
+                    updateInfoPF.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            if (doThrow != null) {
+                throw new SQLException("Falha ao atualizar informação adicional de Pessoa Física do cliente do pedido: " + doThrow.getMessage());
+            }
+            
+            return r;
+        }
+        
+        public static int delete(int id_pedido, Connection conn) throws SQLException {
+            if (conn == null) {
+                throw new NullPointerException("Conexão é nula");
+            }
+            
+            if (id_pedido < 1) {
+                throw new IllegalArgumentException("Pedido não é cadastrado");
+            }
+            
+            
+            PreparedStatement deleteInfoPF = null;
+            int r = 0;
+            Throwable doThrow = null;
+            try {
+                deleteInfoPF = conn.prepareStatement(String.format("DELETE FROM %s WHERE id_pedido = ?", TABLE));
+                deleteInfoPF.setInt(1, id_pedido);
+                r = deleteInfoPF.executeUpdate();
+                
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (deleteInfoPF != null) {
+                    deleteInfoPF.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            if (doThrow != null) {
+                throw new SQLException("Falha ao deletar informação adicional de Pessoa Física do cliente do pedido: " + doThrow.getMessage());
+            }
+            
+            return r;
+        }
+    }
+    
+    static public class InfoPJ {
+        public static final String TABLE = "info_pj";
+        
+        public static int insert(int id_pedido, japedidos.clientes.Cliente.InfoPJ infoPJ, Connection conn) throws SQLException {
+            if (conn == null) {
+                throw new NullPointerException("Conexão é nula");
+            }
+            
+            if (id_pedido < 1) {
+                throw new IllegalArgumentException("Pedido não é cadastrado");
+            }
+            
+            if (infoPJ == null) {
+                throw new NullPointerException("Informação adicional de Pessoa Jurídica do cliente do pedido é nula");
+            }
+            
+            
+            PreparedStatement insertInfoPJ = null;
+            int r = 0;
+            Throwable doThrow = null;
+            try {
+                insertInfoPJ = conn.prepareStatement(String.format("INSERT INTO %s(id_pedido, nome_empresarial, nome_fantasia, cnpj) VALUE (?, ?, ?, ?)", TABLE));
+                int j = 1;
+                insertInfoPJ.setInt(j++, id_pedido);
+                insertInfoPJ.setString(j++, infoPJ.getRazaoSocial());
+                insertInfoPJ.setString(j++, infoPJ.getNomeFantasia());
+                insertInfoPJ.setString(j++, infoPJ.getCnpj());
+                r = insertInfoPJ.executeUpdate();
+                
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (insertInfoPJ != null) {
+                    insertInfoPJ.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            if (doThrow != null) {
+                throw new SQLException("Falha ao atualizar informação adicional de Pessoa Jurídica do cliente do pedido: " + doThrow.getMessage());
+            }
+            
+            return r;
+        }
+    
+        public static int update(int id_pedido, japedidos.clientes.Cliente.InfoPJ infoPJ, Connection conn) throws SQLException {
+            if (conn == null) {
+                throw new NullPointerException("Conexão é nula");
+            }
+            
+            if (id_pedido < 1) {
+                throw new IllegalArgumentException("Pedido não é cadastrado");
+            }
+            
+            if (infoPJ == null) {
+                throw new NullPointerException("informação adicional de Pessoa Jurídica do cliente do pedido é nula");
+            }
+            
+            
+            PreparedStatement updateInfoPF = null;
+            int r = 0;
+            Throwable doThrow = null;
+            try {
+                updateInfoPF = conn.prepareStatement(String.format("UPDATE %s SET nome_empresarial = ?, nome_fantasia = ?, cnpj = ? WHERE id_pedido = ?", TABLE));
+                int j = 1;
+                updateInfoPF.setString(j++, infoPJ.getRazaoSocial());
+                updateInfoPF.setString(j++, infoPJ.getNomeFantasia());
+                updateInfoPF.setString(j++, infoPJ.getCnpj());
+                updateInfoPF.setInt(j++, id_pedido);
+                r = updateInfoPF.executeUpdate();
+                
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (updateInfoPF != null) {
+                    updateInfoPF.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            if (doThrow != null) {
+                throw new SQLException("Falha ao atualizar informação adicional de Pessoa Jurídica do cliente do pedido: " + doThrow.getMessage());
+            }
+            
+            return r;
+        }
+        
+        public static int delete(int id_pedido, Connection conn) throws SQLException {
+            if (conn == null) {
+                throw new NullPointerException("Conexão é nula");
+            }
+            
+            if (id_pedido < 1) {
+                throw new IllegalArgumentException("Pedido não é cadastrado");
+            }
+            
+            
+            PreparedStatement deleteInfoPJ = null;
+            int r = 0;
+            Throwable doThrow = null;
+            try {
+                deleteInfoPJ = conn.prepareStatement(String.format("DELETE FROM %s WHERE id_pedido = ?", TABLE));
+                deleteInfoPJ.setInt(1, id_pedido);
+                r = deleteInfoPJ.executeUpdate();
+                
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (deleteInfoPJ != null) {
+                    deleteInfoPJ.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            if (doThrow != null) {
+                throw new SQLException("Falha ao deletar informação adicional de Pessoa Jurídica do cliente do pedido: " + doThrow.getMessage());
+            }
+            
+            return r;
+        }
     }
     
     static public class Pedido {
@@ -199,24 +512,9 @@ public final class BD {
                     }
                     
                     // Controle de cadastro de informação adicional do cliente
-                    InfoAdicional infoAdicionalCliente = cliente.getInfoAdicional();
+                    japedidos.clientes.Cliente.InfoAdicional infoAdicionalCliente = cliente.getInfoAdicional();
                     if (infoAdicionalCliente != null) {
-                        if (infoAdicionalCliente.isPF()) { // Se for pessoa física
-                            Cliente.InfoPF infoPF = (Cliente.InfoPF)infoAdicionalCliente;
-                            insertInfoAdicionalCliente = conn.prepareStatement("INSERT INTO info_pf(id_pedido, nome_cliente, cpf) VALUE (?, ?, ?)");
-                            insertInfoAdicionalCliente.setInt(1, id_pedido);
-                            insertInfoAdicionalCliente.setString(2, infoPF.getNome());
-                            insertInfoAdicionalCliente.setString(3, infoPF.getCpf());
-                            insertInfoAdicionalCliente.executeUpdate();
-                        } else {
-                            Cliente.InfoPJ infoPJ = (Cliente.InfoPJ)infoAdicionalCliente;
-                            insertInfoAdicionalCliente = conn.prepareStatement("INSERT INTO info_pj(id_pedido, cnpj, nome_fantasia, nome_empresarial) VALUE (?, ?, ?, ?)");
-                            insertInfoAdicionalCliente.setInt(1, id_pedido);
-                            insertInfoAdicionalCliente.setString(2, infoPJ.getCnpj());
-                            insertInfoAdicionalCliente.setString(3, infoPJ.getNomeFantasia());
-                            insertInfoAdicionalCliente.setString(4, infoPJ.getRazaoSocial());
-                            insertInfoAdicionalCliente.executeUpdate();
-                        }
+                        InfoAdicional.insert(id_pedido, infoAdicionalCliente, conn);
                     }
                     
                     // Cadastro do estado inicial do pedido
@@ -508,6 +806,106 @@ public final class BD {
                 }
             }
             return r;
+        }
+        
+        public static int atualizarInfoAdicionalCliente(final japedidos.pedidos.Pedido pedidoAntigo, final japedidos.clientes.Cliente.InfoAdicional novaInfoAdicional, Connection conn) throws SQLException {
+            if (conn == null) {
+                throw new NullPointerException("Conexão é nula");
+            }
+            
+            if (pedidoAntigo == null) {
+                throw new NullPointerException("Pedido é nulo");
+            } else if (pedidoAntigo.isNew()) {
+                throw new IllegalArgumentException("Pedido não é cadastrado");
+            }
+            
+//            if (novaInfoAdicional == null) {
+//                throw new NullPointerException("Informações adicionais do cliente do pedido são nulas");
+//            }
+            
+            
+            PreparedStatement deleteInfoAdicionalPF, updateInfoAdicionalPF, insertInfoAdicionalPF, deleteInfoAdicionalPJ, updateInfoAdicionalPJ, insertInfoAdicionalPJ;
+            deleteInfoAdicionalPF = updateInfoAdicionalPF = insertInfoAdicionalPF = deleteInfoAdicionalPJ = updateInfoAdicionalPJ = insertInfoAdicionalPJ = null;
+            int rSoma = 0;
+            Throwable doThrow = null;
+            
+            // Obtendo informações necessárias para controle da alteração
+            int id_pedido = pedidoAntigo.getId();
+            japedidos.clientes.Cliente.InfoAdicional infoAdicionalPedido = pedidoAntigo.getCliente().getInfoAdicional();
+            
+            try {
+                if (infoAdicionalPedido == null && novaInfoAdicional != null) { // Criação de info adicional
+                    InfoAdicional.insert(id_pedido, novaInfoAdicional, conn);
+                } else if (infoAdicionalPedido != null) { // Modificação de info adicional
+                    japedidos.clientes.Cliente.InfoAdicional.Tipo tipoPedido = infoAdicionalPedido.getTipo();
+                    
+                    if (novaInfoAdicional != null) { // Atualizar registros existentes
+                        japedidos.clientes.Cliente.InfoAdicional.Tipo novoTipo = novaInfoAdicional.getTipo();
+                        
+                        // TODO: fazer checagem se são iguais, para não atualizar caso sejam
+                        if (tipoPedido == novoTipo) {
+                            InfoAdicional.update(id_pedido, novaInfoAdicional, conn);
+                        } else { // Apagar antigo e criar novo
+                            InfoAdicional.delete(id_pedido, infoAdicionalPedido, conn);
+                            InfoAdicional.insert(id_pedido, novaInfoAdicional, conn);
+                        }
+                    } else { // Deletar registros existentes
+                        InfoAdicional.delete(id_pedido, infoAdicionalPedido, conn);
+                    }
+                    
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (deleteInfoAdicionalPF != null) {
+                    deleteInfoAdicionalPF.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            try {
+                if (updateInfoAdicionalPF != null) {
+                    updateInfoAdicionalPF.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            try {
+                if (insertInfoAdicionalPF != null) {
+                    deleteInfoAdicionalPF.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            try {
+                if (deleteInfoAdicionalPJ != null) {
+                    deleteInfoAdicionalPJ.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            try {
+                if (updateInfoAdicionalPJ != null) {
+                    updateInfoAdicionalPJ.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            try {
+                if (insertInfoAdicionalPJ != null) {
+                    insertInfoAdicionalPJ.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            if (doThrow != null) {
+                throw new SQLException("Falha ao atualizar informação adicional do cliente: " + doThrow.getMessage());
+            }
+            
+            return rSoma;
         }
         
         public static int atualizarInfoEntrega(final japedidos.pedidos.Pedido pedidoAntigo, final japedidos.pedidos.InfoEntrega novaInfoEntrega, Connection conn) throws SQLException {
