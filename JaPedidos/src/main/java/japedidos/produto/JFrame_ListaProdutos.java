@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import japedidos.produto.db_config;
 
 
 public class JFrame_ListaProdutos extends javax.swing.JFrame {
@@ -32,6 +33,8 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     /**
      * Creates new form listaProdutos
      */
+    private static  db_config db = new db_config();
+
     public JFrame_ListaProdutos() {
         initComponents();
     }
@@ -703,11 +706,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                                                "'%" + encontrar + "%'" + " ORDER BY nome ASC";
         }
         
-        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
-        String usuario = "root";
-        String senha = "";
+//        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+//        String usuario = "root";
+//        String senha = "";
 
-       try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
+       try (Connection banco = DriverManager.getConnection(db.getDB_Url(), db.getDB_User(), db.getDB_Pwd())) {
             
             load_DB2_components.carregaJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
         } catch (SQLException e) {
@@ -792,11 +795,16 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 //       String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
 //       String usuario = "titanw25_japedidos_hml";
 //       String senha = "seNai@2024proj";
-        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
-        String usuario = "root";
-        String senha = "";
+//        db_config db = new db_config();
+        db.setDB_Url("jdbc:mysql://localhost:3306/titanw25_japedidos_hml");
+        db.setDB_User("root");
+        db.setDB_Pwd("");
+        
+//        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+//        String usuario = "root";
+//        String senha = "";
 
-       try (Connection banco = DriverManager.getConnection(url, usuario, senha)) {
+       try (Connection banco = DriverManager.getConnection(db.getDB_Url(), db.getDB_User(), db.getDB_Pwd())) {
 
            String sql_Categoria = "SELECT id, nome FROM listaCategorias"; 
             String sql_Unidade = "SELECT id, abreviacao FROM listaUnidades";
@@ -805,6 +813,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             load_DB2_components.carregaComboBox(this,jcmb_unid, comboBox_unidades_Map, banco, sql_Unidade);
             load_DB2_components.carregaJTable(jtbl_lista_produtos, banco, sql_listaProdutos);
             banco.close();
+            
 
        } catch (SQLException e) {
             e.printStackTrace();
@@ -818,9 +827,9 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jlbl_btn_excluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_excluirMouseClicked
         // TODO add your handling code here:
-        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
-        String usuario = "root";
-        String senha = "";
+//        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
+//        String usuario = "root";
+//        String senha = "";
 
         if ( jtxtf_codigo.getText().length()<1){
             JOptionPane.showMessageDialog(jpnl_corpo,
@@ -837,14 +846,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                                                 JOptionPane.YES_NO_OPTION,
                                                 JOptionPane.WARNING_MESSAGE);
                 if (confirmaExclusao==0){
-//                    System.out.print("\nSim = "+ confirmaExclusao);
-//                    String sqlQuery = "DELETE from produto where id = " + jtxtf_codigo.getText();
-                    try (Connection banco = DriverManager.getConnection(url, usuario, senha)){
-
+                    // Inicia concexao com o Banco
+                    try (Connection banco = DriverManager.getConnection(db.getDB_Url(), db.getDB_User(), db.getDB_Pwd())) {
                         String sqlQuery = "DELETE from produto where id = " + jtxtf_codigo.getText();
                         load_DB2_components.excluirProduto(this, banco, sqlQuery);
 
-//                            Connection banco = DriverManager.getConnection(url, usuario, senha);
                         String sql_listaProdutos = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
                         load_DB2_components.carregaJTable(jtbl_lista_produtos, banco, sql_listaProdutos);
                     
@@ -878,15 +884,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         } else {
             sqlQuery = "UPDATE produto SET nome=?, id_categoria=?, id_unidade=?, preco_venda=?, preco_custo=?, estado=? WHERE id=?";    
         }
-//        for (int i = 0; i < sql.length(); i++) {
-//            if (sql.charAt(i) == '?' ) { // Compara o caractere atual com o desejado
-//                nValuesInsert++;
-//            }
-//        }
-//        dados = new String[nValuesInsert];
-
-//       System.out.println("ID selecionado jcmb_unid : " + load_DB2_components.getSelectedID(jcmb_unid, comboBox_unidades_Map));
-//       System.out.println("ID selecionado jcmb_categoria : " + load_DB2_components.getSelectedID(jcmb_categoria, comboBox_categorias_Map));
 
         dados[0]=jtxtf_codigo.getText();
         dados[1]=jtxtf_descricao.getText().toUpperCase();
@@ -912,9 +909,8 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         } else if (jtxtf_descricao.getText().length()>1 | jtxtf_valor_venda.getText().length()>1 | 
                 jtxtf_valor_custo.getText().length()>1 | jcmb_categoria.getSelectedIndex()>0 |  jcmb_unid.getSelectedIndex()>0 ) {
 
-                    try
-                    {
-                    Connection banco = DriverManager.getConnection(url, usuario, senha);
+                    try(Connection banco = DriverManager.getConnection(db.getDB_Url(), db.getDB_User(), db.getDB_Pwd())) {
+//                    Connection banco = DriverManager.getConnection(url, usuario, senha);
                     load_DB2_components.salvaProduto(this,  banco , sqlQuery, dados);      
                     
                     String sql_listaProdutos = "SELECT * FROM listaTodosProdutos";
