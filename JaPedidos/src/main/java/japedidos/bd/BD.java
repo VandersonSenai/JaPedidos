@@ -1,16 +1,10 @@
 package japedidos.bd;
 
-import japedidos.clientes.Cliente;
-import japedidos.clientes.Cliente.InfoAdicional;
 import japedidos.exception.IllegalArgumentsException;
-import japedidos.pedidos.Destino;
 import japedidos.pedidos.Estado;
-import japedidos.pedidos.EstadoPedido;
 import japedidos.pedidos.InfoEntrega;
 import japedidos.pedidos.TipoEntrega;
-import japedidos.produto.ProdutoPedido;
 import japedidos.usuario.Registro;
-import japedidos.usuario.Usuario;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -613,6 +607,97 @@ public final class BD {
             return r;
         }
     
+        // TODO: TESTAR
+        public static int update(japedidos.pedidos.Pedido pAntigo, japedidos.pedidos.Pedido pNovo) {
+            int r = 0;
+            Connection conn = null;
+            PreparedStatement updatePedido = null;
+            
+            if (pAntigo != null && pNovo != null) {
+                try {
+                    conn = BD.getConnection();
+                    conn.setAutoCommit(false);
+                    
+                    // Atualização da tabela do pedido
+                    updatePedido = conn.prepareStatement(
+                            String.format("UPDATE %s SET id_usuario_alt = ?, dthr_alt = CURRENT_TIMESTAMP(3), dthr_entregar = ?, tx_desconto = ? WHERE id = ?", TABLE));
+                    int i=1;
+                    
+                    Registro reg = new Registro();
+                    updatePedido.setInt(i++, reg.AUTOR.getId());
+//                    updatePedido.setTimestamp(i++, Timestamp.valueOf(reg.DATA_HORA));
+                    
+                    InfoEntrega infoEntrega = pNovo.getInfoEntrega();
+                    if (!infoEntrega.equals(pAntigo.getInfoEntrega())) {
+                        atualizarInfoEntrega(pAntigo, infoEntrega, conn); // Atualiza destino, destinatario, e preco do frete
+                    }
+                    
+                    updatePedido.setTimestamp(i++, Timestamp.valueOf(infoEntrega.getDataHoraEntregar())); // dthr_entregar
+                    updatePedido.setInt(i++, (int)(100.0 * pNovo.getTaxaDesconto())); // tx_desconto
+                    
+                    updatePedido.setInt(i++, pAntigo.getId());
+                    r += updatePedido.executeUpdate();
+                    
+                    // Atualizando produtos do pedido (DEVE VIR APÓS A ATUALIZAÇÃO DA TAXA DE DESCONTO E FRETE!)
+                    String strStmt = "INSERT INTO produto_pedido(id_produto, id_pedido, quantidade, preco_venda, preco_custo, info_adicional) VALUES (?, ?, ?, ?, ?, ?)";
+                    japedidos.produto.ProdutoPedido[] antigosProdutos = pAntigo.getProdutos();
+                    japedidos.produto.ProdutoPedido[] novosProdutos = pNovo.getProdutos();
+                    if (novosProdutos != null && antigosProdutos != null) {
+                        if (!japedidos.produto.ProdutoPedido.equals(novosProdutos, antigosProdutos)) { // Se produtos forem minimamente diferentes
+                            atualizarProdutos(pAntigo, novosProdutos, conn); // Atualiza produtos e recomputa preço final e custo e atualiza na tabela do pedido
+                        }
+                    } else {
+                        throw new SQLException("Um ou ambos pedidos não possuem produtos");
+                    }
+                    
+                    // Controle de cadastro de informação adicional do cliente
+                    japedidos.clientes.Cliente.InfoAdicional infoAdicionalClienteNova = pNovo.getCliente().getInfoAdicional();
+                    atualizarInfoAdicionalCliente(pAntigo, infoAdicionalClienteNova, conn); // TODO: verificar se são iguais e controlar se altera ou não
+                    
+                    conn.commit();
+                } catch (Exception e) {
+                    if (conn != null) {
+                        try {
+                            conn.rollback();
+                        } catch (SQLException ex) {
+                            
+                        }
+                    }
+                   
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de cadastro", JOptionPane.ERROR_MESSAGE);
+                    r = -1;
+                }
+                
+                if (conn != null) {
+                    try {
+                        conn.setAutoCommit(true);
+                    } catch (SQLException ex) {
+                       System.out.println("Não foi possível definir autoCommit como true");
+                    }
+                    
+                    if (updatePedido != null) {
+                        try {
+                           updatePedido.close();
+                        } catch (SQLException ex) {
+                           System.out.println("Não foi possível fechar conexão com o banco.");
+                        }                        
+                    }
+                    
+                    
+                    try {
+                        conn.close();
+                    } catch (SQLException ex) {
+                        
+                    }
+                }
+ 
+            
+            } else {
+                r = 0;
+            }
+            return r;
+        }
+        
         public static japedidos.pedidos.Pedido selectById(int id) {
             japedidos.pedidos.Pedido p = null;
             if (id != japedidos.pedidos.Pedido.NULL_ID) {
@@ -924,8 +1009,8 @@ public final class BD {
             }
             
             
-            PreparedStatement deleteDestino, updateDestino, insertDestino, deleteDestinatario, updateDestinatario, insertDestinatario, updatePedido;
-            deleteDestino = updateDestino = insertDestino = deleteDestinatario = updateDestinatario = insertDestinatario = updatePedido = null;
+            PreparedStatement deleteDestino, updateDestino, insertDestino, deleteDestinatario, updateDestinatario, insertDestinatario, updateTipoEntrega, updatePrecoFrete;
+            deleteDestino = updateDestino = insertDestino = deleteDestinatario = updateDestinatario = insertDestinatario = updateTipoEntrega = updatePrecoFrete = null;
             int rSoma = 0;
             Throwable doThrow = null;
             
@@ -937,6 +1022,14 @@ public final class BD {
             tipoEntregaAtual = infoEntregaPedido.getTipoEntrega();
             tipoEntregaNovo = novaInfoEntrega.getTipoEntrega();
             try {
+                if (infoEntregaPedido.getPrecoFrete() != novaInfoEntrega.getPrecoFrete()) {
+                    // Atualizar preço do frete do pedido
+                    updateTipoEntrega = conn.prepareStatement(String.format("UPDATE %s SET preco_frete = ? WHERE id = ?", TABLE));
+                    updateTipoEntrega.setDouble(1, novaInfoEntrega.getPrecoFrete());
+                    updateTipoEntrega.setInt(2, id_pedido);
+                    updateTipoEntrega.executeUpdate();
+                }
+                
                 // Se tipos de entrega diferem
                 if (tipoEntregaAtual != tipoEntregaNovo) {
                     if (tipoEntregaAtual == TipoEntrega.ENVIO && tipoEntregaNovo == TipoEntrega.RETIRADA) {
@@ -948,10 +1041,10 @@ public final class BD {
                     }
                     
                     // Atualizar tipo de entrega do pedido
-                    updatePedido = conn.prepareStatement(String.format("UPDATE %s SET tipo_entrega = ? WHERE id = ?", TABLE));
-                    updatePedido.setString(1, tipoEntregaNovo.toString());
-                    updatePedido.setInt(2, id_pedido);
-                    updatePedido.executeUpdate();
+                    updateTipoEntrega = conn.prepareStatement(String.format("UPDATE %s SET tipo_entrega = ? WHERE id = ?", TABLE));
+                    updateTipoEntrega.setString(1, tipoEntregaNovo.toString());
+                    updateTipoEntrega.setInt(2, id_pedido);
+                    updateTipoEntrega.executeUpdate();
                 } else if (tipoEntregaNovo == TipoEntrega.ENVIO){ // Se ambos forem envio
                     japedidos.pedidos.Destino destinoAtual = infoEntregaPedido.getDestino();
                     japedidos.pedidos.Destino  destinoNovo = novaInfoEntrega.getDestino();
@@ -1035,8 +1128,16 @@ public final class BD {
             }
             
             try {
-                if (updatePedido != null) {
-                    updatePedido.close();
+                if (updateTipoEntrega != null) {
+                    updateTipoEntrega.close();
+                }
+            } catch (SQLException ex) {
+                doThrow = ex;
+            }
+            
+            try {
+                if (updatePrecoFrete != null) {
+                    updatePrecoFrete.close();
                 }
             } catch (SQLException ex) {
                 doThrow = ex;

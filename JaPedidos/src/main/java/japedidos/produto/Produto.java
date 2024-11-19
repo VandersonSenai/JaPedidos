@@ -12,7 +12,7 @@ import japedidos.usuario.Registro;
  *
  * @author Thiago M. Baiense
  */
-public class Produto {
+public class Produto implements Cloneable {
     
     public static final int NULL_ID = -1;
     
@@ -284,6 +284,13 @@ public class Produto {
         return String.format("%s (%s)", this.getNome(), this.getUnidade().getAbreviacao());
     }
     
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Produto p = (Produto)super.clone();
+        return p;
+    }
+    
+    @Override
     public boolean equals(Object o) {
         Produto p = (Produto)o;
         return this.getId() == p.getId();
