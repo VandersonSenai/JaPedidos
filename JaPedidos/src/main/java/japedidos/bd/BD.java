@@ -27,41 +27,39 @@ import java.util.ArrayList;
 
 public final class BD {
     public static final String SGBD = "mysql";
-    public static final String IP = "162.241.203.86";
+//    public static final String IP = "162.241.203.86";
     public static final String PORT = "3306";
     public static final String NAME = "titanw25_japedidos_hml";
-    public static final String USER = "titanw25_japedidos_hml";
-    public static final String USER_PWD = "seNai@2024proj";
+//    public static final String USER = "titanw25_japedidos_hml";
+//    public static final String USER_PWD = "seNai@2024proj";
     
-//    public static final String IP = "10.0.0.109";
+    public static final String IP = "localhost";
 //    public static final String NAME = "japedidos";
-//    public static final String USER = "root";
-//    public static final String USER_PWD = "tmb";
+    public static final String USER = "root";
+    public static final String USER_PWD = "";
     
     // Testes
-//    public static void main(String[] args) throws SQLException {
-//        japedidos.pedidos.Pedido[] ped = BD.Pedido.selectByEstado(japedidos.pedidos.Estado.ABERTO);
-//        System.out.println(ped[0].getProdutoCount());
-//        japedidos.produto.ProdutoPedido[] prods = ped[0].getProdutos();
-//        
-//        prods[prods.length-1] = null;
-//        
-//        
-//        final String connStr = String.format("jdbc:%s://%s:%s/%s", SGBD, IP, PORT, NAME);
-//        
-//        Connection conn = null;
-//        try { // Gerar a conexão
-//            conn = DriverManager.getConnection(connStr, USER, USER_PWD);
-//            System.out.println(Pedido.atualizarProdutos(ped[0], prods, conn));
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, e.getMessage(), "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
-//            System.exit(-1);
-//        }
-//        
-//        if (conn != null) {
-//            conn.close();
-//        }
-//    }
+    public static void main(String[] args) throws SQLException {
+        japedidos.pedidos.Pedido ped = BD.Pedido.selectById(5);
+//        System.out.println(ped.getProdutoCount());
+        
+        japedidos.pedidos.Destino dest = ped.getInfoEntrega().getDestino();
+        dest.setNumero("32");
+        final String connStr = String.format("jdbc:%s://%s:%s/%s", SGBD, IP, PORT, NAME);
+        System.out.println(ped.getInfoEntrega().getDestino().getNumero());
+        Connection conn = null;
+        try { // Gerar a conexão
+            conn = DriverManager.getConnection(connStr, USER, USER_PWD);
+            Destino.update(ped.getId(), ped.getInfoEntrega().getDestino(), conn);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
+            System.exit(-1);
+        }
+        
+        if (conn != null) {
+            conn.close();
+        }
+    }
     
     private BD() {}
     
@@ -314,6 +312,40 @@ public final class BD {
             return r;
         }
     
+        public static japedidos.pedidos.Pedido selectById(int id) {
+            japedidos.pedidos.Pedido p = null;
+            if (id != japedidos.pedidos.Pedido.NULL_ID) {
+                Connection conn = null;
+                PreparedStatement stmt = null;
+                ResultSet rs = null;
+                try {
+                    conn = BD.getConnection();
+                    stmt = conn.prepareCall("SELECT * FROM vw_pedido WHERE id = ?");
+                    stmt.setInt(1, id);
+                    rs = stmt.executeQuery();
+                    
+                    japedidos.pedidos.Pedido[] pArray = parseView_pedido(rs);
+                    p = pArray[0];
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                // Fechamento da conexão
+                try {
+                    if (conn != null) {
+                        conn.close();
+                        if (stmt != null) {
+                            stmt.close();
+                        }
+                    }
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            }
+            return p;
+        }
+        
         public static japedidos.pedidos.Pedido[] selectByEstado(japedidos.pedidos.Estado e) {
             japedidos.pedidos.Pedido[] p = null;
             if (e != null && e.ID != -1) {
