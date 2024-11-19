@@ -754,13 +754,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 //        NumberFormat decimal = new DecimalFormat("#,##0.00");
 //        PreparedStatement stm_lista_produtos_view = null;
 
-        db.setDB_Url("jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml");
-        db.setDB_User("titanw25_japedidos_hml");
-        db.setDB_Pwd("seNai@2024proj");
+//        db.setDB_Url("jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml");
+//        db.setDB_User("titanw25_japedidos_hml");
+//        db.setDB_Pwd("seNai@2024proj");
 
-//        db.setDB_Url("jdbc:mysql://localhost:3306/titanw25_japedidos_hml");
-//        db.setDB_User("root");
-//        db.setDB_Pwd("");
+        db.setDB_Url("jdbc:mysql://localhost:3306/titanw25_japedidos_hml");
+        db.setDB_User("root");
+        db.setDB_Pwd("");
 
        try (Connection banco = DriverManager.getConnection(db.getDB_Url(), db.getDB_User(), db.getDB_Pwd())) {
 
