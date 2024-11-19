@@ -129,6 +129,10 @@ public class Cliente {
         return this.getNome();
     }
     
+    
+    // TODO: adiconar método clone
+    
+    
     static public abstract class InfoAdicional {
         protected Tipo tipo;
 

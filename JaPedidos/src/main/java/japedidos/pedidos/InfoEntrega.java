@@ -144,9 +144,11 @@ public class InfoEntrega implements Cloneable {
     public boolean equals(Object o) {
         if (o instanceof InfoEntrega) {
             InfoEntrega i = (InfoEntrega)o;
+            String esteDestinatario = this.getDestinatario();
+            String outroDestinatario = i.getDestinatario();
             return (
                     i.getDestino().equals(this.getDestino()) &&
-                    i.getDestinatario().equals(this.getDestinatario()) &&
+                    ( esteDestinatario == outroDestinatario && esteDestinatario == null || outroDestinatario != null && esteDestinatario != null && i.getDestinatario().equals(this.getDestinatario()) ) &&
                     i.getTipoEntrega() == this.getTipoEntrega() &&
                     i.getDataHoraEntregar() == this.getDataHoraEntregar() &&
                     i.getPrecoFrete() == this.getPrecoFrete()

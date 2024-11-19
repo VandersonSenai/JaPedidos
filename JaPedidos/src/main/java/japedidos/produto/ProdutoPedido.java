@@ -140,8 +140,12 @@ public class ProdutoPedido implements Cloneable {
     public boolean equals(Object o) {
         if (o instanceof ProdutoPedido) {
             ProdutoPedido p = (ProdutoPedido)o;
+            String estaInfo, outraInfo;
+            estaInfo = this.getInfoAdicional();
+            outraInfo = p.getInfoAdicional();
+            
             return this.getProduto().equals(p.getProduto()) &&
-                    this.getInfoAdicional().equals(p.getInfoAdicional()) &&
+                    (estaInfo == outraInfo && estaInfo == null || estaInfo != null && outraInfo != null && this.getInfoAdicional().equals(p.getInfoAdicional()) ) &&
                     this.getQuantidade() == p.getQuantidade();
         } else {
             return false;

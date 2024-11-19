@@ -35,29 +35,34 @@ public final class BD {
     // Testes
     public static void main(String[] args) throws Exception {
         japedidos.pedidos.Pedido ped = BD.Pedido.selectById(20);
-        japedidos.pedidos.Pedido ped17 = BD.Pedido.selectById(17);
+        japedidos.pedidos.Pedido pedNovo = new japedidos.pedidos.Pedido(ped.getId(), ped.getCliente(), (japedidos.pedidos.InfoEntrega)ped.getInfoEntrega().clone(), japedidos.produto.ProdutoPedido.clone(ped.getProdutos()), (int)Math.ceil(ped.getTaxaDesconto() * 100.0));
+        japedidos.produto.ProdutoPedido[] prods = ProdutoPedido.selectAllBy_id_pedido(ped.getId());
+        
+        pedNovo.getCliente().setInfoAdicional(null);
+        Pedido.update(ped, pedNovo);
+        
 //        System.out.println(ped.getProdutoCount());
-        japedidos.clientes.Cliente.InfoAdicional info20 = ped.getCliente().getInfoAdicional();
-        japedidos.clientes.Cliente.InfoPF infoPF = (japedidos.clientes.Cliente.InfoPF)info20;
-        infoPF.nome = "Antônio Carlos";
+//        japedidos.clientes.Cliente.InfoAdicional info20 = ped.getCliente().getInfoAdicional();
+//        japedidos.clientes.Cliente.InfoPF infoPF = (japedidos.clientes.Cliente.InfoPF)info20;
+//        infoPF.nome = "Antônio Carlos";
         
-        final String connStr = String.format("jdbc:%s://%s:%s/%s", SGBD, IP, PORT, NAME);
-        Connection conn = null;
-        try { // Gerar a conexão
-            conn = DriverManager.getConnection(connStr, USER, USER_PWD);
-            conn.setAutoCommit(false);
-            Pedido.atualizarInfoAdicionalCliente(ped, info20, conn);
-            conn.commit();
-        } catch (Exception e) {
-            conn.rollback();
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
-            System.exit(-1);
-        }
-        
-        if (conn != null) {
-            conn.setAutoCommit(true);
-            conn.close();
-        }
+//        final String connStr = String.format("jdbc:%s://%s:%s/%s", SGBD, IP, PORT, NAME);
+//        Connection conn = null;
+//        try { // Gerar a conexão
+//            conn = DriverManager.getConnection(connStr, USER, USER_PWD);
+//            conn.setAutoCommit(false);
+//            Pedido.atualizarInfoAdicionalCliente(ped, info20, conn);
+//            conn.commit();
+//        } catch (Exception e) {
+//            conn.rollback();
+//            JOptionPane.showMessageDialog(null, e.getMessage(), "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
+//            System.exit(-1);
+//        }
+//        
+//        if (conn != null) {
+//            conn.setAutoCommit(true);
+//            conn.close();
+//        }
     }
     
     private BD() {}
@@ -608,6 +613,7 @@ public final class BD {
         }
     
         // TODO: TESTAR
+        // pNovo deve ser uma nova instância de pedido!
         public static int update(japedidos.pedidos.Pedido pAntigo, japedidos.pedidos.Pedido pNovo) {
             int r = 0;
             Connection conn = null;
@@ -629,7 +635,7 @@ public final class BD {
                     
                     InfoEntrega infoEntrega = pNovo.getInfoEntrega();
                     if (!infoEntrega.equals(pAntigo.getInfoEntrega())) {
-                        atualizarInfoEntrega(pAntigo, infoEntrega, conn); // Atualiza destino, destinatario, e preco do frete
+                        r += atualizarInfoEntrega(pAntigo, infoEntrega, conn); // Atualiza destino, destinatario, e preco do frete
                     }
                     
                     updatePedido.setTimestamp(i++, Timestamp.valueOf(infoEntrega.getDataHoraEntregar())); // dthr_entregar
@@ -644,7 +650,7 @@ public final class BD {
                     japedidos.produto.ProdutoPedido[] novosProdutos = pNovo.getProdutos();
                     if (novosProdutos != null && antigosProdutos != null) {
                         if (!japedidos.produto.ProdutoPedido.equals(novosProdutos, antigosProdutos)) { // Se produtos forem minimamente diferentes
-                            atualizarProdutos(pAntigo, novosProdutos, conn); // Atualiza produtos e recomputa preço final e custo e atualiza na tabela do pedido
+                            r +=atualizarProdutos(pAntigo, novosProdutos, conn); // Atualiza produtos e recomputa preço final e custo e atualiza na tabela do pedido
                         }
                     } else {
                         throw new SQLException("Um ou ambos pedidos não possuem produtos");
@@ -652,7 +658,7 @@ public final class BD {
                     
                     // Controle de cadastro de informação adicional do cliente
                     japedidos.clientes.Cliente.InfoAdicional infoAdicionalClienteNova = pNovo.getCliente().getInfoAdicional();
-                    atualizarInfoAdicionalCliente(pAntigo, infoAdicionalClienteNova, conn); // TODO: verificar se são iguais e controlar se altera ou não
+                    r += atualizarInfoAdicionalCliente(pAntigo, infoAdicionalClienteNova, conn); // TODO: verificar se são iguais e controlar se altera ou não
                     
                     conn.commit();
                 } catch (Exception e) {
