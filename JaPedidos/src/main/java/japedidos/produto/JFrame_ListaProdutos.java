@@ -59,13 +59,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtxtf_pesquisa = new javax.swing.JTextField();
         jlbl_descricao = new javax.swing.JLabel();
         jtxtf_descricao = new javax.swing.JTextField();
-        jComboTeste = new javax.swing.JComboBox<>();
         jlbl_categoria = new javax.swing.JLabel();
         jcmb_categoria = new javax.swing.JComboBox<>();
         jlbl_codigo = new javax.swing.JLabel();
         jtxtf_codigo = new javax.swing.JTextField();
         jlbl_unid = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jcmb_unid = new javax.swing.JComboBox<>();
         jlbl_valor_venda = new javax.swing.JLabel();
         jtxtf_valor_venda = new javax.swing.JTextField();
@@ -261,13 +259,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtxtf_descricao.setNextFocusableComponent(jcmb_categoria);
         jpnl_corpo.add(jtxtf_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 428, 310, 30));
 
-        jComboTeste.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboTesteActionPerformed(evt);
-            }
-        });
-        jpnl_corpo.add(jComboTeste, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 370, -1, -1));
-
         jlbl_categoria.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jlbl_categoria.setText("CATEGORIA :");
         jpnl_corpo.add(jlbl_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(686, 430, -1, -1));
@@ -295,14 +286,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jlbl_unid.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jlbl_unid.setText("UND :");
         jpnl_corpo.add(jlbl_unid, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 484, 40, -1));
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jpnl_corpo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 370, -1, -1));
 
         jcmb_unid.setBackground(new java.awt.Color(102, 102, 102));
         jcmb_unid.setForeground(new java.awt.Color(204, 204, 204));
@@ -789,8 +772,8 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jtbl_lista_produtosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtbl_lista_produtosFocusGained
     }//GEN-LAST:event_jtbl_lista_produtosFocusGained
-    private static HashMap<String, Integer> comboBoxMap = new HashMap<>();
-    private static HashMap<String, Integer> unidadesMap = new HashMap<>();
+    private static HashMap<String, Integer> comboBox_categorias_Map = new HashMap<>();
+    private static HashMap<String, Integer> comboBox_unidades_Map = new HashMap<>();   
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 //        TODO add your handling code here:
 //        NumberFormat decimal = new DecimalFormat("#,##0.00");
@@ -799,7 +782,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 //       String url = "jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml";
 //       String usuario = "titanw25_japedidos_hml";
 //       String senha = "seNai@2024proj";
-
         String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
         String usuario = "root";
         String senha = "";
@@ -808,11 +790,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             String sql_Categoria = "SELECT id, nome FROM listaCategorias"; 
             String sql_Unidade = "SELECT id, abreviacao FROM listaUnidades";
             String sql_listaProdutos = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
-            load_DB2_components.carregaComboBox(this,jcmb_categoria, conn, sql_Categoria);
-            load_DB2_components.carregaComboBox(this,jcmb_unid, conn, sql_Unidade);
+            load_DB2_components.carregaComboBox(this,jcmb_categoria, comboBox_categorias_Map, conn, sql_Categoria);
+            load_DB2_components.carregaComboBox(this,jcmb_unid, comboBox_unidades_Map, conn, sql_Unidade);
             load_DB2_components.carregaJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
 
-            
+           
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, 
@@ -886,10 +868,14 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 //            }
 //        }
 //        dados = new String[nValuesInsert];
+
+//       System.out.println("ID selecionado jcmb_unid : " + load_DB2_components.getSelectedID(jcmb_unid, comboBox_unidades_Map));
+//       System.out.println("ID selecionado jcmb_categoria : " + load_DB2_components.getSelectedID(jcmb_categoria, comboBox_categorias_Map));
+
         dados[0]=jtxtf_codigo.getText();
         dados[1]=jtxtf_descricao.getText();
-        dados[2]=Integer.toString(jcmb_categoria.getSelectedIndex());
-        dados[3]=Integer.toString(jcmb_unid.getSelectedIndex());
+        dados[2]=Integer.toString(load_DB2_components.getSelectedID(jcmb_categoria, comboBox_categorias_Map));
+        dados[3]=Integer.toString(load_DB2_components.getSelectedID(jcmb_unid, comboBox_unidades_Map));
         dados[4]=jtxtf_valor_venda.getText();
         dados[5]=jtxtf_valor_custo.getText();
         if (jchb_ativo.isSelected()){
@@ -912,9 +898,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
                     try
                     {
-
                     Connection banco = DriverManager.getConnection(url, usuario, senha);
-//                    load_DB2_components.salvaProduto(this,  banco , salvaItem);
                     load_DB2_components.salvaProduto(this,  banco , sqlQuery, dados);                    
                     }
                     catch (SQLException ex)
@@ -925,42 +909,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                         "JaPedidos", 
                         JOptionPane.INFORMATION_MESSAGE);
                     }
-                    
-                    JOptionPane.showMessageDialog(jpnl_corpo, 
-                     "Atualizar Item \n", 
-                     "JaPedidos", 
-                     JOptionPane.INFORMATION_MESSAGE);
-                }   else if (jtxtf_codigo.getText().length()<1) {
-
-                    JOptionPane.showMessageDialog(jpnl_corpo, 
-                     "Novo Item \n", 
-                     "JaPedidos", 
-                     JOptionPane.INFORMATION_MESSAGE);
-                }
-                
+                } 
                 
     }//GEN-LAST:event_jlbl_btn_salvarMouseClicked
 
     private void jtxtf_valor_vendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_valor_vendaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtf_valor_vendaActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
-//                    Integer.toString(jcmb_categoria.getSelectedIndex());
-                    JOptionPane.showMessageDialog(this, 
-                     "\n" + jcmb_categoria.getSelectedIndex()+
-                     "\n" + jComboTeste.getSelectedIndex(),
-                     "JaPedidos", 
-                     JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jComboTesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboTesteActionPerformed
-        // TODO add your handling code here:
-            Integer selectedID = load_DB2_components.getSelectedID2(jComboTeste);
-            System.out.println("ID selecionado: " + selectedID);
-    }//GEN-LAST:event_jComboTesteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1009,8 +964,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboTeste;
     javax.swing.JCheckBox jchb_ativo;
     javax.swing.JComboBox<String> jcmb_categoria;
     javax.swing.JComboBox<String> jcmb_unid;

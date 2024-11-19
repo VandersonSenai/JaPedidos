@@ -141,7 +141,7 @@ public class load_DB2_components {
                 stm_tabela.setFloat((4), Float.parseFloat(dados[4])); 
                 dados[5] = dados[5].replace(",", ".");
                 stm_tabela.setFloat((5), Float.parseFloat(dados[5])); 
-                stm_tabela.setBoolean((6), Boolean.parseBoolean(dados[6]));  
+                stm_tabela.setInt((6), Integer.parseInt(dados[6]));  
             } else {
                 stm_tabela.setString((1), dados[1]); 
                 stm_tabela.setString((2), dados[2]); 
@@ -150,7 +150,7 @@ public class load_DB2_components {
                 stm_tabela.setFloat((4), Float.parseFloat(dados[4])); 
                 dados[5] = dados[5].replace(",", ".");
                 stm_tabela.setFloat((5), Float.parseFloat(dados[5])); 
-                stm_tabela.setBoolean((6), Boolean.parseBoolean(dados[6])); 
+                stm_tabela.setInt((6), Integer.parseInt(dados[6])); 
                 stm_tabela.setString((7), dados[0]);                 
             }
             
@@ -179,12 +179,10 @@ public class load_DB2_components {
                 JOptionPane.INFORMATION_MESSAGE);
             }
     }    
-   
-//    private static HashMap<String, Integer> comboBoxMap = new HashMap<>();
-//    private static HashMap<String, Integer> unidadesMap = new HashMap<>();
-    public static JComboBox<String> carregaComboBox(Component JFrame , JComboBox<String> comboBox, Connection banco, String sqlQuery) throws SQLException {
+
+    public static JComboBox<String> carregaComboBox(Component JFrame , JComboBox<String> comboBox, HashMap<String, Integer> mapaHash, Connection banco, String sqlQuery) throws SQLException {
         comboBox.removeAllItems();// Limpa os itens existentes
-        comboBoxMap.clear();// Limpa mapa dos itens existentes
+        mapaHash.clear();// Limpa mapa dos itens existentes
         
         try
         {
@@ -192,17 +190,17 @@ public class load_DB2_components {
             ResultSet resultado_comboBox = stm_comboBox.executeQuery();
 
             ResultSetMetaData metadata = resultado_comboBox.getMetaData();
-            String primeiroItem = metadata.getTableName(1);
+            String primeiroItem = "Selecione";
 
 //            System.out.println("metadata 1: " + metadata.getColumnName(2));
 //            
-//            comboBoxMap.put(0, new String[]{primeiroItem});
-//            comboBox.addItem(primeiroItem);
+            mapaHash.put(primeiroItem, 0);
+            comboBox.addItem(primeiroItem);
 
             while (resultado_comboBox.next()) {
                 int index = resultado_comboBox.getInt(1);  // Obtém o índice na primeira coluna
                 String dadoColuna1 = resultado_comboBox.getString(2);  // Obtém o nome na segunda coluna
-                comboBoxMap.put(dadoColuna1, index);
+                mapaHash.put(dadoColuna1, index);
 //                  Adiciona o nome ao JComboBox
                 comboBox.addItem(dadoColuna1);
             }            
@@ -218,10 +216,10 @@ public class load_DB2_components {
         }
         return comboBox;
     }    
-    public static Integer getSelectedID2(JComboBox<String> comboBox) {
+    public static Integer getSelectedID(JComboBox<String> comboBox, HashMap<String, Integer> mapaHash) {
         // Recuperar o nome selecionado
         String selectedName = (String) comboBox.getSelectedItem();
         // Retornar o ID associado ao nome
-        return comboBoxMap.get(selectedName);
+        return mapaHash.get(selectedName);
     }    
 }
