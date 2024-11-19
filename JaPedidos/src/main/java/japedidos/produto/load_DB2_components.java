@@ -26,37 +26,40 @@ import javax.swing.table.DefaultTableModel;
  * @author Thor
  */
 public class load_DB2_components {
-    
-    public static JComboBox<String> carregaComboBox(JComboBox<String> comboBox, Connection banco, String sqlQuery) throws SQLException {
-        comboBox.removeAllItems();  // Limpa os itens existentes
-        HashMap<Integer, String[]> comboBoxMap = new HashMap<>();
-        
-        try
-        {
-            PreparedStatement stm_comboBox = banco.prepareStatement(sqlQuery); 
-            ResultSet resultado_comboBox = stm_comboBox.executeQuery();
 
-            ResultSetMetaData metadata = resultado_comboBox.getMetaData();
-            String primeiroItem = metadata.getTableName(1);
-            comboBoxMap.put(0, new String[]{primeiroItem});
-            comboBox.addItem(primeiroItem);
-
-            while (resultado_comboBox.next()) {
-                int index = resultado_comboBox.getInt(1);  // Obtém o índice
-                String dadoColuna1 = resultado_comboBox.getString(2);  // Obtém o nome
-                comboBoxMap.put(index, new String[]{dadoColuna1});
-//                  Adiciona o nome ao JComboBox
-                comboBox.addItem(dadoColuna1);
-            }            
-
-            stm_comboBox.close();
-        } catch (SQLException erro) {
-            erro.printStackTrace();
-            System.out.println("O erro foi : " + erro);
-        }
-
-        return comboBox;
-    }
+//    public static JComboBox<String> carregaComboBox(JComboBox<String> comboBox, Connection banco, String sqlQuery) throws SQLException {
+//        comboBox.removeAllItems();  // Limpa os itens existentes
+//        HashMap<Integer, String[]> comboBoxMap = new HashMap<>();
+//        
+//        try
+//        {
+//            PreparedStatement stm_comboBox = banco.prepareStatement(sqlQuery); 
+//            ResultSet resultado_comboBox = stm_comboBox.executeQuery();
+//
+//            ResultSetMetaData metadata = resultado_comboBox.getMetaData();
+//            String primeiroItem = metadata.getTableName(1);
+//
+//            System.out.println("metadata 1: " + metadata.getColumnName(2));
+//            
+//            comboBoxMap.put(0, new String[]{primeiroItem});
+//            comboBox.addItem(primeiroItem);
+//
+//            while (resultado_comboBox.next()) {
+//                int index = resultado_comboBox.getInt(1);  // Obtém o índice
+//                String dadoColuna1 = resultado_comboBox.getString(2);  // Obtém o nome
+//                comboBoxMap.put(index, new String[]{dadoColuna1});
+////                  Adiciona o nome ao JComboBox
+//                comboBox.addItem(dadoColuna1);
+//            }            
+//
+//            stm_comboBox.close();
+//        } catch (SQLException erro) {
+//            erro.printStackTrace();
+//            System.out.println("O erro foi : " + erro);
+//        }
+//
+//        return comboBox;
+//    }
        
     
     public static JTable carregaJTable(JTable  jTablecomponent, Connection banco, String sqlQuery)  throws SQLException {
@@ -169,11 +172,56 @@ public class load_DB2_components {
             }
             catch (SQLException ex)
             {
-                System.out.println("O erro foi : " +ex);
+//                System.out.println("O erro foi : " +ex);
                 JOptionPane.showMessageDialog(referencia, 
-                "Erro ao acessar banco. (salvaProduto2)\n" + ex, 
+                "Erro ao acessar banco.\n" + ex, 
                 "JaPedidos", 
                 JOptionPane.INFORMATION_MESSAGE);
             }
+    }    
+   
+//    private static HashMap<String, Integer> comboBoxMap = new HashMap<>();
+//    private static HashMap<String, Integer> unidadesMap = new HashMap<>();
+    public static JComboBox<String> carregaComboBox(Component JFrame , JComboBox<String> comboBox, Connection banco, String sqlQuery) throws SQLException {
+        comboBox.removeAllItems();// Limpa os itens existentes
+        comboBoxMap.clear();// Limpa mapa dos itens existentes
+        
+        try
+        {
+            PreparedStatement stm_comboBox = banco.prepareStatement(sqlQuery); 
+            ResultSet resultado_comboBox = stm_comboBox.executeQuery();
+
+            ResultSetMetaData metadata = resultado_comboBox.getMetaData();
+            String primeiroItem = metadata.getTableName(1);
+
+//            System.out.println("metadata 1: " + metadata.getColumnName(2));
+//            
+//            comboBoxMap.put(0, new String[]{primeiroItem});
+//            comboBox.addItem(primeiroItem);
+
+            while (resultado_comboBox.next()) {
+                int index = resultado_comboBox.getInt(1);  // Obtém o índice na primeira coluna
+                String dadoColuna1 = resultado_comboBox.getString(2);  // Obtém o nome na segunda coluna
+                comboBoxMap.put(dadoColuna1, index);
+//                  Adiciona o nome ao JComboBox
+                comboBox.addItem(dadoColuna1);
+            }            
+
+            stm_comboBox.close();
+        } catch (SQLException erro) {
+            erro.printStackTrace();
+            System.out.println("O erro foi : " + erro);
+                JOptionPane.showMessageDialog(JFrame, 
+                "Erro ao carregar categorias\n" + erro.getMessage(), 
+                "JaPedidos", 
+                JOptionPane.INFORMATION_MESSAGE);
+        }
+        return comboBox;
+    }    
+    public static Integer getSelectedID2(JComboBox<String> comboBox) {
+        // Recuperar o nome selecionado
+        String selectedName = (String) comboBox.getSelectedItem();
+        // Retornar o ID associado ao nome
+        return comboBoxMap.get(selectedName);
     }    
 }

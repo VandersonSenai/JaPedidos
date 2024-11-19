@@ -1,4 +1,5 @@
 use titanw25_japedidos_hml;
+use japedidos;
 
 desc produto;
 SELECT  * from produto;
@@ -39,7 +40,7 @@ VALUES	("5"	, "1"	,	"COXINHA DE FRANGO"		, "0.75"	, "0.15",	"1"),
         ;
         
 INSERT INTO produto( id_categoria, id_unidade, nome, preco_venda, preco_custo, id_usuario_alt )
-VALUES	("4"	, "8"	,	"AÇAI 1,2lt"			, "500.75"	, "350.15", 	"2")
+VALUES	("4"	, "8"	,	"SORVETE LUIGI 1,7lt"			, "500.75"	, "350.15", 	"2")
         ;	
 
         
@@ -58,6 +59,12 @@ LeFT JOIN
 	unidade as u
     on p.id_unidade = u.id;
     
+CREATE OR REPLACE VIEW `listaCategorias` AS    
+SELECT  * from categoria order by nome;
+
+CREATE OR REPLACE VIEW `listaUnidades` AS    
+SELECT  * from unidade order BY nome;
+    
 CREATE OR REPLACE VIEW `listaTodosProdutos` AS    
 SELECT p.id, p.nome, c.nome as categoria, p.preco_venda , p.preco_custo, u.abreviacao as unidade, p.estado
 FROM produto as p
@@ -66,4 +73,5 @@ LeFT JOIN
     on p.id_categoria = c.id
 LeFT JOIN
 	unidade as u
-    on p.id_unidade = u.id;
+    on p.id_unidade = u.id
+ORDER BY p.nome;

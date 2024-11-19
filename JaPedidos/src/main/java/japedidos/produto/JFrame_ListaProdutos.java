@@ -2,24 +2,18 @@ package japedidos.produto;
 
 import japedidos.produto.load_DB2_components;
 import java.awt.Color;
-import javax.swing.ImageIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.table.DefaultTableModel;
-import japedidos.bd.BD;
-import java.awt.Component;
-import java.awt.Dimension;
 import java.text.DecimalFormat;
-import java.util.HashMap;
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.print.DocFlavor;
 import javax.swing.JOptionPane;
 
 
@@ -65,6 +59,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtxtf_pesquisa = new javax.swing.JTextField();
         jlbl_descricao = new javax.swing.JLabel();
         jtxtf_descricao = new javax.swing.JTextField();
+        jComboTeste = new javax.swing.JComboBox<>();
         jlbl_categoria = new javax.swing.JLabel();
         jcmb_categoria = new javax.swing.JComboBox<>();
         jlbl_codigo = new javax.swing.JLabel();
@@ -265,6 +260,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtxtf_descricao.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jtxtf_descricao.setNextFocusableComponent(jcmb_categoria);
         jpnl_corpo.add(jtxtf_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 428, 310, 30));
+
+        jComboTeste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboTesteActionPerformed(evt);
+            }
+        });
+        jpnl_corpo.add(jComboTeste, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 370, -1, -1));
 
         jlbl_categoria.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jlbl_categoria.setText("CATEGORIA :");
@@ -787,7 +789,8 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jtbl_lista_produtosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtbl_lista_produtosFocusGained
     }//GEN-LAST:event_jtbl_lista_produtosFocusGained
-
+    private static HashMap<String, Integer> comboBoxMap = new HashMap<>();
+    private static HashMap<String, Integer> unidadesMap = new HashMap<>();
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 //        TODO add your handling code here:
 //        NumberFormat decimal = new DecimalFormat("#,##0.00");
@@ -802,12 +805,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         String senha = "";
 
        try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
-            String sql_combCategoria = "SELECT id, nome, descricao FROM categoria ORDER BY nome ASC"; 
-            String sql_combUnidade = "SELECT id, abreviacao FROM unidade ORDER BY abreviacao ASC";
+            String sql_Categoria = "SELECT id, nome FROM listaCategorias"; 
+            String sql_Unidade = "SELECT id, abreviacao FROM listaUnidades";
             String sql_listaProdutos = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
-            load_DB2_components.carregaComboBox(jcmb_categoria, conn, sql_combCategoria);
-            load_DB2_components.carregaComboBox(jcmb_unid, conn, sql_combUnidade);
+            load_DB2_components.carregaComboBox(this,jcmb_categoria, conn, sql_Categoria);
+            load_DB2_components.carregaComboBox(this,jcmb_unid, conn, sql_Unidade);
             load_DB2_components.carregaJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
+
             
         } catch (SQLException e) {
             e.printStackTrace();
@@ -844,13 +848,8 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                     String sqlQuery = "DELETE from produto where id = " + jtxtf_codigo.getText();
                     try {
                             load_DB2_components.excluirProduto(this, url, usuario, senha, sqlQuery);
-                            
                             Connection conn = DriverManager.getConnection(url, usuario, senha);
-                            String sql_combCategoria = "SELECT id, nome, descricao FROM categoria ORDER BY nome ASC"; 
-                            String sql_combUnidade = "SELECT id, abreviacao FROM unidade ORDER BY abreviacao ASC";
                             String sql_listaProdutos = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
-                            load_DB2_components.carregaComboBox(jcmb_categoria, conn, sql_combCategoria);
-                            load_DB2_components.carregaComboBox(jcmb_unid, conn, sql_combUnidade);
                             load_DB2_components.carregaJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
                             conn.close();
                         } catch (SQLException ex) {
@@ -948,15 +947,20 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int i = 0;
-        
         
 //                    Integer.toString(jcmb_categoria.getSelectedIndex());
                     JOptionPane.showMessageDialog(this, 
-                     "\n" + jcmb_categoria.getSelectedIndex(), 
+                     "\n" + jcmb_categoria.getSelectedIndex()+
+                     "\n" + jComboTeste.getSelectedIndex(),
                      "JaPedidos", 
                      JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboTesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboTesteActionPerformed
+        // TODO add your handling code here:
+            Integer selectedID = load_DB2_components.getSelectedID2(jComboTeste);
+            System.out.println("ID selecionado: " + selectedID);
+    }//GEN-LAST:event_jComboTesteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1006,6 +1010,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboTeste;
     javax.swing.JCheckBox jchb_ativo;
     javax.swing.JComboBox<String> jcmb_categoria;
     javax.swing.JComboBox<String> jcmb_unid;
