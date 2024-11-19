@@ -47,7 +47,7 @@ public final class BD {
 //        novaInfo.getDestino().setNumero("32");
 //        novaInfo.setTipoEntrega(TipoEntrega.ENVIO);
 //        novaInfo.setDestino(new japedidos.pedidos.Destino("Antônio Silveira Moraes", "112", "Ataíde Fonseca", "Cariacica", "RJ"));
-        novaInfo.setDestinatario("Amêndoas");
+        novaInfo.setDestinatario("Entregar na padaria ao lado.");
         
         final String connStr = String.format("jdbc:%s://%s:%s/%s", SGBD, IP, PORT, NAME);
         Connection conn = null;
@@ -510,7 +510,6 @@ public final class BD {
             return r;
         }
         
-        // TODO: TESTAR
         public static int atualizarInfoEntrega(final japedidos.pedidos.Pedido pedidoAntigo, final japedidos.pedidos.InfoEntrega novaInfoEntrega, Connection conn) throws SQLException {
             if (conn == null) {
                 throw new NullPointerException("Conexão é nula");
@@ -940,7 +939,6 @@ public final class BD {
             return r;
         }
     
-        // TODO: TESTAR
         public static int update(int id_pedido, japedidos.pedidos.Destino destino, Connection conn) throws SQLException {
             if (conn == null) {
                 throw new NullPointerException("Conexão é nula");
@@ -989,8 +987,6 @@ public final class BD {
             return r;
         }
         
-        
-        // TODO: TESTAR
         public static int delete(int id_pedido, Connection conn) throws SQLException {
             if (conn == null) {
                 throw new NullPointerException("Conexão é nula");
@@ -1074,7 +1070,6 @@ public final class BD {
             return r;
         }
     
-        // TODO: TESTAR
         public static int update(int id_pedido, String destinatario, Connection conn) throws SQLException {
             if (conn == null) {
                 throw new NullPointerException("Conexão é nula");
@@ -1093,9 +1088,9 @@ public final class BD {
             int r = 0;
             Throwable doThrow = null;
             try {
-                 updateDestinatario = conn.prepareStatement(String.format("UPDATE %s SET info = ? WHERE id_pedido = ?", TABLE));
-                updateDestinatario.setString(2, destinatario);
-                updateDestinatario.setInt(1, id_pedido);
+                updateDestinatario = conn.prepareStatement(String.format("UPDATE %s SET info = ? WHERE id_pedido = ?", TABLE));
+                updateDestinatario.setString(1, destinatario);
+                updateDestinatario.setInt(2, id_pedido);
                 r = updateDestinatario.executeUpdate();
                 
             } catch (SQLException ex) {
@@ -1117,7 +1112,6 @@ public final class BD {
             return r;
         }
         
-        // TODO: TESTAR
         public static int delete(int id_pedido, Connection conn) throws SQLException {
             if (conn == null) {
                 throw new NullPointerException("Conexão é nula");
