@@ -12,7 +12,7 @@ import japedidos.exception.IllegalPaisException;
  *
  * @author thiago
  */
-public class Destino {
+public final class Destino implements Cloneable {
     public static final String DEFAULT_ESTADO = "ES";
     public static final String DEFAULT_PAIS = "Brasil";
     
@@ -162,28 +162,41 @@ public class Destino {
         }
     }
     
-    public String getLogradouro() {
+    public final String getLogradouro() {
         return this.logradouro;
     }
     
-    public String getNumero() {
+    public final String getNumero() {
         return this.numero;
     }
     
-    public String getBairro() {
+    public final String getBairro() {
         return this.bairro;
     }
     
-    public String getCidade() {
+    public final String getCidade() {
         return this.cidade;
     }
     
-    public String getEstado() {
+    public final String getEstado() {
         return this.estado;
     }
     
-    public String getPais() {
+    public final String getPais() {
         return this.pais;
+    }
+    
+    @Override
+    @SuppressWarnings("RedundantStringConstructorCall")
+    public Object clone() throws CloneNotSupportedException {
+        Destino novo = (Destino)super.clone();
+        novo.setLogradouro(new String(this.getLogradouro()));
+        novo.setNumero(new String(this.getNumero()));
+        novo.setBairro(new String(this.getBairro()));
+        novo.setCidade(new String(this.getCidade()));
+        novo.setEstado(new String(this.getEstado()));
+        novo.setPais(new String(this.getPais()));
+        return novo;
     }
     
     @Override

@@ -12,12 +12,19 @@ import java.time.LocalDateTime;
  *
  * @author t.baiense
  */
-public class InfoEntrega {
+public class InfoEntrega implements Cloneable {
     private TipoEntrega tipoEntrega;
     private String destinatario;
     private LocalDateTime dthrEntregar;
     private double precoFrete;
     private Destino destino;
+    
+    public static void main(String[] args) throws Exception {
+        InfoEntrega teste = new InfoEntrega(TipoEntrega.ENVIO, LocalDateTime.now(), 10);
+        teste.setDestino(new Destino("a", "b", "c", "d", "e"));
+        teste.setDestinatario("seu joao");
+        System.out.println(((Destino)((InfoEntrega)teste.clone()).getDestino().clone()).equals(teste.getDestino()));
+    }
     
     public InfoEntrega(TipoEntrega tipoEntrega, LocalDateTime dthrEntregar, double precoFrete) {
         IllegalArgumentsException exs = new IllegalArgumentsException();
@@ -115,5 +122,37 @@ public class InfoEntrega {
     
     public double getPrecoFrete() {
         return this.precoFrete;
+    }
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        InfoEntrega novo = (InfoEntrega)super.clone();
+        if (this.getTipoEntrega() == TipoEntrega.ENVIO) {
+            Destino destino = this.getDestino();
+            if (destino != null) {
+                novo.setDestino((Destino)destino.clone());
+            }
+        }
+        String dest = this.getDestinatario();
+        if (dest != null) {
+            novo.setDestinatario(new String(this.getDestinatario()));
+        }
+        return novo;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof InfoEntrega) {
+            InfoEntrega i = (InfoEntrega)o;
+            return (
+                    i.getDestino().equals(this.getDestino()) &&
+                    i.getDestinatario().equals(this.getDestinatario()) &&
+                    i.getTipoEntrega() == this.getTipoEntrega() &&
+                    i.getDataHoraEntregar() == this.getDataHoraEntregar() &&
+                    i.getPrecoFrete() == this.getPrecoFrete()
+            ) ? true : false;
+        } else {
+            return false;
+        }
     }
 }

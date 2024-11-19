@@ -27,30 +27,33 @@ import java.util.ArrayList;
 
 public final class BD {
     public static final String SGBD = "mysql";
-//    public static final String IP = "162.241.203.86";
+    public static final String IP = "162.241.203.86";
     public static final String PORT = "3306";
     public static final String NAME = "titanw25_japedidos_hml";
-//    public static final String USER = "titanw25_japedidos_hml";
-//    public static final String USER_PWD = "seNai@2024proj";
-    
-    public static final String IP = "localhost";
+    public static final String USER = "titanw25_japedidos_hml";
+    public static final String USER_PWD = "seNai@2024proj";
+//    
+//    public static final String IP = "localhost";
 //    public static final String NAME = "japedidos";
-    public static final String USER = "root";
-    public static final String USER_PWD = "";
+//    public static final String USER = "root";
+//    public static final String USER_PWD = "";
     
     // Testes
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws Exception {
         japedidos.pedidos.Pedido ped = BD.Pedido.selectById(5);
 //        System.out.println(ped.getProdutoCount());
         
-        japedidos.pedidos.Destino dest = ped.getInfoEntrega().getDestino();
-        dest.setNumero("32");
+        japedidos.pedidos.InfoEntrega novaInfo = (japedidos.pedidos.InfoEntrega)ped.getInfoEntrega().clone();
+//        novaInfo.getDestino().setNumero("32");
+//        novaInfo.setTipoEntrega(TipoEntrega.ENVIO);
+//        novaInfo.setDestino(new japedidos.pedidos.Destino("Antônio Silveira Moraes", "112", "Ataíde Fonseca", "Cariacica", "RJ"));
+        novaInfo.setDestinatario("Amêndoas");
+        
         final String connStr = String.format("jdbc:%s://%s:%s/%s", SGBD, IP, PORT, NAME);
-        System.out.println(ped.getInfoEntrega().getDestino().getNumero());
         Connection conn = null;
         try { // Gerar a conexão
             conn = DriverManager.getConnection(connStr, USER, USER_PWD);
-            Destino.update(ped.getId(), ped.getInfoEntrega().getDestino(), conn);
+            Pedido.atualizarInfoEntrega(ped, novaInfo, conn);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
             System.exit(-1);
@@ -551,6 +554,7 @@ public final class BD {
                     updatePedido = conn.prepareStatement(String.format("UPDATE %s SET tipo_entrega = ? WHERE id = ?", TABLE));
                     updatePedido.setString(1, tipoEntregaNovo.toString());
                     updatePedido.setInt(2, id_pedido);
+                    updatePedido.executeUpdate();
                 } else if (tipoEntregaNovo == TipoEntrega.ENVIO){ // Se ambos forem envio
                     japedidos.pedidos.Destino destinoAtual = infoEntregaPedido.getDestino();
                     japedidos.pedidos.Destino  destinoNovo = novaInfoEntrega.getDestino();
