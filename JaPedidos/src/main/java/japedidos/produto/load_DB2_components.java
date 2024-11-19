@@ -27,41 +27,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class load_DB2_components {
 
-//    public static JComboBox<String> carregaComboBox(JComboBox<String> comboBox, Connection banco, String sqlQuery) throws SQLException {
-//        comboBox.removeAllItems();  // Limpa os itens existentes
-//        HashMap<Integer, String[]> comboBoxMap = new HashMap<>();
-//        
-//        try
-//        {
-//            PreparedStatement stm_comboBox = banco.prepareStatement(sqlQuery); 
-//            ResultSet resultado_comboBox = stm_comboBox.executeQuery();
-//
-//            ResultSetMetaData metadata = resultado_comboBox.getMetaData();
-//            String primeiroItem = metadata.getTableName(1);
-//
-//            System.out.println("metadata 1: " + metadata.getColumnName(2));
-//            
-//            comboBoxMap.put(0, new String[]{primeiroItem});
-//            comboBox.addItem(primeiroItem);
-//
-//            while (resultado_comboBox.next()) {
-//                int index = resultado_comboBox.getInt(1);  // Obtém o índice
-//                String dadoColuna1 = resultado_comboBox.getString(2);  // Obtém o nome
-//                comboBoxMap.put(index, new String[]{dadoColuna1});
-////                  Adiciona o nome ao JComboBox
-//                comboBox.addItem(dadoColuna1);
-//            }            
-//
-//            stm_comboBox.close();
-//        } catch (SQLException erro) {
-//            erro.printStackTrace();
-//            System.out.println("O erro foi : " + erro);
-//        }
-//
-//        return comboBox;
-//    }
-       
-    
     public static JTable carregaJTable(JTable  jTablecomponent, Connection banco, String sqlQuery)  throws SQLException {
         NumberFormat decimal = new DecimalFormat("#,##0.00");
 
@@ -96,9 +61,9 @@ public class load_DB2_components {
     return jTablecomponent;
     }
     
-        public static void excluirProduto(Component jframe,  String url, String usuario, String senha, String sqlQuery)  throws SQLException {
+        public static void excluirProduto(Component jframe,  Connection banco, String sqlQuery)  throws SQLException {
 
-        try (Connection banco = DriverManager.getConnection(url, usuario, senha); PreparedStatement stm_tabela = banco.prepareStatement(sqlQuery)) {
+        try (PreparedStatement stm_tabela = banco.prepareStatement(sqlQuery)) {
         
             int linhasAfetadas = stm_tabela.executeUpdate();
             if (linhasAfetadas > 0) {

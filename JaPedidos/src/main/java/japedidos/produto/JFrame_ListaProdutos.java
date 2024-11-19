@@ -417,7 +417,6 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             }
         });
         jtbl_lista_produtos.setToolTipText("");
-        jtbl_lista_produtos.setColumnSelectionAllowed(true);
         jtbl_lista_produtos.setFillsViewportHeight(true);
         jtbl_lista_produtos.setMinimumSize(new java.awt.Dimension(90, 160));
         jtbl_lista_produtos.setName(""); // NOI18N
@@ -491,8 +490,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jlbl_btn_novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_novo_pressionado.png"))); 
     }//GEN-LAST:event_jlbl_btn_novoMousePressed
 
-    private void jlbl_btn_novoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_novoMouseClicked
-        // TODO add your handling code here:
+    private void limpaItensFormulario(){
         jtxtf_descricao.requestFocusInWindow();
         jtxtf_codigo.setText("");
         jtxtf_descricao.setText("");
@@ -501,6 +499,18 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jcmb_categoria.setSelectedIndex(0);
         jcmb_unid.setSelectedIndex(0);
         jchb_ativo.setSelected(true);
+    }
+    private void jlbl_btn_novoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_novoMouseClicked
+        // TODO add your handling code here:
+        limpaItensFormulario();
+//        jtxtf_descricao.requestFocusInWindow();
+//        jtxtf_codigo.setText("");
+//        jtxtf_descricao.setText("");
+//        jtxtf_valor_venda.setText("");
+//        jtxtf_valor_custo.setText("");
+//        jcmb_categoria.setSelectedIndex(0);
+//        jcmb_unid.setSelectedIndex(0);
+//        jchb_ativo.setSelected(true);
     }//GEN-LAST:event_jlbl_btn_novoMouseClicked
 
     private void jlbl_btn_novoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_novoMouseReleased
@@ -786,20 +796,21 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         String usuario = "root";
         String senha = "";
 
-       try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
-            String sql_Categoria = "SELECT id, nome FROM listaCategorias"; 
-            String sql_Unidade = "SELECT id, abreviacao FROM listaUnidades";
-            String sql_listaProdutos = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
-            load_DB2_components.carregaComboBox(this,jcmb_categoria, comboBox_categorias_Map, conn, sql_Categoria);
-            load_DB2_components.carregaComboBox(this,jcmb_unid, comboBox_unidades_Map, conn, sql_Unidade);
-            load_DB2_components.carregaJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
+       try (Connection banco = DriverManager.getConnection(url, usuario, senha)) {
 
-           
-        } catch (SQLException e) {
+           String sql_Categoria = "SELECT id, nome FROM listaCategorias"; 
+            String sql_Unidade = "SELECT id, abreviacao FROM listaUnidades";
+            String sql_listaProdutos = "SELECT * FROM listaTodosProdutos";
+            load_DB2_components.carregaComboBox(this,jcmb_categoria, comboBox_categorias_Map, banco, sql_Categoria);
+            load_DB2_components.carregaComboBox(this,jcmb_unid, comboBox_unidades_Map, banco, sql_Unidade);
+            load_DB2_components.carregaJTable(jtbl_lista_produtos, banco, sql_listaProdutos);
+            banco.close();
+
+       } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, 
             "Nao foi possivel conectar ao banco  \n", 
-            "Erro ao conectar ao banco", 
+            "JaPedidos", 
             JOptionPane.INFORMATION_MESSAGE);
         }
 
@@ -826,18 +837,23 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                                                 JOptionPane.YES_NO_OPTION,
                                                 JOptionPane.WARNING_MESSAGE);
                 if (confirmaExclusao==0){
-                    System.out.print("\nSim = "+ confirmaExclusao);
-                    String sqlQuery = "DELETE from produto where id = " + jtxtf_codigo.getText();
-                    try {
-                            load_DB2_components.excluirProduto(this, url, usuario, senha, sqlQuery);
-                            Connection conn = DriverManager.getConnection(url, usuario, senha);
-                            String sql_listaProdutos = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
-                            load_DB2_components.carregaJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
-                            conn.close();
-                        } catch (SQLException ex) {
+//                    System.out.print("\nSim = "+ confirmaExclusao);
+//                    String sqlQuery = "DELETE from produto where id = " + jtxtf_codigo.getText();
+                    try (Connection banco = DriverManager.getConnection(url, usuario, senha)){
+
+                        String sqlQuery = "DELETE from produto where id = " + jtxtf_codigo.getText();
+                        load_DB2_components.excluirProduto(this, banco, sqlQuery);
+
+//                            Connection banco = DriverManager.getConnection(url, usuario, senha);
+                        String sql_listaProdutos = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
+                        load_DB2_components.carregaJTable(jtbl_lista_produtos, banco, sql_listaProdutos);
+                    
+                        banco.close();
+                        limpaItensFormulario();
+                    } catch (SQLException ex) {
                             Logger.getLogger(JFrame_ListaProdutos.class.getName()).log(Level.SEVERE, null, ex);
-                            JOptionPane.showMessageDialog(jpnl_corpo, 
-                            "Falha ao excluir\n", 
+                            JOptionPane.showMessageDialog(this, 
+                            "Erro ao acessar banco.\n", 
                             "JaPedidos", 
                             JOptionPane.INFORMATION_MESSAGE);
                         }
@@ -873,7 +889,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 //       System.out.println("ID selecionado jcmb_categoria : " + load_DB2_components.getSelectedID(jcmb_categoria, comboBox_categorias_Map));
 
         dados[0]=jtxtf_codigo.getText();
-        dados[1]=jtxtf_descricao.getText();
+        dados[1]=jtxtf_descricao.getText().toUpperCase();
         dados[2]=Integer.toString(load_DB2_components.getSelectedID(jcmb_categoria, comboBox_categorias_Map));
         dados[3]=Integer.toString(load_DB2_components.getSelectedID(jcmb_unid, comboBox_unidades_Map));
         dados[4]=jtxtf_valor_venda.getText();
@@ -899,7 +915,12 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                     try
                     {
                     Connection banco = DriverManager.getConnection(url, usuario, senha);
-                    load_DB2_components.salvaProduto(this,  banco , sqlQuery, dados);                    
+                    load_DB2_components.salvaProduto(this,  banco , sqlQuery, dados);      
+                    
+                    String sql_listaProdutos = "SELECT * FROM listaTodosProdutos";
+                    load_DB2_components.carregaJTable(jtbl_lista_produtos, banco, sql_listaProdutos);    
+                    banco.close();
+                    limpaItensFormulario();
                     }
                     catch (SQLException ex)
                     {
@@ -910,7 +931,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                         JOptionPane.INFORMATION_MESSAGE);
                     }
                 } 
-                
+
     }//GEN-LAST:event_jlbl_btn_salvarMouseClicked
 
     private void jtxtf_valor_vendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_valor_vendaActionPerformed
