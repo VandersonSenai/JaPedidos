@@ -70,6 +70,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jlbl_codigo = new javax.swing.JLabel();
         jtxtf_codigo = new javax.swing.JTextField();
         jlbl_unid = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jcmb_unid = new javax.swing.JComboBox<>();
         jlbl_valor_venda = new javax.swing.JLabel();
         jtxtf_valor_venda = new javax.swing.JTextField();
@@ -292,6 +293,14 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jlbl_unid.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jlbl_unid.setText("UND :");
         jpnl_corpo.add(jlbl_unid, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 484, 40, -1));
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jpnl_corpo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 370, -1, -1));
 
         jcmb_unid.setBackground(new java.awt.Color(102, 102, 102));
         jcmb_unid.setForeground(new java.awt.Color(204, 204, 204));
@@ -799,6 +808,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             load_DB2_components.carregaComboBox(jcmb_categoria, conn, sql_combCategoria);
             load_DB2_components.carregaComboBox(jcmb_unid, conn, sql_combUnidade);
             load_DB2_components.carregaJTable(jtbl_lista_produtos, conn, sql_listaProdutos);
+            
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, 
@@ -922,7 +932,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                      "JaPedidos", 
                      JOptionPane.INFORMATION_MESSAGE);
                 }   else if (jtxtf_codigo.getText().length()<1) {
-            
+
                     JOptionPane.showMessageDialog(jpnl_corpo, 
                      "Novo Item \n", 
                      "JaPedidos", 
@@ -935,6 +945,18 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     private void jtxtf_valor_vendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_valor_vendaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtf_valor_vendaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int i = 0;
+        
+        
+//                    Integer.toString(jcmb_categoria.getSelectedIndex());
+                    JOptionPane.showMessageDialog(this, 
+                     "\n" + jcmb_categoria.getSelectedIndex(), 
+                     "JaPedidos", 
+                     JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -983,6 +1005,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     javax.swing.JCheckBox jchb_ativo;
     javax.swing.JComboBox<String> jcmb_categoria;
     javax.swing.JComboBox<String> jcmb_unid;
