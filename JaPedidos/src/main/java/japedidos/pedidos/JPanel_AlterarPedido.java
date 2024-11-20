@@ -1,22 +1,373 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package japedidos.pedidos;
+import japedidos.bd.BD;
+import japedidos.clientes.Cliente;
+import japedidos.clientes.InfoAdicionalReceiver;
+import japedidos.clientes.JFrame_InfoAdicionalCliente;
+import japedidos.exception.*;
+import japedidos.pedidos.Estado;
+import japedidos.pedidos.Pedido;
+import japedidos.produto.Produto;
+import japedidos.produto.ProdutoPedido;
+import japedidos.usuario.Registro;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import com.github.lgooddatepicker.components.*;
+import japedidos.usuario.Usuario;
+import javax.swing.JFrame;
 
 /**
  *
  * @author thiago
  */
-public class JPanel_AlterarPedido extends javax.swing.JPanel {
+public class JPanel_AlterarPedido extends javax.swing.JPanel implements InfoAdicionalReceiver {
 
-    /**
-     * Creates new form JPanel_AlterarPedido
-     */
+    Cliente.InfoAdicional infoAdicionalCliente;
+    Pedido pedidoAlterar;
+    Runnable runOnFinish;
+    
+    public JPanel_AlterarPedido(Pedido pAlterar, Runnable runOnFinish) {
+        this();
+        this.pedidoAlterar = (Pedido)pAlterar.clone();
+        this.runOnFinish = runOnFinish;
+        setFieldsInfo(pedidoAlterar);
+    }
+    
     public JPanel_AlterarPedido() {
         initComponents();
+        inicializarPainel();
     }
 
+    private void inicializarPainel() {
+        fillEstadosComboBoxPedido();
+        fillTipoEntregaComboBoxPedido();
+        hideErrorLabels();
+        jspn_quantidade.setValue(1);
+        
+        jspn_valorEntrega.addChangeListener((e) -> {
+            atualizarValoresPedido();
+        });
+        
+        jspn_desconto.addChangeListener((e) -> {
+            atualizarValoresPedido();
+        });
+        
+        // Faz com que o produto selecionado seja adicionado ao pressionar ENTER no JSpinner de quantidade
+        ((JSpinner.NumberEditor)jspn_quantidade.getEditor()).getTextField().addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent ev) {
+                if (ev.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+                    javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            jbtn_incluirProduto.doClick();
+                        }
+                    });
+                }
+            }
+        });
+        
+    }
+    
+    public void fillEstadosComboBoxPedido() {
+        jcmb_estadoInicial.addItem(Estado.ABERTO);
+        jcmb_estadoInicial.addItem(Estado.AGUARDANDO_PAGAMENTO);
+        jcmb_estadoInicial.addItem(Estado.PAGO);
+        jcmb_estadoInicial.addItem(Estado.EM_PREPARO);
+        jcmb_estadoInicial.addItem(Estado.AGUARDANDO_ENVIO);
+        jcmb_estadoInicial.addItem(Estado.AGUARDANDO_RETIRADA);
+        jcmb_estadoInicial.addItem(Estado.SAIU_PARA_ENTREGA);
+        jcmb_estadoInicial.addItem(Estado.CONCLUIDO);
+        jcmb_estadoInicial.addItem(Estado.CANCELADO);
+    }
+    
+    public void fillTipoEntregaComboBoxPedido() {
+        jcmb_tipoEntrega.addItem(TipoEntrega.ENVIO);
+        jcmb_tipoEntrega.addItem(TipoEntrega.RETIRADA);
+    }
+    
+    public void clearFieldsInfo() {
+        jtxtf_telefoneCliente.setText(null);
+        jtxtf_nomeCliente.setText(null);
+        if (jcmb_tipoEntrega.getItemCount() > 0) {
+            jcmb_tipoEntrega.setSelectedIndex(0);
+        }
+        
+        datePicker1.setDateToToday();
+        timePicker1.setTime(java.time.LocalTime.of(java.time.LocalTime.now().getHour(), 00));
+        jtxtf_rua.setText(null);
+        jtxtf_numero.setText(null);
+        jtxtf_bairro.setText(null);
+        jtxtf_cidade.setText(null);
+        jcmb_uf.setSelectedIndex(7);
+        jtxta_observacoes.setText(null);
+        clearProdutoFieldsInfo();
+        jspn_valorEntrega.setValue(0.0);
+        jspn_desconto.setValue(0);
+        infoAdicionalCliente = null;
+        jTable_ProdutoPedido.getModel().clearRows();
+        
+    }
+    
+    public void setFieldsInfo(Pedido p) {
+        if (p == null) {
+            throw new NullPointerException("Pedido para alteração não pode ser nulo.");
+        }
+        
+        // Cliente
+        Cliente cliente = p.getCliente();
+        jtxtf_telefoneCliente.setText(cliente.getTelefone());
+        jtxtf_nomeCliente.setText(cliente.getNome());
+        
+        // Entrega
+        InfoEntrega infoEntrega = p.getInfoEntrega();
+        jcmb_tipoEntrega.setSelectedItem(infoEntrega.getTipoEntrega());
+        datePicker1.setDate(infoEntrega.getDataHoraEntregar().toLocalDate());
+        timePicker1.setTime(infoEntrega.getDataHoraEntregar().toLocalTime());
+        
+        if (infoEntrega.getTipoEntrega() == TipoEntrega.ENVIO) {
+            Destino destino = infoEntrega.getDestino();
+            jtxtf_rua.setText(destino.getLogradouro());
+            jtxtf_numero.setText(destino.getNumero());
+            jtxtf_bairro.setText(destino.getBairro());
+            jtxtf_cidade.setText(destino.getBairro());
+            jcmb_uf.setSelectedItem(destino.getEstado());
+        }
+    }
+    
+    public Pedido getFieldsInfo() {
+        hideErrorLabels();
+        
+        int txDesconto;
+        double valorEntrega, valorTotal, custoTotal;
+        String nome, telefone, strDataEntregar, strHoraEntregar, rua, numeroDestino, bairro, cidade, uf, observacoes, strTaxaDesconto, strValorEntrega, strValorTotal, strCustoTotal;
+        Cliente cliente;
+        TipoEntrega tipoEntrega;
+        Destino destinoEntrega;
+        LocalDate dataEntregar;
+        LocalTime horaEntregar;
+        InfoEntrega infoEntrega;
+        Registro criacao;
+        LocalDateTime dthrEntregar;
+        LocalDate dtPago;
+        LocalDate dtVencimentoPagamento;
+        ProdutoPedido[] produtosAdicionados;
+        EstadoPedido estadoInicial;
+        Pedido p;
+        
+        IllegalArgumentsException exs = new IllegalArgumentsException();
+        
+        // Criação de cliente
+        nome = jtxtf_nomeCliente.getText().trim();
+        telefone = jtxtf_telefoneCliente.getText();
+        
+        try {
+            cliente = new Cliente(nome, telefone);
+            cliente.setInfoAdicional(infoAdicionalCliente);
+//            cliente.setId(1); // RETIRAR quando tiver método de criar usuario
+        } catch (IllegalArgumentsException newExs) {
+            exs.addCause(newExs.getCauses());
+            cliente = null;
+        }
+        
+        // Tipo de entrega
+        tipoEntrega = (TipoEntrega)jcmb_tipoEntrega.getSelectedItem();
+        
+        dataEntregar = datePicker1.getDate();
+        horaEntregar = timePicker1.getTime();
+        dthrEntregar = LocalDateTime.of(dataEntregar, horaEntregar);
+        
+        // Criação do destino de entrega
+        if (tipoEntrega == TipoEntrega.ENVIO) {
+            rua = jtxtf_rua.getText().trim();
+            numeroDestino = jtxtf_numero.getText().trim();
+            bairro = jtxtf_bairro.getText().trim();
+            cidade = jtxtf_cidade.getText().trim();
+            uf = (String)jcmb_uf.getSelectedItem();
+            
+            try {
+                destinoEntrega = new Destino(rua, numeroDestino, bairro, cidade, uf);
+            } catch (IllegalArgumentsException newExs) {
+                exs.addCause(newExs.getCauses());
+                destinoEntrega = null;
+            }
+        } else {
+            destinoEntrega = null;
+        }
+        observacoes = jtxta_observacoes.getText().trim();
+        
+        
+        // Info de entrega
+        try {
+            valorEntrega = (Double)jspn_valorEntrega.getValue();
+            if (valorEntrega < 0.0 || valorEntrega > (Double)((javax.swing.SpinnerNumberModel)jspn_valorEntrega.getModel()).getMaximum()) {
+                infoEntrega = null;
+                throw new NumberFormatException("Preço do frete não aceito.");
+            } else {
+                infoEntrega = new InfoEntrega(tipoEntrega, dthrEntregar, valorEntrega);
+            }
+        } catch (NumberFormatException ex) {
+            exs.addCause(new IllegalPrecoFreteException("Preço de frete inválido."));
+            infoEntrega = null;
+        } catch (IllegalArgumentsException ex) {
+            exs.addCause(ex.getCauses());
+            infoEntrega = null;
+        }
+        
+        if (infoEntrega != null) {
+            try {
+                infoEntrega.setDestino(destinoEntrega);
+            } catch (IllegalDestinoException newEx) {
+                exs.addCause(newEx);
+            }
+            
+            try {
+                infoEntrega.setDestinatario(observacoes);
+            } catch (IllegalDestinatarioException newEx) {
+                exs.addCause(newEx);
+            }
+        }
+        
+        // Produtos adicionados
+        produtosAdicionados = jTable_ProdutoPedido.getModel().getRows(); // Retorna null, se não houverem itens na tabela
+        
+        // Desconto
+        txDesconto = (int)jspn_desconto.getValue();
+        
+        // Definição do estado inicial
+        Estado recebido = (Estado)jcmb_estadoInicial.getSelectedItem();
+        if (recebido != null) {
+            estadoInicial = new EstadoPedido(recebido);
+        } else {
+            estadoInicial = new EstadoPedido(Estado.ABERTO);
+        }
+        
+        // Tentativa de criação do Pedido
+        try {
+            p = new Pedido(cliente, infoEntrega, produtosAdicionados, txDesconto);
+            p.setEstadoAtual(estadoInicial);
+            // TODO: definir data de vencimento do pagamento, se houver
+        } catch (IllegalArgumentsException newExs) {
+            Throwable[] causes = newExs.getCauses();
+            for (Throwable t : causes) {
+                if (t instanceof IllegalTaxaDescontoException) {
+                    exs.addCause(t);
+                } else if (t instanceof IllegalProdutoPedidoArrayException) {
+                    exs.addCause(t);
+                }
+            }
+            
+            p = null;
+        }
+        
+        // Verificação de erros
+        if (exs.size() > 0) {
+            Throwable[] causes = exs.getCauses();
+            for (Throwable t : causes) {
+                System.out.println(t.getMessage());
+                if (t instanceof IllegalNomeException) {
+                    jlbl_erro_nome.setVisible(true);
+                    jlbl_erro_nome.setText(t.getMessage());
+                } else if (t instanceof IllegalTelefoneException) {
+                    jlbl_erro_telefone.setVisible(true);
+                    jlbl_erro_telefone.setText(t.getMessage());
+                } else if (t instanceof IllegalTipoEntregaException) {
+                    jlbl_erro_tipoEntrega.setVisible(true);
+                    jlbl_erro_tipoEntrega.setText(t.getMessage());
+                } else if (t instanceof IllegalDataHoraEntregarException) {
+                    jlbl_erro_dataEntrega.setVisible(true);
+                    jlbl_erro_dataEntrega.setText(t.getMessage());
+                    jlbl_erro_horaEntrega.setVisible(true);
+                    jlbl_erro_horaEntrega.setText(t.getMessage());
+                } else if (t instanceof IllegalLogradouroException) {
+                    jlbl_erro_ruaEntrega.setVisible(true);
+                    jlbl_erro_ruaEntrega.setText(t.getMessage());
+                } else if (t instanceof IllegalNumeroException) {
+                    jlbl_erro_numeroEntrega.setVisible(true);
+                    jlbl_erro_numeroEntrega.setText(t.getMessage());
+                } else if (t instanceof IllegalBairroException) {
+                    jlbl_erro_bairroEntrega.setVisible(true);
+                    jlbl_erro_bairroEntrega.setText(t.getMessage());
+                } else if (t instanceof IllegalCidadeException) {
+                    jlbl_erro_cidadeEntrega.setVisible(true);
+                    jlbl_erro_cidadeEntrega.setText(t.getMessage());
+                } else if (t instanceof IllegalEstadoException) {
+                    jlbl_erro_ufEntrega.setVisible(true);
+                    jlbl_erro_ufEntrega.setText(t.getMessage());
+                } else if (t instanceof IllegalPaisException) {
+
+                } else if (t instanceof IllegalDestinatarioException) {
+                    jlbl_erro_observacoesEntrega.setVisible(true);
+                    jlbl_erro_observacoesEntrega.setText(t.getMessage());
+                } if (t instanceof IllegalProdutoPedidoArrayException) {
+                    JOptionPane.showMessageDialog(null, "Insira ao menos um produto antes de completar o pedido.", "Falha ao cadastrar pedido", JOptionPane.INFORMATION_MESSAGE);
+                } else if (t instanceof IllegalTaxaDescontoException) {
+                    jlbl_erro_desconto.setVisible(true);
+                    jlbl_erro_desconto.setText(t.getMessage());
+                } else if (t instanceof IllegalPrecoFreteException) {
+                    jlbl_erro_valorEntrega.setVisible(true);
+                    jlbl_erro_valorEntrega.setText(t.getMessage());
+                }
+            }
+        }
+        
+        
+        return p;
+    }
+    
+    public void clearProdutoFieldsInfo() {
+        if (jcmb_produto.getItemCount() > 0) {
+            jcmb_produto.setSelectedIndex(0);
+        }
+        
+        jspn_quantidade.setValue(1);
+        jTable_ProdutoPedido.getTable().getSelectionModel().clearSelection();
+    }
+    
+    public void hideErrorLabels() {
+        jlbl_erro_bairroEntrega.setVisible(false);
+        jlbl_erro_cidadeEntrega.setVisible(false);
+        jlbl_erro_dataEntrega.setVisible(false);
+        jlbl_erro_desconto.setVisible(false);
+        jlbl_erro_estadoInicial.setVisible(false);
+        jlbl_erro_horaEntrega.setVisible(false);
+        jlbl_erro_nome.setVisible(false);
+        jlbl_erro_numeroEntrega.setVisible(false);
+        jlbl_erro_observacoesEntrega.setVisible(false);
+        hideProdutoErrorLabels();
+        jlbl_erro_ruaEntrega.setVisible(false);
+        jlbl_erro_telefone.setVisible(false);
+        jlbl_erro_tipoEntrega.setVisible(false);
+        jlbl_erro_ufEntrega.setVisible(false);
+        jlbl_erro_valorEntrega.setVisible(false);
+        jlbl_erro_valorTotal.setVisible(false);
+    }
+    
+    public void hideProdutoErrorLabels() {
+        jlbl_erro_produto.setVisible(false);
+        jlbl_erro_quantidadeProduto.setVisible(false);
+    }
+    
+    public void setInfoAdicionalCliente(Cliente.InfoAdicional info) {
+        this.infoAdicionalCliente = info;
+    }
+    
+    public void atualizarValoresPedido() {
+        double valorFrete, valorFinalVenda;
+        double taxaDesconto;
+        
+        try {
+            valorFrete = (Double)jspn_valorEntrega.getValue();
+            taxaDesconto = (int)jspn_desconto.getValue() / 100.0;
+            valorFinalVenda = Pedido.precoFinalVenda(jTable_ProdutoPedido.getModel().getRows(), taxaDesconto, valorFrete);
+            jtxtf_valorTotal.setText(String.format("%1.2f", valorFinalVenda));
+        } catch (NumberFormatException ex) {
+            System.out.println("Erro ao atualizar preço do pedido.");
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -546,7 +897,7 @@ public class JPanel_AlterarPedido extends javax.swing.JPanel {
         Pedido p = getFieldsInfo();
         if (p != null) {
             int r = BD.Pedido.insert(p);
-            preencherHistoricoPedidos();
+            runOnFinish.run();
             if (r > 0) {
                 clearFieldsInfo();
                 atualizarValoresPedido();
@@ -590,6 +941,15 @@ public class JPanel_AlterarPedido extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jpnl_incluirPedidoComponentShown
 
+    public static void main(String[] args) {
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            JPanel_AlterarPedido panel = new JPanel_AlterarPedido(BD.Pedido.selectById(1), () -> {System.out.println("Finalizou");});
+            JFrame frame = new JFrame("Teste de alteração de pedido");
+            frame.add(panel);
+            frame.pack();
+            frame.setVisible(true);
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.github.lgooddatepicker.components.DatePicker datePicker1;

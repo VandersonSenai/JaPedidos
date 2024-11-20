@@ -1,29 +1,11 @@
-CREATE DATABASE  IF NOT EXISTS `titanw25_japedidos_hml` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+CREATE DATABASE  IF NOT EXISTS `titanw25_japedidos_hml`;
 USE `titanw25_japedidos_hml`;
--- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
---
--- Host: 127.0.0.1    Database: titanw25_japedidos_hml
--- ------------------------------------------------------
--- Server version	5.5.5-10.4.32-MariaDB
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `categoria`
 --
 
 DROP TABLE IF EXISTS `categoria`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categoria` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(24) NOT NULL,
@@ -317,46 +299,32 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `listacategorias`;
-/*!50001 DROP VIEW IF EXISTS `listacategorias`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `listacategorias` AS SELECT 
- 1 AS `id`,
- 1 AS `nome`,
- 1 AS `descricao`*/;
-SET character_set_client = @saved_cs_client;
+CREATE OR REPLACE VIEW `listaCategorias` AS    
+SELECT  * from categoria order by nome;
 
 --
 -- Temporary view structure for view `listatodosprodutos`
 --
 
 DROP TABLE IF EXISTS `listatodosprodutos`;
-/*!50001 DROP VIEW IF EXISTS `listatodosprodutos`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `listatodosprodutos` AS SELECT 
- 1 AS `id`,
- 1 AS `nome`,
- 1 AS `categoria`,
- 1 AS `preco_venda`,
- 1 AS `preco_custo`,
- 1 AS `unidade`,
- 1 AS `estado`*/;
-SET character_set_client = @saved_cs_client;
+CREATE OR REPLACE VIEW `listaTodosProdutos` AS    
+SELECT p.id, p.nome, c.nome as categoria, p.preco_venda , p.preco_custo, u.abreviacao as unidade, p.estado
+FROM produto as p
+LeFT JOIN
+	categoria as c
+    on p.id_categoria = c.id
+LeFT JOIN
+	unidade as u
+    on p.id_unidade = u.id
+ORDER BY p.nome;
 
 --
 -- Temporary view structure for view `listaunidades`
 --
 
 DROP TABLE IF EXISTS `listaunidades`;
-/*!50001 DROP VIEW IF EXISTS `listaunidades`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `listaunidades` AS SELECT 
- 1 AS `id`,
- 1 AS `nome`,
- 1 AS `abreviacao`*/;
-SET character_set_client = @saved_cs_client;
+CREATE OR REPLACE VIEW `listaUnidades` AS    
+SELECT  * from unidade order BY nome;
 
 --
 -- Table structure for table `pedido`
@@ -520,166 +488,213 @@ UNLOCK TABLES;
 -- Temporary view structure for view `vw_est_andamento_pedido`
 --
 
-DROP TABLE IF EXISTS `vw_est_andamento_pedido`;
-/*!50001 DROP VIEW IF EXISTS `vw_est_andamento_pedido`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `vw_est_andamento_pedido` AS SELECT 
- 1 AS `id_pedido`,
- 1 AS `id_est_andamento`,
- 1 AS `nome_est_andamento`,
- 1 AS `id_usuario_autor`,
- 1 AS `nome_usuario_autor`,
- 1 AS `dthr_criacao`*/;
-SET character_set_client = @saved_cs_client;
+CREATE OR REPLACE VIEW vw_est_andamento_pedido AS 
+SELECT 
+    e_a_p.id_pedido,
+    e_a_p.id_est_andamento,
+    e_a.nome AS nome_est_andamento,
+    e_a_p.id_usuario_autor,
+    u.nome AS nome_usuario_autor,
+    e_a_p.dthr_criacao
+FROM 
+    est_andamento_pedido AS e_a_p
+    INNER JOIN est_andamento AS e_a ON e_a.id = e_a_p.id_est_andamento
+    INNER JOIN usuario AS u ON u.id = e_a_p.id_usuario_autor
+ORDER BY id_pedido ASC, dthr_criacao ASC, id_est_andamento ASC;
 
 --
 -- Temporary view structure for view `vw_estadoproduto`
 --
 
 DROP TABLE IF EXISTS `vw_estadoproduto`;
-/*!50001 DROP VIEW IF EXISTS `vw_estadoproduto`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `vw_estadoproduto` AS SELECT 
- 1 AS `id`,
- 1 AS `nome`,
- 1 AS `categoria`,
- 1 AS `unidade`,
- 1 AS `estado`*/;
-SET character_set_client = @saved_cs_client;
+CREATE OR REPLACE VIEW vw_estadoProduto
+AS
+	SELECT 
+		p.id, 
+		p.nome, 
+		c.nome AS categoria, 
+		u.nome AS unidade, 
+		CASE WHEN p.estado = b'1'
+			THEN "ATIVO"
+			ELSE "DESATIVADO"
+		END AS estado
+	FROM produto AS p
+		INNER JOIN categoria AS c
+			ON c.id = p.id_categoria
+		INNER JOIN unidade AS u
+			ON u.id = p.id_unidade;
 
 --
 -- Temporary view structure for view `vw_pedido`
 --
 
 DROP TABLE IF EXISTS `vw_pedido`;
-/*!50001 DROP VIEW IF EXISTS `vw_pedido`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `vw_pedido` AS SELECT 
- 1 AS `id`,
- 1 AS `id_cliente`,
- 1 AS `telefone_cliente`,
- 1 AS `nome_cliente`,
- 1 AS `nome_cliente_info_pf`,
- 1 AS `cpf_info_pf`,
- 1 AS `cnpj_info_pj`,
- 1 AS `nome_fantasia_info_pj`,
- 1 AS `nome_empresarial_info_pj`,
- 1 AS `tipo_entrega`,
- 1 AS `dthr_entregar`,
- 1 AS `preco_frete`,
- 1 AS `logradouro_destino`,
- 1 AS `numero_destino`,
- 1 AS `bairro_destino`,
- 1 AS `cidade_destino`,
- 1 AS `estado_destino`,
- 1 AS `pais_destino`,
- 1 AS `info_destinatario`,
- 1 AS `id_usuario_autor`,
- 1 AS `nome_usuario_autor`,
- 1 AS `dthr_criacao`,
- 1 AS `id_usuario_alt`,
- 1 AS `nome_usuario_alt`,
- 1 AS `dthr_alt`,
- 1 AS `tx_desconto`,
- 1 AS `preco_final`,
- 1 AS `dt_venc_pagamento`,
- 1 AS `dt_pago`,
- 1 AS `preco_custo_total`,
- 1 AS `id_ultimo_est`,
- 1 AS `nome_ultimo_est`,
- 1 AS `id_usuario_autor_ultimo_est`,
- 1 AS `nome_usuario_autor_ultimo_est`,
- 1 AS `dthr_criacao_ultimo_est`,
- 1 AS `info_cancelamento`*/;
-SET character_set_client = @saved_cs_client;
+CREATE OR REPLACE VIEW vw_pedido AS
+    SELECT 
+        p.id,
+        p.id_cliente,
+        -- Informações do cliente
+        c.telefone AS telefone_cliente,
+        c.nome AS nome_cliente,
+        info_pf.nome_cliente AS nome_cliente_info_pf,
+        info_pf.cpf AS cpf_info_pf,
+        info_pj.cnpj AS cnpj_info_pj,
+        info_pj.nome_fantasia AS nome_fantasia_info_pj,
+        info_pj.nome_empresarial AS nome_empresarial_info_pj,
+        -- Informações de entrega
+        p.tipo_entrega,
+        p.dthr_entregar,
+        p.preco_frete,
+        d.logradouro AS logradouro_destino,
+        d.numero AS numero_destino,
+        d.bairro AS bairro_destino,
+        d.cidade AS cidade_destino,
+        d.estado AS estado_destino,
+        d.pais AS pais_destino,
+        destinatario.info AS info_destinatario,
+        -- Informações de controle de alteração
+        p.id_usuario_autor,
+        u.nome AS nome_usuario_autor,
+        p.dthr_criacao,
+        p.id_usuario_alt,
+        u_alt.nome AS nome_usuario_alt,
+        p.dthr_alt,
+        -- Informações de pagamento
+        p.tx_desconto,
+        p.preco_final,
+        p.dt_venc_pagamento,
+        p.dt_pago,
+        p.preco_custo_total,
+        -- Informações de estado atual
+        u_e_p.id_est AS id_ultimo_est,
+        u_e_p.nome_est AS nome_ultimo_est,
+        u_e_p.id_usuario_autor_est AS id_usuario_autor_ultimo_est,
+        u_e_p.nome_usuario_autor_est AS nome_usuario_autor_ultimo_est,
+        u_e_p.dthr_criacao_est AS dthr_criacao_ultimo_est,
+        -- Cancelamento
+        info_canc.justificativa AS info_cancelamento
+    FROM 
+        pedido AS p
+        -- Informações básicas do pedido
+        INNER JOIN usuario AS u 
+            ON u.id = p.id_usuario_autor 
+        LEFT JOIN usuario AS u_alt
+            ON u_alt.id = p.id_usuario_alt 
+        INNER JOIN cliente AS c 
+            ON c.id = p.id_cliente 
+        LEFT JOIN destino AS d 
+            ON d.id_pedido = p.id 
+        LEFT JOIN destinatario 
+            ON destinatario.id_pedido = p.id 
+        -- Informações adicionais do cliente
+        LEFT JOIN info_pf 
+            ON info_pf.id_pedido = p.id 
+        LEFT JOIN info_pj 
+            ON info_pj.id_pedido = p.id 
+        -- Estado atual do pedido
+        INNER JOIN vw_ultimo_estado_pedido AS u_e_p 
+            ON u_e_p.id_pedido = p.id
+        -- Info de cancelamento
+        LEFT JOIN info_cancelamento AS info_canc ON info_canc.id_pedido = p.id
+    ORDER BY p.id;
+
 
 --
 -- Temporary view structure for view `vw_produto`
 --
 
 DROP TABLE IF EXISTS `vw_produto`;
-/*!50001 DROP VIEW IF EXISTS `vw_produto`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `vw_produto` AS SELECT 
- 1 AS `id`,
- 1 AS `nome_produto`,
- 1 AS `id_categoria`,
- 1 AS `nome_categoria`,
- 1 AS `descricao_categoria`,
- 1 AS `id_unidade`,
- 1 AS `nome_unidade`,
- 1 AS `abreviacao_unidade`,
- 1 AS `preco_venda`,
- 1 AS `preco_custo`,
- 1 AS `id_usuario_alt`,
- 1 AS `nome_usuario_alt`,
- 1 AS `tipo_usuario`,
- 1 AS `dthr_alt`,
- 1 AS `estado`*/;
-SET character_set_client = @saved_cs_client;
+CREATE OR REPLACE VIEW vw_produto
+AS SELECT 
+    prod.id,
+    prod.nome AS nome_produto,
+    prod.id_categoria,
+    cat.nome AS nome_categoria,
+    cat.descricao AS descricao_categoria,
+    prod.id_unidade,
+    unid.nome AS nome_unidade,
+    unid.abreviacao AS abreviacao_unidade,
+    prod.preco_venda,
+    prod.preco_custo,
+    prod.id_usuario_alt,
+    usr.nome AS nome_usuario_alt,
+    usr.tipo AS tipo_usuario,
+    prod.dthr_alt,
+    prod.estado
+    FROM produto AS prod
+        INNER JOIN categoria AS cat ON cat.id = prod.id_categoria
+        INNER JOIN unidade AS unid ON unid.id = prod.id_unidade
+        LEFT JOIN usuario AS usr ON usr.id = prod.id_usuario_alt;
 
 --
 -- Temporary view structure for view `vw_produtos_pedido`
 --
 
 DROP TABLE IF EXISTS `vw_produtos_pedido`;
-/*!50001 DROP VIEW IF EXISTS `vw_produtos_pedido`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `vw_produtos_pedido` AS SELECT 
- 1 AS `id_pedido`,
- 1 AS `id_produto`,
- 1 AS `nome_produto`,
- 1 AS `quantidade_produto`,
- 1 AS `info_adicional_produto_pedido`,
- 1 AS `id_categoria`,
- 1 AS `nome_categoria`,
- 1 AS `descricao_categoria`,
- 1 AS `id_unidade`,
- 1 AS `nome_unidade`,
- 1 AS `abreviacao_unidade`,
- 1 AS `preco_venda`,
- 1 AS `preco_custo`,
- 1 AS `id_usuario_alt`,
- 1 AS `nome_usuario_alt`,
- 1 AS `tipo_usuario`,
- 1 AS `dthr_alt`,
- 1 AS `estado`*/;
-SET character_set_client = @saved_cs_client;
+CREATE OR REPLACE VIEW vw_produtos_pedido
+AS SELECT 
+    prod_ped.id_pedido AS id_pedido,
+    prod_ped.id_produto,
+    prod.nome AS nome_produto,
+    prod_ped.quantidade AS quantidade_produto,
+    prod_ped.info_adicional AS info_adicional_produto_pedido,
+    prod.id_categoria,
+    cat.nome AS nome_categoria,
+    cat.descricao AS descricao_categoria,
+    prod.id_unidade,
+    unid.nome AS nome_unidade,
+    unid.abreviacao AS abreviacao_unidade,
+    prod_ped.preco_venda,
+    prod_ped.preco_custo,
+    prod.id_usuario_alt,
+    usr.nome AS nome_usuario_alt,
+    usr.tipo AS tipo_usuario,
+    prod.dthr_alt,
+    prod.estado
+    FROM produto_pedido AS prod_ped
+        INNER JOIN produto AS prod ON prod.id = prod_ped.id_produto
+        INNER JOIN categoria AS cat ON cat.id = prod.id_categoria
+        INNER JOIN unidade AS unid ON unid.id = prod.id_unidade
+        LEFT JOIN usuario AS usr ON usr.id = prod.id_usuario_alt;
 
 --
 -- Temporary view structure for view `vw_ultimo_estado_pedido`
 --
 
 DROP TABLE IF EXISTS `vw_ultimo_estado_pedido`;
-/*!50001 DROP VIEW IF EXISTS `vw_ultimo_estado_pedido`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `vw_ultimo_estado_pedido` AS SELECT 
- 1 AS `id_pedido`,
- 1 AS `id_est`,
- 1 AS `nome_est`,
- 1 AS `id_usuario_autor_est`,
- 1 AS `nome_usuario_autor_est`,
- 1 AS `dthr_criacao_est`*/;
-SET character_set_client = @saved_cs_client;
+CREATE OR REPLACE VIEW vw_ultimo_estado_pedido AS
+     SELECT
+        ultimo_estado_pedido.id_pedido,
+        ultimo_estado_pedido.id_est_andamento AS id_est,
+        e_a.nome AS nome_est,
+        ultimo_estado_pedido.id_usuario_autor AS id_usuario_autor_est,
+        u.nome AS nome_usuario_autor_est,
+        ultimo_estado_pedido.dthr_criacao AS dthr_criacao_est
+    FROM
+    -- Obtém data e hora do último estado associado a cada pedido
+        (SELECT *
+            FROM (
+                SELECT
+                    id_pedido,
+                    id_est_andamento,
+                    id_usuario_autor,
+                    dthr_criacao,
+                    (SELECT MAX(dthr_criacao) FROM est_andamento_pedido AS E WHERE E.id_pedido = est_andamento_pedido.id_pedido) AS dthr_ultimo
+                FROM est_andamento_pedido
+                ORDER BY id_pedido ASC, dthr_ultimo DESC , id_est_andamento DESC
+            ) AS abc
+            GROUP BY abc.id_pedido
+        ) AS ultimo_estado_pedido
+        INNER JOIN est_andamento AS e_a
+            ON e_a.id = ultimo_estado_pedido.id_est_andamento
+        INNER JOIN usuario AS u
+            ON u.id = ultimo_estado_pedido.id_usuario_autor
+    WHERE dthr_criacao = dthr_ultimo; -- Exibe apenas os estados de cada pedido que sejam os últimos (tenham data de criação igual à ultima encontrada para cada pedido)
 
 --
 -- Dumping routines for database 'titanw25_japedidos_hml'
 --
-/*!50003 DROP FUNCTION IF EXISTS `preco_custo_produto` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
 DELIMITER ;;
 CREATE FUNCTION `preco_custo_produto`(id_prod INT) RETURNS decimal(8,2)
 BEGIN
@@ -688,19 +703,8 @@ BEGIN
     RETURN r;
 END ;;
 DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP FUNCTION IF EXISTS `preco_venda_produto` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
+
 DELIMITER ;;
 CREATE FUNCTION `preco_venda_produto`(id_prod INT) RETURNS decimal(8,2)
 BEGIN
@@ -709,19 +713,7 @@ BEGIN
     RETURN r;
 END ;;
 DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `atualizar_precos_pedido` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
 DELIMITER ;;
 CREATE PROCEDURE `atualizar_precos_pedido`(IN id_ped INT)
     MODIFIES SQL DATA
@@ -763,19 +755,7 @@ BEGIN
         WHERE id = id_ped;
     END ;;
 DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `select_estados_pedido` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
 DELIMITER ;;
 CREATE PROCEDURE `select_estados_pedido`(IN id_ped INT)
     READS SQL DATA
@@ -783,19 +763,8 @@ BEGIN
    SELECT * FROM vw_est_andamento_pedido WHERE id_pedido = id_ped;
 END ;;
 DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `select_pedidos_by_estado` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
+
 DELIMITER ;;
 CREATE PROCEDURE `select_pedidos_by_estado`(IN id_est INT)
     READS SQL DATA
@@ -803,19 +772,7 @@ BEGIN
   SELECT * FROM vw_pedido WHERE id_ultimo_est = id_est ORDER BY dthr_entregar ASC;
 END ;;
 DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `select_produtos_pedido` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+
 DELIMITER ;;
 CREATE PROCEDURE `select_produtos_pedido`(IN id_ped INT)
     READS SQL DATA
@@ -823,171 +780,3 @@ BEGIN
         SELECT * FROM vw_produtos_pedido WHERE id_pedido = id_ped;
     END ;;
 DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-
---
--- Final view structure for view `listacategorias`
---
-
-/*!50001 DROP VIEW IF EXISTS `listacategorias`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `listacategorias` AS select `categoria`.`id` AS `id`,`categoria`.`nome` AS `nome`,`categoria`.`descricao` AS `descricao` from `categoria` order by `categoria`.`nome` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `listatodosprodutos`
---
-
-/*!50001 DROP VIEW IF EXISTS `listatodosprodutos`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `listatodosprodutos` AS select `p`.`id` AS `id`,`p`.`nome` AS `nome`,`c`.`nome` AS `categoria`,`p`.`preco_venda` AS `preco_venda`,`p`.`preco_custo` AS `preco_custo`,`u`.`abreviacao` AS `unidade`,`p`.`estado` AS `estado` from ((`produto` `p` left join `categoria` `c` on(`p`.`id_categoria` = `c`.`id`)) left join `unidade` `u` on(`p`.`id_unidade` = `u`.`id`)) order by `p`.`nome` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `listaunidades`
---
-
-/*!50001 DROP VIEW IF EXISTS `listaunidades`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `listaunidades` AS select `unidade`.`id` AS `id`,`unidade`.`nome` AS `nome`,`unidade`.`abreviacao` AS `abreviacao` from `unidade` order by `unidade`.`nome` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `vw_est_andamento_pedido`
---
-
-/*!50001 DROP VIEW IF EXISTS `vw_est_andamento_pedido`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `vw_est_andamento_pedido` AS select `e_a_p`.`id_pedido` AS `id_pedido`,`e_a_p`.`id_est_andamento` AS `id_est_andamento`,`e_a`.`nome` AS `nome_est_andamento`,`e_a_p`.`id_usuario_autor` AS `id_usuario_autor`,`u`.`nome` AS `nome_usuario_autor`,`e_a_p`.`dthr_criacao` AS `dthr_criacao` from ((`est_andamento_pedido` `e_a_p` join `est_andamento` `e_a` on(`e_a`.`id` = `e_a_p`.`id_est_andamento`)) join `usuario` `u` on(`u`.`id` = `e_a_p`.`id_usuario_autor`)) order by `e_a_p`.`id_pedido`,`e_a_p`.`dthr_criacao`,`e_a_p`.`id_est_andamento` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `vw_estadoproduto`
---
-
-/*!50001 DROP VIEW IF EXISTS `vw_estadoproduto`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `vw_estadoproduto` AS select `p`.`id` AS `id`,`p`.`nome` AS `nome`,`c`.`nome` AS `categoria`,`u`.`nome` AS `unidade`,case when `p`.`estado` = 0x01 then 'ATIVO' else 'DESATIVADO' end AS `estado` from ((`produto` `p` join `categoria` `c` on(`c`.`id` = `p`.`id_categoria`)) join `unidade` `u` on(`u`.`id` = `p`.`id_unidade`)) */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `vw_pedido`
---
-
-/*!50001 DROP VIEW IF EXISTS `vw_pedido`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `vw_pedido` AS select `p`.`id` AS `id`,`p`.`id_cliente` AS `id_cliente`,`c`.`telefone` AS `telefone_cliente`,`c`.`nome` AS `nome_cliente`,`info_pf`.`nome_cliente` AS `nome_cliente_info_pf`,`info_pf`.`cpf` AS `cpf_info_pf`,`info_pj`.`cnpj` AS `cnpj_info_pj`,`info_pj`.`nome_fantasia` AS `nome_fantasia_info_pj`,`info_pj`.`nome_empresarial` AS `nome_empresarial_info_pj`,`p`.`tipo_entrega` AS `tipo_entrega`,`p`.`dthr_entregar` AS `dthr_entregar`,`p`.`preco_frete` AS `preco_frete`,`d`.`logradouro` AS `logradouro_destino`,`d`.`numero` AS `numero_destino`,`d`.`bairro` AS `bairro_destino`,`d`.`cidade` AS `cidade_destino`,`d`.`estado` AS `estado_destino`,`d`.`pais` AS `pais_destino`,`destinatario`.`info` AS `info_destinatario`,`p`.`id_usuario_autor` AS `id_usuario_autor`,`u`.`nome` AS `nome_usuario_autor`,`p`.`dthr_criacao` AS `dthr_criacao`,`p`.`id_usuario_alt` AS `id_usuario_alt`,`u_alt`.`nome` AS `nome_usuario_alt`,`p`.`dthr_alt` AS `dthr_alt`,`p`.`tx_desconto` AS `tx_desconto`,`p`.`preco_final` AS `preco_final`,`p`.`dt_venc_pagamento` AS `dt_venc_pagamento`,`p`.`dt_pago` AS `dt_pago`,`p`.`preco_custo_total` AS `preco_custo_total`,`u_e_p`.`id_est` AS `id_ultimo_est`,`u_e_p`.`nome_est` AS `nome_ultimo_est`,`u_e_p`.`id_usuario_autor_est` AS `id_usuario_autor_ultimo_est`,`u_e_p`.`nome_usuario_autor_est` AS `nome_usuario_autor_ultimo_est`,`u_e_p`.`dthr_criacao_est` AS `dthr_criacao_ultimo_est`,`info_canc`.`justificativa` AS `info_cancelamento` from (((((((((`pedido` `p` join `usuario` `u` on(`u`.`id` = `p`.`id_usuario_autor`)) left join `usuario` `u_alt` on(`u_alt`.`id` = `p`.`id_usuario_alt`)) join `cliente` `c` on(`c`.`id` = `p`.`id_cliente`)) left join `destino` `d` on(`d`.`id_pedido` = `p`.`id`)) left join `destinatario` on(`destinatario`.`id_pedido` = `p`.`id`)) left join `info_pf` on(`info_pf`.`id_pedido` = `p`.`id`)) left join `info_pj` on(`info_pj`.`id_pedido` = `p`.`id`)) join `vw_ultimo_estado_pedido` `u_e_p` on(`u_e_p`.`id_pedido` = `p`.`id`)) left join `info_cancelamento` `info_canc` on(`info_canc`.`id_pedido` = `p`.`id`)) order by `p`.`id` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `vw_produto`
---
-
-/*!50001 DROP VIEW IF EXISTS `vw_produto`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `vw_produto` AS select `prod`.`id` AS `id`,`prod`.`nome` AS `nome_produto`,`prod`.`id_categoria` AS `id_categoria`,`cat`.`nome` AS `nome_categoria`,`cat`.`descricao` AS `descricao_categoria`,`prod`.`id_unidade` AS `id_unidade`,`unid`.`nome` AS `nome_unidade`,`unid`.`abreviacao` AS `abreviacao_unidade`,`prod`.`preco_venda` AS `preco_venda`,`prod`.`preco_custo` AS `preco_custo`,`prod`.`id_usuario_alt` AS `id_usuario_alt`,`usr`.`nome` AS `nome_usuario_alt`,`usr`.`tipo` AS `tipo_usuario`,`prod`.`dthr_alt` AS `dthr_alt`,`prod`.`estado` AS `estado` from (((`produto` `prod` join `categoria` `cat` on(`cat`.`id` = `prod`.`id_categoria`)) join `unidade` `unid` on(`unid`.`id` = `prod`.`id_unidade`)) left join `usuario` `usr` on(`usr`.`id` = `prod`.`id_usuario_alt`)) */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `vw_produtos_pedido`
---
-
-/*!50001 DROP VIEW IF EXISTS `vw_produtos_pedido`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `vw_produtos_pedido` AS select `prod_ped`.`id_pedido` AS `id_pedido`,`prod_ped`.`id_produto` AS `id_produto`,`prod`.`nome` AS `nome_produto`,`prod_ped`.`quantidade` AS `quantidade_produto`,`prod_ped`.`info_adicional` AS `info_adicional_produto_pedido`,`prod`.`id_categoria` AS `id_categoria`,`cat`.`nome` AS `nome_categoria`,`cat`.`descricao` AS `descricao_categoria`,`prod`.`id_unidade` AS `id_unidade`,`unid`.`nome` AS `nome_unidade`,`unid`.`abreviacao` AS `abreviacao_unidade`,`prod_ped`.`preco_venda` AS `preco_venda`,`prod_ped`.`preco_custo` AS `preco_custo`,`prod`.`id_usuario_alt` AS `id_usuario_alt`,`usr`.`nome` AS `nome_usuario_alt`,`usr`.`tipo` AS `tipo_usuario`,`prod`.`dthr_alt` AS `dthr_alt`,`prod`.`estado` AS `estado` from ((((`produto_pedido` `prod_ped` join `produto` `prod` on(`prod`.`id` = `prod_ped`.`id_produto`)) join `categoria` `cat` on(`cat`.`id` = `prod`.`id_categoria`)) join `unidade` `unid` on(`unid`.`id` = `prod`.`id_unidade`)) left join `usuario` `usr` on(`usr`.`id` = `prod`.`id_usuario_alt`)) */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `vw_ultimo_estado_pedido`
---
-
-/*!50001 DROP VIEW IF EXISTS `vw_ultimo_estado_pedido`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `vw_ultimo_estado_pedido` AS select `ultimo_estado_pedido`.`id_pedido` AS `id_pedido`,`ultimo_estado_pedido`.`id_est_andamento` AS `id_est`,`e_a`.`nome` AS `nome_est`,`ultimo_estado_pedido`.`id_usuario_autor` AS `id_usuario_autor_est`,`u`.`nome` AS `nome_usuario_autor_est`,`ultimo_estado_pedido`.`dthr_criacao` AS `dthr_criacao_est` from (((select `abc`.`id_pedido` AS `id_pedido`,`abc`.`id_est_andamento` AS `id_est_andamento`,`abc`.`id_usuario_autor` AS `id_usuario_autor`,`abc`.`dthr_criacao` AS `dthr_criacao`,`abc`.`dthr_ultimo` AS `dthr_ultimo` from (select `est_andamento_pedido`.`id_pedido` AS `id_pedido`,`est_andamento_pedido`.`id_est_andamento` AS `id_est_andamento`,`est_andamento_pedido`.`id_usuario_autor` AS `id_usuario_autor`,`est_andamento_pedido`.`dthr_criacao` AS `dthr_criacao`,(select max(`e`.`dthr_criacao`) from `est_andamento_pedido` `e` where `e`.`id_pedido` = `est_andamento_pedido`.`id_pedido`) AS `dthr_ultimo` from `est_andamento_pedido` order by `est_andamento_pedido`.`id_pedido`,(select max(`e`.`dthr_criacao`) from `est_andamento_pedido` `e` where `e`.`id_pedido` = `est_andamento_pedido`.`id_pedido`) desc,`est_andamento_pedido`.`id_est_andamento` desc) `abc` group by `abc`.`id_pedido`) `ultimo_estado_pedido` join `est_andamento` `e_a` on(`e_a`.`id` = `ultimo_estado_pedido`.`id_est_andamento`)) join `usuario` `u` on(`u`.`id` = `ultimo_estado_pedido`.`id_usuario_autor`)) where `ultimo_estado_pedido`.`dthr_criacao` = `ultimo_estado_pedido`.`dthr_ultimo` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2024-11-19 21:15:41
