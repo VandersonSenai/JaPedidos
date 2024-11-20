@@ -2105,7 +2105,7 @@ public final class BD {
         public static japedidos.produto.Produto[] selectAll() {
             try {
                 Connection conn = BD.getConnection();
-                PreparedStatement select = conn.prepareStatement(String.format("SELECT * FROM %s ORDER BY nome_produto ASC", VIEW));
+                PreparedStatement select = conn.prepareStatement(String.format("SELECT * FROM %s WHERE estado = b'1' ORDER BY nome_produto ASC", VIEW));
                 ResultSet rs = select.executeQuery();
                 
                 japedidos.produto.Produto[] produtos = parseView(rs);
