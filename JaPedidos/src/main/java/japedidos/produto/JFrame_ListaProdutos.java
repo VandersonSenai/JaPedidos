@@ -332,7 +332,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jpnl_corpo.add(jlbl_ativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 380, 70, -1));
 
         jchb_ativo.setNextFocusableComponent(jtxtf_descricao);
-        jpnl_corpo.add(jchb_ativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 380, -1, 30));
+        jpnl_corpo.add(jchb_ativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 376, -1, 30));
 
         jlbl_btn_novo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_btn_novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_novo_padrao.png"))); // NOI18N
@@ -774,7 +774,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             
        } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, 
+            JOptionPane.showMessageDialog(this, 
             "Nao foi possivel conectar ao banco  \n", 
             "JaPedidos", 
             JOptionPane.INFORMATION_MESSAGE);
