@@ -21,25 +21,25 @@ import java.util.ArrayList;
 
 public final class BD {
     public static final String SGBD = "mysql";
-    public static final String IP = "162.241.203.86";
+//    public static final String IP = "162.241.203.86;
     public static final String PORT = "3306";
     public static final String NAME = "titanw25_japedidos_hml";
-    public static final String USER = "titanw25_japedidos_hml";
-    public static final String USER_PWD = "seNai@2024proj";
+//    public static final String USER = "titanw25_japedidos_hml";
+//    public static final String USER_PWD = "seNai@2024proj";
 //    
-//    public static final String IP = "localhost";
+    public static final String IP = "localhost";
 //    public static final String NAME = "japedidos";
-//    public static final String USER = "root";
-//    public static final String USER_PWD = "";
+    public static final String USER = "root";
+    public static final String USER_PWD = "";
     
     // Testes
-    public static void main(String[] args) throws Exception {
-        japedidos.pedidos.Pedido ped = BD.Pedido.selectById(20);
-        japedidos.pedidos.Pedido pedNovo = new japedidos.pedidos.Pedido(ped.getId(), ped.getCliente(), (japedidos.pedidos.InfoEntrega)ped.getInfoEntrega().clone(), japedidos.produto.ProdutoPedido.clone(ped.getProdutos()), (int)Math.ceil(ped.getTaxaDesconto() * 100.0));
-        japedidos.produto.ProdutoPedido[] prods = ProdutoPedido.selectAllBy_id_pedido(ped.getId());
-        
-        pedNovo.getCliente().setInfoAdicional(null);
-        Pedido.update(ped, pedNovo);
+//    public static void main(String[] args) throws Exception {
+//        japedidos.pedidos.Pedido ped = BD.Pedido.selectById(11);
+//        japedidos.pedidos.Pedido pedNovo = new japedidos.pedidos.Pedido(ped.getId(), (japedidos.clientes.Cliente)ped.getCliente().clone(), (japedidos.pedidos.InfoEntrega)ped.getInfoEntrega().clone(), japedidos.produto.ProdutoPedido.clone(ped.getProdutos()), (int)Math.ceil(ped.getTaxaDesconto() * 100.0));
+//        japedidos.produto.ProdutoPedido[] prods = ProdutoPedido.selectAllBy_id_pedido(ped.getId());
+//        
+//        pedNovo.getCliente().setInfoAdicional(null);
+//        Pedido.update(ped, pedNovo);
         
 //        System.out.println(ped.getProdutoCount());
 //        japedidos.clientes.Cliente.InfoAdicional info20 = ped.getCliente().getInfoAdicional();
@@ -63,7 +63,7 @@ public final class BD {
 //            conn.setAutoCommit(true);
 //            conn.close();
 //        }
-    }
+//    }
     
     private BD() {}
     

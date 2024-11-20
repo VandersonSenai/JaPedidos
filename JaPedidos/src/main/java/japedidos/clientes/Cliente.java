@@ -10,7 +10,7 @@ import japedidos.pedidos.Pedido;
  *
  * @author thiago
  */
-public class Cliente {
+public class Cliente implements Cloneable {
     /** Representa a chave primária do registro do cliente no BD. Se o cliente
      houver registro associado no BD, seu id será maior que zero. Do contrário,
      será -1.*/
@@ -131,7 +131,23 @@ public class Cliente {
     
     
     // TODO: adiconar método clone
-    
+    @Override
+    public Object clone() {
+        try {
+            Cliente c = (Cliente)super.clone();
+            c.setNome(new String(this.getNome()));
+            c.setTelefone(new String(this.getTelefone()));
+            InfoAdicional esteInfo, outroInfo;
+            esteInfo = this.getInfoAdicional();
+            if (esteInfo != null) {
+                c.setInfoAdicional((InfoAdicional)this.getInfoAdicional().clone());
+            }
+            
+            return c;
+        } catch (CloneNotSupportedException ex) {
+            return null;
+        }
+    }
     
     static public abstract class InfoAdicional {
         protected Tipo tipo;
@@ -162,6 +178,17 @@ public class Cliente {
                 return "Pessoa Física";
             } else {
                 return "Pessoa Jurídica";
+            }
+        }
+        
+        @Override
+        public Object clone() throws CloneNotSupportedException {
+            if (this instanceof InfoPF) {
+                InfoPF i = (InfoPF)this;
+                return new InfoPF(new String(i.nome), new String(i.cpf));
+            } else {
+                InfoPJ i = (InfoPJ)this;
+                return new InfoPJ(new String(i.nomeFantasia), new String(i.razaoSocial), new String(i.cnpj));
             }
         }
     }
