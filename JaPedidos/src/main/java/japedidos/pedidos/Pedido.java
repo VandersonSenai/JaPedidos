@@ -14,7 +14,7 @@ import java.time.LocalDate;
  *
  * @author thiago
  */
-public final class Pedido {
+public final class Pedido implements Cloneable {
     
     public static final int NULL_ID = -1;
     
@@ -290,7 +290,11 @@ public final class Pedido {
     }
     
     public int getProdutoCount() {
-        return this.getProdutos().length;
+        if (this.produtosPedido == null) {
+            return 0;
+        } else {
+            return this.getProdutos().length;
+        }
     }
     
     public ProdutoPedido[] getProdutos() {
@@ -326,5 +330,20 @@ public final class Pedido {
     
     public double getCustoTotal() {
         return this.precoCustoTotal;
+    }
+    
+    @Override
+    public Object clone() {
+        try {
+            Pedido p = (Pedido)super.clone();
+            p.setCliente((Cliente)p.getCliente().clone());
+            p.setInfoEntrega((InfoEntrega)p.getInfoEntrega().clone());
+            if (p.getProdutoCount() != 0) {
+                p.setProdutos(ProdutoPedido.clone(p.getProdutos()));
+            }
+            return p;
+        } catch (CloneNotSupportedException ex) {
+            return null;
+        }
     }
 }
