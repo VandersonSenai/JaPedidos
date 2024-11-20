@@ -17,7 +17,9 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import com.github.lgooddatepicker.components.*;
 import japedidos.usuario.Usuario;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -25,6 +27,8 @@ import javax.swing.JFrame;
  */
 public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements InfoAdicionalReceiver {
     Cliente.InfoAdicional infoAdicionalCliente;
+    JPanel_AlterarPedido pnl_alterarPedido;
+    final Runnable onFinalizarAlteracao;
 
     /**
      * Creates new form CadastroPedido
@@ -61,6 +65,13 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         javax.swing.SwingUtilities.invokeLater(() -> {
             preencherHistoricoPedidos();
         });
+        
+        onFinalizarAlteracao = () -> {
+            jTabbedPane1.setSelectedIndex(0);
+            jTabbedPane1.remove(3);
+            preencherHistoricoPedidos();
+            pnl_alterarPedido = null;
+        };
     }
     public void fillEstadosComboBoxPedido() {
         jcmb_estadoInicial.addItem(Estado.ABERTO);
@@ -492,6 +503,11 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
 
         jButton1.setText("Alterar pedido");
         jButton1.setFont(new java.awt.Font("Noto Sans", 0, 13)); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jpnl_pedidosAberto.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 480, 140, 30));
 
         jButton2.setText("Relatar intercorrência");
@@ -561,6 +577,11 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         });
         jpnl_incluirPedido.add(jpnl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 390, -1, -1));
 
+        jcmb_tipoEntrega.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcmb_tipoEntregaItemStateChanged(evt);
+            }
+        });
         jpnl_incluirPedido.add(jcmb_tipoEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 90, -1));
         jpnl_incluirPedido.add(jtxtf_nomeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 250, -1));
 
@@ -1145,6 +1166,14 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         
     }//GEN-LAST:event_jcmb_produtoComponentShown
 
+    public void setEnabledDestinoFields(boolean valor) {
+        jtxtf_rua.setEnabled(valor);
+        jtxtf_numero.setEnabled(valor);
+        jtxtf_bairro.setEnabled(valor);
+        jtxtf_cidade.setEnabled(valor);
+        jcmb_uf.setEnabled(valor);
+    } 
+    
     private void jpnl_incluirPedidoComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jpnl_incluirPedidoComponentShown
         // TODO add your handling code here:
         if (jcmb_produto.getItemCount() == 0) {
@@ -1168,6 +1197,36 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             });
         }
     }//GEN-LAST:event_jpnl_incluirPedidoComponentShown
+
+    private void jcmb_tipoEntregaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcmb_tipoEntregaItemStateChanged
+        if (((JComboBox)evt.getSource()).getSelectedItem() == TipoEntrega.RETIRADA) {
+            setEnabledDestinoFields(false);
+        } else {
+            setEnabledDestinoFields(true);
+        }
+    }//GEN-LAST:event_jcmb_tipoEntregaItemStateChanged
+
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int rowSel = jTable_Pedido_Resumido1.getTable().getSelectedRow();
+        
+        if (rowSel != -1) {
+            if (this.pnl_alterarPedido == null) {
+                pnl_alterarPedido = new JPanel_AlterarPedido();
+                pnl_alterarPedido.setOnFinishAction(onFinalizarAlteracao);
+                jTabbedPane1.add("Editar pedido", pnl_alterarPedido);
+            } else {
+                int fechar = JOptionPane.showConfirmDialog(null, "Já existe um pedido em edição. Deseja cancelar e editar este?", "Ops! Edição em andamento",JOptionPane.YES_NO_OPTION);
+                if (fechar != JOptionPane.YES_OPTION) {
+                    jTabbedPane1.setSelectedIndex(3);
+                    return;
+                }
+            }
+            
+            pnl_alterarPedido.definirPedidoAlterar(jTable_Pedido_Resumido1.getModel().getRow(rowSel));;
+            jTabbedPane1.setSelectedIndex(3);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

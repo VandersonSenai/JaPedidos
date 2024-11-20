@@ -292,7 +292,11 @@ public class Produto implements Cloneable {
     
     @Override
     public boolean equals(Object o) {
-        Produto p = (Produto)o;
-        return this.getId() == p.getId();
+        if (o != null) {
+            Produto p = (Produto)o;
+            return this.getId() == p.getId();
+        } else {
+            return this == null && o == null;
+        }
     }
 }

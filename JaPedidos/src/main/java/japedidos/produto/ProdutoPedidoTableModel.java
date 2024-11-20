@@ -8,7 +8,15 @@ import javax.swing.table.AbstractTableModel;
  * @author t.baiense
  */
 public final class ProdutoPedidoTableModel extends AbstractTableModel {
-    public static final String[] COLUMNS = {"Cód.", "Nome", "Categoria", "Quant.", "Unidade", "Preço"};
+    public static final String[] COLUMNS = {"Cód.", "Nome", "Categoria", "Quant.", "Unidade", "Preço", "Subtotal"};
+    
+    public static final int COL_CODIGO = 0;
+    public static final int COL_NOME = 1;
+    public static final int COL_CATEGORIA = 2;
+    public static final int COL_QUANTIDADE = 3;
+    public static final int COL_UNIDADE = 4;
+    public static final int COL_PRECO = 5;
+    public static final int COL_SUBTOTAL = 6;
     
     private ArrayList<ProdutoPedido> data;
     
@@ -27,6 +35,7 @@ public final class ProdutoPedidoTableModel extends AbstractTableModel {
     }
     
     public void fillRows(ProdutoPedido... produtos) {
+        clearRows();
         if (produtos == null) {
             return;
         }
@@ -131,12 +140,13 @@ public final class ProdutoPedidoTableModel extends AbstractTableModel {
         }
         
         return switch (col) {
-            case 0 -> data.get(row).getProduto().getId();
-            case 1 -> data.get(row).getProduto().getNome();
-            case 2 -> data.get(row).getProduto().getCategoria();
-            case 3 -> data.get(row).getQuantidade();
-            case 4 -> data.get(row).getProduto().getUnidade().getAbreviacao();
-            case 5 -> String.format("R$ %1.2f", data.get(row).getProduto().getPrecoVenda() * data.get(row).getQuantidade());
+            case COL_CODIGO -> data.get(row).getProduto().getId();
+            case COL_NOME -> data.get(row).getProduto().getNome();
+            case COL_CATEGORIA -> data.get(row).getProduto().getCategoria();
+            case COL_QUANTIDADE -> data.get(row).getQuantidade();
+            case COL_UNIDADE -> data.get(row).getProduto().getUnidade().getAbreviacao();
+            case COL_PRECO -> String.format("R$ %1.2f", data.get(row).getProduto().getPrecoVenda());
+            case COL_SUBTOTAL -> String.format("R$ %1.2f", data.get(row).getProduto().getPrecoVenda() * data.get(row).getQuantidade());
             default -> null;
         };
     }
@@ -148,19 +158,35 @@ public final class ProdutoPedidoTableModel extends AbstractTableModel {
         }
         
         return switch (col) {
-            case 0 -> Integer.class; // Código
-            case 1 -> String.class; // Nome
-            case 2 -> Categoria.class; 
-            case 3 -> Integer.class; // Quantidade
-            case 4 -> Unidade.class;
-            case 5 -> String.class; // Precos
+            case COL_CODIGO -> Integer.class; // Código
+            case COL_NOME -> String.class; // Nome
+            case COL_CATEGORIA -> Categoria.class; 
+            case COL_QUANTIDADE -> Integer.class; // Quantidade
+            case COL_UNIDADE -> Unidade.class;
+            case COL_PRECO -> String.class; // Precos
+            case COL_SUBTOTAL -> String.class; // Precos
             default -> String.class;
         };
     }
     
     @Override
     public boolean isCellEditable(int row, int col) {
-        return false;
+        if (col == COL_QUANTIDADE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    @Override
+    public void setValueAt(Object value, int row, int col) {
+        if (col == COL_QUANTIDADE && value != null) {
+            ProdutoPedido mudar = this.getRow(row);
+            if (mudar != null) {
+                mudar.setQuantidade((Integer)value);
+                fireTableCellUpdated(row, col);
+            }
+        } 
     }
     
 }

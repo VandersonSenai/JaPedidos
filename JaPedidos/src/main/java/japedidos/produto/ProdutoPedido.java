@@ -126,7 +126,7 @@ public class ProdutoPedido implements Cloneable {
     public static boolean equals(ProdutoPedido[] p1, ProdutoPedido[] p2) {
         if (p1.length == p2.length) {
             for (int i = 0; i < p1.length; i++) {
-                if (p1 != p2 && (p1 == null || p2 == null) || !p1[i].equals(p2[i])) {
+                if (p1[i] != p2[i] && (p1[i] == null || p2[i] == null) || !p1[i].equals(p2[i])) {
                     return false;
                 }
             }

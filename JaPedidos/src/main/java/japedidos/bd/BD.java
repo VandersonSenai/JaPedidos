@@ -1072,7 +1072,7 @@ public final class BD {
                         // Atualizar destinatario
                         BD.Destinatario.update(id_pedido, destinatarioNovo, conn);
                     }
-                } else if (destinatarioPedido == null) { // Existe um novo destinatário
+                } else if (destinatarioPedido == null && destinatarioNovo != null) { // Existe um novo destinatário
                     // Inserir destinatário
                     BD.Destinatario.insert(id_pedido, destinatarioNovo, conn);
                     

@@ -16,45 +16,27 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import com.github.lgooddatepicker.components.*;
+import japedidos.produto.ProdutoPedidoTableModel;
 import japedidos.usuario.Usuario;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.event.TableModelEvent;
 
 /**
  *
  * @author thiago
  */
-public class JPanel_AlterarPedido extends javax.swing.JPanel implements InfoAdicionalReceiver {
+public final class JPanel_AlterarPedido extends javax.swing.JPanel implements InfoAdicionalReceiver {
 
     Cliente.InfoAdicional infoAdicionalCliente;
     Pedido pedidoAlterar;
     Runnable runOnFinish;
-    
-    public JPanel_AlterarPedido(Pedido pAlterar, Runnable runOnFinish) {
-        this();
-        this.pedidoAlterar = (Pedido)pAlterar.clone();
-        this.runOnFinish = runOnFinish;
-        setFieldsInfo(pedidoAlterar);
-    }
+    ProdutoPedido[] produtosNovos;
     
     public JPanel_AlterarPedido() {
         initComponents();
-        inicializarPainel();
-    }
-
-    private void inicializarPainel() {
         fillEstadosComboBoxPedido();
         fillTipoEntregaComboBoxPedido();
-        hideErrorLabels();
-        jspn_quantidade.setValue(1);
-        
-        jspn_valorEntrega.addChangeListener((e) -> {
-            atualizarValoresPedido();
-        });
-        
-        jspn_desconto.addChangeListener((e) -> {
-            atualizarValoresPedido();
-        });
-        
         // Faz com que o produto selecionado seja adicionado ao pressionar ENTER no JSpinner de quantidade
         ((JSpinner.NumberEditor)jspn_quantidade.getEditor()).getTextField().addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
@@ -69,9 +51,33 @@ public class JPanel_AlterarPedido extends javax.swing.JPanel implements InfoAdic
             }
         });
         
+        jTable_ProdutoPedido.getModel().addTableModelListener((e) -> {
+            ProdutoPedidoTableModel model = (ProdutoPedidoTableModel)e.getSource();
+            if (e.getColumn() == ProdutoPedidoTableModel.COL_QUANTIDADE && e.getType() == TableModelEvent.UPDATE) {
+                atualizarValoresPedido();
+            }
+        });
+        inicializarPainel();
+    }
+
+    public void setOnFinishAction(Runnable run) {
+        this.runOnFinish = run;
     }
     
-    public void fillEstadosComboBoxPedido() {
+    public void inicializarPainel() {
+        popularProdutosDisponiveis();
+        jspn_quantidade.setValue(1);
+        
+        jspn_valorEntrega.addChangeListener((e) -> {
+            atualizarValoresPedido();
+        });
+        
+        jspn_desconto.addChangeListener((e) -> {
+            atualizarValoresPedido();
+        });
+    }
+    
+    private void fillEstadosComboBoxPedido() {
         jcmb_estadoInicial.addItem(Estado.ABERTO);
         jcmb_estadoInicial.addItem(Estado.AGUARDANDO_PAGAMENTO);
         jcmb_estadoInicial.addItem(Estado.PAGO);
@@ -83,12 +89,28 @@ public class JPanel_AlterarPedido extends javax.swing.JPanel implements InfoAdic
         jcmb_estadoInicial.addItem(Estado.CANCELADO);
     }
     
-    public void fillTipoEntregaComboBoxPedido() {
+    private void fillTipoEntregaComboBoxPedido() {
         jcmb_tipoEntrega.addItem(TipoEntrega.ENVIO);
         jcmb_tipoEntrega.addItem(TipoEntrega.RETIRADA);
     }
     
-    public void clearFieldsInfo() {
+    private void clearDestinoFieldsInfo() {
+        jtxtf_rua.setText(null);
+        jtxtf_numero.setText(null);
+        jtxtf_bairro.setText(null);
+        jtxtf_cidade.setText(null);
+        jcmb_uf.setSelectedIndex(7);
+    }
+    
+    public void setEnabledDestinoFields(boolean valor) {
+        jtxtf_rua.setEnabled(valor);
+        jtxtf_numero.setEnabled(valor);
+        jtxtf_bairro.setEnabled(valor);
+        jtxtf_cidade.setEnabled(valor);
+        jcmb_uf.setEnabled(valor);
+    }
+    
+    private void clearFieldsInfo() {
         jtxtf_telefoneCliente.setText(null);
         jtxtf_nomeCliente.setText(null);
         if (jcmb_tipoEntrega.getItemCount() > 0) {
@@ -97,11 +119,7 @@ public class JPanel_AlterarPedido extends javax.swing.JPanel implements InfoAdic
         
         datePicker1.setDateToToday();
         timePicker1.setTime(java.time.LocalTime.of(java.time.LocalTime.now().getHour(), 00));
-        jtxtf_rua.setText(null);
-        jtxtf_numero.setText(null);
-        jtxtf_bairro.setText(null);
-        jtxtf_cidade.setText(null);
-        jcmb_uf.setSelectedIndex(7);
+        clearDestinoFieldsInfo();
         jtxta_observacoes.setText(null);
         clearProdutoFieldsInfo();
         jspn_valorEntrega.setValue(0.0);
@@ -111,11 +129,19 @@ public class JPanel_AlterarPedido extends javax.swing.JPanel implements InfoAdic
         
     }
     
-    public void setFieldsInfo(Pedido p) {
+    public void definirPedidoAlterar(Pedido pAlterar) {
+        this.pedidoAlterar = (Pedido)pAlterar.clone();
+        this.produtosNovos = pedidoAlterar.getProdutos();
+        setFieldsInfo(this.pedidoAlterar);
+    }
+    
+    private void setFieldsInfo(Pedido p) {
+        clearFieldsInfo();
+        hideErrorLabels();
         if (p == null) {
             throw new NullPointerException("Pedido para alteração não pode ser nulo.");
         }
-        
+
         // Cliente
         Cliente cliente = p.getCliente();
         jtxtf_telefoneCliente.setText(cliente.getTelefone());
@@ -135,9 +161,43 @@ public class JPanel_AlterarPedido extends javax.swing.JPanel implements InfoAdic
             jtxtf_cidade.setText(destino.getBairro());
             jcmb_uf.setSelectedItem(destino.getEstado());
         }
+        
+        jtxta_observacoes.setText(infoEntrega.getDestinatario());
+        
+        jTable_ProdutoPedido.getModel().fillRows(this.produtosNovos);
+        
+        jspn_desconto.setValue((int)(p.getTaxaDesconto() * 100.0));
+        jspn_valorEntrega.setValue(infoEntrega.getPrecoFrete());
+        atualizarValoresPedido();
+        jcmb_estadoInicial.setSelectedItem(p.getEstadoAtualPedido().ESTADO);
+        this.infoAdicionalCliente = cliente.getInfoAdicional();
     }
     
-    public Pedido getFieldsInfo() {
+    private void popularProdutosDisponiveis() {
+        jcmb_produto.removeAllItems();
+        if (jcmb_produto.getItemCount() == 0) {
+            jlbl_erro_produto.setText("Recebendo produtos...");
+            jlbl_erro_produto.setEnabled(true);
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                // Preencher lista de produtos
+                Produto[] recebidos = BD.Produto.selectAll();
+                if (recebidos != null) {
+                    for (Produto p : recebidos) {
+                        if (p != null) {
+                            jcmb_produto.addItem(p);
+                        }
+                    }
+                    jlbl_erro_produto.setText("Produtos recebidos!");
+                    jlbl_erro_produto.setEnabled(false);
+                    jcmb_produto.setEnabled(true);
+                } else {
+                    jlbl_erro_produto.setText("Nenhum produto recebido.");
+                }
+            });
+        }
+    }
+    
+    private Pedido getFieldsInfo() {
         hideErrorLabels();
         
         int txDesconto;
@@ -429,7 +489,7 @@ public class JPanel_AlterarPedido extends javax.swing.JPanel implements InfoAdic
         jlbl_valorEntrega = new javax.swing.JLabel();
         jlbl_reais2 = new javax.swing.JLabel();
         jlbl_reais = new javax.swing.JLabel();
-        jbtn_criarPedido1 = new javax.swing.JButton();
+        jbtn_alterarPedido = new javax.swing.JButton();
         jlbl_erro_estadoInicial = new javax.swing.JLabel();
         jlbl_erro_bairroEntrega = new javax.swing.JLabel();
         jlbl_erro_desconto = new javax.swing.JLabel();
@@ -451,9 +511,15 @@ public class JPanel_AlterarPedido extends javax.swing.JPanel implements InfoAdic
         jspn_valorEntrega = new javax.swing.JSpinner(new javax.swing.SpinnerNumberModel(0.0, 0.0, 100000.0, 0.01));
         jcmb_uf = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        jbtn_voltar = new javax.swing.JButton();
+
+        setOpaque(false);
 
         jpnl_incluirPedido.setOpaque(false);
         jpnl_incluirPedido.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                jpnl_incluirPedidoComponentHidden(evt);
+            }
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 jpnl_incluirPedidoComponentShown(evt);
             }
@@ -468,6 +534,7 @@ public class JPanel_AlterarPedido extends javax.swing.JPanel implements InfoAdic
 
         jpnl_incluirPedido.add(jscp_destinatario, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 320, 100));
 
+        jcmb_estadoInicial.setEnabled(false);
         jpnl_incluirPedido.add(jcmb_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 450, 190, -1));
 
         jlbl_horaEntrega.setBackground(new java.awt.Color(0, 0, 0));
@@ -503,6 +570,11 @@ public class JPanel_AlterarPedido extends javax.swing.JPanel implements InfoAdic
         });
         jpnl_incluirPedido.add(jpnl_btn_novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 390, -1, -1));
 
+        jcmb_tipoEntrega.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcmb_tipoEntregaItemStateChanged(evt);
+            }
+        });
         jpnl_incluirPedido.add(jcmb_tipoEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 90, -1));
         jpnl_incluirPedido.add(jtxtf_nomeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 250, -1));
 
@@ -672,13 +744,13 @@ public class JPanel_AlterarPedido extends javax.swing.JPanel implements InfoAdic
         jlbl_reais.setText("R$");
         jpnl_incluirPedido.add(jlbl_reais, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 30, -1));
 
-        jbtn_criarPedido1.setText("Criar pedido");
-        jbtn_criarPedido1.addActionListener(new java.awt.event.ActionListener() {
+        jbtn_alterarPedido.setText("Alterar pedido");
+        jbtn_alterarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtn_criarPedido1ActionPerformed(evt);
+                jbtn_alterarPedidoActionPerformed(evt);
             }
         });
-        jpnl_incluirPedido.add(jbtn_criarPedido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 500, 180, -1));
+        jpnl_incluirPedido.add(jbtn_alterarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 500, 180, -1));
 
         jlbl_erro_estadoInicial.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jlbl_erro_estadoInicial.setForeground(new java.awt.Color(255, 0, 0));
@@ -802,6 +874,14 @@ public class JPanel_AlterarPedido extends javax.swing.JPanel implements InfoAdic
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/datepickerbutton1.png"))); // NOI18N
         jpnl_incluirPedido.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, -1, 30));
 
+        jbtn_voltar.setText("Voltar");
+        jbtn_voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtn_voltarActionPerformed(evt);
+            }
+        });
+        jpnl_incluirPedido.add(jbtn_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 500, 190, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -893,21 +973,24 @@ public class JPanel_AlterarPedido extends javax.swing.JPanel implements InfoAdic
         atualizarValoresPedido();
     }//GEN-LAST:event_jbtn_excluirProdutoActionPerformed
 
-    private void jbtn_criarPedido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_criarPedido1ActionPerformed
-        Pedido p = getFieldsInfo();
-        if (p != null) {
-            int r = BD.Pedido.insert(p);
-            runOnFinish.run();
+    private void jbtn_alterarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_alterarPedidoActionPerformed
+        Pedido pNovo = getFieldsInfo();
+        if (pNovo != null) {
+            int r = BD.Pedido.update(pedidoAlterar, pNovo);
+            
             if (r > 0) {
-                clearFieldsInfo();
-                atualizarValoresPedido();
-                JOptionPane.showMessageDialog(null, "Pedido cadastrado com sucesso!", "Cadastro de pedido", JOptionPane.INFORMATION_MESSAGE);
+//                clearFieldsInfo();
+//                this.pedidoAlterar = BD.Pedido.selectById(pedidoAlterar.getId());
+//                setFieldsInfo(pedidoAlterar);
+//                atualizarValoresPedido();
+                JOptionPane.showMessageDialog(null, "Pedido alterado com sucesso!", "Atualização de pedido", JOptionPane.INFORMATION_MESSAGE);
+                runOnFinish.run();
             } else {
-                JOptionPane.showMessageDialog(null, "Cadastro do pedido falhou!", "Cadastro de pedido", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Atualização do pedido falhou!", "Atualização de pedido", JOptionPane.ERROR_MESSAGE);
             }
         }
 
-    }//GEN-LAST:event_jbtn_criarPedido1ActionPerformed
+    }//GEN-LAST:event_jbtn_alterarPedidoActionPerformed
 
     private void jspn_descontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jspn_descontoFocusLost
         atualizarValoresPedido();
@@ -941,24 +1024,44 @@ public class JPanel_AlterarPedido extends javax.swing.JPanel implements InfoAdic
         }
     }//GEN-LAST:event_jpnl_incluirPedidoComponentShown
 
-    public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(() -> {
-            JPanel_AlterarPedido panel = new JPanel_AlterarPedido(BD.Pedido.selectById(1), () -> {System.out.println("Finalizou");});
-            JFrame frame = new JFrame("Teste de alteração de pedido");
-            frame.add(panel);
-            frame.pack();
-            frame.setVisible(true);
-        });
-    }
+    private void jcmb_tipoEntregaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcmb_tipoEntregaItemStateChanged
+        // TODO add your handling code here:
+        if (((JComboBox)evt.getSource()).getSelectedItem() == TipoEntrega.RETIRADA) {
+            setEnabledDestinoFields(false);
+        } else {
+            setEnabledDestinoFields(true);
+        }
+    }//GEN-LAST:event_jcmb_tipoEntregaItemStateChanged
+
+    private void jpnl_incluirPedidoComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jpnl_incluirPedidoComponentHidden
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jpnl_incluirPedidoComponentHidden
+
+    private void jbtn_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_voltarActionPerformed
+        // TODO add your handling code here:
+        runOnFinish.run();
+    }//GEN-LAST:event_jbtn_voltarActionPerformed
+
+//    public static void main(String[] args) {
+//        javax.swing.SwingUtilities.invokeLater(() -> {
+//            JPanel_AlterarPedido panel = new JPanel_AlterarPedido(BD.Pedido.selectById(3), () -> {System.out.println("Finalizou");});
+//            JFrame frame = new JFrame("Teste de alteração de pedido");
+//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//            frame.add(panel);
+//            frame.pack();
+//            frame.setVisible(true);
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.github.lgooddatepicker.components.DatePicker datePicker1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private japedidos.produto.JTable_ProdutoPedido jTable_ProdutoPedido;
-    private javax.swing.JButton jbtn_criarPedido1;
+    private javax.swing.JButton jbtn_alterarPedido;
     private javax.swing.JButton jbtn_excluirProduto;
     private javax.swing.JButton jbtn_incluirProduto;
+    private javax.swing.JButton jbtn_voltar;
     private javax.swing.JComboBox<japedidos.pedidos.Estado> jcmb_estadoInicial;
     private javax.swing.JComboBox<japedidos.produto.Produto> jcmb_produto;
     private javax.swing.JComboBox<japedidos.pedidos.TipoEntrega> jcmb_tipoEntrega;

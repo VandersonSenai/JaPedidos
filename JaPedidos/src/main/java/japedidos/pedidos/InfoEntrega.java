@@ -146,8 +146,10 @@ public class InfoEntrega implements Cloneable {
             InfoEntrega i = (InfoEntrega)o;
             String esteDestinatario = this.getDestinatario();
             String outroDestinatario = i.getDestinatario();
+            Destino esteDestino = this.getDestino();
+            Destino outroDestino = i.getDestino();
             return (
-                    i.getDestino().equals(this.getDestino()) &&
+                    ( esteDestino == outroDestino && esteDestino == null || outroDestino != null && esteDestino != null && i.getDestino().equals(esteDestino)) &&
                     ( esteDestinatario == outroDestinatario && esteDestinatario == null || outroDestinatario != null && esteDestinatario != null && i.getDestinatario().equals(this.getDestinatario()) ) &&
                     i.getTipoEntrega() == this.getTipoEntrega() &&
                     i.getDataHoraEntregar() == this.getDataHoraEntregar() &&
