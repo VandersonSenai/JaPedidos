@@ -4,7 +4,9 @@
  */
 package japedidos.bd;
 
+import java.sql.SQLException;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,6 +21,9 @@ public class JFrame_ConfiguracaoBanco extends javax.swing.JFrame {
     public JFrame_ConfiguracaoBanco(JFrame opener) {
         initComponents();
         this.opener = opener;
+        this.jtxtf_login.setText(BD.USER);
+        this.jpwdf_senha.setText(BD.USER_PWD);
+        this.jtxtf_string_banco.setText(String.format("%s:%s/%s",BD.IP, BD.PORT, BD.NAME));
     }
 
     /**
@@ -46,21 +51,21 @@ public class JFrame_ConfiguracaoBanco extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(640, 480));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jtxtf_login.setFont(jtxtf_login.getFont().deriveFont((float)18));
+        jtxtf_login.setFont(jtxtf_login.getFont().deriveFont((float)14));
         jtxtf_login.setForeground(new java.awt.Color(57, 67, 40));
         jtxtf_login.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         jtxtf_login.setOpaque(false);
         jtxtf_login.setBackground(new java.awt.Color(0,0,0,0));
         jPanel1.add(jtxtf_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 190, 50));
 
-        jtxtf_string_banco.setFont(jtxtf_string_banco.getFont().deriveFont((float)18));
+        jtxtf_string_banco.setFont(jtxtf_string_banco.getFont().deriveFont((float)14));
         jtxtf_string_banco.setForeground(new java.awt.Color(57, 67, 40));
         jtxtf_string_banco.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         jtxtf_string_banco.setOpaque(false);
         jtxtf_string_banco.setBackground(new java.awt.Color(0,0,0,0));
         jPanel1.add(jtxtf_string_banco, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 270, 310, 50));
 
-        jpwdf_senha.setFont(jpwdf_senha.getFont().deriveFont((float)18));
+        jpwdf_senha.setFont(jpwdf_senha.getFont().deriveFont((float)14));
         jpwdf_senha.setForeground(new java.awt.Color(57, 67, 40));
         jpwdf_senha.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         jpwdf_senha.setOpaque(false);
@@ -110,12 +115,76 @@ public class JFrame_ConfiguracaoBanco extends javax.swing.JFrame {
     }//GEN-LAST:event_jlbl_btn_cancelarMouseClicked
 
     private void jlbl_btn_prosseguirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_prosseguirMouseClicked
-        this.setVisible(false);
-        int x = this.getX() + this.getWidth() / 2 - opener.getWidth() / 2;
-        int y = this.getY() + this.getHeight()/ 2 - opener.getHeight() / 2;
-        opener.setLocation(x, y);
-        opener.setVisible(true);
-        this.dispose();
+        String entradaLogin, entradaSenha, entradaBanco;
+        entradaLogin = jtxtf_login.getText().trim();
+        entradaSenha = jpwdf_senha.getText();
+        entradaBanco = jtxtf_string_banco.getText();
+        
+        if (!entradaLogin.isEmpty() && !entradaSenha.isBlank() && !entradaBanco.isEmpty()) {
+            boolean ip = false, port = false;
+            StringBuilder builderIp, builderPort, builderBd;
+            builderIp = new StringBuilder();
+            builderPort = new StringBuilder();
+            builderBd = new StringBuilder();
+            
+            // Pegar ip
+            int c;
+            for (c = 0; c < entradaBanco.length(); c++) {
+                char atual = entradaBanco.charAt(c);
+                if (atual == ':' && !builderIp.isEmpty()) {
+                    ip = true;
+                    c++;
+                    break;
+                } else {
+                    builderIp.append(atual);
+                }
+            }
+            // Pegar porta
+            if (ip) {
+                for (; c < entradaBanco.length(); c++) {
+                    char atual = entradaBanco.charAt(c);
+                    if (atual == '/' && !builderPort.isEmpty()) {
+                        port = true;
+                        c++;
+                        break;
+                    } else {
+                        builderPort.append(atual);
+                    }
+                }
+                // Pegar banco
+                if (port) {
+                    for (; c < entradaBanco.length(); c++) {
+                        char atual = entradaBanco.charAt(c);
+                            builderBd.append(atual);
+                    }
+                }
+            }
+            String ipStr, portStr, bdStr;
+            ipStr = builderIp.toString().trim();
+            portStr = builderPort.toString().trim();
+            bdStr = builderBd.toString().trim();
+            
+            if (ip && port && !ipStr.isEmpty() && !portStr.isEmpty() && !bdStr.isEmpty()) {
+                String connStr = BD.getConnectionString(ipStr, portStr, bdStr);
+                try {
+                    BD.tryConnection(connStr, entradaLogin, entradaSenha);
+                    // Setar info na classe bd
+                    BD.setConnectionUser(entradaLogin, entradaSenha);
+                    BD.setConnectionString(ipStr, portStr, bdStr);
+                    JOptionPane.showMessageDialog(null, "Configuração de conexão atualizada.", "Conexão bem sucedida", JOptionPane.INFORMATION_MESSAGE);
+                    this.setVisible(false);
+                    int x = this.getX() + this.getWidth() / 2 - opener.getWidth() / 2;
+                    int y = this.getY() + this.getHeight()/ 2 - opener.getHeight() / 2;
+                    opener.setLocation(x, y);
+                    opener.setVisible(true);
+                    this.dispose();
+                    return;
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Não foi possível conectar ao banco.\n\nMotivo: " + ex.getMessage() + "\n\nVerifique as configurações e tente novamente.", "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            }
+        }
     }//GEN-LAST:event_jlbl_btn_prosseguirMouseClicked
 
     /**

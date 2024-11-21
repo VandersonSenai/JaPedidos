@@ -21,67 +21,86 @@ import java.util.ArrayList;
 
 public final class BD {
     public static final String SGBD = "mysql";
-    public static final String IP = "162.241.203.86";
-    public static final String PORT = "3306";
-    public static final String NAME = "titanw25_japedidos_hml";
-    public static final String USER = "titanw25_japedidos_hml";
-    public static final String USER_PWD = "seNai@2024proj";
-//    
+    public static String IP = "162.241.203.86";
 //    public static final String IP = "localhost";
+    public static String PORT = "3306";
+    public static String NAME = "titanw25_japedidos_hml";
 //    public static final String NAME = "japedidos";
+    public static String USER = "titanw25_japedidos_hml";
 //    public static final String USER = "root";
+    public static String USER_PWD = "seNai@2024proj";
 //    public static final String USER_PWD = "";
+    public static String CONNECTION_STRING = getConnectionString(IP, PORT, NAME);
     
-    // Testes
-//    public static void main(String[] args) throws Exception {
-//        japedidos.pedidos.Pedido ped = BD.Pedido.selectById(11);
-//        japedidos.pedidos.Pedido pedNovo = new japedidos.pedidos.Pedido(ped.getId(), (japedidos.clientes.Cliente)ped.getCliente().clone(), (japedidos.pedidos.InfoEntrega)ped.getInfoEntrega().clone(), japedidos.produto.ProdutoPedido.clone(ped.getProdutos()), (int)Math.ceil(ped.getTaxaDesconto() * 100.0));
-//        japedidos.produto.ProdutoPedido[] prods = ProdutoPedido.selectAllBy_id_pedido(ped.getId());
-//        
-//        pedNovo.getCliente().setInfoAdicional(null);
-//        Pedido.update(ped, pedNovo);
-        
-//        System.out.println(ped.getProdutoCount());
-//        japedidos.clientes.Cliente.InfoAdicional info20 = ped.getCliente().getInfoAdicional();
-//        japedidos.clientes.Cliente.InfoPF infoPF = (japedidos.clientes.Cliente.InfoPF)info20;
-//        infoPF.nome = "Antônio Carlos";
-        
-//        final String connStr = String.format("jdbc:%s://%s:%s/%s", SGBD, IP, PORT, NAME);
-//        Connection conn = null;
-//        try { // Gerar a conexão
-//            conn = DriverManager.getConnection(connStr, USER, USER_PWD);
-//            conn.setAutoCommit(false);
-//            Pedido.atualizarInfoAdicionalCliente(ped, info20, conn);
-//            conn.commit();
-//        } catch (Exception e) {
-//            conn.rollback();
-//            JOptionPane.showMessageDialog(null, e.getMessage(), "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
-//            System.exit(-1);
-//        }
-//        
-//        if (conn != null) {
-//            conn.setAutoCommit(true);
-//            conn.close();
-//        }
-//    }
+    public static void setConnectionUser(String usr, String userPassword) {
+        USER = usr;
+        USER_PWD = userPassword;
+    }
+    
+    public static void reloadConnectionString() throws SQLException {
+        if (tryConnection( getConnectionString(IP, PORT, NAME), USER, USER_PWD)) {
+            CONNECTION_STRING = getConnectionString(IP, PORT, NAME);
+        } else {
+            throw new SQLException("Informações de conexão ao banco inválidas.");
+        }
+    }
+//    
+    
+    public static void setConnectionString(String ip, String port, String dbName) {
+        BD.CONNECTION_STRING = BD.getConnectionString(ip, port, dbName);
+        try {
+            BD.reloadConnectionString();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }
+    
+    public final static String getConnectionString(String ip, String port, String dbName) {
+        return String.format("jdbc:%s://%s:%s/%s", SGBD, ip, port, dbName);
+    }
     
     private BD() {}
     
-    public final static Connection getConnection() {
-        final String connStr = String.format("jdbc:%s://%s:%s/%s", SGBD, IP, PORT, NAME);
-        
+    public final static boolean tryConnection(String connString, String user, String userPassword) throws SQLException {
+        Connection conn = BD.getConnection(connString, user, userPassword);
+        if (conn != null) {
+            try {
+                conn.close();            
+            } catch (SQLException ex) {
+                
+            }
+            conn = null;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public final static Connection getConnection(String connString, String user, String userPassword) throws SQLException {
         Connection conn;
         try { // Gerar a conexão
-            conn = DriverManager.getConnection(connStr, USER, USER_PWD);
+            conn = DriverManager.getConnection(connString, user, userPassword);
             return conn;
         } catch (SQLTimeoutException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Banco demorou a responder", JOptionPane.ERROR_MESSAGE);
-            System.exit(-1);
+            throw new SQLException("Banco demorou a responder", ex.getSQLState());
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
-            System.exit(-1);
+            int errCode = e.getErrorCode();
+                String errMsg = switch (errCode) {
+                    case 1044, 1045 -> "Acesso negado com as credenciais informadas.";
+                    case 1049 -> "Banco de dados não encontrado.";
+                    default -> "Informações inválidas ou mal-formatadas. Tente novamente.";
+                };
+                throw new SQLException(errMsg, e.getSQLState(), errCode);
         }
-        return null;
+    }
+    
+    public final static Connection getConnection() {
+        try {
+            return BD.getConnection(CONNECTION_STRING, BD.USER, BD.USER_PWD);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível conectar ao banco.\n\nMotivo: " + ex.getMessage() + "\n\nVerifique as configurações e tente novamente.", "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
     }
     
     static public class InfoAdicional {

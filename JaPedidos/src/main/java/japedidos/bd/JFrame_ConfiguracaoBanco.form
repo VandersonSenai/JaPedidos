@@ -55,7 +55,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
               <FontInfo relative="true">
-                <Font component="jtxtf_login" property="font" relativeSize="false" size="18"/>
+                <Font component="jtxtf_login" property="font" relativeSize="false" size="14"/>
               </FontInfo>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -78,7 +78,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
               <FontInfo relative="true">
-                <Font component="jtxtf_string_banco" property="font" relativeSize="false" size="18"/>
+                <Font component="jtxtf_string_banco" property="font" relativeSize="false" size="14"/>
               </FontInfo>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -101,7 +101,7 @@
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
               <FontInfo relative="true">
-                <Font component="jpwdf_senha" property="font" relativeSize="false" size="18"/>
+                <Font component="jpwdf_senha" property="font" relativeSize="false" size="14"/>
               </FontInfo>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">

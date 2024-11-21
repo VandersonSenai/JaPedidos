@@ -1,6 +1,7 @@
 package japedidos.produto;
 
 import japedidos.AccessController;
+import japedidos.bd.BD;
 import japedidos.produto.load_DB2_components;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -768,9 +769,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 //        NumberFormat decimal = new DecimalFormat("#,##0.00");
 //        PreparedStatement stm_lista_produtos_view = null;
 
-        db.setDB_Url("jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml");
-        db.setDB_User("titanw25_japedidos_hml");
-        db.setDB_Pwd("seNai@2024proj");
+            db.setDB_Url(BD.CONNECTION_STRING);
+            db.setDB_User(BD.USER);
+            db.setDB_Pwd(BD.USER_PWD);
+
+//        db.setDB_Url("jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml");
+//        db.setDB_User("titanw25_japedidos_hml");
+//        db.setDB_Pwd("seNai@2024proj");
 
 //        db.setDB_Url("jdbc:mysql://localhost:3306/titanw25_japedidos_hml");
 //        db.setDB_User("root");
