@@ -81,8 +81,6 @@ public class JFrame_Cliente extends javax.swing.JFrame {
 
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 470, 40));
 
-        jScrollPane2.setOpaque(true);
-
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"00001", "manuel da silva ne gonzales", "+55 27 999295178"},
@@ -91,13 +89,24 @@ public class JFrame_Cliente extends javax.swing.JFrame {
             new String [] {
                 "CÓDIGO", "NOME DO CLIENTE", "TELEFONE"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable2.setNextFocusableComponent(jTxtFpesquisa);
+        jTable2.setPreferredSize(new java.awt.Dimension(794, 40));
+        jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTable2);
         if (jTable2.getColumnModel().getColumnCount() > 0) {
             jTable2.getColumnModel().getColumn(0).setResizable(false);
             jTable2.getColumnModel().getColumn(0).setPreferredWidth(60);
-            jTable2.getColumnModel().getColumn(1).setMinWidth(400);
-            jTable2.getColumnModel().getColumn(1).setPreferredWidth(400);
+            jTable2.getColumnModel().getColumn(1).setResizable(false);
+            jTable2.getColumnModel().getColumn(1).setPreferredWidth(352);
             jTable2.getColumnModel().getColumn(2).setResizable(false);
             jTable2.getColumnModel().getColumn(2).setPreferredWidth(100);
         }

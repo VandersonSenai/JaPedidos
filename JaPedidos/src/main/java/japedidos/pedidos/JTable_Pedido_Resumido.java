@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -32,10 +33,25 @@ public class JTable_Pedido_Resumido extends JPanel {
 //        jcmb_estados.addItem(new EstadoPedido(Estado.ABERTO));
 //        jcmb_estados.addItem(new EstadoPedido(Estado.AGUARDANDO_PAGAMENTO));
 //        getTable().setDefaultEditor(EstadoPedido.class, new DefaultCellEditor(jcmb_estados));
+
         table.setPreferredScrollableViewportSize(new Dimension(600, 300));
         table.setFillsViewportHeight(true);
         table.getTableHeader().setReorderingAllowed(false);
         JScrollPane scrollPane = new JScrollPane(table);
+        TableColumn column;
+        column = table.getColumnModel().getColumn(0);
+        column.setMaxWidth(60);
+        column.setPreferredWidth(60);
+        column.setResizable(false);
+        column = table.getColumnModel().getColumn(1);
+        column.setMaxWidth(300);
+        column.setPreferredWidth(300);
+        column.setResizable(false);
+        column = table.getColumnModel().getColumn(6);
+        column.setMaxWidth(100);
+        column.setPreferredWidth(100);
+        column.setResizable(false);
+       
         this.add(scrollPane);
     }
     
@@ -74,6 +90,7 @@ public class JTable_Pedido_Resumido extends JPanel {
         frame.setContentPane(tabela);
         frame.pack();
         frame.setVisible(true);
+        
     }
     
     public static void main(String[] args) {
