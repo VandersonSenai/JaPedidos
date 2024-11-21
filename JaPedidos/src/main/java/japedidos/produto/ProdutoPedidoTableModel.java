@@ -8,7 +8,7 @@ import javax.swing.table.AbstractTableModel;
  * @author t.baiense
  */
 public final class ProdutoPedidoTableModel extends AbstractTableModel {
-    public static final String[] COLUMNS = {"Cód.", "Nome", "Categoria", "Quant.", "Unidade", "Preço", "Subtotal"};
+    public static final String[] COLUMNS = {"Código", "Nome", "Categoria", "Qtd.", "Und.", "Preço", "Subtotal"};
     
     public static final int COL_CODIGO = 0;
     public static final int COL_NOME = 1;
