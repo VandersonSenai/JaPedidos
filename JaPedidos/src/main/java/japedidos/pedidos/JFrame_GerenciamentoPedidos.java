@@ -386,7 +386,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jpnl_btn_novo = new javax.swing.JLabel();
         jcmb_tipoEntrega = new javax.swing.JComboBox<>();
         jtxtf_nomeCliente = new javax.swing.JTextField();
-        jlbl_pct = new javax.swing.JLabel();
         jlbl_bairro = new javax.swing.JLabel();
         jlbl_rua = new javax.swing.JLabel();
         jtxtf_cidade = new javax.swing.JTextField();
@@ -422,7 +421,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_numero = new javax.swing.JLabel();
         jlbl_produto = new javax.swing.JLabel();
         jlbl_valorEntrega = new javax.swing.JLabel();
-        jlbl_reais = new javax.swing.JLabel();
         jlbl_erro_estadoInicial = new javax.swing.JLabel();
         jlbl_erro_bairroEntrega = new javax.swing.JLabel();
         jlbl_erro_desconto = new javax.swing.JLabel();
@@ -570,7 +568,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
 
         jpnl_incluirPedido.add(jscp_destinatario, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 260, 50));
 
-        jpnl_incluirPedido.add(jcmb_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 370, 160, -1));
+        jpnl_incluirPedido.add(jcmb_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 370, 140, -1));
 
         jlbl_horaEntrega.setText("HORA:");
         jlbl_horaEntrega.setBackground(new java.awt.Color(0, 0, 0));
@@ -582,7 +580,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
 
         jtxtf_valorTotal.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jtxtf_valorTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jpnl_incluirPedido.add(jtxtf_valorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 100, -1));
+        jpnl_incluirPedido.add(jtxtf_valorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 370, 80, -1));
 
         jpnl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -604,11 +602,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         });
         jpnl_incluirPedido.add(jcmb_tipoEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 90, -1));
         jpnl_incluirPedido.add(jtxtf_nomeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 250, -1));
-
-        jlbl_pct.setText("%");
-        jlbl_pct.setBackground(new java.awt.Color(0, 0, 0));
-        jlbl_pct.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_incluirPedido.add(jlbl_pct, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 350, 20, -1));
 
         jlbl_bairro.setText("BAIRRO:");
         jlbl_bairro.setBackground(new java.awt.Color(0, 0, 0));
@@ -637,7 +630,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_estadoInicial.setText("ESTADO INICIAL:");
         jlbl_estadoInicial.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_estadoInicial.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_incluirPedido.add(jlbl_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 370, 120, 20));
+        jpnl_incluirPedido.add(jlbl_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 370, 120, 20));
 
         jlbl_tipoEntrega.setText("ENTREGA:");
         jlbl_tipoEntrega.setBackground(new java.awt.Color(0, 0, 0));
@@ -683,10 +676,11 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jpnl_incluirPedido.add(jlbl_uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, -1, -1));
         jpnl_incluirPedido.add(jtxtf_bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(484, 90, 170, -1));
 
-        jlbl_desconto.setText("DESC.:");
+        jlbl_desconto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbl_desconto.setText("DESC. %:");
         jlbl_desconto.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_desconto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_incluirPedido.add(jlbl_desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 330, 60, -1));
+        jpnl_incluirPedido.add(jlbl_desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 60, -1));
         jpnl_incluirPedido.add(jtxtf_telefoneCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 110, -1));
 
         jlbl_telefoneCliente.setText("TELEFONE:");
@@ -702,7 +696,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_valorTotal.setText("TOTAL R$ :");
         jlbl_valorTotal.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_valorTotal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_incluirPedido.add(jlbl_valorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 80, -1));
+        jpnl_incluirPedido.add(jlbl_valorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, 80, -1));
 
         jlbl_infoAdicionalCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_info_adicional.png"))); // NOI18N
         jlbl_infoAdicionalCliente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -713,7 +707,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                 jlbl_infoAdicionalClienteMouseEntered(evt);
             }
         });
-        jpnl_incluirPedido.add(jlbl_infoAdicionalCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 390, -1, -1));
+        jpnl_incluirPedido.add(jlbl_infoAdicionalCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 340, 80, 60));
 
         jlbl_dataEntrega.setText("DATA:");
         jlbl_dataEntrega.setBackground(new java.awt.Color(0, 0, 0));
@@ -748,15 +742,10 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_produto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jpnl_incluirPedido.add(jlbl_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, 20));
 
-        jlbl_valorEntrega.setText("ENTREGA:");
+        jlbl_valorEntrega.setText("ENTREGA R$:");
         jlbl_valorEntrega.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_valorEntrega.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jpnl_incluirPedido.add(jlbl_valorEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 260, 90, -1));
-
-        jlbl_reais.setText("R$");
-        jlbl_reais.setBackground(new java.awt.Color(0, 0, 0));
-        jlbl_reais.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_incluirPedido.add(jlbl_reais, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 280, 20, -1));
 
         jlbl_erro_estadoInicial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_estadoInicial.setText("Info inválida!");
@@ -774,7 +763,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_erro_desconto.setText("Info inválida!");
         jlbl_erro_desconto.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jlbl_erro_desconto.setForeground(new java.awt.Color(255, 255, 255));
-        jpnl_incluirPedido.add(jlbl_erro_desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 370, 110, 30));
+        jpnl_incluirPedido.add(jlbl_erro_desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 110, 30));
 
         jlbl_erro_horaEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_horaEntrega.setText("Info inválida!");
@@ -857,21 +846,21 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_erro_valorTotal.setText("Info inválida!");
         jlbl_erro_valorTotal.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jlbl_erro_valorTotal.setForeground(new java.awt.Color(255, 255, 255));
-        jpnl_incluirPedido.add(jlbl_erro_valorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 190, 30));
+        jpnl_incluirPedido.add(jlbl_erro_valorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, 160, 30));
 
         jspn_desconto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jspn_descontoFocusLost(evt);
             }
         });
-        jpnl_incluirPedido.add(jspn_desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 350, 70, -1));
+        jpnl_incluirPedido.add(jspn_desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 60, -1));
 
         jspn_valorEntrega.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jspn_valorEntregaFocusLost(evt);
             }
         });
-        jpnl_incluirPedido.add(jspn_valorEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 280, 90, -1));
+        jpnl_incluirPedido.add(jspn_valorEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 280, 90, -1));
 
         jcmb_uf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
         jcmb_uf.setSelectedIndex(7);
@@ -1513,12 +1502,10 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private javax.swing.JLabel jlbl_nomeCliente;
     private javax.swing.JLabel jlbl_numero;
     private javax.swing.JLabel jlbl_observações;
-    private javax.swing.JLabel jlbl_pct;
     private javax.swing.JLabel jlbl_pedidos;
     private javax.swing.JLabel jlbl_produto;
     private javax.swing.JLabel jlbl_produtos;
     private javax.swing.JLabel jlbl_quantidadeProduto;
-    private javax.swing.JLabel jlbl_reais;
     private javax.swing.JLabel jlbl_relatorios;
     private javax.swing.JLabel jlbl_rua;
     private javax.swing.JLabel jlbl_telefoneCliente;
