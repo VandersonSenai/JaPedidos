@@ -3,6 +3,7 @@ package japedidos.clientes;
 import japedidos.AccessController;
 import japedidos.bd.BD;
 import java.awt.Color;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -33,12 +34,12 @@ public class JFrame_Cliente extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        jpnl_principal = new javax.swing.JPanel();
+        jpnl_pesquisa = new javax.swing.JPanel();
         jLblLupa = new javax.swing.JLabel();
         jTxtFpesquisa = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jscp_clientes = new javax.swing.JScrollPane();
+        jtbl_clientes = new javax.swing.JTable();
         jLbl_Produto = new javax.swing.JLabel();
         jLbl_Relatorio = new javax.swing.JLabel();
         jLbl_pedido = new javax.swing.JLabel();
@@ -68,13 +69,13 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1024, 576));
         setResizable(false);
 
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jpnl_principal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jpnl_pesquisa.setBackground(new java.awt.Color(255, 255, 255));
+        jpnl_pesquisa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLblLupa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon_lupa.png"))); // NOI18N
-        jPanel1.add(jLblLupa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 30, 40));
+        jpnl_pesquisa.add(jLblLupa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 30, 40));
 
         jTxtFpesquisa.setOpaque(false);
         jTxtFpesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -82,32 +83,40 @@ public class JFrame_Cliente extends javax.swing.JFrame {
                 jTxtFpesquisaActionPerformed(evt);
             }
         });
-        jPanel1.add(jTxtFpesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 430, 40));
+        jpnl_pesquisa.add(jTxtFpesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 430, 40));
 
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 470, 40));
+        jpnl_principal.add(jpnl_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 470, 40));
 
-        jScrollPane2.setOpaque(true);
+        jscp_clientes.setOpaque(true);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jtbl_clientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"00001", "manuel da silva ne gonzales", "+55 27 999295178"},
-                {null, null, null}
+
             },
             new String [] {
                 "CÓDIGO", "NOME DO CLIENTE", "TELEFONE"
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setResizable(false);
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(60);
-            jTable2.getColumnModel().getColumn(1).setMinWidth(400);
-            jTable2.getColumnModel().getColumn(1).setPreferredWidth(400);
-            jTable2.getColumnModel().getColumn(2).setResizable(false);
-            jTable2.getColumnModel().getColumn(2).setPreferredWidth(100);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtbl_clientes.getTableHeader().setReorderingAllowed(false);
+        jscp_clientes.setViewportView(jtbl_clientes);
+        if (jtbl_clientes.getColumnModel().getColumnCount() > 0) {
+            jtbl_clientes.getColumnModel().getColumn(0).setResizable(false);
+            jtbl_clientes.getColumnModel().getColumn(0).setPreferredWidth(60);
+            jtbl_clientes.getColumnModel().getColumn(1).setMinWidth(400);
+            jtbl_clientes.getColumnModel().getColumn(1).setPreferredWidth(400);
+            jtbl_clientes.getColumnModel().getColumn(2).setResizable(false);
+            jtbl_clientes.getColumnModel().getColumn(2).setPreferredWidth(100);
         }
 
-        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 720, 400));
+        jpnl_principal.add(jscp_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 720, 400));
 
         jLbl_Produto.setBackground(new java.awt.Color(255, 255, 255));
         jLbl_Produto.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
@@ -123,7 +132,7 @@ public class JFrame_Cliente extends javax.swing.JFrame {
                 jLbl_ProdutoMouseExited(evt);
             }
         });
-        jPanel2.add(jLbl_Produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 100, 20));
+        jpnl_principal.add(jLbl_Produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 100, 20));
 
         jLbl_Relatorio.setBackground(new java.awt.Color(0, 0, 0));
         jLbl_Relatorio.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
@@ -136,7 +145,7 @@ public class JFrame_Cliente extends javax.swing.JFrame {
                 jLbl_RelatorioMouseExited(evt);
             }
         });
-        jPanel2.add(jLbl_Relatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 120, 20));
+        jpnl_principal.add(jLbl_Relatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 120, 20));
 
         jLbl_pedido.setBackground(new java.awt.Color(255, 255, 255));
         jLbl_pedido.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
@@ -152,45 +161,45 @@ public class JFrame_Cliente extends javax.swing.JFrame {
                 jLbl_pedidoMouseExited(evt);
             }
         });
-        jPanel2.add(jLbl_pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 80, 20));
+        jpnl_principal.add(jLbl_pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 80, 20));
 
         jLbl_Cliente.setBackground(new java.awt.Color(255, 255, 255));
         jLbl_Cliente.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jLbl_Cliente.setForeground(new java.awt.Color(255, 255, 255));
         jLbl_Cliente.setText("CLIENTES");
-        jPanel2.add(jLbl_Cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 90, 20));
+        jpnl_principal.add(jLbl_Cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 90, 20));
 
         jtb_linhaBranca.setBackground(new java.awt.Color(255, 255, 255));
         jtb_linhaBranca.setBorder(null);
         jtb_linhaBranca.setForeground(new java.awt.Color(255, 255, 255));
         jtb_linhaBranca.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jtb_linhaBranca.setBorderPainted(false);
-        jPanel2.add(jtb_linhaBranca, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 224, 90, 4));
+        jpnl_principal.add(jtb_linhaBranca, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 224, 90, 4));
 
         jLbl_Filtro.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLbl_Filtro.setText("FILTRO:");
-        jPanel2.add(jLbl_Filtro, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 70, 100, 40));
+        jpnl_principal.add(jLbl_Filtro, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 70, 100, 40));
 
         jTxtFnomeFiltra.setText("NOME ");
-        jPanel2.add(jTxtFnomeFiltra, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 70, 130, 40));
+        jpnl_principal.add(jTxtFnomeFiltra, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 70, 130, 40));
 
         jLbl_LogoPaleta.setBackground(new java.awt.Color(0, 102, 255));
         jLbl_LogoPaleta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/painel_comandos_esquerda_05x.png"))); // NOI18N
-        jPanel2.add(jLbl_LogoPaleta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 250, 510));
+        jpnl_principal.add(jLbl_LogoPaleta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 250, 510));
 
         jLbl_Imagem.setBackground(new java.awt.Color(255, 255, 255));
         jLbl_Imagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_clientes.png"))); // NOI18N
-        jPanel2.add(jLbl_Imagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, 580));
+        jpnl_principal.add(jLbl_Imagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, 580));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jpnl_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jpnl_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -201,6 +210,19 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTxtFpesquisaActionPerformed
 
+    public void preencherClientes() {
+        Cliente[] recebidos = BD.Cliente.selectAll();
+        
+        if (recebidos != null) {
+            DefaultTableModel model = ((DefaultTableModel)jtbl_clientes.getModel());
+            for (Cliente c : recebidos) {
+                if (c != null) {
+                    model.addRow(new Object[] {String.valueOf(c.getId()), c.getNome(), c.getTelefone()});
+                }
+            }
+        }
+    }
+    
     private void jLbl_ProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLbl_ProdutoMouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
@@ -302,14 +324,14 @@ public class JFrame_Cliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLbl_Produto;
     private javax.swing.JLabel jLbl_Relatorio;
     private javax.swing.JLabel jLbl_pedido;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTxtFnomeFiltra;
     private javax.swing.JTextField jTxtFpesquisa;
+    private javax.swing.JPanel jpnl_pesquisa;
+    private javax.swing.JPanel jpnl_principal;
+    private javax.swing.JScrollPane jscp_clientes;
     private javax.swing.JToolBar jtb_linhaBranca;
+    private javax.swing.JTable jtbl_clientes;
     // End of variables declaration//GEN-END:variables
 }

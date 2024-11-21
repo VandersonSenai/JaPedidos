@@ -8,10 +8,14 @@ import javax.swing.JOptionPane;
  * @author thiago
  */
 public class AccessController {
-    private static boolean verificarLogin = false;
+    private static boolean loginObrigatorio = false;
+    
+    public static boolean isLoginObrigatorio() {
+        return loginObrigatorio;
+    }
     
     public static void verificarLogin() {
-        if (verificarLogin && !Usuario.logado()) {
+        if (loginObrigatorio && !Usuario.logado()) {
             JOptionPane.showMessageDialog(null, "É necessário estar logado para acessar essa funcionalidade.");
             System.exit(0);
         }

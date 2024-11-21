@@ -1,5 +1,6 @@
 package japedidos.bd;
 
+import japedidos.AccessController;
 import japedidos.exception.IllegalArgumentsException;
 import japedidos.pedidos.Estado;
 import japedidos.pedidos.InfoEntrega;
@@ -126,6 +127,137 @@ public final class BD {
             return null;
         }
     }
+    
+    
+    // SUBCLASSES ======================================================================================================================================
+    static public class Cliente {
+        public static final String TABLE = "cliente";
+        
+        public static int insert(japedidos.clientes.Cliente c) {           
+            if (c != null && !c.isNew()) { // Só cadastra se não houver id, e tiver senha inserida
+                try {
+                    Connection conn = BD.getConnection();
+                    PreparedStatement insert = conn.prepareStatement(
+                            String.format("INSERT INTO %s(nome, telefone) VALUES (?, ?)", TABLE));
+                    insert.setString(1, c.getNome());
+                    insert.setString(2, c.getTelefone());
+                    
+                    int r = insert.executeUpdate();
+
+                    insert.close();
+                    conn.close();
+                    return r;
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de cadastro", JOptionPane.ERROR_MESSAGE);
+                    return -1;
+                }
+            } else {
+                return 0;
+            }
+        }
+        
+        public static japedidos.clientes.Cliente selectLast() {
+            try {
+                Connection conn = BD.getConnection();
+                PreparedStatement select = conn.prepareStatement(String.format("SELECT id, nome, telefone FROM %s ORDER BY id DESC LIMIT 1", TABLE));
+
+                ResultSet rs = select.executeQuery();
+                japedidos.clientes.Cliente[] clientes = parse(rs);
+
+                select.close();
+                conn.close();
+
+                if (clientes == null) {
+                    return null;
+                }
+
+                return clientes[0];
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+            }
+            return null;
+        }
+        
+        public static japedidos.clientes.Cliente[] selectAll() {
+            try {
+                Connection conn = BD.getConnection();
+                PreparedStatement select = conn.prepareStatement(String.format("SELECT id, nome, login, tipo FROM %s", TABLE));
+
+                ResultSet rs = select.executeQuery();
+                japedidos.clientes.Cliente[] clientes = parse(rs);
+
+                select.close();
+                conn.close();
+
+                if (clientes == null) {
+                    return null;
+                }
+
+                return clientes;
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+            }
+            return null;
+        }
+        
+        public static japedidos.clientes.Cliente selectById(int id) {
+            if (id > 0) {
+                try {
+                    Connection conn = BD.getConnection();
+                    PreparedStatement select = conn.prepareStatement(String.format("SELECT id, nome, login, tipo FROM %s WHERE id = ?", TABLE));
+                    select.setInt(1, id);
+                    
+                    ResultSet rs = select.executeQuery();
+                    japedidos.clientes.Cliente[] clientes = parse(rs);
+                    
+                    select.close();
+                    conn.close();
+                    
+                    if (clientes == null) {
+                        return null;
+                    }
+                    
+                    return clientes[0];
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            return null;
+        }
+        
+        public static japedidos.clientes.Cliente[] parse(ResultSet rs) {
+            ArrayList<japedidos.clientes.Cliente> uList = new ArrayList<>();
+            
+            try {
+                while (rs.next()) {
+                    int id;
+                    String nome, telefone;
+                    japedidos.clientes.Cliente cliente;
+                    
+                    id = rs.getInt("id");
+                    nome = rs.getString("nome");
+                    telefone = rs.getString("telefone");                    
+                    cliente = new japedidos.clientes.Cliente(id, nome, telefone);
+                    
+                    uList.add(cliente);
+                }
+                
+                if (uList.isEmpty()) {
+                    return null;
+                }
+                
+                japedidos.clientes.Cliente[] clientes = new japedidos.clientes.Cliente[uList.size()];
+                uList.toArray(clientes);
+                
+                return clientes;
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de parse", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            return null;
+        }
+    }
+    
     
     static public class InfoAdicional {
         public static int insert(int id_pedido, japedidos.clientes.Cliente.InfoAdicional infoAdicional, Connection conn) throws SQLException {
@@ -1774,7 +1906,6 @@ public final class BD {
     
     static public class Usuario {
         public static final String TABLE = "usuario";
-        private static int get;
         
         public static japedidos.usuario.Usuario login(String login, String senha) {
             if (login != null && senha != null) {
@@ -2669,7 +2800,7 @@ public final class BD {
     }
     
     static {
-        if (connected && japedidos.usuario.Usuario.getAtual() == null) {
+        if (!AccessController.isLoginObrigatorio() && japedidos.usuario.Usuario.getAtual() == null) {
             japedidos.usuario.Usuario.setAtual(BD.Usuario.selectLast());
         }
     }
