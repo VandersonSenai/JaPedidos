@@ -21,6 +21,7 @@ public class JFrame_Cliente extends javax.swing.JFrame {
             System.exit(0);
         }
         initComponents();
+        this.preencherClientes();
     }
 
     /**
@@ -89,6 +90,8 @@ public class JFrame_Cliente extends javax.swing.JFrame {
 
         jscp_clientes.setOpaque(true);
 
+        jtbl_clientes.setAutoCreateRowSorter(true);
+        jtbl_clientes.setFont(jtbl_clientes.getFont().deriveFont((float)16));
         jtbl_clientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -97,19 +100,27 @@ public class JFrame_Cliente extends javax.swing.JFrame {
                 "CÓDIGO", "NOME DO CLIENTE", "TELEFONE"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        jtbl_clientes.setRowHeight(32);
         jtbl_clientes.getTableHeader().setReorderingAllowed(false);
         jscp_clientes.setViewportView(jtbl_clientes);
         if (jtbl_clientes.getColumnModel().getColumnCount() > 0) {
             jtbl_clientes.getColumnModel().getColumn(0).setResizable(false);
-            jtbl_clientes.getColumnModel().getColumn(0).setPreferredWidth(60);
+            jtbl_clientes.getColumnModel().getColumn(0).setPreferredWidth(30);
             jtbl_clientes.getColumnModel().getColumn(1).setMinWidth(400);
             jtbl_clientes.getColumnModel().getColumn(1).setPreferredWidth(400);
             jtbl_clientes.getColumnModel().getColumn(2).setResizable(false);
@@ -210,7 +221,7 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTxtFpesquisaActionPerformed
 
-    public void preencherClientes() {
+    private final void preencherClientes() {
         Cliente[] recebidos = BD.Cliente.selectAll();
         
         if (recebidos != null) {

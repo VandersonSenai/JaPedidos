@@ -181,7 +181,7 @@ public final class BD {
         public static japedidos.clientes.Cliente[] selectAll() {
             try {
                 Connection conn = BD.getConnection();
-                PreparedStatement select = conn.prepareStatement(String.format("SELECT id, nome, login, tipo FROM %s", TABLE));
+                PreparedStatement select = conn.prepareStatement(String.format("SELECT id, nome, telefone FROM %s", TABLE));
 
                 ResultSet rs = select.executeQuery();
                 japedidos.clientes.Cliente[] clientes = parse(rs);
@@ -204,7 +204,7 @@ public final class BD {
             if (id > 0) {
                 try {
                     Connection conn = BD.getConnection();
-                    PreparedStatement select = conn.prepareStatement(String.format("SELECT id, nome, login, tipo FROM %s WHERE id = ?", TABLE));
+                    PreparedStatement select = conn.prepareStatement(String.format("SELECT id, nome, telefone FROM %s WHERE id = ?", TABLE));
                     select.setInt(1, id);
                     
                     ResultSet rs = select.executeQuery();
