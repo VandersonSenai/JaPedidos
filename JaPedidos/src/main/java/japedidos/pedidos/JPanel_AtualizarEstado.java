@@ -6,6 +6,7 @@ package japedidos.pedidos;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
+import japedidos.AccessController;
 import japedidos.bd.BD;
 import japedidos.pedidos.Estado;
 import japedidos.pedidos.Pedido;
@@ -42,6 +43,11 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
 //    }
     
     public JPanel_AtualizarEstado(Pedido p, Estado atual, Usuario alterador, Runnable updateAction) {
+        if (BD.isAccessible()) {
+            AccessController.verificarLogin();
+        } else {
+            System.exit(0);
+        }
         this.pedido = p;
         this.pedidoFoiPago = pedido.getDataPago() != null;
         this.pedidoTemDataVencimento = pedido.getDataVencimentoPagamento() != null;

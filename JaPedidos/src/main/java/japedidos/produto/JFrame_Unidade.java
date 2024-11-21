@@ -12,7 +12,11 @@ public class JFrame_Unidade extends javax.swing.JFrame {
 
 
     public JFrame_Unidade() {
-        AccessController.verificarLogin();
+        if (BD.isAccessible()) {
+            AccessController.verificarLogin();
+        } else {
+            System.exit(0);
+        }
         initComponents();
         jtbl_unidade.getJTable().getSelectionModel().addListSelectionListener((e) -> {
             int selRow = jtbl_unidade.getJTable().getSelectedRow();

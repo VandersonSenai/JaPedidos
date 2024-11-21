@@ -135,22 +135,31 @@ public class JFrame_LoginUsuario extends javax.swing.JFrame {
 
     private void jlbl_btn_entrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_entrarMouseClicked
         // TODO add your handling code here:
-        String login, senha;
-        login = jtxtf_login.getText();
-        senha = jpwf_senha.getText();
-        if (!login.isBlank() && !senha.isBlank()) {
-            japedidos.usuario.Usuario atual = BD.Usuario.login(login, senha);
-            if (atual == null) {
-                JOptionPane.showMessageDialog(null, "Usuário ou senha incorreto.");
+        if (BD.isAccessible()) {
+            String login, senha;
+            login = jtxtf_login.getText();
+            senha = jpwf_senha.getText();
+            if (!login.isBlank() && !senha.isBlank()) {
+                japedidos.usuario.Usuario atual = BD.Usuario.login(login, senha);
+                if (atual == null) {
+                    JOptionPane.showMessageDialog(null, "Usuário ou senha incorreto.");
+                } else {
+                    this.setVisible(false);
+                    Usuario.setAtual(atual);
+                    japedidos.pedidos.JFrame_GerenciamentoPedidos frame = new japedidos.pedidos.JFrame_GerenciamentoPedidos();
+                    frame.setVisible(true);
+                    this.dispose();
+                }
             } else {
-                this.setVisible(false);
-                Usuario.setAtual(atual);
-                japedidos.pedidos.JFrame_GerenciamentoPedidos frame = new japedidos.pedidos.JFrame_GerenciamentoPedidos();
-                frame.setVisible(true);
-                this.dispose();
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de logar.");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de logar.");
+            this.setVisible(false);
+            japedidos.bd.JFrame_ConfiguracaoBanco frame = new japedidos.bd.JFrame_ConfiguracaoBanco(this);
+            int x = this.getX() + this.getWidth() / 2 - frame.getWidth() / 2;
+            int y = this.getY() + this.getHeight()/ 2 - frame.getHeight() / 2;
+            frame.setLocation(x, y);
+            frame.setVisible(true);
         }
     }//GEN-LAST:event_jlbl_btn_entrarMouseClicked
 

@@ -20,7 +20,11 @@ public class JFrame_Categoria extends javax.swing.JFrame {
      * Creates new form JFrame_Categoria
      */
     public JFrame_Categoria() {
-        AccessController.verificarLogin();
+        if (BD.isAccessible()) {
+            AccessController.verificarLogin();
+        } else {
+            System.exit(0);
+        }
         initComponents();
         this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         jtbl_categoria.getModel().fillRows(BD.Categoria.selectAll());

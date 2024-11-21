@@ -164,25 +164,28 @@ public class JFrame_ConfiguracaoBanco extends javax.swing.JFrame {
             portStr = builderPort.toString().trim();
             bdStr = builderBd.toString().trim();
             
-            if (ip && port && !ipStr.isEmpty() && !portStr.isEmpty() && !bdStr.isEmpty()) {
-                String connStr = BD.getConnectionString(ipStr, portStr, bdStr);
-                try {
-                    BD.tryConnection(connStr, entradaLogin, entradaSenha);
-                    // Setar info na classe bd
-                    BD.setConnectionUser(entradaLogin, entradaSenha);
-                    BD.setConnectionString(ipStr, portStr, bdStr);
-                    JOptionPane.showMessageDialog(null, "Configuração de conexão atualizada.", "Conexão bem sucedida", JOptionPane.INFORMATION_MESSAGE);
-                    this.setVisible(false);
-                    int x = this.getX() + this.getWidth() / 2 - opener.getWidth() / 2;
-                    int y = this.getY() + this.getHeight()/ 2 - opener.getHeight() / 2;
-                    opener.setLocation(x, y);
-                    opener.setVisible(true);
-                    this.dispose();
-                    return;
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Não foi possível conectar ao banco.\n\nMotivo: " + ex.getMessage() + "\n\nVerifique as configurações e tente novamente.", "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
+            if (ip && port) {
+                if (!ipStr.isEmpty() && !portStr.isEmpty() && !bdStr.isEmpty()) {
+                    String connStr = BD.getConnectionString(ipStr, portStr, bdStr);
+                    try {
+                        BD.tryConnection(connStr, entradaLogin, entradaSenha);
+                        // Setar info na classe bd
+                        BD.setConnectionUser(entradaLogin, entradaSenha);
+                        BD.setConnectionString(ipStr, portStr, bdStr);
+                        JOptionPane.showMessageDialog(null, "Conexão estabelecida com sucesso!\nConfiguração de conexão atualizada.", "Conexão bem sucedida", JOptionPane.INFORMATION_MESSAGE);
+                        this.setVisible(false);
+                        int x = this.getX() + this.getWidth() / 2 - opener.getWidth() / 2;
+                        int y = this.getY() + this.getHeight()/ 2 - opener.getHeight() / 2;
+                        opener.setLocation(x, y);
+                        opener.setVisible(true);
+                        this.dispose();
+                        return;
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Não foi possível conectar ao banco.\n\nMotivo: " + ex.getMessage() + "\n\nVerifique as configurações e tente novamente.", "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-                
+            } else {
+                JOptionPane.showMessageDialog(null, "O endereço do banco de dados mal-formatado.\nCorrija e tente novamente.", "String de conexão mal-formatada", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jlbl_btn_prosseguirMouseClicked

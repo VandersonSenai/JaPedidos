@@ -40,7 +40,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     private static final db_config db = new db_config();
 
     public JFrame_ListaProdutos() {
-        AccessController.verificarLogin();
+        if (BD.isAccessible()) {
+            AccessController.verificarLogin();
+        } else {
+            System.exit(0);
+        }
         initComponents();
     }
 

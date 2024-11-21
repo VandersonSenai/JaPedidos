@@ -38,7 +38,11 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
      * Creates new form CadastroPedido
      */
     public JFrame_GerenciamentoPedidos() {
-        AccessController.verificarLogin();
+        if (BD.isAccessible()) {
+            AccessController.verificarLogin();
+        } else {
+            System.exit(0);
+        }
         initComponents();
         
         fillEstadosComboBoxPedido();

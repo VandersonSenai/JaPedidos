@@ -20,9 +20,10 @@ import javax.swing.JOptionPane;
 import java.util.ArrayList;
 
 public final class BD {
+    private static boolean connected = false;
     public static final String SGBD = "mysql";
     public static String IP = "162.241.203.86";
-//    public static final String IP = "localhost";
+//    public static String IP = "localhost";
     public static String PORT = "3306";
     public static String NAME = "titanw25_japedidos_hml";
 //    public static final String NAME = "japedidos";
@@ -47,7 +48,10 @@ public final class BD {
 //    
     
     public static void setConnectionString(String ip, String port, String dbName) {
-        BD.CONNECTION_STRING = BD.getConnectionString(ip, port, dbName);
+        BD.IP = ip;
+        BD.PORT = port;
+        BD.NAME = dbName;
+
         try {
             BD.reloadConnectionString();
         } catch (SQLException ex) {
@@ -60,6 +64,26 @@ public final class BD {
     }
     
     private BD() {}
+    
+    public final static boolean isAccessible() {
+        if (!connected) {
+            Connection conn = BD.getConnection();
+            if (conn != null) {
+                try {
+                    conn.close();            
+                } catch (SQLException ex) {
+
+                }
+                conn = null;
+                connected = true;
+            } else {
+                connected = false;
+            }
+        } else {
+            connected = true;
+        }
+        return connected;
+    }
     
     public final static boolean tryConnection(String connString, String user, String userPassword) throws SQLException {
         Connection conn = BD.getConnection(connString, user, userPassword);
@@ -2645,7 +2669,7 @@ public final class BD {
     }
     
     static {
-        if (japedidos.usuario.Usuario.getAtual() == null) {
+        if (connected && japedidos.usuario.Usuario.getAtual() == null) {
             japedidos.usuario.Usuario.setAtual(BD.Usuario.selectLast());
         }
     }

@@ -1,6 +1,7 @@
 package japedidos.clientes;
 
 import japedidos.AccessController;
+import japedidos.bd.BD;
 import java.awt.Color;
 
 /**
@@ -13,7 +14,11 @@ public class JFrame_Cliente extends javax.swing.JFrame {
      * Creates new form cliente
      */
     public JFrame_Cliente() {
-        AccessController.verificarLogin();
+        if (BD.isAccessible()) {
+            AccessController.verificarLogin();
+        } else {
+            System.exit(0);
+        }
         initComponents();
     }
 
