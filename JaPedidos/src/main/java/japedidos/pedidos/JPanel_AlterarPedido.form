@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="opaque" type="boolean" value="false"/>
   </Properties>
@@ -78,8 +78,16 @@
             <Component class="javax.swing.JTextArea" name="jtxta_observacoes">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
-                <Property name="rows" type="int" value="5"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+                  <FontInfo relative="true">
+                    <Font component="jtxta_observacoes" property="font" relativeSize="false" size="12"/>
+                  </FontInfo>
+                </Property>
+                <Property name="lineWrap" type="boolean" value="true"/>
+                <Property name="rows" type="int" value="4"/>
+                <Property name="tabSize" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="Dados destinat&#xe1;rio, ponto de refer&#xea;ncia..."/>
+                <Property name="wrapStyleWord" type="boolean" value="true"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -317,7 +325,7 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.github.lgooddatepicker.components.DatePicker(dateSettings)"/>
             <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="DatePickerSettings dateSettings = new DatePickerSettings();&#xa;dateSettings.setFormatForDatesCommonEra(&quot;d MMM yyyy&quot;);&#xa;dateSettings.setFormatForDatesBeforeCommonEra(&quot;d MMM uuuu&quot;);&#xa;dateSettings.setAllowEmptyDates(false);"/>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="datePicker1.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));&#xa;datePicker1.setDateToToday();&#xa;&#xa;javax.swing.JButton datePickerButton = datePicker1.getComponentToggleCalendarButton();&#xa;datePickerButton.setPreferredSize(new java.awt.Dimension(22, 22));&#xa;datePickerButton.setMargin(new java.awt.Insets(0, 0, 0, 0));&#xa;datePickerButton.setBorder(null);&#xa;datePickerButton.setText(&quot;&quot;);&#xa;&#xa;javax.swing.ImageIcon dateExampleIcon = new javax.swing.ImageIcon(getClass().getResource(&quot;/datepickerbutton1.png&quot;));&#xa;java.awt.Dimension newDateButtonSize = new java.awt.Dimension(dateExampleIcon.getIconWidth() + 4, dateExampleIcon.getIconHeight() + 4);&#xa;datePickerButton.setIcon(dateExampleIcon);&#xa;datePickerButton.setPreferredSize(newDateButtonSize);&#xa;datePickerButton.setOpaque(false);&#xa;datePickerButton.setContentAreaFilled(false);&#xa;datePickerButton.setBorderPainted(false);&#xa;datePickerButton.setFocusPainted(false);"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="datePicker1.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));&#xa;datePicker1.setDateToToday();&#xa;&#xa;javax.swing.JButton datePickerButton = datePicker1.getComponentToggleCalendarButton();&#xa;datePickerButton.setPreferredSize(new java.awt.Dimension(22, 22));&#xa;datePickerButton.setMargin(new java.awt.Insets(0, 0, 0, 0));&#xa;datePickerButton.setBorder(null);&#xa;datePickerButton.setText(&quot;&quot;);&#xa;&#xa;javax.swing.ImageIcon dateExampleIcon = new javax.swing.ImageIcon(getClass().getResource(&quot;/datepickerbutton1.png&quot;));&#xa;java.awt.Dimension newDateButtonSize = new java.awt.Dimension(dateExampleIcon.getIconWidth() + 4, dateExampleIcon.getIconHeight() + 4);&#xa;datePickerButton.setIcon(dateExampleIcon);&#xa;datePickerButton.setPreferredSize(newDateButtonSize);&#xa;datePickerButton.setOpaque(false);&#xa;datePickerButton.setContentAreaFilled(false);&#xa;datePickerButton.setBorderPainted(false);&#xa;datePickerButton.setFocusPainted(false);&#xa;datePicker1.setBackground(new java.awt.Color(0,0,0,0));"/>
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -998,18 +1006,6 @@
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="320" y="170" width="80" height="-1"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/datepickerbutton1.png"/>
-            </Property>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="600" y="30" width="-1" height="30"/>
             </Constraint>
           </Constraints>
         </Component>

@@ -1733,6 +1733,33 @@ public final class BD {
         public static final String TABLE = "usuario";
         private static int get;
         
+        public static japedidos.usuario.Usuario login(String login, String senha) {
+            if (login != null && senha != null) {
+                try {
+                    Connection conn = BD.getConnection();
+                    PreparedStatement select = conn.prepareStatement(
+                            String.format("SELECT id, nome, login, tipo FROM %s WHERE login = ? AND senha = ?", TABLE));
+                    select.setString(1, login);
+                    select.setString(2, senha);
+                    
+                    japedidos.usuario.Usuario[] recebidos = parse(select.executeQuery());
+
+                    select.close();
+                    conn.close();
+                    if (recebidos != null) {
+                        return recebidos[0];
+                    } else {
+                        return null;
+                    }
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de login", JOptionPane.ERROR_MESSAGE);
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        } 
+        
         public static int insert(japedidos.usuario.Usuario u) {           
             if (u != null && u.getId() == -1 && u.getSenha() != null) { // Só cadastra se não houver id, e tiver senha inserida
                 try {
@@ -1837,10 +1864,10 @@ public final class BD {
                     japedidos.usuario.Usuario.Tipo tipo;
                     japedidos.usuario.Usuario usuario;
                     
-                    id = rs.getInt(1);
-                    nome = rs.getString(2);
-                    login = rs.getString(3);
-                    tipo = japedidos.usuario.Usuario.getTipo(rs.getString(4));
+                    id = rs.getInt("id");
+                    nome = rs.getString("nome");
+                    login = rs.getString("login");
+                    tipo = japedidos.usuario.Usuario.getTipo(rs.getString("tipo"));
                     
                     usuario = new japedidos.usuario.Usuario(id, nome, login, tipo);
                     
@@ -2599,6 +2626,8 @@ public final class BD {
     }
     
     static {
-        japedidos.usuario.Usuario.setAtual(BD.Usuario.selectLast());
+        if (japedidos.usuario.Usuario.getAtual() == null) {
+            japedidos.usuario.Usuario.setAtual(BD.Usuario.selectLast());
+        }
     }
 }

@@ -1,6 +1,7 @@
 package japedidos.pedidos;
 
 import japedidos.pedidos.PedidoTableModel;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -20,10 +21,8 @@ import javax.swing.table.TableCellRenderer;
 public class JTable_Pedido_Resumido extends JPanel {
     private JTable table;
     private PedidoTableModel model;
-    
     public JTable_Pedido_Resumido() {
         super(new GridLayout(1, 0));
-        
         PedidoTableModel model = new PedidoTableModel();
         this.model = model;
         JTable table = new JTable(model);
@@ -66,7 +65,12 @@ public class JTable_Pedido_Resumido extends JPanel {
     public static void test() {
         JFrame frame = new JFrame("Teste de pedido");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBackground(Color.yellow);
         JTable_Pedido_Resumido tabela = new JTable_Pedido_Resumido();
+        tabela.setBackground(Color.red);
+        tabela.getTable().setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        tabela.getTable().setOpaque(false);
+        tabela.getTable().setBackground(new Color(0,0,0,0));
         frame.setContentPane(tabela);
         frame.pack();
         frame.setVisible(true);

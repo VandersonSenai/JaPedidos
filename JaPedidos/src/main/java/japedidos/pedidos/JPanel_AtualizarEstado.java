@@ -165,7 +165,7 @@ public class JPanel_AtualizarEstado extends javax.swing.JPanel {
 
         add(jpnl_mudanca_estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, -1));
 
-        jpnl_info_estado.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações do estado", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 0, 12))); // NOI18N
+        jpnl_info_estado.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações do estado", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 0, 14))); // NOI18N
         jpnl_info_estado.setMaximumSize(new java.awt.Dimension(395, 210));
         jpnl_info_estado.setMinimumSize(new java.awt.Dimension(395, 210));
         jpnl_info_estado.setPreferredSize(new java.awt.Dimension(395, 210));

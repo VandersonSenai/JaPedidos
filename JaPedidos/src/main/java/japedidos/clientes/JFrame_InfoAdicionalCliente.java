@@ -5,6 +5,7 @@ import japedidos.clientes.Cliente;
 import japedidos.exception.IllegalCnpjException;
 import japedidos.exception.IllegalCpfException;
 import japedidos.pedidos.JFrame_GerenciamentoPedidos;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 /**
  *
@@ -83,13 +84,6 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
     private void initComponents() {
 
         jpnl_principal = new javax.swing.JPanel();
-        jpnl_clientePF = new javax.swing.JPanel();
-        jtxtf_nomePF = new javax.swing.JTextField();
-        jlbl_cpf = new javax.swing.JLabel();
-        jtxtf_cpf = new javax.swing.JTextField();
-        jlbl_nomePF1 = new javax.swing.JLabel();
-        jlbl_img_txtf = new javax.swing.JLabel();
-        jlbl_img_txtf2 = new javax.swing.JLabel();
         jpnl_clientePJ = new javax.swing.JPanel();
         jlbl_nomeFantasiaPJ = new javax.swing.JLabel();
         jtxtf_nomeFantasiaPJ = new javax.swing.JTextField();
@@ -100,6 +94,13 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
         jlbl_img_txtf1 = new javax.swing.JLabel();
         jlbl_img_txtf3 = new javax.swing.JLabel();
         jlbl_img_txtf4 = new javax.swing.JLabel();
+        jpnl_clientePF = new javax.swing.JPanel();
+        jtxtf_nomePF = new javax.swing.JTextField();
+        jlbl_cpf = new javax.swing.JLabel();
+        jtxtf_cpf = new javax.swing.JTextField();
+        jlbl_nomePF1 = new javax.swing.JLabel();
+        jlbl_img_txtf = new javax.swing.JLabel();
+        jlbl_img_txtf2 = new javax.swing.JLabel();
         jcmb_tipoCliente = new javax.swing.JComboBox<>();
         jlbl_tipoCliente = new javax.swing.JLabel();
         jlbl_btn_salvar = new javax.swing.JLabel();
@@ -110,47 +111,12 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jpnl_principal.setBackground(new java.awt.Color(153, 153, 153));
+        jpnl_principal.setBackground(new java.awt.Color(255, 255, 255));
         jpnl_principal.setMaximumSize(new java.awt.Dimension(310, 340));
         jpnl_principal.setMinimumSize(new java.awt.Dimension(310, 340));
         jpnl_principal.setName(""); // NOI18N
         jpnl_principal.setPreferredSize(new java.awt.Dimension(310, 340));
         jpnl_principal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jpnl_clientePF.setOpaque(false);
-        jpnl_clientePF.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jtxtf_nomePF.setForeground(new java.awt.Color(0, 74, 173));
-        jtxtf_nomePF.setBorder(null);
-        jtxtf_nomePF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxtf_nomePFActionPerformed(evt);
-            }
-        });
-        jpnl_clientePF.add(jtxtf_nomePF, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 240, 40));
-
-        jlbl_cpf.setText("CPF");
-        jpnl_clientePF.add(jlbl_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, -1, -1));
-
-        jtxtf_cpf.setForeground(new java.awt.Color(0, 74, 173));
-        jtxtf_cpf.setBorder(null);
-        jtxtf_cpf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxtf_cpfActionPerformed(evt);
-            }
-        });
-        jpnl_clientePF.add(jtxtf_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 240, 40));
-
-        jlbl_nomePF1.setText("Nome do cliente solicitante");
-        jpnl_clientePF.add(jlbl_nomePF1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jlbl_img_txtf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/text_box_login.png"))); // NOI18N
-        jpnl_clientePF.add(jlbl_img_txtf, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, -1));
-
-        jlbl_img_txtf2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/text_box_login.png"))); // NOI18N
-        jpnl_clientePF.add(jlbl_img_txtf2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, -1, -1));
-
-        jpnl_principal.add(jpnl_clientePF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 270, 130));
 
         jpnl_clientePJ.setOpaque(false);
         jpnl_clientePJ.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -158,8 +124,11 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
         jlbl_nomeFantasiaPJ.setText("Nome fantasia");
         jpnl_clientePJ.add(jlbl_nomeFantasiaPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 124, -1));
 
+        jtxtf_nomeFantasiaPJ.setFont(jtxtf_nomeFantasiaPJ.getFont().deriveFont((float)14));
         jtxtf_nomeFantasiaPJ.setForeground(new java.awt.Color(0, 74, 173));
-        jtxtf_nomeFantasiaPJ.setBorder(null);
+        jtxtf_nomeFantasiaPJ.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        jtxtf_nomeFantasiaPJ.setOpaque(false);
+        jtxtf_nomeFantasiaPJ.setBackground(new Color(0,0,0,0));
         jtxtf_nomeFantasiaPJ.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtf_nomeFantasiaPJActionPerformed(evt);
@@ -170,8 +139,11 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
         jlbl_cnpj.setText("CNPJ");
         jpnl_clientePJ.add(jlbl_cnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, -1, -1));
 
+        jtxtf_cnpj.setFont(jtxtf_cnpj.getFont().deriveFont((float)14));
         jtxtf_cnpj.setForeground(new java.awt.Color(0, 74, 173));
-        jtxtf_cnpj.setBorder(null);
+        jtxtf_cnpj.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        jtxtf_cnpj.setOpaque(false);
+        jtxtf_cnpj.setBackground(new Color(0,0,0,0));
         jtxtf_cnpj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtf_cnpjActionPerformed(evt);
@@ -182,8 +154,11 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
         jlbl_razaoSocialPJ.setText("Razão social");
         jpnl_clientePJ.add(jlbl_razaoSocialPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 124, -1));
 
+        jtxtf_razaoSocialPJ.setFont(jtxtf_razaoSocialPJ.getFont().deriveFont((float)14));
         jtxtf_razaoSocialPJ.setForeground(new java.awt.Color(0, 74, 173));
-        jtxtf_razaoSocialPJ.setBorder(null);
+        jtxtf_razaoSocialPJ.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        jtxtf_razaoSocialPJ.setOpaque(false);
+        jtxtf_razaoSocialPJ.setBackground(new Color(0,0,0,0));
         jtxtf_razaoSocialPJ.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtf_razaoSocialPJActionPerformed(evt);
@@ -201,6 +176,47 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
         jpnl_clientePJ.add(jlbl_img_txtf4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, -1, -1));
 
         jpnl_principal.add(jpnl_clientePJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 280, 210));
+
+        jpnl_clientePF.setOpaque(false);
+        jpnl_clientePF.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jtxtf_nomePF.setFont(jtxtf_nomePF.getFont().deriveFont((float)14));
+        jtxtf_nomePF.setForeground(new java.awt.Color(0, 74, 173));
+        jtxtf_nomePF.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        jtxtf_nomePF.setOpaque(false);
+        jtxtf_nomePF.setBackground(new Color(0,0,0,0));
+        jtxtf_nomePF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtf_nomePFActionPerformed(evt);
+            }
+        });
+        jpnl_clientePF.add(jtxtf_nomePF, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 240, 40));
+
+        jlbl_cpf.setText("CPF");
+        jpnl_clientePF.add(jlbl_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, -1, -1));
+
+        jtxtf_cpf.setFont(jtxtf_cpf.getFont().deriveFont((float)14));
+        jtxtf_cpf.setForeground(new java.awt.Color(0, 74, 173));
+        jtxtf_cpf.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        jtxtf_cpf.setOpaque(false);
+        jtxtf_cpf.setBackground(new Color(0,0,0,0));
+        jtxtf_cpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtf_cpfActionPerformed(evt);
+            }
+        });
+        jpnl_clientePF.add(jtxtf_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 240, 40));
+
+        jlbl_nomePF1.setText("Nome do cliente solicitante");
+        jpnl_clientePF.add(jlbl_nomePF1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jlbl_img_txtf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/text_box_login.png"))); // NOI18N
+        jpnl_clientePF.add(jlbl_img_txtf, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, -1));
+
+        jlbl_img_txtf2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/text_box_login.png"))); // NOI18N
+        jpnl_clientePF.add(jlbl_img_txtf2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, -1, -1));
+
+        jpnl_principal.add(jpnl_clientePF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 270, 130));
 
         jpnl_principal.add(jcmb_tipoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 260, -1));
 

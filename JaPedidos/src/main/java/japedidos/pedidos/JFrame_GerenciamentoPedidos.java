@@ -16,10 +16,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import com.github.lgooddatepicker.components.*;
+import japedidos.produto.ProdutoPedidoTableModel;
 import japedidos.usuario.Usuario;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.event.TableModelEvent;
 
 /**
  *
@@ -72,17 +74,24 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             preencherHistoricoPedidos();
             pnl_alterarPedido = null;
         };
+        
+        jTable_ProdutoPedido.getModel().addTableModelListener((e) -> {
+            ProdutoPedidoTableModel model = (ProdutoPedidoTableModel)e.getSource();
+            if (e.getColumn() == ProdutoPedidoTableModel.COL_QUANTIDADE && e.getType() == TableModelEvent.UPDATE) {
+                atualizarValoresPedido();
+            }
+        });
     }
     public void fillEstadosComboBoxPedido() {
         jcmb_estadoInicial.addItem(Estado.ABERTO);
         jcmb_estadoInicial.addItem(Estado.AGUARDANDO_PAGAMENTO);
         jcmb_estadoInicial.addItem(Estado.PAGO);
         jcmb_estadoInicial.addItem(Estado.EM_PREPARO);
-        jcmb_estadoInicial.addItem(Estado.AGUARDANDO_ENVIO);
-        jcmb_estadoInicial.addItem(Estado.AGUARDANDO_RETIRADA);
-        jcmb_estadoInicial.addItem(Estado.SAIU_PARA_ENTREGA);
-        jcmb_estadoInicial.addItem(Estado.CONCLUIDO);
-        jcmb_estadoInicial.addItem(Estado.CANCELADO);
+//        jcmb_estadoInicial.addItem(Estado.AGUARDANDO_ENVIO);
+//        jcmb_estadoInicial.addItem(Estado.AGUARDANDO_RETIRADA);
+//        jcmb_estadoInicial.addItem(Estado.SAIU_PARA_ENTREGA);
+//        jcmb_estadoInicial.addItem(Estado.CONCLUIDO);
+//        jcmb_estadoInicial.addItem(Estado.CANCELADO);
     }
     
     public void fillTipoEntregaComboBoxPedido() {
@@ -432,7 +441,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jspn_desconto = new javax.swing.JSpinner(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
         jspn_valorEntrega = new javax.swing.JSpinner(new javax.swing.SpinnerNumberModel(0.0, 0.0, 100000.0, 0.01));
         jcmb_uf = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
         jpnl_historicoPedidos = new javax.swing.JPanel();
         jtxtf_pesquisarHistoricoPedido = new javax.swing.JTextField();
         jlbl_filtroHistoricoPedido = new javax.swing.JLabel();
@@ -449,6 +457,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jpnl_background1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("JaPedidos - Gerenciar Pedidos");
         setMaximumSize(new java.awt.Dimension(1024, 576));
         setMinimumSize(new java.awt.Dimension(1024, 576));
         setResizable(false);
@@ -536,8 +545,12 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jpnl_incluirPedido.add(jTable_ProdutoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 730, 110));
 
         jtxta_observacoes.setColumns(20);
-        jtxta_observacoes.setRows(5);
+        jtxta_observacoes.setFont(jtxta_observacoes.getFont().deriveFont((float)12));
+        jtxta_observacoes.setLineWrap(true);
+        jtxta_observacoes.setRows(4);
+        jtxta_observacoes.setTabSize(4);
         jtxta_observacoes.setText("Dados destinatário, ponto de referência...");
+        jtxta_observacoes.setWrapStyleWord(true);
         jscp_destinatario.setViewportView(jtxta_observacoes);
 
         jpnl_incluirPedido.add(jscp_destinatario, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 320, 100));
@@ -630,18 +643,20 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         javax.swing.JButton datePickerButton = datePicker1.getComponentToggleCalendarButton();
         datePickerButton.setPreferredSize(new java.awt.Dimension(22, 22));
         datePickerButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        datePickerButton.setBorder(null);
-        datePickerButton.setText("");
-
-        javax.swing.ImageIcon dateExampleIcon = new javax.swing.ImageIcon(getClass().getResource("/datepickerbutton1.png"));
-        java.awt.Dimension newDateButtonSize = new java.awt.Dimension(dateExampleIcon.getIconWidth() + 4, dateExampleIcon.getIconHeight() + 4);
-        datePickerButton.setIcon(dateExampleIcon);
-        datePickerButton.setPreferredSize(newDateButtonSize);
         datePickerButton.setOpaque(false);
+        datePickerButton.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        datePickerButton.setBackground(new java.awt.Color(0, 0, 0, 0));
+        datePickerButton.setText("");
+        javax.swing.ImageIcon dateExampleIcon = new javax.swing.ImageIcon(getClass().getResource("/datepickerbutton1.png"));
+        datePickerButton.setIcon(dateExampleIcon);
+        java.awt.Dimension newDateButtonSize = new java.awt.Dimension(dateExampleIcon.getIconWidth() + 4, dateExampleIcon.getIconHeight() + 4);
+        datePickerButton.setPreferredSize(newDateButtonSize);
+
         datePickerButton.setContentAreaFilled(false);
         datePickerButton.setBorderPainted(false);
         datePickerButton.setFocusPainted(false);
-        jpnl_incluirPedido.add(datePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, 110, 30));
+        datePicker1.setBackground(new java.awt.Color(0,0,0,0));
+        jpnl_incluirPedido.add(datePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, 120, 30));
 
         timePicker1.getComponentTimeTextField().setPreferredSize(new java.awt.Dimension(40, 20));
         javax.swing.JButton timePickerButton = timePicker1.getComponentToggleTimeMenuButton();
@@ -878,9 +893,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jcmb_uf.setSelectedIndex(7);
         jpnl_incluirPedido.add(jcmb_uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 170, 80, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/datepickerbutton1.png"))); // NOI18N
-        jpnl_incluirPedido.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, -1, 30));
-
         jTabbedPane1.addTab("Incluir pedido", jpnl_incluirPedido);
 
         jpnl_historicoPedidos.setOpaque(false);
@@ -951,10 +963,10 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_clientes.setText("CLIENTES");
         jpnl_sideMenu.add(jlbl_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
 
+        jlbl_produtos.setText("PRODUTOS");
         jlbl_produtos.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_produtos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jlbl_produtos.setForeground(new java.awt.Color(204, 204, 204));
-        jlbl_produtos.setText("PRODUTOS");
         jlbl_produtos.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jlbl_produtosFocusGained(evt);
@@ -1054,6 +1066,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             frame = new JFrame_InfoAdicionalCliente(this, this.infoAdicionalCliente);
         }
         frame.setVisible(true);
+        frame.setResizable(false);
     }//GEN-LAST:event_jlbl_infoAdicionalClienteMouseClicked
 
     private void jbtn_criarPedido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_criarPedido1ActionPerformed
@@ -1149,6 +1162,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                 int x = this.getX() + this.getWidth() / 2 - frame.getWidth() / 2;
                 int y = this.getY() + this.getHeight()/ 2 - frame.getHeight() / 2;
                 frame.setLocation(x, y);
+                frame.setResizable(false);
                 frame.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Não é possível alterar o estado de um pedido cancelado ou concluído.", "Atualizar pedido", JOptionPane.INFORMATION_MESSAGE);
@@ -1278,7 +1292,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private japedidos.pedidos.JTable_Pedido_Resumido jTable_Pedido_Resumido1;

@@ -510,7 +510,6 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         jspn_desconto = new javax.swing.JSpinner(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
         jspn_valorEntrega = new javax.swing.JSpinner(new javax.swing.SpinnerNumberModel(0.0, 0.0, 100000.0, 0.01));
         jcmb_uf = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
         jbtn_voltar = new javax.swing.JButton();
 
         setOpaque(false);
@@ -528,8 +527,12 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         jpnl_incluirPedido.add(jTable_ProdutoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 730, 110));
 
         jtxta_observacoes.setColumns(20);
-        jtxta_observacoes.setRows(5);
+        jtxta_observacoes.setFont(jtxta_observacoes.getFont().deriveFont((float)12));
+        jtxta_observacoes.setLineWrap(true);
+        jtxta_observacoes.setRows(4);
+        jtxta_observacoes.setTabSize(4);
         jtxta_observacoes.setText("Dados destinatário, ponto de referência...");
+        jtxta_observacoes.setWrapStyleWord(true);
         jscp_destinatario.setViewportView(jtxta_observacoes);
 
         jpnl_incluirPedido.add(jscp_destinatario, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 320, 100));
@@ -634,6 +637,7 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         datePickerButton.setContentAreaFilled(false);
         datePickerButton.setBorderPainted(false);
         datePickerButton.setFocusPainted(false);
+        datePicker1.setBackground(new java.awt.Color(0,0,0,0));
         jpnl_incluirPedido.add(datePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, 110, 30));
 
         timePicker1.getComponentTimeTextField().setPreferredSize(new java.awt.Dimension(40, 20));
@@ -871,9 +875,6 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         jcmb_uf.setSelectedIndex(7);
         jpnl_incluirPedido.add(jcmb_uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 170, 80, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/datepickerbutton1.png"))); // NOI18N
-        jpnl_incluirPedido.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, -1, 30));
-
         jbtn_voltar.setText("Voltar");
         jbtn_voltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -956,6 +957,7 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
             frame = new JFrame_InfoAdicionalCliente(this, this.infoAdicionalCliente);
         }
         frame.setVisible(true);
+        frame.setResizable(false);
     }//GEN-LAST:event_jlbl_infoAdicionalClienteMouseClicked
 
     private void jspn_quantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jspn_quantidadeKeyPressed
@@ -1055,7 +1057,6 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.github.lgooddatepicker.components.DatePicker datePicker1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private japedidos.produto.JTable_ProdutoPedido jTable_ProdutoPedido;
     private javax.swing.JButton jbtn_alterarPedido;

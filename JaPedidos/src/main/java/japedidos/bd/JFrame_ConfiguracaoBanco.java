@@ -4,17 +4,21 @@
  */
 package japedidos.bd;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author t.baiense
  */
 public class JFrame_ConfiguracaoBanco extends javax.swing.JFrame {
 
+    private JFrame opener;
     /**
      * Creates new form JFrame_ConfiguracaoBanco
      */
-    public JFrame_ConfiguracaoBanco() {
+    public JFrame_ConfiguracaoBanco(JFrame opener) {
         initComponents();
+        this.opener = opener;
     }
 
     /**
@@ -34,30 +38,34 @@ public class JFrame_ConfiguracaoBanco extends javax.swing.JFrame {
         jlbl_btn_cancelar = new javax.swing.JLabel();
         jlbl_background = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("JaPedidos - Configurações de conexão");
 
         jPanel1.setMaximumSize(new java.awt.Dimension(640, 480));
         jPanel1.setMinimumSize(new java.awt.Dimension(640, 480));
         jPanel1.setPreferredSize(new java.awt.Dimension(640, 480));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jtxtf_login.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        jtxtf_login.setFont(jtxtf_login.getFont().deriveFont((float)18));
         jtxtf_login.setForeground(new java.awt.Color(57, 67, 40));
-        jtxtf_login.setBorder(null);
+        jtxtf_login.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         jtxtf_login.setOpaque(false);
-        jPanel1.add(jtxtf_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 190, 30));
+        jtxtf_login.setBackground(new java.awt.Color(0,0,0,0));
+        jPanel1.add(jtxtf_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 190, 50));
 
-        jtxtf_string_banco.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        jtxtf_string_banco.setFont(jtxtf_string_banco.getFont().deriveFont((float)18));
         jtxtf_string_banco.setForeground(new java.awt.Color(57, 67, 40));
-        jtxtf_string_banco.setBorder(null);
+        jtxtf_string_banco.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         jtxtf_string_banco.setOpaque(false);
-        jPanel1.add(jtxtf_string_banco, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 300, 30));
+        jtxtf_string_banco.setBackground(new java.awt.Color(0,0,0,0));
+        jPanel1.add(jtxtf_string_banco, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 270, 310, 50));
 
-        jpwdf_senha.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        jpwdf_senha.setFont(jpwdf_senha.getFont().deriveFont((float)18));
         jpwdf_senha.setForeground(new java.awt.Color(57, 67, 40));
-        jpwdf_senha.setBorder(null);
+        jpwdf_senha.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         jpwdf_senha.setOpaque(false);
-        jPanel1.add(jpwdf_senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 180, 40));
+        jpwdf_senha.setBackground(new java.awt.Color(0,0,0,0));
+        jPanel1.add(jpwdf_senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 210, 190, 60));
 
         jlbl_btn_prosseguir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_prosseguir.png"))); // NOI18N
         jlbl_btn_prosseguir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -93,10 +101,20 @@ public class JFrame_ConfiguracaoBanco extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jlbl_btn_cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_cancelarMouseClicked
+        this.setVisible(false);
+        int x = this.getX() + this.getWidth() / 2 - opener.getWidth() / 2;
+        int y = this.getY() + this.getHeight()/ 2 - opener.getHeight() / 2;
+        opener.setLocation(x, y);
+        opener.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jlbl_btn_cancelarMouseClicked
 
     private void jlbl_btn_prosseguirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_prosseguirMouseClicked
+        this.setVisible(false);
+        int x = this.getX() + this.getWidth() / 2 - opener.getWidth() / 2;
+        int y = this.getY() + this.getHeight()/ 2 - opener.getHeight() / 2;
+        opener.setLocation(x, y);
+        opener.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jlbl_btn_prosseguirMouseClicked
 
@@ -130,7 +148,7 @@ public class JFrame_ConfiguracaoBanco extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFrame_ConfiguracaoBanco().setVisible(true);
+                new JFrame_ConfiguracaoBanco(new JFrame()).setVisible(true);
             }
         });
     }

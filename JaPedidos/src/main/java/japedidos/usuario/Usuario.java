@@ -112,7 +112,7 @@ public class Usuario {
      */
     public static void setAtual(Usuario usuario) {
         if(Usuario.atual != null) {
-            throw new IllegalStateException("não é possível carregar outro usuário com um já carregado.");
+//            throw new IllegalStateException("não é possível carregar outro usuário com um já carregado.");
         }
         if(usuario == null) {
             throw new NullPointerException("Não é possivel carregar um usuário nulo.");

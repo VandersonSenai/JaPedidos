@@ -4,6 +4,9 @@
  */
 package japedidos.usuario;
 
+import japedidos.bd.BD;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author v.gomes
@@ -37,8 +40,10 @@ public class JFrame_LoginUsuario extends javax.swing.JFrame {
         jlbl_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("JaPedidos - Login");
         setMaximumSize(new java.awt.Dimension(640, 480));
         setMinimumSize(new java.awt.Dimension(640, 480));
+        setResizable(false);
         setSize(new java.awt.Dimension(640, 480));
 
         jPanel1.setMaximumSize(new java.awt.Dimension(640, 480));
@@ -49,13 +54,12 @@ public class JFrame_LoginUsuario extends javax.swing.JFrame {
         jlbl_barra_sup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Barra superior.png"))); // NOI18N
         jPanel1.add(jlbl_barra_sup, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 50));
 
-        jtxtf_login.setBackground(new java.awt.Color(51, 51, 55));
-        jtxtf_login.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jtxtf_login.setFont(jtxtf_login.getFont().deriveFont((float)18));
         jtxtf_login.setForeground(new java.awt.Color(0, 74, 173));
-        jtxtf_login.setText("Nome do usuário");
-        jtxtf_login.setBorder(null);
-        jtxtf_login.setMargin(new java.awt.Insets(10, 10, 10, 18));
+        jtxtf_login.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         jtxtf_login.setOpaque(false);
+        jtxtf_login.setBackground(new java.awt.Color(0,0,0,0));
+        jtxtf_login.setMargin(new java.awt.Insets(10, 10, 10, 18));
         jtxtf_login.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         jtxtf_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,13 +68,14 @@ public class JFrame_LoginUsuario extends javax.swing.JFrame {
         });
         jPanel1.add(jtxtf_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 240, 40));
 
+        jpwf_senha.setFont(jpwf_senha.getFont().deriveFont((float)18));
         jpwf_senha.setForeground(new java.awt.Color(0, 74, 173));
-        jpwf_senha.setText("Senha do Usuário");
-        jpwf_senha.setBorder(null);
+        jpwf_senha.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        jpwf_senha.setOpaque(false);
+        jpwf_senha.setBackground(new java.awt.Color(0,0,0,0));
         jpwf_senha.setMargin(new java.awt.Insets(10, 10, 10, 10));
         jpwf_senha.setMaximumSize(new java.awt.Dimension(260, 40));
         jpwf_senha.setMinimumSize(new java.awt.Dimension(260, 40));
-        jpwf_senha.setOpaque(false);
         jpwf_senha.setPreferredSize(new java.awt.Dimension(260, 40));
         jPanel1.add(jpwf_senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, 240, 40));
 
@@ -89,6 +94,11 @@ public class JFrame_LoginUsuario extends javax.swing.JFrame {
         jPanel1.add(jlbl_txt_flogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, -1, -1));
 
         jlbl_btn_entrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bnt_entrar.png"))); // NOI18N
+        jlbl_btn_entrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlbl_btn_entrarMouseClicked(evt);
+            }
+        });
         jPanel1.add(jlbl_btn_entrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, -1, -1));
 
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bg_login.png"))); // NOI18N
@@ -114,9 +124,34 @@ public class JFrame_LoginUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jtxtf_loginActionPerformed
 
     private void jlbl_btn_configMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_configMouseClicked
-        japedidos.bd.JFrame_ConfiguracaoBanco frame = new japedidos.bd.JFrame_ConfiguracaoBanco();
+        this.setVisible(false);
+        japedidos.bd.JFrame_ConfiguracaoBanco frame = new japedidos.bd.JFrame_ConfiguracaoBanco(this);
+        int x = this.getX() + this.getWidth() / 2 - frame.getWidth() / 2;
+        int y = this.getY() + this.getHeight()/ 2 - frame.getHeight() / 2;
+        frame.setLocation(x, y);
         frame.setVisible(true);
     }//GEN-LAST:event_jlbl_btn_configMouseClicked
+
+    private void jlbl_btn_entrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_entrarMouseClicked
+        // TODO add your handling code here:
+        String login, senha;
+        login = jtxtf_login.getText();
+        senha = jpwf_senha.getText();
+        if (!login.isBlank() && !senha.isBlank()) {
+            japedidos.usuario.Usuario atual = BD.Usuario.login(login, senha);
+            if (atual == null) {
+                JOptionPane.showMessageDialog(null, "Usuário ou senha incorreto.");
+            } else {
+                this.setVisible(false);
+                Usuario.setAtual(atual);
+                japedidos.pedidos.JFrame_GerenciamentoPedidos frame = new japedidos.pedidos.JFrame_GerenciamentoPedidos();
+                frame.setVisible(true);
+                this.dispose();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos antes de logar.");
+        }
+    }//GEN-LAST:event_jlbl_btn_entrarMouseClicked
 
     /**
      * @param args the command line arguments
