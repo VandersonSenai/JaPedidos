@@ -531,7 +531,6 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         jtxta_observacoes.setLineWrap(true);
         jtxta_observacoes.setRows(4);
         jtxta_observacoes.setTabSize(4);
-        jtxta_observacoes.setText("Dados destinatário, ponto de referência...");
         jtxta_observacoes.setWrapStyleWord(true);
         jscp_destinatario.setViewportView(jtxta_observacoes);
 
@@ -956,6 +955,10 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         } else {
             frame = new JFrame_InfoAdicionalCliente(this, this.infoAdicionalCliente);
         }
+        JFrame frameAncestral = (JFrame)this.getTopLevelAncestor();
+        int x = frameAncestral.getX() + frameAncestral.getWidth() / 2 - frame.getWidth() / 2;
+        int y = frameAncestral.getY() + frameAncestral.getHeight()/ 2 - frame.getHeight() / 2;
+        frame.setLocation(x, y);
         frame.setVisible(true);
         frame.setResizable(false);
     }//GEN-LAST:event_jlbl_infoAdicionalClienteMouseClicked

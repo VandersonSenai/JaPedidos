@@ -1,12 +1,5 @@
 package japedidos;
 
-import japedidos.bd.BD;
-import japedidos.produto.*;
-import japedidos.clientes.*;
-import japedidos.usuario.Registro;
-import japedidos.usuario.Usuario;
-import javax.swing.JOptionPane;
-import java.util.Arrays;
 import javax.swing.UIManager;
 
 public class JaPedidos {

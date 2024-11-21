@@ -1,5 +1,6 @@
 package japedidos.produto;
 
+import japedidos.AccessController;
 import japedidos.bd.BD;
 import javax.swing.JOptionPane;
 
@@ -11,6 +12,7 @@ public class JFrame_Unidade extends javax.swing.JFrame {
 
 
     public JFrame_Unidade() {
+        AccessController.verificarLogin();
         initComponents();
         jtbl_unidade.getJTable().getSelectionModel().addListSelectionListener((e) -> {
             int selRow = jtbl_unidade.getJTable().getSelectedRow();

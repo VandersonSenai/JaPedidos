@@ -4,6 +4,8 @@
  */
 package japedidos.pedidos;
 
+import japedidos.AccessController;
+
 /**
  *
  * @author v.gomes
@@ -14,6 +16,7 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
      * Creates new form JFrame_IntecorrenciaPedido
      */
     public JFrame_IntecorrenciaPedido() {
+        AccessController.verificarLogin();
         initComponents();
     }
 
@@ -61,7 +64,6 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
 
         jlbl_tipoIntecorrencia.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_tipoIntecorrencia.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbl_tipoIntecorrencia.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_tipoIntecorrencia.setText("TIPO DE INTERCORRÊNCIA:");
         jpnl_incluirPedido.add(jlbl_tipoIntecorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 250, 20));
 
@@ -70,13 +72,11 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
 
         jlbl_detalheIntecorrencia.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_detalheIntecorrencia.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbl_detalheIntecorrencia.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_detalheIntecorrencia.setText("DETALHES:");
         jpnl_incluirPedido.add(jlbl_detalheIntecorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, -1, -1));
 
         jlbl_codigoPedido.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_codigoPedido.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbl_codigoPedido.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_codigoPedido.setText("CÓD. PEDIDO:");
         jpnl_incluirPedido.add(jlbl_codigoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, -1, -1));
 
@@ -90,13 +90,11 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
 
         jlbl_dataIntercorrencia.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_dataIntercorrencia.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbl_dataIntercorrencia.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_dataIntercorrencia.setText("DATA:");
         jpnl_incluirPedido.add(jlbl_dataIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 60, -1));
 
         jlbl_horaIntercorrencia.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_horaIntercorrencia.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbl_horaIntercorrencia.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_horaIntercorrencia.setText("HORA:");
         jpnl_incluirPedido.add(jlbl_horaIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 60, -1));
 
@@ -121,8 +119,8 @@ public class JFrame_IntecorrenciaPedido extends javax.swing.JFrame {
         jpnl_sideMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jpnl_sideMenu.setMaximumSize(new java.awt.Dimension(250, 576));
         jpnl_sideMenu.setMinimumSize(new java.awt.Dimension(250, 576));
-        jpnl_sideMenu.setOpaque(false);
         jpnl_sideMenu.setPreferredSize(new java.awt.Dimension(250, 576));
+        jpnl_sideMenu.setOpaque(false);
         jpnl_sideMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlbl_clientes.setBackground(new java.awt.Color(0, 0, 0));

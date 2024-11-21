@@ -1,4 +1,3 @@
-DROP DATABASE `titanw25_japedidos_hml`;
 CREATE DATABASE `titanw25_japedidos_hml`;
 USE `titanw25_japedidos_hml`;
 

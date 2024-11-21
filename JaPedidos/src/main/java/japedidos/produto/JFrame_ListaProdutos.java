@@ -1,5 +1,6 @@
 package japedidos.produto;
 
+import japedidos.AccessController;
 import japedidos.produto.load_DB2_components;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -38,6 +39,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     private static final db_config db = new db_config();
 
     public JFrame_ListaProdutos() {
+        AccessController.verificarLogin();
         initComponents();
     }
 
@@ -589,7 +591,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jlbl_pedidos.setForeground(new Color(128,128,128));
         jlbl_produtos.setForeground(new Color(128,128,128));
         jlbl_relatorios.setForeground(new Color(128,128,128));
-        
+        this.setVisible(false);
+        japedidos.clientes.JFrame_Cliente frame = new japedidos.clientes.JFrame_Cliente();
+        int x = this.getX() + this.getWidth() / 2 - frame.getWidth() / 2;
+        int y = this.getY() + this.getHeight()/ 2 - frame.getHeight() / 2;
+        frame.setLocation(x, y);
+        frame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jlbl_clientesMouseClicked
 
     private void jlbl_produtosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_produtosMouseClicked
@@ -605,7 +613,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtb_linhaBranca.setLocation(46, 290+30);
         jtb_linhaBranca.setSize(jlbl_pedidos.getWidth(), 4 );
         jlbl_pedidos.setForeground(new Color(255,255,255));
-        
+        this.setVisible(false);
+        japedidos.pedidos.JFrame_GerenciamentoPedidos frame = new japedidos.pedidos.JFrame_GerenciamentoPedidos();
+        int x = this.getX() + this.getWidth() / 2 - frame.getWidth() / 2;
+        int y = this.getY() + this.getHeight()/ 2 - frame.getHeight() / 2;
+        frame.setLocation(x, y);
+        frame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jlbl_pedidosMouseClicked
 
     private void jlbl_relatoriosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_relatoriosMouseClicked
@@ -754,13 +768,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 //        NumberFormat decimal = new DecimalFormat("#,##0.00");
 //        PreparedStatement stm_lista_produtos_view = null;
 
-//        db.setDB_Url("jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml");
-//        db.setDB_User("titanw25_japedidos_hml");
-//        db.setDB_Pwd("seNai@2024proj");
+        db.setDB_Url("jdbc:mysql://162.241.203.86:3306/titanw25_japedidos_hml");
+        db.setDB_User("titanw25_japedidos_hml");
+        db.setDB_Pwd("seNai@2024proj");
 
-        db.setDB_Url("jdbc:mysql://localhost:3306/titanw25_japedidos_hml");
-        db.setDB_User("root");
-        db.setDB_Pwd("");
+//        db.setDB_Url("jdbc:mysql://localhost:3306/titanw25_japedidos_hml");
+//        db.setDB_User("root");
+//        db.setDB_Pwd("");
 
        try (Connection banco = DriverManager.getConnection(db.getDB_Url(), db.getDB_User(), db.getDB_Pwd())) {
 

@@ -138,6 +138,10 @@ public class Usuario {
         return this.senha;
     }
     
+    public static boolean logado() {
+        return Usuario.getAtual() != null;
+    }
+    
     public static Usuario getAtual() {
         return Usuario.atual;
     }

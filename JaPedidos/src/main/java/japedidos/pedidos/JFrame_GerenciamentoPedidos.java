@@ -16,8 +16,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import com.github.lgooddatepicker.components.*;
+import japedidos.AccessController;
 import japedidos.produto.ProdutoPedidoTableModel;
 import japedidos.usuario.Usuario;
+import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -36,6 +38,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
      * Creates new form CadastroPedido
      */
     public JFrame_GerenciamentoPedidos() {
+        AccessController.verificarLogin();
         initComponents();
         
         fillEstadosComboBoxPedido();
@@ -449,6 +452,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jComboBox1 = new javax.swing.JComboBox<>();
         jbtn_visualizarPedido = new javax.swing.JButton();
         jpnl_sideMenu = new javax.swing.JPanel();
+        jToolBar1 = new javax.swing.JToolBar();
         jlbl_clientes = new javax.swing.JLabel();
         jlbl_produtos = new javax.swing.JLabel();
         jlbl_pedidos = new javax.swing.JLabel();
@@ -495,7 +499,16 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         javax.swing.SwingUtilities.invokeLater(() -> {});
 
         jtxtf_pesquisarPedidos.setText("PESQUISAR..");
+        jtxtf_pesquisarPedidos.setForeground(new java.awt.Color(102, 102, 102));
         jtxtf_pesquisarPedidos.setPreferredSize(new java.awt.Dimension(96, 22));
+        jtxtf_pesquisarPedidos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtxtf_pesquisarPedidosFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtf_pesquisarPedidosFocusLost(evt);
+            }
+        });
         jtxtf_pesquisarPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtf_pesquisarPedidosActionPerformed(evt);
@@ -549,7 +562,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jtxta_observacoes.setLineWrap(true);
         jtxta_observacoes.setRows(4);
         jtxta_observacoes.setTabSize(4);
-        jtxta_observacoes.setText("Dados destinatário, ponto de referência...");
         jtxta_observacoes.setWrapStyleWord(true);
         jscp_destinatario.setViewportView(jtxta_observacoes);
 
@@ -706,6 +718,9 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_infoAdicionalCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jlbl_infoAdicionalClienteMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jlbl_infoAdicionalClienteMouseEntered(evt);
             }
         });
         jpnl_incluirPedido.add(jlbl_infoAdicionalCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 430, -1, -1));
@@ -958,45 +973,78 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jpnl_sideMenu.setOpaque(false);
         jpnl_sideMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jToolBar1.setRollover(true);
+        jpnl_sideMenu.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 80, -1));
+
+        jlbl_clientes.setText("CLIENTES");
         jlbl_clientes.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_clientes.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_clientes.setText("CLIENTES");
+        jlbl_clientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlbl_clientesMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jlbl_clientesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jlbl_clientesMouseExited(evt);
+            }
+        });
         jpnl_sideMenu.add(jlbl_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
 
         jlbl_produtos.setText("PRODUTOS");
         jlbl_produtos.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_produtos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_produtos.setForeground(new java.awt.Color(204, 204, 204));
         jlbl_produtos.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jlbl_produtosFocusGained(evt);
             }
         });
+        jlbl_produtos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlbl_produtosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jlbl_produtosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jlbl_produtosMouseExited(evt);
+            }
+        });
         jpnl_sideMenu.add(jlbl_produtos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
 
+        jlbl_pedidos.setText("PEDIDOS");
         jlbl_pedidos.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_pedidos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_pedidos.setText("PEDIDOS");
+        jlbl_pedidos.setForeground(new java.awt.Color(255, 255, 255));
         jpnl_sideMenu.add(jlbl_pedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
 
+        jlbl_relatorios.setText("RELATÓRIOS");
         jlbl_relatorios.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_relatorios.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_relatorios.setText("RELATÓRIOS");
+        jlbl_relatorios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jlbl_relatoriosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jlbl_relatoriosMouseExited(evt);
+            }
+        });
         jpnl_sideMenu.add(jlbl_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, -1));
 
         jpnl_img_etiqueta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/painel_comandos_esquerda_05x.png"))); // NOI18N
         jpnl_img_etiqueta.setText("jLabel2");
         jpnl_img_etiqueta.setMaximumSize(new java.awt.Dimension(250, 576));
         jpnl_img_etiqueta.setMinimumSize(new java.awt.Dimension(250, 576));
-        jpnl_sideMenu.add(jpnl_img_etiqueta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 250, -1));
+        jpnl_sideMenu.add(jpnl_img_etiqueta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 250, -1));
 
         jpnl_principal.add(jpnl_sideMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 576));
 
         jpnl_background1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jpnl_background1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_pedidos.png"))); // NOI18N
-        jpnl_background1.setToolTipText("");
         jpnl_background1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jpnl_background1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jpnl_background1.setToolTipText("");
         jpnl_principal.add(jpnl_background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1065,6 +1113,9 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         } else {
             frame = new JFrame_InfoAdicionalCliente(this, this.infoAdicionalCliente);
         }
+        int x = this.getX() + this.getWidth() / 2 - frame.getWidth() / 2;
+        int y = this.getY() + this.getHeight()/ 2 - frame.getHeight() / 2;
+        frame.setLocation(x, y);
         frame.setVisible(true);
         frame.setResizable(false);
     }//GEN-LAST:event_jlbl_infoAdicionalClienteMouseClicked
@@ -1242,6 +1293,76 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jtxtf_pesquisarPedidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtf_pesquisarPedidosFocusGained
+        // TODO add your handling code here:
+        this.jtxtf_pesquisarPedidos.setForeground(java.awt.Color.BLACK);
+        this.jtxtf_pesquisarPedidos.setText("");
+    }//GEN-LAST:event_jtxtf_pesquisarPedidosFocusGained
+
+    private void jtxtf_pesquisarPedidosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtf_pesquisarPedidosFocusLost
+        // TODO add your handling code here:
+        this.jtxtf_pesquisarPedidos.setForeground(new java.awt.Color(102,102,102));
+        this.jtxtf_pesquisarPedidos.setText("PESQUISAR..");
+    }//GEN-LAST:event_jtxtf_pesquisarPedidosFocusLost
+
+    private void jlbl_produtosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_produtosMouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        japedidos.produto.JFrame_ListaProdutos frame = new japedidos.produto.JFrame_ListaProdutos();
+        int x = this.getX() + this.getWidth() / 2 - frame.getWidth() / 2;
+        int y = this.getY() + this.getHeight()/ 2 - frame.getHeight() / 2;
+        frame.setLocation(x, y);
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jlbl_produtosMouseClicked
+
+    private void jlbl_clientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_clientesMouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        japedidos.clientes.JFrame_Cliente frame = new japedidos.clientes.JFrame_Cliente();
+        int x = this.getX() + this.getWidth() / 2 - frame.getWidth() / 2;
+        int y = this.getY() + this.getHeight()/ 2 - frame.getHeight() / 2;
+        frame.setLocation(x, y);
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jlbl_clientesMouseClicked
+
+    private void jlbl_produtosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_produtosMouseEntered
+        // TODO add your handling code here:
+        jlbl_produtos.setForeground(new Color(187,187,187));
+    }//GEN-LAST:event_jlbl_produtosMouseEntered
+
+    private void jlbl_produtosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_produtosMouseExited
+        // TODO add your handling code here:
+        jlbl_produtos.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jlbl_produtosMouseExited
+
+    private void jlbl_clientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_clientesMouseEntered
+        // TODO add your handling code here:
+        jlbl_clientes.setForeground(new Color(187,187,187));
+        
+    }//GEN-LAST:event_jlbl_clientesMouseEntered
+
+    private void jlbl_clientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_clientesMouseExited
+        // TODO add your handling code here:
+        jlbl_clientes.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jlbl_clientesMouseExited
+
+    private void jlbl_relatoriosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_relatoriosMouseEntered
+        // TODO add your handling code here:
+        jlbl_relatorios.setForeground(new Color(187,187,187));
+        
+    }//GEN-LAST:event_jlbl_relatoriosMouseEntered
+
+    private void jlbl_relatoriosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_relatoriosMouseExited
+        // TODO add your handling code here:
+        jlbl_relatorios.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jlbl_relatoriosMouseExited
+
+    private void jlbl_infoAdicionalClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_infoAdicionalClienteMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jlbl_infoAdicionalClienteMouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -1296,6 +1417,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private javax.swing.JTabbedPane jTabbedPane1;
     private japedidos.pedidos.JTable_Pedido_Resumido jTable_Pedido_Resumido1;
     private japedidos.produto.JTable_ProdutoPedido jTable_ProdutoPedido;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JButton jbtn_criarPedido1;
     private javax.swing.JButton jbtn_excluirProduto;
     private javax.swing.JButton jbtn_incluirProduto;

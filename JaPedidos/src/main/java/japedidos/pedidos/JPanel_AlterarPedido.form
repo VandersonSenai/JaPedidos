@@ -86,7 +86,6 @@
                 <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="rows" type="int" value="4"/>
                 <Property name="tabSize" type="int" value="4"/>
-                <Property name="text" type="java.lang.String" value="Dados destinat&#xe1;rio, ponto de refer&#xea;ncia..."/>
                 <Property name="wrapStyleWord" type="boolean" value="true"/>
               </Properties>
             </Component>

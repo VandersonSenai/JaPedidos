@@ -4,6 +4,7 @@
  */
 package japedidos.usuario;
 
+import japedidos.AccessController;
 import japedidos.bd.BD;
 import javax.swing.JOptionPane;
 

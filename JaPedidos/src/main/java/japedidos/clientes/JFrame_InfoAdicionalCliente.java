@@ -1,4 +1,5 @@
 package japedidos.clientes;
+import japedidos.AccessController;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import japedidos.clientes.Cliente;
@@ -44,6 +45,7 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
     
     
     public JFrame_InfoAdicionalCliente(InfoAdicionalReceiver inicializador) {
+        AccessController.verificarLogin();
         initComponents();
         this.inicializador = inicializador;
         jcmb_tipoCliente.addItemListener(new ItemListener() {

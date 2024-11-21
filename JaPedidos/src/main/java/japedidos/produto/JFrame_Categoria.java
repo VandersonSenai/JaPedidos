@@ -4,6 +4,7 @@
  */
 package japedidos.produto;
 
+import japedidos.AccessController;
 import japedidos.bd.BD;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
@@ -19,6 +20,7 @@ public class JFrame_Categoria extends javax.swing.JFrame {
      * Creates new form JFrame_Categoria
      */
     public JFrame_Categoria() {
+        AccessController.verificarLogin();
         initComponents();
         this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         jtbl_categoria.getModel().fillRows(BD.Categoria.selectAll());
@@ -124,14 +126,25 @@ public class JFrame_Categoria extends javax.swing.JFrame {
 
         jlbl_clientes1.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jlbl_clientes1.setText("CLIENTES");
+        jlbl_clientes1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlbl_clientes1MouseClicked(evt);
+            }
+        });
         jpn_sideMenu.add(jlbl_clientes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 90, -1));
 
         jlbl_clientes2.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        jlbl_clientes2.setForeground(new java.awt.Color(204, 204, 204));
         jlbl_clientes2.setText("PRODUTOS");
         jpn_sideMenu.add(jlbl_clientes2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 120, -1));
 
         jlbl_clientes3.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jlbl_clientes3.setText("PEDIDOS");
+        jlbl_clientes3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlbl_clientes3MouseClicked(evt);
+            }
+        });
         jpn_sideMenu.add(jlbl_clientes3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 100, -1));
 
         jlbl_etiqueta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/painel_comandos_esquerda_05x.png"))); // NOI18N
@@ -240,6 +253,28 @@ public class JFrame_Categoria extends javax.swing.JFrame {
         
         this.clearFieldsInfo();
     }//GEN-LAST:event_jlbl_btn_excluirMouseClicked
+
+    private void jlbl_clientes1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_clientes1MouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        japedidos.clientes.JFrame_Cliente frame = new japedidos.clientes.JFrame_Cliente();
+        int x = this.getX() + this.getWidth() / 2 - frame.getWidth() / 2;
+        int y = this.getY() + this.getHeight()/ 2 - frame.getHeight() / 2;
+        frame.setLocation(x, y);
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jlbl_clientes1MouseClicked
+
+    private void jlbl_clientes3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_clientes3MouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        japedidos.pedidos.JFrame_GerenciamentoPedidos frame = new japedidos.pedidos.JFrame_GerenciamentoPedidos();
+        int x = this.getX() + this.getWidth() / 2 - frame.getWidth() / 2;
+        int y = this.getY() + this.getHeight()/ 2 - frame.getHeight() / 2;
+        frame.setLocation(x, y);
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jlbl_clientes3MouseClicked
 
     public int getSelectedRow() {
         return jtbl_categoria.getJTable().getSelectedRow();
