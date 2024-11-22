@@ -38,10 +38,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     /**
      * Creates new form CadastroPedido
      */
-    public void triggerIncluirMouseClicked() {
-        jlbl_btn_incluirMouseClicked(new MouseEvent(jlbl_btn_incluir, MouseEvent.MOUSE_CLICKED, 
-            System.currentTimeMillis(), 0, 0, 0, 1, false));
-    }
     public JFrame_GerenciamentoPedidos() {
         if (BD.isAccessible()) {
             AccessController.verificarLogin();
@@ -70,7 +66,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                 if (ev.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
                     javax.swing.SwingUtilities.invokeLater(new Runnable() {
                         public void run() {
- //                            jbtn_incluirProduto.doClick();
+                            incluirProduto();
                         }
                     });
                 }
@@ -94,6 +90,31 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             }
         });
     }
+
+    public void incluirProduto() {
+        ProdutoPedido produtoAdicionar = null;
+        Produto produtoSelecionado;
+        
+        produtoSelecionado = (Produto)jcmb_produto.getSelectedItem();
+        try {
+            produtoAdicionar = new ProdutoPedido(produtoSelecionado, (int)jspn_quantidade.getValue());
+            jTable_ProdutoPedido.getModel().addRow(produtoAdicionar);
+            clearProdutoFieldsInfo();
+            hideProdutoErrorLabels();
+        } catch (IllegalArgumentsException exs) {
+            for (Throwable t : exs.getCauses()) {
+                if (t instanceof IllegalProdutoException) {
+                    jlbl_erro_produto.setText(t.getMessage());
+                    jlbl_erro_produto.setVisible(true);
+                } else if (t instanceof IllegalQuantidadeException) {
+                    jlbl_erro_quantidadeProduto.setText(t.getMessage());
+                    jlbl_erro_quantidadeProduto.setVisible(true);
+                }
+            }
+        }
+        atualizarValoresPedido();
+    }
+    
     public void fillEstadosComboBoxPedido() {
         jcmb_estadoInicial.addItem(Estado.ABERTO);
         jcmb_estadoInicial.addItem(Estado.AGUARDANDO_PAGAMENTO);
