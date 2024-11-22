@@ -38,6 +38,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
     
     // Declarando uma instancia do db_config para setar os parametros do banco
     private static final db_config db = new db_config();
+    
 
     public JFrame_ListaProdutos() {
         if (BD.isAccessible()) {
@@ -766,6 +767,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jtbl_lista_produtosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtbl_lista_produtosFocusGained
     }//GEN-LAST:event_jtbl_lista_produtosFocusGained
+
     private static HashMap<String, Integer> comboBox_categorias_Map = new HashMap<>();
     private static HashMap<String, Integer> comboBox_unidades_Map = new HashMap<>();   
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened

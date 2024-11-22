@@ -130,8 +130,8 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         if (jtbl_clientes.getColumnModel().getColumnCount() > 0) {
             jtbl_clientes.getColumnModel().getColumn(0).setResizable(false);
             jtbl_clientes.getColumnModel().getColumn(0).setPreferredWidth(30);
-            jtbl_clientes.getColumnModel().getColumn(1).setMinWidth(400);
-            jtbl_clientes.getColumnModel().getColumn(1).setPreferredWidth(400);
+            jtbl_clientes.getColumnModel().getColumn(1).setResizable(false);
+            jtbl_clientes.getColumnModel().getColumn(1).setPreferredWidth(352);
             jtbl_clientes.getColumnModel().getColumn(2).setResizable(false);
             jtbl_clientes.getColumnModel().getColumn(2).setPreferredWidth(100);
         }

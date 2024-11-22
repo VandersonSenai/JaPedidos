@@ -18,7 +18,7 @@ public class PedidoTableModel extends AbstractTableModel {
     public static final int COMPLETO = 1;
     public static final int RESUMIDO = 2;
     
-    public static final String[] COLUMNS = {"Cód.", "Cliente", "Telefone", "Data ent.", "Hora ent.", "Total", "Estado atual"};
+    public static final String[] COLUMNS = {"Código.", "Cliente", "Telefone", "Data ent.", "Hora ent.", "Total", "Estado atual"};
     
     private ArrayList<Pedido> data;
     
