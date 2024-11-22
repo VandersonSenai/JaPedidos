@@ -1,10 +1,10 @@
 package japedidos.pedidos;
 
-import japedidos.pedidos.PedidoTableModel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import static javax.management.Query.value;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -32,10 +33,43 @@ public class JTable_Pedido_Resumido extends JPanel {
 //        jcmb_estados.addItem(new EstadoPedido(Estado.ABERTO));
 //        jcmb_estados.addItem(new EstadoPedido(Estado.AGUARDANDO_PAGAMENTO));
 //        getTable().setDefaultEditor(EstadoPedido.class, new DefaultCellEditor(jcmb_estados));
-        table.setPreferredScrollableViewportSize(new Dimension(600, 300));
+
+        table.setPreferredScrollableViewportSize(new Dimension(794, 300));
         table.setFillsViewportHeight(true);
         table.getTableHeader().setReorderingAllowed(false);
         JScrollPane scrollPane = new JScrollPane(table);
+        TableColumn column;
+//        PedidoTableModel
+//        public static final String[] COLUMNS = {"Código.", "Cliente", "Telefone", "Data ent.", "Hora ent.", "Total", "Estado atual"};
+        column = table.getColumnModel().getColumn(0);
+            column.setMaxWidth(76);
+            column.setPreferredWidth(76);
+            column.setResizable(false);
+        column = table.getColumnModel().getColumn(1);
+            column.setMaxWidth(300);
+            column.setPreferredWidth(300);
+            column.setResizable(false);
+        column = table.getColumnModel().getColumn(2);
+            column.setMaxWidth(140);
+            column.setPreferredWidth(140);
+            column.setResizable(false);
+        column = table.getColumnModel().getColumn(3);
+            column.setMaxWidth(120);
+            column.setPreferredWidth(120);
+            column.setResizable(false);
+        column = table.getColumnModel().getColumn(4);
+            column.setMaxWidth(86);
+            column.setPreferredWidth(86);
+            column.setResizable(false);
+        column = table.getColumnModel().getColumn(5);
+            column.setMaxWidth(130);
+            column.setPreferredWidth(130);
+            column.setResizable(false);
+        column = table.getColumnModel().getColumn(6);
+            column.setMaxWidth(196);
+            column.setPreferredWidth(196);
+            column.setResizable(false);
+       
         this.add(scrollPane);
     }
     
@@ -74,6 +108,7 @@ public class JTable_Pedido_Resumido extends JPanel {
         frame.setContentPane(tabela);
         frame.pack();
         frame.setVisible(true);
+        
     }
     
     public static void main(String[] args) {
