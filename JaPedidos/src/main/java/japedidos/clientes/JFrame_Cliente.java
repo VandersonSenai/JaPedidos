@@ -46,8 +46,6 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         jLbl_pedido = new javax.swing.JLabel();
         jLbl_Cliente = new javax.swing.JLabel();
         jtb_linhaBranca = new javax.swing.JToolBar();
-        jLbl_Filtro = new javax.swing.JLabel();
-        jTxtFnomeFiltra = new javax.swing.JTextField();
         jLbl_LogoPaleta = new javax.swing.JLabel();
         jLbl_Imagem = new javax.swing.JLabel();
 
@@ -79,14 +77,25 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         jpnl_pesquisa.add(jLblLupa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 30, 40));
 
         jTxtFpesquisa.setOpaque(false);
+        jTxtFpesquisa.setFont(jTxtFpesquisa.getFont().deriveFont((float)16));
+        jTxtFpesquisa.setForeground(new java.awt.Color(153, 153, 153));
+        jTxtFpesquisa.setText("Digite uma informação para pesquisar...");
+        jTxtFpesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTxtFpesquisaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTxtFpesquisaFocusLost(evt);
+            }
+        });
         jTxtFpesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTxtFpesquisaActionPerformed(evt);
             }
         });
-        jpnl_pesquisa.add(jTxtFpesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 430, 40));
+        jpnl_pesquisa.add(jTxtFpesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 680, 40));
 
-        jpnl_principal.add(jpnl_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 470, 40));
+        jpnl_principal.add(jpnl_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 720, 40));
 
         jscp_clientes.setOpaque(true);
 
@@ -187,13 +196,6 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         jtb_linhaBranca.setBorderPainted(false);
         jpnl_principal.add(jtb_linhaBranca, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 224, 90, 4));
 
-        jLbl_Filtro.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLbl_Filtro.setText("FILTRO:");
-        jpnl_principal.add(jLbl_Filtro, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 70, 100, 40));
-
-        jTxtFnomeFiltra.setText("NOME ");
-        jpnl_principal.add(jTxtFnomeFiltra, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 70, 130, 40));
-
         jLbl_LogoPaleta.setBackground(new java.awt.Color(0, 102, 255));
         jLbl_LogoPaleta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/painel_comandos_esquerda_05x.png"))); // NOI18N
         jpnl_principal.add(jLbl_LogoPaleta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 250, 510));
@@ -219,19 +221,25 @@ public class JFrame_Cliente extends javax.swing.JFrame {
 
     private void jTxtFpesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtFpesquisaActionPerformed
         // TODO add your handling code here:
+        System.out.println("funcionou!!");
+        preencherClientes(BD.Cliente.selectAllLike(jTxtFpesquisa.getText()));
     }//GEN-LAST:event_jTxtFpesquisaActionPerformed
 
-    private final void preencherClientes() {
-        Cliente[] recebidos = BD.Cliente.selectAll();
-        
-        if (recebidos != null) {
-            DefaultTableModel model = ((DefaultTableModel)jtbl_clientes.getModel());
-            for (Cliente c : recebidos) {
+    private final void preencherClientes(Cliente[] clientes) {
+        DefaultTableModel model = ((DefaultTableModel)jtbl_clientes.getModel());
+        model.setRowCount(0);
+        if (clientes != null) {
+            for (Cliente c : clientes) {
                 if (c != null) {
                     model.addRow(new Object[] {String.valueOf(c.getId()), c.getNome(), c.getTelefone()});
                 }
             }
         }
+    }
+    
+    private final void preencherClientes() {
+        Cliente[] recebidos = BD.Cliente.selectAll();
+        preencherClientes(recebidos);
     }
     
     private void jLbl_ProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLbl_ProdutoMouseClicked
@@ -288,6 +296,18 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jLbl_RelatorioMouseExited
 
+    private void jTxtFpesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTxtFpesquisaFocusGained
+        // TODO add your handling code here:
+        jTxtFpesquisa.setText("");
+        jTxtFpesquisa.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jTxtFpesquisaFocusGained
+
+    private void jTxtFpesquisaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTxtFpesquisaFocusLost
+        // TODO add your handling code here:
+        jTxtFpesquisa.setText("Digite uma informação para pesquisar...");
+        jTxtFpesquisa.setForeground(new Color(153,153,153));
+    }//GEN-LAST:event_jTxtFpesquisaFocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -329,7 +349,6 @@ public class JFrame_Cliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLblLupa;
     private javax.swing.JLabel jLbl_Cliente;
-    private javax.swing.JLabel jLbl_Filtro;
     private javax.swing.JLabel jLbl_Imagem;
     private javax.swing.JLabel jLbl_LogoPaleta;
     private javax.swing.JLabel jLbl_Produto;
@@ -337,7 +356,6 @@ public class JFrame_Cliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLbl_pedido;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTxtFnomeFiltra;
     private javax.swing.JTextField jTxtFpesquisa;
     private javax.swing.JPanel jpnl_pesquisa;
     private javax.swing.JPanel jpnl_principal;

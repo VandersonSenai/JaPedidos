@@ -200,6 +200,28 @@ public final class BD {
             return null;
         }
         
+        public static japedidos.clientes.Cliente[] selectAllLike(String pesquisar) {
+            try {
+                Connection conn = BD.getConnection();
+                PreparedStatement select = conn.prepareStatement(String.format("SELECT id, nome, telefone FROM %s WHERE id LIKE '%%%s%%' OR nome LIKE '%%%s%%' OR telefone LIKE '%%%s%%'", TABLE, pesquisar, pesquisar, pesquisar));
+
+                ResultSet rs = select.executeQuery();
+                japedidos.clientes.Cliente[] clientes = parse(rs);
+
+                select.close();
+                conn.close();
+
+                if (clientes == null) {
+                    return null;
+                }
+
+                return clientes;
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+            }
+            return null;
+        }
+        
         public static japedidos.clientes.Cliente selectById(int id) {
             if (id > 0) {
                 try {
