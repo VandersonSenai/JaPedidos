@@ -412,7 +412,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_telefoneCliente = new javax.swing.JLabel();
         jlbl_quantidadeProduto = new javax.swing.JLabel();
         jlbl_valorTotal = new javax.swing.JLabel();
-        jlbl_infoAdicionalCliente = new javax.swing.JLabel();
         jlbl_dataEntrega = new javax.swing.JLabel();
         jspn_quantidade = new javax.swing.JSpinner(new javax.swing.SpinnerNumberModel(0, 0, 10000, 1));
         jlbl_observações = new javax.swing.JLabel();
@@ -444,6 +443,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_btn_excluir = new javax.swing.JLabel();
         jlbl_btn_incluir = new javax.swing.JLabel();
         jlbl_btn_criarPedido = new javax.swing.JLabel();
+        jlbl_btn_inforAdicional = new javax.swing.JLabel();
         jpnl_historicoPedidos = new javax.swing.JPanel();
         jtxtf_pesquisarHistoricoPedido = new javax.swing.JTextField();
         jlbl_filtroHistoricoPedido = new javax.swing.JLabel();
@@ -549,6 +549,8 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
 
         jTabbedPane1.addTab("Pedidos em aberto", jpnl_pedidosAberto);
 
+        jpnl_incluirPedido.setMaximumSize(new java.awt.Dimension(740, 453));
+        jpnl_incluirPedido.setPreferredSize(new java.awt.Dimension(740, 200));
         jpnl_incluirPedido.setOpaque(false);
         jpnl_incluirPedido.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
@@ -556,7 +558,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             }
         });
         jpnl_incluirPedido.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jpnl_incluirPedido.add(jTable_ProdutoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 580, 90));
+        jpnl_incluirPedido.add(jTable_ProdutoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 260, 580, 120));
 
         jtxta_observacoes.setColumns(20);
         jtxta_observacoes.setFont(jtxta_observacoes.getFont().deriveFont((float)12));
@@ -568,19 +570,20 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
 
         jpnl_incluirPedido.add(jscp_destinatario, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 260, 50));
 
-        jpnl_incluirPedido.add(jcmb_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 370, 140, -1));
+        jpnl_incluirPedido.add(jcmb_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 394, 140, -1));
 
         jlbl_horaEntrega.setText("HORA:");
         jlbl_horaEntrega.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_horaEntrega.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_incluirPedido.add(jlbl_horaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 10, -1, 20));
+        jpnl_incluirPedido.add(jlbl_horaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 10, -1, 20));
 
         jSeparator1.setFont(new java.awt.Font("sansserif", 0, 36)); // NOI18N
-        jpnl_incluirPedido.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 730, 10));
+        jpnl_incluirPedido.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 690, 10));
 
+        jtxtf_valorTotal.setEditable(false);
         jtxtf_valorTotal.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jtxtf_valorTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jpnl_incluirPedido.add(jtxtf_valorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 370, 80, -1));
+        jpnl_incluirPedido.add(jtxtf_valorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 398, 90, -1));
 
         jpnl_btn_novo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -600,8 +603,8 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                 jcmb_tipoEntregaItemStateChanged(evt);
             }
         });
-        jpnl_incluirPedido.add(jcmb_tipoEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 90, -1));
-        jpnl_incluirPedido.add(jtxtf_nomeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 250, -1));
+        jpnl_incluirPedido.add(jcmb_tipoEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, 90, -1));
+        jpnl_incluirPedido.add(jtxtf_nomeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 30, 240, -1));
 
         jlbl_bairro.setText("BAIRRO:");
         jlbl_bairro.setBackground(new java.awt.Color(0, 0, 0));
@@ -611,7 +614,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_rua.setText("RUA:");
         jlbl_rua.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_rua.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_incluirPedido.add(jlbl_rua, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+        jpnl_incluirPedido.add(jlbl_rua, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 90, -1, -1));
         jpnl_incluirPedido.add(jtxtf_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 120, -1));
 
         jcmb_produto.setEnabled(false);
@@ -620,22 +623,22 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                 jcmb_produtoComponentShown(evt);
             }
         });
-        jpnl_incluirPedido.add(jcmb_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 260, -1));
+        jpnl_incluirPedido.add(jcmb_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 240, -1));
 
         jlbl_cidade.setText("CIDADE:");
         jlbl_cidade.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_cidade.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_incluirPedido.add(jlbl_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, -1));
+        jpnl_incluirPedido.add(jlbl_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 140, -1, -1));
 
         jlbl_estadoInicial.setText("ESTADO INICIAL:");
         jlbl_estadoInicial.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_estadoInicial.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_incluirPedido.add(jlbl_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 370, 120, 20));
+        jpnl_incluirPedido.add(jlbl_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 396, 120, 20));
 
         jlbl_tipoEntrega.setText("ENTREGA:");
         jlbl_tipoEntrega.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_tipoEntrega.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_incluirPedido.add(jlbl_tipoEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, -1, 20));
+        jpnl_incluirPedido.add(jlbl_tipoEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, -1, 20));
 
         datePicker1.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));
         datePicker1.setDateToToday();
@@ -656,7 +659,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         datePickerButton.setBorderPainted(false);
         datePickerButton.setFocusPainted(false);
         datePicker1.setBackground(new java.awt.Color(0,0,0,0));
-        jpnl_incluirPedido.add(datePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 120, -1));
+        jpnl_incluirPedido.add(datePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 120, -1));
 
         timePicker1.getComponentTimeTextField().setPreferredSize(new java.awt.Dimension(40, 20));
         javax.swing.JButton timePickerButton = timePicker1.getComponentToggleTimeMenuButton();
@@ -667,7 +670,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         java.awt.Dimension newTimeButtonSize =
         new java.awt.Dimension(timeExampleIcon.getIconWidth() + 4, timeExampleIcon.getIconHeight() + 4);
         timePickerButton.setPreferredSize(newTimeButtonSize);
-        jpnl_incluirPedido.add(timePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, 90, -1));
+        jpnl_incluirPedido.add(timePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, 90, -1));
         jpnl_incluirPedido.add(jtxtf_rua, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 260, -1));
 
         jlbl_uf.setText("UF:");
@@ -680,46 +683,36 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_desconto.setText("DESC. %:");
         jlbl_desconto.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_desconto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_incluirPedido.add(jlbl_desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 60, -1));
-        jpnl_incluirPedido.add(jtxtf_telefoneCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 110, -1));
+        jpnl_incluirPedido.add(jlbl_desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 316, 60, -1));
+        jpnl_incluirPedido.add(jtxtf_telefoneCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 30, 110, -1));
 
         jlbl_telefoneCliente.setText("TELEFONE:");
         jlbl_telefoneCliente.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_telefoneCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_incluirPedido.add(jlbl_telefoneCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jpnl_incluirPedido.add(jlbl_telefoneCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 10, -1, -1));
 
         jlbl_quantidadeProduto.setText("QTD:");
         jlbl_quantidadeProduto.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_quantidadeProduto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_incluirPedido.add(jlbl_quantidadeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 216, 40, 30));
+        jpnl_incluirPedido.add(jlbl_quantidadeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 216, 40, 30));
 
         jlbl_valorTotal.setText("TOTAL R$ :");
         jlbl_valorTotal.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_valorTotal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_incluirPedido.add(jlbl_valorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, 80, -1));
-
-        jlbl_infoAdicionalCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_info_adicional.png"))); // NOI18N
-        jlbl_infoAdicionalCliente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jlbl_infoAdicionalClienteMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jlbl_infoAdicionalClienteMouseEntered(evt);
-            }
-        });
-        jpnl_incluirPedido.add(jlbl_infoAdicionalCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 340, 80, 60));
+        jlbl_valorTotal.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jpnl_incluirPedido.add(jlbl_valorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 376, 90, -1));
 
         jlbl_dataEntrega.setText("DATA:");
         jlbl_dataEntrega.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_dataEntrega.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_incluirPedido.add(jlbl_dataEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, 60, 20));
+        jpnl_incluirPedido.add(jlbl_dataEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 60, 20));
 
         jspn_quantidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jspn_quantidadeKeyPressed(evt);
             }
         });
-        jpnl_incluirPedido.add(jspn_quantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, 60, -1));
+        jpnl_incluirPedido.add(jspn_quantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 220, 60, -1));
 
         jlbl_observações.setText("OBSERVAÇÕES:");
         jlbl_observações.setBackground(new java.awt.Color(0, 0, 0));
@@ -729,7 +722,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_nomeCliente.setText("NOME:");
         jlbl_nomeCliente.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_nomeCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_incluirPedido.add(jlbl_nomeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 70, -1));
+        jpnl_incluirPedido.add(jlbl_nomeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 10, 70, -1));
         jpnl_incluirPedido.add(jtxtf_numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 50, -1));
 
         jlbl_numero.setText("Nº:");
@@ -740,35 +733,35 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_produto.setText("ADICIONAR:");
         jlbl_produto.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_produto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_incluirPedido.add(jlbl_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, 20));
+        jpnl_incluirPedido.add(jlbl_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 220, -1, 20));
 
         jlbl_valorEntrega.setText("ENTREGA R$:");
         jlbl_valorEntrega.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_valorEntrega.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_incluirPedido.add(jlbl_valorEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 260, 90, -1));
+        jpnl_incluirPedido.add(jlbl_valorEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 256, 90, -1));
 
         jlbl_erro_estadoInicial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_estadoInicial.setText("Info inválida!");
         jlbl_erro_estadoInicial.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jlbl_erro_estadoInicial.setForeground(new java.awt.Color(255, 0, 0));
-        jpnl_incluirPedido.add(jlbl_erro_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 390, 280, 30));
+        jpnl_incluirPedido.add(jlbl_erro_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 416, 250, 20));
 
         jlbl_erro_bairroEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_bairroEntrega.setText("Info inválida!");
         jlbl_erro_bairroEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jlbl_erro_bairroEntrega.setForeground(new java.awt.Color(255, 0, 0));
-        jpnl_incluirPedido.add(jlbl_erro_bairroEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 110, 170, 20));
+        jpnl_incluirPedido.add(jlbl_erro_bairroEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 114, 170, 20));
 
         jlbl_erro_desconto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_desconto.setText("Info inválida!");
         jlbl_erro_desconto.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jlbl_erro_desconto.setForeground(new java.awt.Color(255, 255, 255));
-        jpnl_incluirPedido.add(jlbl_erro_desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 110, 30));
+        jlbl_erro_desconto.setForeground(new java.awt.Color(255, 0, 0));
+        jpnl_incluirPedido.add(jlbl_erro_desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 358, 90, 20));
 
         jlbl_erro_horaEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_horaEntrega.setText("Info inválida!");
         jlbl_erro_horaEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jlbl_erro_horaEntrega.setForeground(new java.awt.Color(255, 255, 255));
+        jlbl_erro_horaEntrega.setForeground(new java.awt.Color(255, 0, 0));
         jpnl_incluirPedido.add(jlbl_erro_horaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 54, 90, -1));
 
         jlbl_erro_observacoesEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -777,34 +770,35 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_erro_observacoesEntrega.setText("Info inválida!");
         jpnl_incluirPedido.add(jlbl_erro_observacoesEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, 300, -1));
 
-        jlbl_erro_telefone.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jlbl_erro_telefone.setForeground(new java.awt.Color(255, 0, 0));
         jlbl_erro_telefone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_telefone.setText("Info inválida!");
+        jlbl_erro_telefone.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jlbl_erro_telefone.setForeground(new java.awt.Color(255, 0, 0));
         jpnl_incluirPedido.add(jlbl_erro_telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 56, 130, 20));
 
         jlbl_erro_ruaEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_ruaEntrega.setText("Info inválida!");
         jlbl_erro_ruaEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jlbl_erro_ruaEntrega.setForeground(new java.awt.Color(255, 0, 0));
-        jpnl_incluirPedido.add(jlbl_erro_ruaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 260, -1));
+        jpnl_incluirPedido.add(jlbl_erro_ruaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 114, 260, -1));
 
         jlbl_erro_numeroEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_numeroEntrega.setText("Info inválida!");
         jlbl_erro_numeroEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jlbl_erro_numeroEntrega.setForeground(new java.awt.Color(255, 255, 255));
-        jpnl_incluirPedido.add(jlbl_erro_numeroEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, 80, -1));
+        jlbl_erro_numeroEntrega.setForeground(new java.awt.Color(255, 0, 0));
+        jpnl_incluirPedido.add(jlbl_erro_numeroEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 114, 80, -1));
 
         jlbl_erro_cidadeEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_cidadeEntrega.setText("Info inválida!");
         jlbl_erro_cidadeEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jlbl_erro_cidadeEntrega.setForeground(new java.awt.Color(255, 0, 0));
-        jpnl_incluirPedido.add(jlbl_erro_cidadeEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 120, 20));
+        jpnl_incluirPedido.add(jlbl_erro_cidadeEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 164, 120, 20));
 
+        jlbl_erro_ufEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_ufEntrega.setText("Info inválida!");
         jlbl_erro_ufEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jlbl_erro_ufEntrega.setForeground(new java.awt.Color(255, 255, 255));
-        jpnl_incluirPedido.add(jlbl_erro_ufEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 90, 20));
+        jlbl_erro_ufEntrega.setForeground(new java.awt.Color(255, 0, 0));
+        jpnl_incluirPedido.add(jlbl_erro_ufEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 164, 90, 20));
 
         jlbl_erro_nome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_nome.setText("Info inválida!");
@@ -815,52 +809,52 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_erro_tipoEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_tipoEntrega.setText("Info inválida!");
         jlbl_erro_tipoEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jlbl_erro_tipoEntrega.setForeground(new java.awt.Color(255, 255, 255));
+        jlbl_erro_tipoEntrega.setForeground(new java.awt.Color(255, 0, 0));
         jpnl_incluirPedido.add(jlbl_erro_tipoEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 54, 80, -1));
 
         jlbl_erro_dataEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_dataEntrega.setText("Info inválida!");
         jlbl_erro_dataEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jlbl_erro_dataEntrega.setForeground(new java.awt.Color(255, 255, 255));
+        jlbl_erro_dataEntrega.setForeground(new java.awt.Color(255, 0, 0));
         jpnl_incluirPedido.add(jlbl_erro_dataEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 54, 120, 20));
 
         jlbl_erro_produto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_produto.setText("Info inválida!");
         jlbl_erro_produto.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jlbl_erro_produto.setForeground(new java.awt.Color(255, 0, 0));
-        jpnl_incluirPedido.add(jlbl_erro_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 240, 20));
+        jpnl_incluirPedido.add(jlbl_erro_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 242, 240, 20));
 
         jlbl_erro_quantidadeProduto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_quantidadeProduto.setText("Info inválida!");
         jlbl_erro_quantidadeProduto.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jlbl_erro_quantidadeProduto.setForeground(new java.awt.Color(255, 255, 255));
-        jpnl_incluirPedido.add(jlbl_erro_quantidadeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 180, -1));
+        jlbl_erro_quantidadeProduto.setForeground(new java.awt.Color(255, 0, 0));
+        jpnl_incluirPedido.add(jlbl_erro_quantidadeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 242, 130, -1));
 
         jlbl_erro_valorEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_valorEntrega.setText("Info inválida!");
         jlbl_erro_valorEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jlbl_erro_valorEntrega.setForeground(new java.awt.Color(255, 0, 0));
-        jpnl_incluirPedido.add(jlbl_erro_valorEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 300, 120, 30));
+        jpnl_incluirPedido.add(jlbl_erro_valorEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 298, 90, 20));
 
         jlbl_erro_valorTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_valorTotal.setText("Info inválida!");
         jlbl_erro_valorTotal.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jlbl_erro_valorTotal.setForeground(new java.awt.Color(255, 255, 255));
-        jpnl_incluirPedido.add(jlbl_erro_valorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, 160, 30));
+        jlbl_erro_valorTotal.setForeground(new java.awt.Color(255, 0, 0));
+        jpnl_incluirPedido.add(jlbl_erro_valorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 418, 90, 20));
 
         jspn_desconto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jspn_descontoFocusLost(evt);
             }
         });
-        jpnl_incluirPedido.add(jspn_desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 60, -1));
+        jpnl_incluirPedido.add(jspn_desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 336, 60, -1));
 
         jspn_valorEntrega.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jspn_valorEntregaFocusLost(evt);
             }
         });
-        jpnl_incluirPedido.add(jspn_valorEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 280, 90, -1));
+        jpnl_incluirPedido.add(jspn_valorEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 276, 90, -1));
 
         jcmb_uf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
         jcmb_uf.setSelectedIndex(7);
@@ -881,7 +875,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                 jlbl_btn_excluirMouseReleased(evt);
             }
         });
-        jpnl_incluirPedido.add(jlbl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 216, 86, 33));
+        jpnl_incluirPedido.add(jlbl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(604, 220, 86, 33));
 
         jlbl_btn_incluir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_btn_incluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_incluir_padrao.png"))); // NOI18N
@@ -898,7 +892,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                 jlbl_btn_incluirMouseReleased(evt);
             }
         });
-        jpnl_incluirPedido.add(jlbl_btn_incluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 216, 86, 33));
+        jpnl_incluirPedido.add(jlbl_btn_incluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 220, 86, 33));
 
         jlbl_btn_criarPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_btn_criarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_criar_pedido_padrao.png"))); // NOI18N
@@ -914,13 +908,30 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                 jlbl_btn_criarPedidoMouseReleased(evt);
             }
         });
-        jpnl_incluirPedido.add(jlbl_btn_criarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 420, 160, 33));
+        jpnl_incluirPedido.add(jlbl_btn_criarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, 160, 33));
+
+        jlbl_btn_inforAdicional.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbl_btn_inforAdicional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_infor_adicional_padrao.png"))); // NOI18N
+        jlbl_btn_inforAdicional.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        jlbl_btn_inforAdicional.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlbl_btn_inforAdicionalMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jlbl_btn_inforAdicionalMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jlbl_btn_inforAdicionalMouseReleased(evt);
+            }
+        });
+        jpnl_incluirPedido.add(jlbl_btn_inforAdicional, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 390, 160, 33));
 
         jTabbedPane1.addTab("Incluir pedido", jpnl_incluirPedido);
 
         jpnl_historicoPedidos.setOpaque(false);
         jpnl_historicoPedidos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jtxtf_pesquisarHistoricoPedido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jtxtf_pesquisarHistoricoPedido.setText("PESQUISAR..");
         jtxtf_pesquisarHistoricoPedido.setPreferredSize(new java.awt.Dimension(96, 22));
         jtxtf_pesquisarHistoricoPedido.addActionListener(new java.awt.event.ActionListener() {
@@ -928,27 +939,27 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                 jtxtf_pesquisarHistoricoPedidoActionPerformed(evt);
             }
         });
-        jpnl_historicoPedidos.add(jtxtf_pesquisarHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 21, 390, 40));
+        jpnl_historicoPedidos.add(jtxtf_pesquisarHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 21, 390, 30));
 
-        jlbl_filtroHistoricoPedido.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jlbl_filtroHistoricoPedido.setText("FILTRO:");
-        jpnl_historicoPedidos.add(jlbl_filtroHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, -1, -1));
+        jlbl_filtroHistoricoPedido.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jpnl_historicoPedidos.add(jlbl_filtroHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 24, -1, -1));
 
         jtbl_HistoricoPedido.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jtbl_HistoricoPedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "NOME",  new Integer(27999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0)},
-                {null, "NOME",  new Integer(27999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0)},
-                {null, "NOME",  new Integer(27999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0)},
-                {null, "NOME",  new Integer(27999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0)},
-                {null, "NOME",  new Integer(27999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0)}
+                {"2024", "NOME", null, null, "10/10/2024", "R$ 210.0"},
+                {"2025", "NOME", null, null, "10/10/2024", "R$ 510.0"},
+                {"2026", "NOME", null, null, "10/10/2024", "R$ 1.610.0"},
+                {"2027", "NOME", null, null, "10/10/2024", "R$ 710.0"},
+                {"2028", "NOME", null, null, "10/10/2024", "R$ 610.0"}
             },
             new String [] {
-                "CODIGO", "NOME", "TELEFONE", "ENDEREÇO", "DATA/HORA ENTREGA", "VALOR"
+                "COD.", "NOME", "TELEFONE", "ENDEREÇO", "DATA/HORA", "VALOR"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -957,14 +968,30 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         });
         jtbl_HistoricoPedido.setBackground(new java.awt.Color(153, 204, 255));
         jtbl_HistoricoPedido.setForeground(new java.awt.Color(255, 255, 255));
-        jtbl_HistoricoPedido.setMinimumSize(new java.awt.Dimension(20, 160));
-        jtbl_HistoricoPedido.setPreferredSize(new java.awt.Dimension(655, 204));
+        jtbl_HistoricoPedido.setMaximumSize(new java.awt.Dimension(690, 340));
+        jtbl_HistoricoPedido.setMinimumSize(new java.awt.Dimension(690, 340));
+        jtbl_HistoricoPedido.setPreferredSize(new java.awt.Dimension(690, 340));
         jscp_pedidosEmAberto1.setViewportView(jtbl_HistoricoPedido);
+        if (jtbl_HistoricoPedido.getColumnModel().getColumnCount() > 0) {
+            jtbl_HistoricoPedido.getColumnModel().getColumn(0).setResizable(false);
+            jtbl_HistoricoPedido.getColumnModel().getColumn(0).setPreferredWidth(60);
+            jtbl_HistoricoPedido.getColumnModel().getColumn(1).setResizable(false);
+            jtbl_HistoricoPedido.getColumnModel().getColumn(1).setPreferredWidth(250);
+            jtbl_HistoricoPedido.getColumnModel().getColumn(2).setResizable(false);
+            jtbl_HistoricoPedido.getColumnModel().getColumn(2).setPreferredWidth(90);
+            jtbl_HistoricoPedido.getColumnModel().getColumn(3).setResizable(false);
+            jtbl_HistoricoPedido.getColumnModel().getColumn(3).setPreferredWidth(250);
+            jtbl_HistoricoPedido.getColumnModel().getColumn(4).setResizable(false);
+            jtbl_HistoricoPedido.getColumnModel().getColumn(4).setPreferredWidth(100);
+            jtbl_HistoricoPedido.getColumnModel().getColumn(5).setResizable(false);
+            jtbl_HistoricoPedido.getColumnModel().getColumn(5).setPreferredWidth(76);
+        }
 
-        jpnl_historicoPedidos.add(jscp_pedidosEmAberto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 730, 390));
+        jpnl_historicoPedidos.add(jscp_pedidosEmAberto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 690, 340));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Produtos", "Cliente", "Estado", "Data" }));
-        jpnl_historicoPedidos.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, 180, 40));
+        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jpnl_historicoPedidos.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, 230, 30));
 
         jbtn_visualizarPedido.setFont(new java.awt.Font("Noto Sans", 0, 13)); // NOI18N
         jbtn_visualizarPedido.setText("Visualizar Pedido");
@@ -972,7 +999,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
 
         jTabbedPane1.addTab("Histórico de pedidos", jpnl_historicoPedidos);
 
-        jpnl_principal.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 710, 580));
+        jpnl_principal.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 690, 470));
 
         jpnl_sideMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jpnl_sideMenu.setMaximumSize(new java.awt.Dimension(250, 576));
@@ -1116,20 +1143,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private void jtxtf_pesquisarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_pesquisarPedidosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtf_pesquisarPedidosActionPerformed
-
-    private void jlbl_infoAdicionalClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_infoAdicionalClienteMouseClicked
-        JFrame_InfoAdicionalCliente frame;
-        if (infoAdicionalCliente == null) {
-            frame = new JFrame_InfoAdicionalCliente(this);
-        } else {
-            frame = new JFrame_InfoAdicionalCliente(this, this.infoAdicionalCliente);
-        }
-        int x = this.getX() + this.getWidth() / 2 - frame.getWidth() / 2;
-        int y = this.getY() + this.getHeight()/ 2 - frame.getHeight() / 2;
-        frame.setLocation(x, y);
-        frame.setVisible(true);
-        frame.setResizable(false);
-    }//GEN-LAST:event_jlbl_infoAdicionalClienteMouseClicked
 
     private void jspn_valorEntregaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jspn_valorEntregaFocusLost
         // TODO add your handling code here:
@@ -1320,10 +1333,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_relatorios.setForeground(Color.BLACK);
     }//GEN-LAST:event_jlbl_relatoriosMouseExited
 
-    private void jlbl_infoAdicionalClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_infoAdicionalClienteMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jlbl_infoAdicionalClienteMouseEntered
-
     private void jlbl_btn_incluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_incluirMouseClicked
         //        TODO add your handling code here:
         ProdutoPedido produtoAdicionar = null;
@@ -1408,6 +1417,33 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_btn_criarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_criar_pedido_pressionado.png")));
     }//GEN-LAST:event_jlbl_btn_criarPedidoMouseReleased
 
+    private void jlbl_btn_inforAdicionalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_inforAdicionalMouseClicked
+        // TODO add your handling code here:
+        JFrame_InfoAdicionalCliente frame;
+        if (infoAdicionalCliente == null) {
+            frame = new JFrame_InfoAdicionalCliente(this);
+        } else {
+            frame = new JFrame_InfoAdicionalCliente(this, this.infoAdicionalCliente);
+        }
+        int x = this.getX() + this.getWidth() / 2 - frame.getWidth() / 2;
+        int y = this.getY() + this.getHeight()/ 2 - frame.getHeight() / 2;
+        frame.setLocation(x, y);
+        frame.setVisible(true);
+        frame.setResizable(false);
+    }//GEN-LAST:event_jlbl_btn_inforAdicionalMouseClicked
+
+    private void jlbl_btn_inforAdicionalMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_inforAdicionalMousePressed
+        // TODO add your handling code here:
+        
+        jlbl_btn_inforAdicional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_infor_adicional_pressionado.png")));
+        
+    }//GEN-LAST:event_jlbl_btn_inforAdicionalMousePressed
+
+    private void jlbl_btn_inforAdicionalMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_inforAdicionalMouseReleased
+        // TODO add your handling code here:
+        jlbl_btn_inforAdicional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_infor_adicional_padrao.png")));
+    }//GEN-LAST:event_jlbl_btn_inforAdicionalMouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -1473,6 +1509,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     javax.swing.JLabel jlbl_btn_criarPedido;
     javax.swing.JLabel jlbl_btn_excluir;
     javax.swing.JLabel jlbl_btn_incluir;
+    javax.swing.JLabel jlbl_btn_inforAdicional;
     private javax.swing.JLabel jlbl_cidade;
     private javax.swing.JLabel jlbl_clientes;
     private javax.swing.JLabel jlbl_dataEntrega;
@@ -1498,7 +1535,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private javax.swing.JLabel jlbl_filtroHistoricoPedido;
     private javax.swing.JLabel jlbl_filtroPedidosEmAberto;
     private javax.swing.JLabel jlbl_horaEntrega;
-    private javax.swing.JLabel jlbl_infoAdicionalCliente;
     private javax.swing.JLabel jlbl_nomeCliente;
     private javax.swing.JLabel jlbl_numero;
     private javax.swing.JLabel jlbl_observações;
