@@ -93,11 +93,9 @@ public class JFrame_Cliente extends javax.swing.JFrame {
                 jTxtFpesquisaActionPerformed(evt);
             }
         });
-        jpnl_pesquisa.add(jTxtFpesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 680, 40));
+        jpnl_pesquisa.add(jTxtFpesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 670, 34));
 
-        jpnl_principal.add(jpnl_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 720, 40));
-
-        jscp_clientes.setOpaque(true);
+        jpnl_principal.add(jpnl_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 710, 34));
 
         jtbl_clientes.setAutoCreateRowSorter(true);
         jtbl_clientes.setFont(jtbl_clientes.getFont().deriveFont((float)16));
@@ -130,13 +128,13 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         if (jtbl_clientes.getColumnModel().getColumnCount() > 0) {
             jtbl_clientes.getColumnModel().getColumn(0).setResizable(false);
             jtbl_clientes.getColumnModel().getColumn(0).setPreferredWidth(30);
-            jtbl_clientes.getColumnModel().getColumn(1).setMinWidth(400);
-            jtbl_clientes.getColumnModel().getColumn(1).setPreferredWidth(400);
+            jtbl_clientes.getColumnModel().getColumn(1).setResizable(false);
+            jtbl_clientes.getColumnModel().getColumn(1).setPreferredWidth(352);
             jtbl_clientes.getColumnModel().getColumn(2).setResizable(false);
             jtbl_clientes.getColumnModel().getColumn(2).setPreferredWidth(100);
         }
 
-        jpnl_principal.add(jscp_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 720, 400));
+        jpnl_principal.add(jscp_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 710, 380));
 
         jLbl_Produto.setBackground(new java.awt.Color(255, 255, 255));
         jLbl_Produto.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
@@ -152,7 +150,7 @@ public class JFrame_Cliente extends javax.swing.JFrame {
                 jLbl_ProdutoMouseExited(evt);
             }
         });
-        jpnl_principal.add(jLbl_Produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 100, 20));
+        jpnl_principal.add(jLbl_Produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 250, -1, -1));
 
         jLbl_Relatorio.setBackground(new java.awt.Color(0, 0, 0));
         jLbl_Relatorio.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
@@ -165,7 +163,7 @@ public class JFrame_Cliente extends javax.swing.JFrame {
                 jLbl_RelatorioMouseExited(evt);
             }
         });
-        jpnl_principal.add(jLbl_Relatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 120, 20));
+        jpnl_principal.add(jLbl_Relatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 330, -1, -1));
 
         jLbl_pedido.setBackground(new java.awt.Color(255, 255, 255));
         jLbl_pedido.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
@@ -181,24 +179,24 @@ public class JFrame_Cliente extends javax.swing.JFrame {
                 jLbl_pedidoMouseExited(evt);
             }
         });
-        jpnl_principal.add(jLbl_pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 80, 20));
+        jpnl_principal.add(jLbl_pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 290, -1, -1));
 
         jLbl_Cliente.setBackground(new java.awt.Color(255, 255, 255));
         jLbl_Cliente.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jLbl_Cliente.setForeground(new java.awt.Color(255, 255, 255));
         jLbl_Cliente.setText("CLIENTES");
-        jpnl_principal.add(jLbl_Cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 90, 20));
+        jpnl_principal.add(jLbl_Cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 210, -1, -1));
 
         jtb_linhaBranca.setBackground(new java.awt.Color(255, 255, 255));
         jtb_linhaBranca.setBorder(null);
         jtb_linhaBranca.setForeground(new java.awt.Color(255, 255, 255));
         jtb_linhaBranca.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jtb_linhaBranca.setBorderPainted(false);
-        jpnl_principal.add(jtb_linhaBranca, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 224, 90, 4));
+        jpnl_principal.add(jtb_linhaBranca, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 240, 90, 4));
 
         jLbl_LogoPaleta.setBackground(new java.awt.Color(0, 102, 255));
         jLbl_LogoPaleta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/painel_comandos_esquerda_05x.png"))); // NOI18N
-        jpnl_principal.add(jLbl_LogoPaleta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 250, 510));
+        jpnl_principal.add(jLbl_LogoPaleta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 250, -1));
 
         jLbl_Imagem.setBackground(new java.awt.Color(255, 255, 255));
         jLbl_Imagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_clientes.png"))); // NOI18N
@@ -221,7 +219,7 @@ public class JFrame_Cliente extends javax.swing.JFrame {
 
     private void jTxtFpesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtFpesquisaActionPerformed
         // TODO add your handling code here:
-        System.out.println("funcionou!!");
+//        System.out.println("funcionou!!");
         preencherClientes(BD.Cliente.selectAllLike(jTxtFpesquisa.getText()));
     }//GEN-LAST:event_jTxtFpesquisaActionPerformed
 

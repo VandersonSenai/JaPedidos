@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import japedidos.produto.db_config;
+import java.awt.Cursor;
 
 
 public class JFrame_ListaProdutos extends javax.swing.JFrame {
@@ -554,9 +555,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 
     private void jlbl_pedidosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_pedidosMouseExited
         // TODO add your handling code here:
-        if (jlbl_pedidos.getForeground().equals(new Color(255, 255, 255)) ){
-             jlbl_pedidos.setForeground(new Color(128,128,128));
-         }
+        if (cor_padrao_txt_relatorios!= new Color(255,255,255)){
+            jlbl_pedidos.setForeground(new Color(128,128,128));
+        } else {
+        }
+
     }//GEN-LAST:event_jlbl_pedidosMouseExited
 
     private void jlbl_pedidosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_pedidosMouseEntered
@@ -666,9 +669,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                                     encontrar + "%'" + " or categoria LIKE " +
                                     "'%" + encontrar + "%'" + " ORDER BY nome ASC";
         }
-//        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
-//        String usuario = "root";
-//        String senha = "";
+
 
        try(Connection banco = DriverManager.getConnection(db.getDB_Url(), db.getDB_User(), db.getDB_Pwd())) { 
 
@@ -718,9 +719,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                                                encontrar + "%'" + " or categoria LIKE " +
                                                "'%" + encontrar + "%'" + " ORDER BY nome ASC";
         }
-//        String url = "jdbc:mysql://localhost:3306/titanw25_japedidos_hml";
-//        String usuario = "root";
-//        String senha = "";
+
        try (Connection banco = DriverManager.getConnection(db.getDB_Url(), db.getDB_User(), db.getDB_Pwd())) {
             
             load_DB2_components.carregaJTable(jtbl_lista_produtos, banco, sql_listaProdutos);
@@ -774,6 +773,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 //        TODO add your handling code here:
 //        NumberFormat decimal = new DecimalFormat("#,##0.00");
 //        PreparedStatement stm_lista_produtos_view = null;
+
             db.setDB_Url(BD.CONNECTION_STRING);
             db.setDB_User(BD.USER);
             db.setDB_Pwd(BD.USER_PWD);
@@ -791,10 +791,15 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
            String sql_Categoria = "SELECT id, nome FROM listaCategorias"; 
             String sql_Unidade = "SELECT id, abreviacao FROM listaUnidades";
             String sql_listaProdutos = "SELECT * FROM listaTodosProdutos";
+            
+            setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            
             load_DB2_components.carregaComboBox(this,jcmb_categoria, comboBox_categorias_Map, banco, sql_Categoria);
             load_DB2_components.carregaComboBox(this,jcmb_unid, comboBox_unidades_Map, banco, sql_Unidade);
             load_DB2_components.carregaJTable(jtbl_lista_produtos, banco, sql_listaProdutos);
             banco.close();
+
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             
        } catch (SQLException e) {
             e.printStackTrace();
@@ -828,6 +833,8 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                                                 JOptionPane.WARNING_MESSAGE);
                 if (confirmaExclusao==0){
                     // Inicia concexao com o Banco
+                    setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
                     try (Connection banco = DriverManager.getConnection(db.getDB_Url(), db.getDB_User(), db.getDB_Pwd())) {
                         String sqlQuery = "DELETE from produto where id = " + jtxtf_codigo.getText();
                         load_DB2_components.excluirProduto(this, banco, sqlQuery);
@@ -837,6 +844,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                     
                         banco.close();
                         limpaItensFormulario();
+                        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                     } catch (SQLException ex) {
                             Logger.getLogger(JFrame_ListaProdutos.class.getName()).log(Level.SEVERE, null, ex);
                             JOptionPane.showMessageDialog(this, 
@@ -889,6 +897,8 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         } else if (jtxtf_descricao.getText().length()>1 | jtxtf_valor_venda.getText().length()>1 | 
                 jtxtf_valor_custo.getText().length()>1 | jcmb_categoria.getSelectedIndex()>0 |  jcmb_unid.getSelectedIndex()>0 ) {
 
+                setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
                     try(Connection banco = DriverManager.getConnection(db.getDB_Url(), db.getDB_User(), db.getDB_Pwd())) {
 //                    Connection banco = DriverManager.getConnection(url, usuario, senha);
                     load_DB2_components.salvaProduto(this,  banco , sqlQuery, dados);      
@@ -896,6 +906,9 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                     String sql_listaProdutos = "SELECT * FROM listaTodosProdutos";
                     load_DB2_components.carregaJTable(jtbl_lista_produtos, banco, sql_listaProdutos);    
                     banco.close();
+    
+                    setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+
                     limpaItensFormulario();
                     }
                     catch (SQLException ex)

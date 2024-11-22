@@ -2852,7 +2852,9 @@ public final class BD {
     
     static {
         if (!AccessController.isLoginObrigatorio() && japedidos.usuario.Usuario.getAtual() == null) {
-            japedidos.usuario.Usuario.setAtual(BD.Usuario.selectLast());
+                if (isAccessible()) {
+                    japedidos.usuario.Usuario.setAtual(BD.Usuario.selectLast());
+                }
         }
     }
 }
