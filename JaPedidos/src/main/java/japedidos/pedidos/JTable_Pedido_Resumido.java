@@ -28,6 +28,7 @@ public class JTable_Pedido_Resumido extends JPanel {
         this.model = model;
         JTable table = new JTable(model);
         this.table = table;
+        table.setAutoCreateRowSorter(true);
 //        getTable().setDefaultRenderer(EstadoPedido.class, new EstadoRenderer());
 //        JComboBox<EstadoPedido> jcmb_estados = new JComboBox<>();
 //        jcmb_estados.addItem(new EstadoPedido(Estado.ABERTO));

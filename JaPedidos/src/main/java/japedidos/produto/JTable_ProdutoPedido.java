@@ -28,6 +28,7 @@ public class JTable_ProdutoPedido extends JPanel {
         this.model = model;
         JTable table = new JTable(model);
         this.table = table;
+        table.setAutoCreateRowSorter(true);
         table.getColumn(ProdutoPedidoTableModel.COLUMNS[ProdutoPedidoTableModel.COL_QUANTIDADE]).setCellEditor(new SpinnerCellEditor());
         table.setRowHeight(table.getFont().getSize() * 2);
         table.setPreferredScrollableViewportSize(new Dimension(730, 110));

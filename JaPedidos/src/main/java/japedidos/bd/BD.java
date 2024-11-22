@@ -968,6 +968,35 @@ public final class BD {
             return p;
         }
     
+        public static japedidos.pedidos.Pedido[] selectAll() {
+            japedidos.pedidos.Pedido[] p = null;
+            Connection conn = null;
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            try {
+                conn = BD.getConnection();
+                stmt = conn.prepareStatement("SELECT * FROM vw_pedido");
+                rs = stmt.executeQuery();
+
+                p = parseView_pedido(rs);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+            }
+
+            // Fechamento da conexão
+            try {
+                if (conn != null) {
+                    conn.close();
+                    if (stmt != null) {
+                        stmt.close();
+                    }
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+            }
+            return p;
+        }
+        
         public static int atualizarEstado(japedidos.pedidos.Pedido p, japedidos.pedidos.EstadoPedido e) {
             int r = 0;
             Connection conn = null;

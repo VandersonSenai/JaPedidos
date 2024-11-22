@@ -447,10 +447,9 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jpnl_historicoPedidos = new javax.swing.JPanel();
         jtxtf_pesquisarHistoricoPedido = new javax.swing.JTextField();
         jlbl_filtroHistoricoPedido = new javax.swing.JLabel();
-        jscp_pedidosEmAberto1 = new javax.swing.JScrollPane();
-        jtbl_HistoricoPedido = new javax.swing.JTable();
         jComboBox1 = new javax.swing.JComboBox<>();
         jbtn_visualizarPedido = new javax.swing.JButton();
+        jTable_Pedido_Resumido2 = new japedidos.pedidos.JTable_Pedido_Resumido();
         jpnl_sideMenu = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         jlbl_clientes = new javax.swing.JLabel();
@@ -919,6 +918,11 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jTabbedPane1.addTab("Incluir pedido", jpnl_incluirPedido);
 
         jpnl_historicoPedidos.setOpaque(false);
+        jpnl_historicoPedidos.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jpnl_historicoPedidosComponentShown(evt);
+            }
+        });
         jpnl_historicoPedidos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jtxtf_pesquisarHistoricoPedido.setText("PESQUISAR..");
@@ -928,47 +932,19 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                 jtxtf_pesquisarHistoricoPedidoActionPerformed(evt);
             }
         });
-        jpnl_historicoPedidos.add(jtxtf_pesquisarHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 21, 390, 40));
+        jpnl_historicoPedidos.add(jtxtf_pesquisarHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, 440, 30));
 
-        jlbl_filtroHistoricoPedido.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jlbl_filtroHistoricoPedido.setText("FILTRO:");
-        jpnl_historicoPedidos.add(jlbl_filtroHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, -1, -1));
-
-        jtbl_HistoricoPedido.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jtbl_HistoricoPedido.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, "NOME",  new Integer(27999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0)},
-                {null, "NOME",  new Integer(27999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0)},
-                {null, "NOME",  new Integer(27999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0)},
-                {null, "NOME",  new Integer(27999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0)},
-                {null, "NOME",  new Integer(27999999), "RUA TAL Nº X", "10/10/2024",  new Double(1.0)}
-            },
-            new String [] {
-                "CODIGO", "NOME", "TELEFONE", "ENDEREÇO", "DATA/HORA ENTREGA", "VALOR"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jtbl_HistoricoPedido.setBackground(new java.awt.Color(153, 204, 255));
-        jtbl_HistoricoPedido.setForeground(new java.awt.Color(255, 255, 255));
-        jtbl_HistoricoPedido.setMinimumSize(new java.awt.Dimension(20, 160));
-        jtbl_HistoricoPedido.setPreferredSize(new java.awt.Dimension(655, 204));
-        jscp_pedidosEmAberto1.setViewportView(jtbl_HistoricoPedido);
-
-        jpnl_historicoPedidos.add(jscp_pedidosEmAberto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 730, 390));
+        jlbl_filtroHistoricoPedido.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jpnl_historicoPedidos.add(jlbl_filtroHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, 30));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Produtos", "Cliente", "Estado", "Data" }));
-        jpnl_historicoPedidos.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, 180, 40));
+        jpnl_historicoPedidos.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 170, 30));
 
         jbtn_visualizarPedido.setFont(new java.awt.Font("Noto Sans", 0, 13)); // NOI18N
         jbtn_visualizarPedido.setText("Visualizar Pedido");
         jpnl_historicoPedidos.add(jbtn_visualizarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 490, 150, 30));
+        jpnl_historicoPedidos.add(jTable_Pedido_Resumido2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 700, 300));
 
         jTabbedPane1.addTab("Histórico de pedidos", jpnl_historicoPedidos);
 
@@ -1411,6 +1387,13 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_btn_criarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_criar_pedido_pressionado.png")));
     }//GEN-LAST:event_jlbl_btn_criarPedidoMouseReleased
 
+    private void jpnl_historicoPedidosComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jpnl_historicoPedidosComponentShown
+        Pedido[] recebidos = BD.Pedido.selectAll();
+        if (recebidos != null) {
+            jTable_Pedido_Resumido2.getModel().fillRows(recebidos);
+        }
+    }//GEN-LAST:event_jpnl_historicoPedidosComponentShown
+
     /**
      * @param args the command line arguments
      */
@@ -1464,6 +1447,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private japedidos.pedidos.JTable_Pedido_Resumido jTable_Pedido_Resumido1;
+    private japedidos.pedidos.JTable_Pedido_Resumido jTable_Pedido_Resumido2;
     private japedidos.produto.JTable_ProdutoPedido jTable_ProdutoPedido;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JButton jbtn_visualizarPedido;
@@ -1525,11 +1509,9 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private javax.swing.JPanel jpnl_principal;
     private javax.swing.JPanel jpnl_sideMenu;
     private javax.swing.JScrollPane jscp_destinatario;
-    private javax.swing.JScrollPane jscp_pedidosEmAberto1;
     private javax.swing.JSpinner jspn_desconto;
     private javax.swing.JSpinner jspn_quantidade;
     private javax.swing.JSpinner jspn_valorEntrega;
-    private javax.swing.JTable jtbl_HistoricoPedido;
     private javax.swing.JTextArea jtxta_observacoes;
     private javax.swing.JTextField jtxtf_bairro;
     private javax.swing.JTextField jtxtf_cidade;

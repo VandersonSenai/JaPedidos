@@ -78,6 +78,11 @@ public class JFrame_LoginUsuario extends javax.swing.JFrame {
         jpwf_senha.setMaximumSize(new java.awt.Dimension(260, 40));
         jpwf_senha.setMinimumSize(new java.awt.Dimension(260, 40));
         jpwf_senha.setPreferredSize(new java.awt.Dimension(260, 40));
+        jpwf_senha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jpwf_senhaActionPerformed(evt);
+            }
+        });
         jPanel1.add(jpwf_senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, 240, 40));
 
         jlbl_btn_config.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bt_config.png"))); // NOI18N
@@ -100,7 +105,7 @@ public class JFrame_LoginUsuario extends javax.swing.JFrame {
                 jlbl_btn_entrarMouseClicked(evt);
             }
         });
-        jPanel1.add(jlbl_btn_entrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, -1, -1));
+        jPanel1.add(jlbl_btn_entrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, -1, -1));
 
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bg_login.png"))); // NOI18N
         jPanel1.add(jlbl_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -133,8 +138,7 @@ public class JFrame_LoginUsuario extends javax.swing.JFrame {
         frame.setVisible(true);
     }//GEN-LAST:event_jlbl_btn_configMouseClicked
 
-    private void jlbl_btn_entrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_entrarMouseClicked
-        // TODO add your handling code here:
+    private void entrar() {
         if (BD.isAccessible()) {
             String login, senha;
             login = jtxtf_login.getText();
@@ -161,7 +165,15 @@ public class JFrame_LoginUsuario extends javax.swing.JFrame {
             frame.setLocation(x, y);
             frame.setVisible(true);
         }
+    }
+    private void jlbl_btn_entrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_entrarMouseClicked
+        // TODO add your handling code here:
+        entrar();
     }//GEN-LAST:event_jlbl_btn_entrarMouseClicked
+
+    private void jpwf_senhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpwf_senhaActionPerformed
+        entrar();
+    }//GEN-LAST:event_jpwf_senhaActionPerformed
 
     /**
      * @param args the command line arguments
