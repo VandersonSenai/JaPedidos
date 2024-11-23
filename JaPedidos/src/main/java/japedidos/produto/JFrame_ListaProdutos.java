@@ -94,6 +94,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtb_linhaBranca1 = new javax.swing.JToolBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("JaPedidos");
         setFocusCycleRoot(false);
         setIconImages(null);
         setResizable(false);
@@ -785,14 +786,14 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
 //        db.setDB_Url("jdbc:mysql://localhost:3306/titanw25_japedidos_hml");
 //        db.setDB_User("root");
 //        db.setDB_Pwd("");
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
-       try (Connection banco = DriverManager.getConnection(db.getDB_Url(), db.getDB_User(), db.getDB_Pwd())) {
+        try (Connection banco = DriverManager.getConnection(db.getDB_Url(), db.getDB_User(), db.getDB_Pwd())) {
 
            String sql_Categoria = "SELECT id, nome FROM listaCategorias"; 
             String sql_Unidade = "SELECT id, abreviacao FROM listaUnidades";
             String sql_listaProdutos = "SELECT * FROM listaTodosProdutos";
             
-            setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             
             load_DB2_components.carregaComboBox(this,jcmb_categoria, comboBox_categorias_Map, banco, sql_Categoria);
             load_DB2_components.carregaComboBox(this,jcmb_unid, comboBox_unidades_Map, banco, sql_Unidade);

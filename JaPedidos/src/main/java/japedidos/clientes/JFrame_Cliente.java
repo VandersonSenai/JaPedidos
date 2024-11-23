@@ -2,8 +2,11 @@ package japedidos.clientes;
 
 import japedidos.AccessController;
 import japedidos.bd.BD;
+import japedidos.pedidos.JPanel_AlterarPedido;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
+import japedidos.produto.load_DB2_components;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -63,6 +66,7 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("JaPedidos");
         setMaximumSize(new java.awt.Dimension(1024, 576));
         setMinimumSize(new java.awt.Dimension(1024, 576));
         setPreferredSize(new java.awt.Dimension(1024, 576));
@@ -124,6 +128,11 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         });
         jtbl_clientes.setRowHeight(32);
         jtbl_clientes.getTableHeader().setReorderingAllowed(false);
+        jtbl_clientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtbl_clientesMouseClicked(evt);
+            }
+        });
         jscp_clientes.setViewportView(jtbl_clientes);
         if (jtbl_clientes.getColumnModel().getColumnCount() > 0) {
             jtbl_clientes.getColumnModel().getColumn(0).setResizable(false);
@@ -305,6 +314,11 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         jTxtFpesquisa.setText("Digite uma informação para pesquisar...");
         jTxtFpesquisa.setForeground(new Color(153,153,153));
     }//GEN-LAST:event_jTxtFpesquisaFocusLost
+
+    private void jtbl_clientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbl_clientesMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jtbl_clientesMouseClicked
 
     /**
      * @param args the command line arguments

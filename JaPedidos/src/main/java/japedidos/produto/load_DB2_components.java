@@ -12,8 +12,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -27,6 +30,49 @@ import javax.swing.table.DefaultTableModel;
  */
 public class load_DB2_components {
 
+        public static JTable listaPedidos(JTable  jTablecomponent, Connection banco, String sqlQuery)  throws SQLException {
+        NumberFormat decimal = new DecimalFormat("#,##0.00");
+
+
+        try
+        {
+            PreparedStatement stm_listaJTable = banco.prepareStatement(sqlQuery); 
+            ResultSet resultado_listaJTable = stm_listaJTable.executeQuery();
+
+            DefaultTableModel model =(DefaultTableModel) jTablecomponent.getModel();
+            model.setRowCount(0);
+
+            while(resultado_listaJTable.next())
+            {
+                Timestamp timestamp = resultado_listaJTable.getTimestamp("dthr_entregar");
+                LocalDate data = timestamp.toLocalDateTime().toLocalDate();
+                LocalTime hora = timestamp.toLocalDateTime().toLocalTime();
+                model.addRow(new Object[]
+                    {
+                        resultado_listaJTable.getString("id"),
+                        resultado_listaJTable.getString("nome_ultimo_est"),
+                        resultado_listaJTable.getString("nome_cliente"),
+                        resultado_listaJTable.getString("telefone_cliente"),
+//                        resultado_listaJTable.getString("data"),
+                        data,
+                        hora,
+                        decimal.format(resultado_listaJTable.getDouble("preco_final"))
+                    });
+                }
+            stm_listaJTable.close();
+            }
+            catch (SQLException ex)
+            {
+//                System.out.println("O erro foi : " +ex);
+                JOptionPane.showMessageDialog(jTablecomponent, 
+                "Erro ao acessar banco.\n"+
+                "Erro: " + ex, 
+                "JaPedidos", 
+                JOptionPane.INFORMATION_MESSAGE);
+            }
+        
+    return jTablecomponent;
+    }
     public static JTable carregaJTable(JTable  jTablecomponent, Connection banco, String sqlQuery)  throws SQLException {
         NumberFormat decimal = new DecimalFormat("#,##0.00");
 
@@ -55,7 +101,11 @@ public class load_DB2_components {
             }
             catch (SQLException ex)
             {
-                System.out.println("O erro foi : " +ex);
+//                System.out.println("O erro foi : " +ex);
+                JOptionPane.showMessageDialog(jTablecomponent, 
+                "Erro ao acessar banco.\n", 
+                "JaPedidos", 
+                JOptionPane.INFORMATION_MESSAGE);
             }
         
     return jTablecomponent;
@@ -84,7 +134,7 @@ public class load_DB2_components {
             }
             catch (SQLException ex)
             {
-                System.out.println("O erro foi : " +ex);
+//                System.out.println("O erro foi : " +ex);
                 JOptionPane.showMessageDialog(jframe, 
                 "Erro ao acessar banco.\n", 
                 "JaPedidos", 

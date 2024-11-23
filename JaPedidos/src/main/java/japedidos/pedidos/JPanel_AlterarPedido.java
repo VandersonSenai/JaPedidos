@@ -479,7 +479,6 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         jlbl_telefoneCliente = new javax.swing.JLabel();
         jlbl_quantidadeProduto = new javax.swing.JLabel();
         jlbl_valorTotal = new javax.swing.JLabel();
-        jlbl_infoAdicionalCliente = new javax.swing.JLabel();
         jlbl_dataEntrega = new javax.swing.JLabel();
         jspn_quantidade = new javax.swing.JSpinner(new javax.swing.SpinnerNumberModel(0, 0, 10000, 1));
         jlbl_observações = new javax.swing.JLabel();
@@ -512,6 +511,7 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         jlbl_btn_excluir = new javax.swing.JLabel();
         jlbl_alterarPedido = new javax.swing.JLabel();
         jlbl_btn_voltar = new javax.swing.JLabel();
+        jlbl_infoAdicionalCliente = new javax.swing.JLabel();
         jpnl_background1 = new javax.swing.JLabel();
 
         setOpaque(false);
@@ -666,14 +666,6 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         jlbl_valorTotal.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_valorTotal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jpnl_incluirPedido.add(jlbl_valorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 376, 90, -1));
-
-        jlbl_infoAdicionalCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_info_adicional.png"))); // NOI18N
-        jlbl_infoAdicionalCliente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jlbl_infoAdicionalClienteMouseClicked(evt);
-            }
-        });
-        jpnl_incluirPedido.add(jlbl_infoAdicionalCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 430, -1, -1));
 
         jlbl_dataEntrega.setText("DATA:");
         jlbl_dataEntrega.setBackground(new java.awt.Color(0, 0, 0));
@@ -900,6 +892,14 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         });
         jpnl_incluirPedido.add(jlbl_btn_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 390, 140, 33));
 
+        jlbl_infoAdicionalCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_info_adicional.png"))); // NOI18N
+        jlbl_infoAdicionalCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlbl_infoAdicionalClienteMouseClicked(evt);
+            }
+        });
+        jpnl_incluirPedido.add(jlbl_infoAdicionalCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 380, -1, -1));
+
         jpnl_background1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jpnl_background1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_pedidos.png"))); // NOI18N
         jpnl_background1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -1108,29 +1108,20 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
 
     private void jlbl_btn_voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_voltarMouseClicked
         // TODO add your handling code here:
-        JFrame_InfoAdicionalCliente frame;
-        if (infoAdicionalCliente == null) {
-            frame = new JFrame_InfoAdicionalCliente(this);
-        } else {
-            frame = new JFrame_InfoAdicionalCliente(this, this.infoAdicionalCliente);
-        }
-        int x = this.getX() + this.getWidth() / 2 - frame.getWidth() / 2;
-        int y = this.getY() + this.getHeight()/ 2 - frame.getHeight() / 2;
-        frame.setLocation(x, y);
-        frame.setVisible(true);
-        frame.setResizable(false);
+        runOnFinish.run();
+
     }//GEN-LAST:event_jlbl_btn_voltarMouseClicked
 
     private void jlbl_btn_voltarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_voltarMousePressed
         // TODO add your handling code here:
 
-        jlbl_btn_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_infor_adicional_pressionado.png")));
+        jlbl_btn_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("//btn_voltar_pressionado.png")));
 
     }//GEN-LAST:event_jlbl_btn_voltarMousePressed
 
     private void jlbl_btn_voltarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_voltarMouseReleased
         // TODO add your handling code here:
-        jlbl_btn_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_infor_adicional_padrao.png")));
+        jlbl_btn_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("//btn_voltar_padrao")));
     }//GEN-LAST:event_jlbl_btn_voltarMouseReleased
 
 //    public static void main(String[] args) {

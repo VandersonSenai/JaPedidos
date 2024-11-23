@@ -107,7 +107,7 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
         jlbl_tipoCliente = new javax.swing.JLabel();
         jlbl_btn_salvar = new javax.swing.JLabel();
         jlbl_btn_excluir = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jlbl_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Informação adicional do cliente");
@@ -260,15 +260,15 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
         });
         jpnl_principal.add(jlbl_btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_pedidos.png"))); // NOI18N
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel1.setMaximumSize(new java.awt.Dimension(310, 340));
-        jLabel1.setMinimumSize(new java.awt.Dimension(310, 340));
-        jLabel1.setOpaque(true);
-        jLabel1.setPreferredSize(new java.awt.Dimension(310, 340));
-        jLabel1.setRequestFocusEnabled(false);
-        jLabel1.setVerifyInputWhenFocusTarget(false);
-        jpnl_principal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-500, 0, 910, 820));
+        jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_pedidos.png"))); // NOI18N
+        jlbl_background.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jlbl_background.setMaximumSize(new java.awt.Dimension(310, 340));
+        jlbl_background.setMinimumSize(new java.awt.Dimension(310, 340));
+        jlbl_background.setOpaque(true);
+        jlbl_background.setPreferredSize(new java.awt.Dimension(310, 340));
+        jlbl_background.setRequestFocusEnabled(false);
+        jlbl_background.setVerifyInputWhenFocusTarget(false);
+        jpnl_principal.add(jlbl_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(-500, 0, 910, 820));
 
         getContentPane().add(jpnl_principal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 340));
 
@@ -420,8 +420,8 @@ public class JFrame_InfoAdicionalCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JComboBox<japedidos.clientes.Cliente.InfoAdicional> jcmb_tipoCliente;
+    private javax.swing.JLabel jlbl_background;
     private javax.swing.JLabel jlbl_btn_excluir;
     private javax.swing.JLabel jlbl_btn_salvar;
     private javax.swing.JLabel jlbl_cnpj;

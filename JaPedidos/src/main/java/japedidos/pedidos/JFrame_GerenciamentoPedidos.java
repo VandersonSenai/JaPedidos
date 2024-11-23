@@ -18,9 +18,17 @@ import javax.swing.SpinnerNumberModel;
 import com.github.lgooddatepicker.components.*;
 import japedidos.AccessController;
 import japedidos.produto.ProdutoPedidoTableModel;
+import japedidos.produto.db_config;
+import japedidos.produto.load_DB2_components;
 import japedidos.usuario.Usuario;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -29,6 +37,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.TableModelEvent;
+
 
 /**
  *
@@ -345,7 +354,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         }
         
         jspn_quantidade.setValue(1);
-        jTable_ProdutoPedido.getTable().getSelectionModel().clearSelection();
+        jTable_ProdutoPedido1.getTable().getSelectionModel().clearSelection();
     }
     
     public void hideErrorLabels() {
@@ -402,10 +411,8 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                 jTable_Pedido_Resumido1.preencher(estadoSelecionado);
             }
         });
-        jTable_Pedido_Resumido1 = new japedidos.pedidos.JTable_Pedido_Resumido();
         jButton3 = new javax.swing.JButton();
         jpnl_incluirPedido = new javax.swing.JPanel();
-        jTable_ProdutoPedido = new japedidos.produto.JTable_ProdutoPedido();
         jscp_destinatario = new javax.swing.JScrollPane();
         jtxta_observacoes = new javax.swing.JTextArea();
         jcmb_estadoInicial = new javax.swing.JComboBox<>();
@@ -474,12 +481,12 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_btn_criarPedido = new javax.swing.JLabel();
         jlbl_btn_inforAdicional = new javax.swing.JLabel();
         jpnl_historicoPedidos = new javax.swing.JPanel();
-        jtxtf_pesquisarHistoricoPedido = new javax.swing.JTextField();
-        jlbl_filtroHistoricoPedido = new javax.swing.JLabel();
-        jscp_pedidosEmAberto1 = new javax.swing.JScrollPane();
-        jtbl_HistoricoPedido = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jbtn_visualizarPedido = new javax.swing.JButton();
+        jlbl_encontrar = new javax.swing.JLabel();
+        jtb_linhaEncontrar = new javax.swing.JToolBar();
+        jtxtf_pesquisarHistoricoPedido = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtbl_pedidos = new japedidos.pedidos.JTable_Pedido_Resumido;
         jpnl_sideMenu = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         jlbl_clientes = new javax.swing.JLabel();
@@ -493,6 +500,11 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         setTitle("JaPedidos - Gerenciar Pedidos");
         setMinimumSize(new java.awt.Dimension(1024, 576));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jpnl_principal.setBackground(new java.awt.Color(153, 204, 255));
         jpnl_principal.setMaximumSize(new java.awt.Dimension(1024, 576));
@@ -565,7 +577,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jpnl_pedidosAberto.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 386, 180, 30));
 
         jpnl_pedidosAberto.add(jcmb_filtro_pedidos_aberto, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 170, 30));
-        jpnl_pedidosAberto.add(jTable_Pedido_Resumido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 66, 700, 300));
 
         jButton3.setText("Alterar estado");
         jButton3.setMargin(new java.awt.Insets(4, 14, 4, 14));
@@ -587,7 +598,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             }
         });
         jpnl_incluirPedido.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jpnl_incluirPedido.add(jTable_ProdutoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 260, 580, 120));
 
         jtxta_observacoes.setColumns(20);
         jtxta_observacoes.setFont(jtxta_observacoes.getFont().deriveFont((float)12));
@@ -960,71 +970,110 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jpnl_historicoPedidos.setOpaque(false);
         jpnl_historicoPedidos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jtxtf_pesquisarHistoricoPedido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jtxtf_pesquisarHistoricoPedido.setText("PESQUISAR..");
-        jtxtf_pesquisarHistoricoPedido.setPreferredSize(new java.awt.Dimension(96, 22));
+        jbtn_visualizarPedido.setText("Visualizar Pedido");
+        jbtn_visualizarPedido.setFont(new java.awt.Font("Noto Sans", 0, 13)); // NOI18N
+        jbtn_visualizarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtn_visualizarPedidoActionPerformed(evt);
+            }
+        });
+        jpnl_historicoPedidos.add(jbtn_visualizarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 400, 150, 30));
+
+        jlbl_encontrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon_encontrar.png"))); // NOI18N
+        jlbl_encontrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlbl_encontrarMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jlbl_encontrarMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jlbl_encontrarMouseReleased(evt);
+            }
+        });
+        jpnl_historicoPedidos.add(jlbl_encontrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 24, -1, -1));
+
+        jtb_linhaEncontrar.setBackground(new java.awt.Color(102, 102, 102));
+        jtb_linhaEncontrar.setBorder(null);
+        jtb_linhaEncontrar.setBorderPainted(false);
+        jtb_linhaEncontrar.setEnabled(false);
+        jtb_linhaEncontrar.setFocusable(false);
+        jtb_linhaEncontrar.setForeground(new java.awt.Color(102, 102, 102));
+        jtb_linhaEncontrar.setRequestFocusEnabled(false);
+        jpnl_historicoPedidos.add(jtb_linhaEncontrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 26, 3, 22));
+
+        jtxtf_pesquisarHistoricoPedido.setText("Digite aqui que deseja encontrar...");
+        jtxtf_pesquisarHistoricoPedido.setBackground(new java.awt.Color(204, 204, 204));
+        jtxtf_pesquisarHistoricoPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jtxtf_pesquisarHistoricoPedido.setFocusCycleRoot(true);
+        jtxtf_pesquisarHistoricoPedido.setFocusTraversalPolicyProvider(true);
+        jtxtf_pesquisarHistoricoPedido.setForeground(new java.awt.Color(102, 102, 102));
+        jtxtf_pesquisarHistoricoPedido.setMargin(new java.awt.Insets(2, 54, 2, 6));
+        jtxtf_pesquisarHistoricoPedido.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtxtf_pesquisarHistoricoPedidoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtf_pesquisarHistoricoPedidoFocusLost(evt);
+            }
+        });
         jtxtf_pesquisarHistoricoPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtf_pesquisarHistoricoPedidoActionPerformed(evt);
             }
         });
-        jpnl_historicoPedidos.add(jtxtf_pesquisarHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 21, 390, 30));
-
-        jlbl_filtroHistoricoPedido.setText("FILTRO:");
-        jlbl_filtroHistoricoPedido.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_historicoPedidos.add(jlbl_filtroHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 24, -1, -1));
-
-        jtbl_HistoricoPedido.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jtbl_HistoricoPedido.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"2024", "NOME", null, null, "10/10/2024", "R$ 210.0"},
-                {"2025", "NOME", null, null, "10/10/2024", "R$ 510.0"},
-                {"2026", "NOME", null, null, "10/10/2024", "R$ 1.610.0"},
-                {"2027", "NOME", null, null, "10/10/2024", "R$ 710.0"},
-                {"2028", "NOME", null, null, "10/10/2024", "R$ 610.0"}
-            },
-            new String [] {
-                "COD.", "NOME", "TELEFONE", "ENDEREÇO", "DATA/HORA", "VALOR"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+        jtxtf_pesquisarHistoricoPedido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtf_pesquisarHistoricoPedidoKeyTyped(evt);
             }
         });
-        jtbl_HistoricoPedido.setBackground(new java.awt.Color(153, 204, 255));
-        jtbl_HistoricoPedido.setForeground(new java.awt.Color(255, 255, 255));
-        jtbl_HistoricoPedido.setMaximumSize(new java.awt.Dimension(690, 340));
-        jtbl_HistoricoPedido.setMinimumSize(new java.awt.Dimension(690, 340));
-        jtbl_HistoricoPedido.setPreferredSize(new java.awt.Dimension(690, 340));
-        jscp_pedidosEmAberto1.setViewportView(jtbl_HistoricoPedido);
-        if (jtbl_HistoricoPedido.getColumnModel().getColumnCount() > 0) {
-            jtbl_HistoricoPedido.getColumnModel().getColumn(0).setResizable(false);
-            jtbl_HistoricoPedido.getColumnModel().getColumn(0).setPreferredWidth(60);
-            jtbl_HistoricoPedido.getColumnModel().getColumn(1).setResizable(false);
-            jtbl_HistoricoPedido.getColumnModel().getColumn(1).setPreferredWidth(250);
-            jtbl_HistoricoPedido.getColumnModel().getColumn(2).setResizable(false);
-            jtbl_HistoricoPedido.getColumnModel().getColumn(2).setPreferredWidth(90);
-            jtbl_HistoricoPedido.getColumnModel().getColumn(3).setResizable(false);
-            jtbl_HistoricoPedido.getColumnModel().getColumn(3).setPreferredWidth(250);
-            jtbl_HistoricoPedido.getColumnModel().getColumn(4).setResizable(false);
-            jtbl_HistoricoPedido.getColumnModel().getColumn(4).setPreferredWidth(100);
-            jtbl_HistoricoPedido.getColumnModel().getColumn(5).setResizable(false);
-            jtbl_HistoricoPedido.getColumnModel().getColumn(5).setPreferredWidth(76);
+        jpnl_historicoPedidos.add(jtxtf_pesquisarHistoricoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 18, 690, 36));
+
+        jtbl_pedidos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "CÓD.", "ESTADO", "NOME", "TELEFONE", "DATA", "HORA", "VALOR"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtbl_pedidos.setMaximumSize(new java.awt.Dimension(690, 340));
+        jtbl_pedidos.setPreferredSize(new java.awt.Dimension(690, 340));
+        jtbl_pedidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtbl_pedidosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jtbl_pedidos);
+        if (jtbl_pedidos.getColumnModel().getColumnCount() > 0) {
+            jtbl_pedidos.getColumnModel().getColumn(0).setResizable(false);
+            jtbl_pedidos.getColumnModel().getColumn(0).setPreferredWidth(60);
+            jtbl_pedidos.getColumnModel().getColumn(1).setResizable(false);
+            jtbl_pedidos.getColumnModel().getColumn(1).setPreferredWidth(90);
+            jtbl_pedidos.getColumnModel().getColumn(2).setResizable(false);
+            jtbl_pedidos.getColumnModel().getColumn(2).setPreferredWidth(350);
+            jtbl_pedidos.getColumnModel().getColumn(3).setResizable(false);
+            jtbl_pedidos.getColumnModel().getColumn(3).setPreferredWidth(110);
+            jtbl_pedidos.getColumnModel().getColumn(4).setResizable(false);
+            jtbl_pedidos.getColumnModel().getColumn(4).setPreferredWidth(100);
+            jtbl_pedidos.getColumnModel().getColumn(5).setResizable(false);
+            jtbl_pedidos.getColumnModel().getColumn(5).setPreferredWidth(60);
+            jtbl_pedidos.getColumnModel().getColumn(6).setResizable(false);
+            jtbl_pedidos.getColumnModel().getColumn(6).setPreferredWidth(80);
         }
 
-        jpnl_historicoPedidos.add(jscp_pedidosEmAberto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 690, 340));
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Produtos", "Cliente", "Estado", "Data" }));
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jpnl_historicoPedidos.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 220, 30));
-
-        jbtn_visualizarPedido.setFont(new java.awt.Font("Noto Sans", 0, 13)); // NOI18N
-        jbtn_visualizarPedido.setText("Visualizar Pedido");
-        jpnl_historicoPedidos.add(jbtn_visualizarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 490, 150, 30));
+        jpnl_historicoPedidos.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 690, 320));
 
         jTabbedPane1.addTab("Histórico de pedidos", jpnl_historicoPedidos);
 
@@ -1164,10 +1213,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jpnl_btn_novo.setIcon(new javax.swing.ImageIcon("C:\\SENAI\\TECHNIGHT\\JaPedidos\\JaPedidos\\src\\main\\java\\japedidos\\imagens\\btn_novo_padrao.png"));
 
     }//GEN-LAST:event_jpnl_btn_novoMouseReleased
-
-    private void jtxtf_pesquisarHistoricoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_pesquisarHistoricoPedidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtxtf_pesquisarHistoricoPedidoActionPerformed
 
     private void jtxtf_pesquisarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_pesquisarPedidosActionPerformed
         // TODO add your handling code here:
@@ -1473,6 +1518,175 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_btn_inforAdicional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_infor_adicional_padrao.png")));
     }//GEN-LAST:event_jlbl_btn_inforAdicionalMouseReleased
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+
+       setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
+       try (Connection banco = DriverManager.getConnection(BD.CONNECTION_STRING, BD.USER, BD.USER_PWD)) {
+
+            String sql_listaPedidos = "SELECT * FROM vw_pedido where nome_ultimo_est = \"Cancelado\" or nome_ultimo_est = \"Concluido\" GROUP BY nome_cliente ORDER BY  dthr_entregar DESC";
+            
+//            String sql_listaPedidos = "SELECT * FROM vw_pedido ORDER BY  dthr_entregar DESC";
+            
+            
+           
+            load_DB2_components.listaPedidos(jtbl_pedidos, banco, sql_listaPedidos);
+            banco.close();
+
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            
+       } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, 
+            "Nao foi possivel conectar ao banco  \n", 
+            "JaPedidos Z", 
+            JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void jtbl_pedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbl_pedidosMouseClicked
+        // TODO add your handling code here:
+        String cod_pedido = "";
+        
+        if (jtbl_pedidos.getRowCount()>=1){
+            
+            cod_pedido = (String) jtbl_pedidos.getValueAt(jtbl_pedidos.getSelectedRow(),0);
+            
+        }
+
+    }//GEN-LAST:event_jtbl_pedidosMouseClicked
+
+    private void jbtn_visualizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_visualizarPedidoActionPerformed
+        // TODO add your handling code here:
+//        String linhaSelecionada = (String) jtbl_pedidos.getValueAt(jtbl_pedidos.getSelectedRow(),0);
+        int rowSel = jtbl_pedidos.getSelectedRow();
+
+        System.out.println("rowSel - "+ rowSel);
+        
+        
+        if (rowSel != -1) {
+            if (this.pnl_alterarPedido == null) {
+                pnl_alterarPedido = new JPanel_AlterarPedido();
+                pnl_alterarPedido.setOnFinishAction(onFinalizarAlteracao);
+                jTabbedPane1.add("Visualizar Pedido", pnl_alterarPedido);
+            } else {
+                int fechar = JOptionPane.showConfirmDialog(null, "Já existe um pedido em edição. Deseja cancelar e editar este?", "Ops! Edição em andamento",JOptionPane.YES_NO_OPTION);
+                if (fechar != JOptionPane.YES_OPTION) {
+                    jTabbedPane1.setSelectedIndex(3);
+                    return;
+                }
+            }
+            
+//            pnl_alterarPedido.definirPedidoAlterar(jtbl_pedidos.getSelectedRows());
+            pnl_alterarPedido.definirPedidoAlterar(jTable_Pedido_Resumido1.getModel().getRow(rowSel));
+            jTabbedPane1.setSelectedIndex(3);
+            
+        }        
+        
+        
+        
+        
+    }//GEN-LAST:event_jbtn_visualizarPedidoActionPerformed
+
+    private void jtxtf_pesquisarHistoricoPedidoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtf_pesquisarHistoricoPedidoFocusGained
+        // TODO add your handling code here:
+        jtxtf_pesquisarHistoricoPedido.setText("");
+    }//GEN-LAST:event_jtxtf_pesquisarHistoricoPedidoFocusGained
+
+    private void jtxtf_pesquisarHistoricoPedidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtf_pesquisarHistoricoPedidoFocusLost
+        // TODO add your handling code here:
+        jtxtf_pesquisarHistoricoPedido.setText("Digite aqui que deseja encontrar e pressione ENTER...");
+    }//GEN-LAST:event_jtxtf_pesquisarHistoricoPedidoFocusLost
+
+    private void jtxtf_pesquisarHistoricoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_pesquisarHistoricoPedidoActionPerformed
+        String sql_listaPedidos = "";
+        String encontrar = jtxtf_pesquisarHistoricoPedido.getText();
+
+        // se a caixa de pesquisa estiver vazia quando pressionar o enter , traga todos os produtos na view.
+        if (jtxtf_pesquisarHistoricoPedido.getText().equals("")|jtxtf_pesquisarHistoricoPedido.getText().equals("Digite aqui que deseja encontrar...")){
+            sql_listaPedidos = "SELECT * FROM vw_pedido where nome_ultimo_est = \"Cancelado\" or nome_ultimo_est = \"Concluido\" GROUP BY nome_cliente ORDER BY  dthr_entregar DESC";
+        } else {
+            // se a caixa de pesquisa tiver dado quando pressionar o enter , procue nas descriçoes ou categorias.
+
+            sql_listaPedidos = "SELECT * FROM vw_pedido where nome_ultimo_est = \"Cancelado\" or nome_ultimo_est =  \"Concluido\" GROUP BY nome_cliente having nome_cliente LIKE";
+//select * from vw_pedido group by nome_cliente having nome_cliente LIKE " ;
+//      sql_listaProdutos = "select * from vw_pedido group by nome_cliente having nome_cliente LIKE " ;
+            sql_listaPedidos =     sql_listaPedidos + "'%" +
+            encontrar + "%'" + " or dthr_entregar LIKE " +
+            "'%" + encontrar + "%'" + " ORDER BY nome_cliente ASC";
+            
+        }
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
+        try(Connection banco = DriverManager.getConnection(BD.CONNECTION_STRING, BD.USER, BD.USER_PWD)) {
+
+            load_DB2_components.listaPedidos(jtbl_pedidos, banco, sql_listaPedidos);
+            banco.close();
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+
+        } catch (SQLException ex) {
+                //            e.printStackTrace();
+                Logger.getLogger(JFrame_GerenciamentoPedidos.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this,
+                    "Erro ao acessar banco.\n"+
+                    "Erro: "+ ex,
+                    "JaPedidos",
+                    JOptionPane.INFORMATION_MESSAGE);
+            }
+    }//GEN-LAST:event_jtxtf_pesquisarHistoricoPedidoActionPerformed
+
+    private void jtxtf_pesquisarHistoricoPedidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtf_pesquisarHistoricoPedidoKeyTyped
+
+    }//GEN-LAST:event_jtxtf_pesquisarHistoricoPedidoKeyTyped
+
+    private void jlbl_encontrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_encontrarMouseClicked
+        String sql_listaPedidos = "";
+        String encontrar = jtxtf_pesquisarHistoricoPedido.getText();
+
+        // se a caixa de pesquisa estiver vazia quando pressionar o enter , traga todos os produtos na view.
+        if (jtxtf_pesquisarHistoricoPedido.getText().equals("")|jtxtf_pesquisarHistoricoPedido.getText().equals("Digite aqui que deseja encontrar...")){
+            sql_listaPedidos = "SELECT * FROM vw_pedido where nome_ultimo_est = \"Cancelado\" or nome_ultimo_est = \"Concluido\" GROUP BY nome_cliente ORDER BY  dthr_entregar DESC";
+        } else {
+            // se a caixa de pesquisa tiver dado quando pressionar o enter , procue nas descriçoes ou categorias.
+
+            sql_listaPedidos = "SELECT * FROM vw_pedido where nome_ultimo_est = \"Cancelado\" or nome_ultimo_est =  \"Concluido\" GROUP BY nome_cliente having nome_cliente LIKE";
+//select * from vw_pedido group by nome_cliente having nome_cliente LIKE " ;
+//      sql_listaProdutos = "select * from vw_pedido group by nome_cliente having nome_cliente LIKE " ;
+            sql_listaPedidos =     sql_listaPedidos + "'%" +
+            encontrar + "%'" + " or dthr_entregar LIKE " +
+            "'%" + encontrar + "%'" + " ORDER BY nome_cliente ASC";
+            
+        }
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
+        try(Connection banco = DriverManager.getConnection(BD.CONNECTION_STRING, BD.USER, BD.USER_PWD)) {
+
+            load_DB2_components.listaPedidos(jtbl_pedidos, banco, sql_listaPedidos);
+            banco.close();
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+
+        } catch (SQLException ex) {
+                //            e.printStackTrace();
+                Logger.getLogger(JFrame_GerenciamentoPedidos.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this,
+                    "Erro ao acessar banco.\n"+
+                    "Erro: "+ ex,
+                    "JaPedidos",
+                    JOptionPane.INFORMATION_MESSAGE);
+            }
+    }//GEN-LAST:event_jlbl_encontrarMouseClicked
+
+    private void jlbl_encontrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_encontrarMousePressed
+        // TODO add your handling code here:
+        jlbl_encontrar.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\icon_encontrar_pressionado.png"));
+    }//GEN-LAST:event_jlbl_encontrarMousePressed
+
+    private void jlbl_encontrarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_encontrarMouseReleased
+        // TODO add your handling code here:
+        jlbl_encontrar.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\icon_encontrar_padrao.png"));
+    }//GEN-LAST:event_jlbl_encontrarMouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -1522,11 +1736,9 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private japedidos.pedidos.JTable_Pedido_Resumido jTable_Pedido_Resumido1;
-    private japedidos.produto.JTable_ProdutoPedido jTable_ProdutoPedido;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JButton jbtn_visualizarPedido;
     private javax.swing.JComboBox<japedidos.pedidos.Estado> jcmb_estadoInicial;
@@ -1543,6 +1755,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private javax.swing.JLabel jlbl_clientes;
     private javax.swing.JLabel jlbl_dataEntrega;
     private javax.swing.JLabel jlbl_desconto;
+    javax.swing.JLabel jlbl_encontrar;
     private javax.swing.JLabel jlbl_erro_bairroEntrega;
     private javax.swing.JLabel jlbl_erro_cidadeEntrega;
     private javax.swing.JLabel jlbl_erro_dataEntrega;
@@ -1561,7 +1774,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private javax.swing.JLabel jlbl_erro_valorEntrega;
     private javax.swing.JLabel jlbl_erro_valorTotal;
     private javax.swing.JLabel jlbl_estadoInicial;
-    private javax.swing.JLabel jlbl_filtroHistoricoPedido;
     private javax.swing.JLabel jlbl_filtroPedidosEmAberto;
     private javax.swing.JLabel jlbl_horaEntrega;
     private javax.swing.JLabel jlbl_nomeCliente;
@@ -1587,17 +1799,17 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private javax.swing.JPanel jpnl_principal;
     private javax.swing.JPanel jpnl_sideMenu;
     private javax.swing.JScrollPane jscp_destinatario;
-    private javax.swing.JScrollPane jscp_pedidosEmAberto1;
     private javax.swing.JSpinner jspn_desconto;
     private javax.swing.JSpinner jspn_quantidade;
     private javax.swing.JSpinner jspn_valorEntrega;
-    private javax.swing.JTable jtbl_HistoricoPedido;
+    javax.swing.JToolBar jtb_linhaEncontrar;
+    private javax.swing.JTable jtbl_pedidos;
     private javax.swing.JTextArea jtxta_observacoes;
     private javax.swing.JTextField jtxtf_bairro;
     private javax.swing.JTextField jtxtf_cidade;
     private javax.swing.JTextField jtxtf_nomeCliente;
     private javax.swing.JTextField jtxtf_numero;
-    private javax.swing.JTextField jtxtf_pesquisarHistoricoPedido;
+    javax.swing.JTextField jtxtf_pesquisarHistoricoPedido;
     private javax.swing.JTextField jtxtf_pesquisarPedidos;
     private javax.swing.JTextField jtxtf_rua;
     private javax.swing.JTextField jtxtf_telefoneCliente;
