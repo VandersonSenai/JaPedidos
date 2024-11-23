@@ -6,6 +6,8 @@ import japedidos.pedidos.Estado;
 import japedidos.pedidos.InfoEntrega;
 import japedidos.pedidos.TipoEntrega;
 import japedidos.usuario.Registro;
+import java.io.File;
+import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -23,23 +25,39 @@ import java.util.ArrayList;
 public final class BD {
     private static boolean connected = false;
     public static final String SGBD = "mysql";
-    public static String IP = "162.241.203.86";
-//    public static String IP = "localhost";
-    public static String PORT = "3306";
-    public static String NAME = "titanw25_japedidos_hml";
-//    public static final String NAME = "japedidos";
-    public static String USER = "titanw25_japedidos_hml";
-//    public static final String USER = "root";
-    public static String USER_PWD = "seNai@2024proj";
-//    public static final String USER_PWD = "";
-    public static String CONNECTION_STRING = getConnectionString(IP, PORT, NAME);
+    public static String IP;
+    public static String PORT;
+    public static String NAME;
+    public static String USER;
+    public static String USER_PWD;
+    public static String CONNECTION_STRING;
+    
+    public static final DatabaseConfigurationFile CONFIG_FILE = new DatabaseConfigurationFile("database.xml");
+    
+    public static void reloadConfiguration() {
+        CONFIG_FILE.load();
+        setConfiguration(CONFIG_FILE);
+    }
+    
+    public static void setConfiguration(DatabaseConfigurationFile config) {
+        if (config.isLoaded()) {
+            setConnectionUser(config.getUser(), config.getUserPassword());
+            setConnectionFields(config.getAddress(), config.getPort(), config.getSchema());
+            
+            try {
+                buildConnectionString();
+            } catch (SQLException ex) {
+
+            }
+        }
+    }
     
     public static void setConnectionUser(String usr, String userPassword) {
         USER = usr;
         USER_PWD = userPassword;
     }
     
-    public static void reloadConnectionString() throws SQLException {
+    public static void buildConnectionString() throws SQLException {
         if (tryConnection( getConnectionString(IP, PORT, NAME), USER, USER_PWD)) {
             CONNECTION_STRING = getConnectionString(IP, PORT, NAME);
         } else {
@@ -48,16 +66,10 @@ public final class BD {
     }
 //    
     
-    public static void setConnectionString(String ip, String port, String dbName) {
+    public static void setConnectionFields(String ip, String port, String dbName) {
         BD.IP = ip;
         BD.PORT = port;
         BD.NAME = dbName;
-
-        try {
-            BD.reloadConnectionString();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
     }
     
     public final static String getConnectionString(String ip, String port, String dbName) {
@@ -2851,10 +2863,24 @@ public final class BD {
     }
     
     static {
-        if (!AccessController.isLoginObrigatorio() && japedidos.usuario.Usuario.getAtual() == null) {
-                if (isAccessible()) {
-                    japedidos.usuario.Usuario.setAtual(BD.Usuario.selectLast());
-                }
+        // Inicialização das configurações do banco
+
+        if ( ! CONFIG_FILE.exists() ) {
+            try {
+                CONFIG_FILE.create();
+            } catch (IOException ex) {
+                System.out.println("Não foi possível criar o arquivo de configuração: " + ex.getMessage());
+                System.exit(0);
+            }
+        } 
+        CONFIG_FILE.load();
+        
+        setConfiguration(CONFIG_FILE);
+        
+        if (!AccessController.isLoginObrigatorio()) {
+            if (isAccessible()) {
+                japedidos.usuario.Usuario.setAtual(BD.Usuario.selectLast());
+            }
         }
     }
 }

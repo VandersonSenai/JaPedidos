@@ -4,6 +4,7 @@
  */
 package japedidos.bd;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -170,8 +171,18 @@ public class JFrame_ConfiguracaoBanco extends javax.swing.JFrame {
                     try {
                         BD.tryConnection(connStr, entradaLogin, entradaSenha);
                         // Setar info na classe bd
-                        BD.setConnectionUser(entradaLogin, entradaSenha);
-                        BD.setConnectionString(ipStr, portStr, bdStr);
+                        BD.CONFIG_FILE.setAddress(ipStr);
+                        BD.CONFIG_FILE.setPort(portStr);
+                        BD.CONFIG_FILE.setSchema(bdStr);
+                        BD.CONFIG_FILE.setUser(entradaLogin);
+                        BD.CONFIG_FILE.setUserPassword(entradaSenha);
+                        try {
+                            BD.CONFIG_FILE.save();
+                            BD.CONFIG_FILE.load();
+                            BD.reloadConfiguration();
+                        } catch (IOException ex) {
+                            
+                        }
                         JOptionPane.showMessageDialog(null, "Conexão estabelecida com sucesso!\nConfiguração de conexão atualizada.", "Conexão bem sucedida", JOptionPane.INFORMATION_MESSAGE);
                         this.setVisible(false);
                         int x = this.getX() + this.getWidth() / 2 - opener.getWidth() / 2;
