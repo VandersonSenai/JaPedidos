@@ -45,7 +45,7 @@
   <SubComponents>
     <Container class="javax.swing.JPanel" name="jpnl_incluirPedido">
       <Properties>
-        <Property name="opaque" type="boolean" value="false"/>
+        <Property name="opaque" type="boolean" value="false" postCode="jpnl_incluirPedido.setBorder(BorderFactory.createEmptyBorder());&#xa;jpnl_incluirPedido.setBackground(new Color(0,0,0,0));"/>
       </Properties>
       <Events>
         <EventHandler event="componentHidden" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="jpnl_incluirPedidoComponentHidden"/>
@@ -986,6 +986,7 @@
             </Constraint>
           </Constraints>
         </Component>
+<<<<<<< HEAD
         <Component class="javax.swing.JLabel" name="jlbl_infoAdicionalCliente">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -1026,6 +1027,8 @@
             </Constraint>
           </Constraints>
         </Component>
+=======
+>>>>>>> 0074b4108de7ba2b7c5aeceb1677de3284b88033
       </SubComponents>
     </Container>
   </SubComponents>
