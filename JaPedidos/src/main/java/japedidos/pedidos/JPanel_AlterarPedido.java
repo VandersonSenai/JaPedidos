@@ -19,6 +19,8 @@ import com.github.lgooddatepicker.components.*;
 import japedidos.AccessController;
 import japedidos.produto.ProdutoPedidoTableModel;
 import japedidos.usuario.Usuario;
+import java.awt.Color;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -512,11 +514,12 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         jlbl_btn_excluir = new javax.swing.JLabel();
         jlbl_alterarPedido = new javax.swing.JLabel();
         jlbl_btn_voltar = new javax.swing.JLabel();
-        jpnl_background1 = new javax.swing.JLabel();
 
         setOpaque(false);
 
         jpnl_incluirPedido.setOpaque(false);
+        jpnl_incluirPedido.setBorder(BorderFactory.createEmptyBorder());
+        jpnl_incluirPedido.setBackground(new Color(0,0,0,0));
         jpnl_incluirPedido.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentHidden(java.awt.event.ComponentEvent evt) {
                 jpnl_incluirPedidoComponentHidden(evt);
@@ -900,16 +903,6 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         });
         jpnl_incluirPedido.add(jlbl_btn_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 390, 140, 33));
 
-        jpnl_background1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jpnl_background1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_pedidos.png"))); // NOI18N
-        jpnl_background1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jpnl_background1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jpnl_background1.setMaximumSize(new java.awt.Dimension(1024, 576));
-        jpnl_background1.setMinimumSize(new java.awt.Dimension(1024, 576));
-        jpnl_background1.setPreferredSize(new java.awt.Dimension(1024, 576));
-        jpnl_background1.setToolTipText("");
-        jpnl_incluirPedido.add(jpnl_background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-270, -70, -1, 630));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -1191,7 +1184,6 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
     private javax.swing.JLabel jlbl_uf;
     private javax.swing.JLabel jlbl_valorEntrega;
     private javax.swing.JLabel jlbl_valorTotal;
-    private javax.swing.JLabel jpnl_background1;
     private javax.swing.JLabel jpnl_btn_novo;
     private javax.swing.JPanel jpnl_incluirPedido;
     private javax.swing.JScrollPane jscp_destinatario;
