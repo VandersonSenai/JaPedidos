@@ -1095,6 +1095,9 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_relatorios.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_relatorios.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jlbl_relatorios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlbl_relatoriosMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jlbl_relatoriosMouseEntered(evt);
             }
@@ -1653,6 +1656,16 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         // TODO add your handling code here:
         jlbl_encontrar.setIcon(new javax.swing.ImageIcon(".\\src\\main\\java\\japedidos\\imagens\\icon_encontrar_padrao.png"));
     }//GEN-LAST:event_jlbl_encontrarMouseReleased
+
+    private void jlbl_relatoriosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_relatoriosMouseClicked
+        this.setVisible(false);
+        japedidos.relatorios.JFrame_Relatorios frame = new japedidos.relatorios.JFrame_Relatorios();
+        int x = this.getX() + this.getWidth() / 2 - frame.getWidth() / 2;
+        int y = this.getY() + this.getHeight()/ 2 - frame.getHeight() / 2;
+        frame.setLocation(x, y);
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jlbl_relatoriosMouseClicked
 
     /**
      * @param args the command line arguments
