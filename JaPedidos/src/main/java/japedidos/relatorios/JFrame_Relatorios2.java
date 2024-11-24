@@ -120,8 +120,8 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
         jpnl_sideMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jpnl_sideMenu.setMaximumSize(new java.awt.Dimension(250, 576));
         jpnl_sideMenu.setMinimumSize(new java.awt.Dimension(250, 576));
-        jpnl_sideMenu.setOpaque(false);
         jpnl_sideMenu.setPreferredSize(new java.awt.Dimension(250, 576));
+        jpnl_sideMenu.setOpaque(false);
         jpnl_sideMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jtb_linhaBranca.setBackground(new java.awt.Color(255, 255, 255));
@@ -169,6 +169,11 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
         jpnl_relatorioFinanceiro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jcmb_tipoRelatorioFinanceiro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fluxo Diário", "Fluxo Semanal", "Fluxo Mensal", "Fluxo Anual", "Fluxo Agregado" }));
+        jcmb_tipoRelatorioFinanceiro.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcmb_tipoRelatorioFinanceiroItemStateChanged(evt);
+            }
+        });
         jpnl_relatorioFinanceiro.add(jcmb_tipoRelatorioFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 140, -1));
 
         jLabel1.setText("Tipo");
@@ -880,6 +885,17 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
             jtbp_financeiro.setSelectedIndex(((JComboBox)evt.getSource()).getSelectedIndex());
         }
     }//GEN-LAST:event_jcmb_formatoItemStateChanged
+
+    private void jcmb_tipoRelatorioFinanceiroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcmb_tipoRelatorioFinanceiroItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (((JComboBox)evt.getSource()).getSelectedIndex() == 4) {
+                jcmb_formato.setSelectedIndex(0);
+                jcmb_formato.setEnabled(false);
+            } else {
+                jcmb_formato.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_jcmb_tipoRelatorioFinanceiroItemStateChanged
 
     /**
      * @param args the command line arguments

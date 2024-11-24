@@ -2888,9 +2888,9 @@ public final class BD {
         if (!AccessController.isLoginObrigatorio()) {
             if (isAccessible()) {
                 japedidos.usuario.Usuario.setAtual(BD.Usuario.selectLast());
-            } else {
-                System.exit(0);
-            }
+            } //else {
+                //System.exit(0);
+            //}
         }
     }
 }

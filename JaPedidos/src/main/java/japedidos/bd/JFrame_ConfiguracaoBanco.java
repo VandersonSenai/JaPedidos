@@ -121,7 +121,7 @@ public class JFrame_ConfiguracaoBanco extends javax.swing.JFrame {
         entradaSenha = jpwdf_senha.getText();
         entradaBanco = jtxtf_string_banco.getText();
         
-        if (!entradaLogin.isEmpty() && !entradaSenha.isBlank() && !entradaBanco.isEmpty()) {
+        if (!entradaLogin.isEmpty() /*&& !entradaSenha.isBlank()*/ && !entradaBanco.isEmpty()) {
             boolean ip = false, port = false;
             StringBuilder builderIp, builderPort, builderBd;
             builderIp = new StringBuilder();
