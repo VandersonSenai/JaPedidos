@@ -69,7 +69,7 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
         dtp_inicioFinanceiro = new com.github.lgooddatepicker.components.DatePicker(dateSettings2);
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jbtn_gerarRelatorioFinanceiro = new javax.swing.JButton();
         jtbp_financeiro = new javax.swing.JTabbedPane();
         jscp_graficoFinanceiro = new javax.swing.JScrollPane();
         jpnl_graficoFinanceiro = new javax.swing.JPanel();
@@ -92,11 +92,16 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
         dtp_inicioPerformance = new com.github.lgooddatepicker.components.DatePicker(dateSettings);
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jcmb_limiteRelatorioPerformance = new javax.swing.JComboBox<>();
+        jcmb_limitePerformance = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        jbtn_gerarPerformance = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jcmb_formatoPerformance = new javax.swing.JComboBox<>();
+        jtbp_performance = new javax.swing.JTabbedPane();
+        jscp_graficoFinanceiro1 = new javax.swing.JScrollPane();
+        jpnl_graficoPerformance = new javax.swing.JPanel();
+        jscp_tabelaPerformance = new javax.swing.JScrollPane();
+        jtbl_fluxoFinanceiro1 = new javax.swing.JTable();
         jpnl_relatorioIntercorrencia = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jtbl_relatorioIntercorrencia = new javax.swing.JTable();
@@ -174,10 +179,10 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
                 jcmb_tipoRelatorioFinanceiroItemStateChanged(evt);
             }
         });
-        jpnl_relatorioFinanceiro.add(jcmb_tipoRelatorioFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 140, -1));
+        jpnl_relatorioFinanceiro.add(jcmb_tipoRelatorioFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 140, 30));
 
         jLabel1.setText("Tipo");
-        jpnl_relatorioFinanceiro.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 70, -1));
+        jpnl_relatorioFinanceiro.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, -1));
 
         dtp_fimFinanceiro.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));
 
@@ -202,7 +207,7 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
         datePickerButton1.setBorderPainted(false);
         datePickerButton1.setFocusPainted(false);
         dtp_fimFinanceiro.setBackground(new java.awt.Color(0,0,0,0));
-        jpnl_relatorioFinanceiro.add(dtp_fimFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 120, -1));
+        jpnl_relatorioFinanceiro.add(dtp_fimFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, 120, 30));
 
         dtp_inicioFinanceiro.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));
         dtp_inicioFinanceiro.setDateToToday();
@@ -225,21 +230,21 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
         datePickerButton2.setBorderPainted(false);
         datePickerButton2.setFocusPainted(false);
         dtp_inicioFinanceiro.setBackground(new java.awt.Color(0,0,0,0));
-        jpnl_relatorioFinanceiro.add(dtp_inicioFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 120, -1));
+        jpnl_relatorioFinanceiro.add(dtp_inicioFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 120, 30));
 
         jLabel4.setText("Fim:");
-        jpnl_relatorioFinanceiro.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
+        jpnl_relatorioFinanceiro.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
 
         jLabel5.setText("Início:");
-        jpnl_relatorioFinanceiro.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
+        jpnl_relatorioFinanceiro.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
 
-        jButton1.setText("Gerar relatório");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbtn_gerarRelatorioFinanceiro.setText("Gerar relatório");
+        jbtn_gerarRelatorioFinanceiro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbtn_gerarRelatorioFinanceiroActionPerformed(evt);
             }
         });
-        jpnl_relatorioFinanceiro.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, 130, 30));
+        jpnl_relatorioFinanceiro.add(jbtn_gerarRelatorioFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 30, 130, 30));
 
         jpnl_graficoFinanceiro.setMinimumSize(new java.awt.Dimension(694, 304));
         jpnl_graficoFinanceiro.setLayout(new java.awt.GridBagLayout());
@@ -277,7 +282,7 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
         jpnl_relatorioFinanceiro.add(jtbp_financeiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 720, 390));
 
         jLabel6.setText("Formato:");
-        jpnl_relatorioFinanceiro.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, -1, -1));
+        jpnl_relatorioFinanceiro.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, -1, -1));
 
         jcmb_formato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gráfico", "Tabela" }));
         jcmb_formato.addItemListener(new java.awt.event.ItemListener() {
@@ -285,7 +290,7 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
                 jcmb_formatoItemStateChanged(evt);
             }
         });
-        jpnl_relatorioFinanceiro.add(jcmb_formato, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 40, 120, 30));
+        jpnl_relatorioFinanceiro.add(jcmb_formato, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 120, 30));
 
         jTabbedPane1.addTab("FINANCEIRO", jpnl_relatorioFinanceiro);
 
@@ -293,10 +298,10 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
         jpnl_relatorioPerfomanceGeral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("Tipo:");
-        jpnl_relatorioPerfomanceGeral.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+        jpnl_relatorioPerfomanceGeral.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         jcmb_tipoRelatorioPerformance.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Produtos", "Pedidos", "Atendentes" }));
-        jpnl_relatorioPerfomanceGeral.add(jcmb_tipoRelatorioPerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 140, -1));
+        jpnl_relatorioPerfomanceGeral.add(jcmb_tipoRelatorioPerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 140, 30));
 
         dtp_fimPerformance.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));
 
@@ -322,7 +327,7 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
         datePickerButton3.setBorderPainted(false);
         datePickerButton3.setFocusPainted(false);
         dtp_fimPerformance.setBackground(new java.awt.Color(0,0,0,0));
-        jpnl_relatorioPerfomanceGeral.add(dtp_fimPerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 120, -1));
+        jpnl_relatorioPerfomanceGeral.add(dtp_fimPerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, 120, 30));
 
         dtp_inicioPerformance.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));
         dtp_inicioPerformance.setDateToToday();
@@ -343,28 +348,68 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
         datePickerButton4.setBorderPainted(false);
         datePickerButton4.setFocusPainted(false);
         dtp_inicioPerformance.setBackground(new java.awt.Color(0,0,0,0));
-        jpnl_relatorioPerfomanceGeral.add(dtp_inicioPerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 120, -1));
+        jpnl_relatorioPerfomanceGeral.add(dtp_inicioPerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 120, 30));
 
         jLabel7.setText("Início:");
-        jpnl_relatorioPerfomanceGeral.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
+        jpnl_relatorioPerfomanceGeral.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
 
         jLabel8.setText("Fim:");
-        jpnl_relatorioPerfomanceGeral.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
+        jpnl_relatorioPerfomanceGeral.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
 
-        jcmb_limiteRelatorioPerformance.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10", "15", "25" }));
-        jpnl_relatorioPerfomanceGeral.add(jcmb_limiteRelatorioPerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 40, 50, 30));
+        jcmb_limitePerformance.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10", "15", "25" }));
+        jpnl_relatorioPerfomanceGeral.add(jcmb_limitePerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 30, 50, 30));
 
         jLabel3.setText("Limite");
-        jpnl_relatorioPerfomanceGeral.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, -1, -1));
+        jpnl_relatorioPerfomanceGeral.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 10, -1, -1));
 
-        jButton2.setText("Gerar relatório");
-        jpnl_relatorioPerfomanceGeral.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 40, 120, -1));
+        jbtn_gerarPerformance.setText("Gerar relatório");
+        jbtn_gerarPerformance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtn_gerarPerformanceActionPerformed(evt);
+            }
+        });
+        jpnl_relatorioPerfomanceGeral.add(jbtn_gerarPerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, 120, 30));
 
         jLabel9.setText("Formato:");
-        jpnl_relatorioPerfomanceGeral.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, -1, -1));
+        jpnl_relatorioPerfomanceGeral.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gráfico", "Tabela" }));
-        jpnl_relatorioPerfomanceGeral.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 90, 30));
+        jcmb_formatoPerformance.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gráfico", "Tabela" }));
+        jpnl_relatorioPerfomanceGeral.add(jcmb_formatoPerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, 90, 30));
+
+        jpnl_graficoPerformance.setMinimumSize(new java.awt.Dimension(694, 304));
+        jpnl_graficoPerformance.setLayout(new java.awt.GridBagLayout());
+        jscp_graficoFinanceiro1.setViewportView(jpnl_graficoPerformance);
+
+        jtbp_performance.addTab("Gráfico", jscp_graficoFinanceiro1);
+
+        jtbl_fluxoFinanceiro1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Data associada", "Arrecadado", "Custo", "Lucro"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtbl_fluxoFinanceiro1.getTableHeader().setReorderingAllowed(false);
+        jscp_tabelaPerformance.setViewportView(jtbl_fluxoFinanceiro1);
+        if (jtbl_fluxoFinanceiro1.getColumnModel().getColumnCount() > 0) {
+            jtbl_fluxoFinanceiro1.getColumnModel().getColumn(0).setHeaderValue("Data associada");
+            jtbl_fluxoFinanceiro1.getColumnModel().getColumn(1).setHeaderValue("Arrecadado");
+            jtbl_fluxoFinanceiro1.getColumnModel().getColumn(2).setHeaderValue("Custo");
+            jtbl_fluxoFinanceiro1.getColumnModel().getColumn(3).setHeaderValue("Lucro");
+        }
+
+        jtbp_performance.addTab("Tabela", jscp_tabelaPerformance);
+
+        jpnl_relatorioPerfomanceGeral.add(jtbp_performance, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 720, 390));
 
         jTabbedPane1.addTab("PERFORMANCE GERAL", jpnl_relatorioPerfomanceGeral);
 
@@ -450,7 +495,7 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtf_periodoInicialIntercorrenciaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jbtn_gerarRelatorioFinanceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_gerarRelatorioFinanceiroActionPerformed
         jpnl_graficoFinanceiro.removeAll();
         int escolha = jcmb_tipoRelatorioFinanceiro.getSelectedIndex();
         jtbp_financeiro.setSelectedIndex(jcmb_formato.getSelectedIndex());
@@ -878,7 +923,7 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
                 panel.setVisible(true);
             }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jbtn_gerarRelatorioFinanceiroActionPerformed
 
     private void jcmb_formatoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcmb_formatoItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
@@ -896,6 +941,106 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jcmb_tipoRelatorioFinanceiroItemStateChanged
+
+    private void jbtn_gerarPerformanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_gerarPerformanceActionPerformed
+        jpnl_graficoPerformance.removeAll();
+        int escolha = jcmb_tipoRelatorioPerformance.getSelectedIndex();
+        jtbp_performance.setSelectedIndex(jcmb_formatoPerformance.getSelectedIndex());
+        switch (escolha) {
+            case 0 -> {
+                int limite = Integer.parseInt((String)jcmb_limitePerformance.getSelectedItem());
+                LocalDate dtInicio = dtp_inicioPerformance.getDate();
+                LocalDate dtFim = dtp_fimPerformance.getDate();
+                Connection conn = null;
+                CallableStatement cstmt = null;
+                ResultSet rs = null;
+                ArrayList<Date> datas = new ArrayList<>();
+                ArrayList<Double> arrecadado = new ArrayList<>();
+                ArrayList<Double> lucro = new ArrayList<>();
+                ArrayList<Double> custo = new ArrayList<>();
+                try {
+                    conn = BD.getConnection();
+                    cstmt = conn.prepareCall("call produtos_mais_vendidos(?, ?, ?)");
+                    cstmt.setDate(1, Date.valueOf(dtFim));
+                    cstmt.setDate(2, Date.valueOf(dtInicio));
+                    cstmt.setInt(3, limite);
+                    rs = cstmt.executeQuery();
+
+                    while(rs.next()) {
+                        datas.add(rs.getDate("dt_associada"));
+//                        System.out.println(rs.getDate("dt_associada"));
+                        arrecadado.add(rs.getDouble("arrecadado"));
+//                        System.out.println(rs.getDate("arrecadado"));
+                        custo.add(rs.getDouble("custo"));
+//                        System.out.println(rs.getDate("custo"));
+                        lucro.add(rs.getDouble("lucro"));
+//                        System.out.println(rs.getDate("lucro"));
+                    }
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+                }
+
+                // Fechamento da conexão
+                try {
+                    if (conn != null) {
+                        conn.close();
+                        if (cstmt != null) {
+                            cstmt.close();
+                        }
+                    }
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                }
+                
+
+                    if (jcmb_formato.getSelectedIndex() == 0) {
+                        if (datas.size() > 0) {
+                            XYChart xyChart = new XYChartBuilder().width(694).height(340).title("Fluxo de caixa no período").xAxisTitle("Métrica").yAxisTitle("R$").build();
+                            xyChart.getStyler().setLegendPosition(LegendPosition.OutsideE);
+                            xyChart.getStyler().setDefaultSeriesRenderStyle(XYSeriesRenderStyle.Line);
+                            xyChart.getStyler().setLegendVisible(true);
+                            xyChart.getStyler().setPlotContentSize(0.8);
+                            xyChart.getStyler().setYAxisLabelAlignment(AxesChartStyler.TextAlignment.Right);
+                            xyChart.getStyler().setYAxisDecimalPattern("R$ #,###.##");
+
+                            double[] lucros = new double[] {1};
+            //                xyChart.addSeries("Arrecadamento", );
+            //                xyChart.addSeries("Custo", );
+                            xyChart.addSeries("Arrecadamento", Arrays.asList(datas.toArray(new Date[1])), Arrays.asList(arrecadado.toArray(new Double[1])));
+                            xyChart.addSeries("Custo", Arrays.asList(datas.toArray(new Date[1])), Arrays.asList(custo.toArray(new Double[1])));
+                            xyChart.addSeries("Lucro", Arrays.asList(datas.toArray(new Date[1])), Arrays.asList(lucro.toArray(new Double[1])));
+
+                            XChartPanel panel = new XChartPanel(xyChart);
+
+                            jpnl_graficoFinanceiro.add(panel);
+
+                            panel.setVisible(true);
+                        }
+                    } else {
+                        jtbl_fluxoFinanceiro.setModel(new javax.swing.table.DefaultTableModel(
+                            new Object [][] {
+
+                            },
+                            new String [] {
+                                "Data associada", "Arrecadado", "Custo", "Lucro"
+                            }
+                            ) {
+                            boolean[] canEdit = new boolean [] {
+                                false, false, false, false
+                            };
+
+                            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                                return canEdit [columnIndex];
+                            }
+                        });
+                        for (int i = 0 ; i < datas.size(); i++) {
+                            ((DefaultTableModel)jtbl_fluxoFinanceiro.getModel()).addRow(new Object[] {datas.get(i), arrecadado.get(i), custo.get(i), lucro.get(i)});
+                        }
+                        ((DefaultTableModel)jtbl_fluxoFinanceiro.getModel()).fireTableDataChanged();
+                    }
+            }
+        }
+    }//GEN-LAST:event_jbtn_gerarPerformanceActionPerformed
 
     /**
      * @param args the command line arguments
@@ -952,9 +1097,6 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
     private com.github.lgooddatepicker.components.DatePicker dtp_fimPerformance;
     private com.github.lgooddatepicker.components.DatePicker dtp_inicioFinanceiro;
     private com.github.lgooddatepicker.components.DatePicker dtp_inicioPerformance;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -967,9 +1109,12 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton jbtn_gerarPerformance;
+    private javax.swing.JButton jbtn_gerarRelatorioFinanceiro;
     private javax.swing.JButton jbtn_pesquisarFiltroIntercorrencia;
     private javax.swing.JComboBox<String> jcmb_formato;
-    private javax.swing.JComboBox<String> jcmb_limiteRelatorioPerformance;
+    private javax.swing.JComboBox<String> jcmb_formatoPerformance;
+    private javax.swing.JComboBox<String> jcmb_limitePerformance;
     private javax.swing.JComboBox<String> jcmb_tipoRelatorioFinanceiro;
     private javax.swing.JComboBox<String> jcmb_tipoRelatorioPerformance;
     private javax.swing.JLabel jlbl_clientes;
@@ -980,17 +1125,22 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
     private javax.swing.JLabel jlbl_relatorios;
     private javax.swing.JLabel jpnl_background;
     private javax.swing.JPanel jpnl_graficoFinanceiro;
+    private javax.swing.JPanel jpnl_graficoPerformance;
     private javax.swing.JLabel jpnl_img_etiqueta;
     private javax.swing.JPanel jpnl_relatorioFinanceiro;
     private javax.swing.JPanel jpnl_relatorioIntercorrencia;
     private javax.swing.JPanel jpnl_relatorioPerfomanceGeral;
     private javax.swing.JPanel jpnl_sideMenu;
     private javax.swing.JScrollPane jscp_graficoFinanceiro;
+    private javax.swing.JScrollPane jscp_graficoFinanceiro1;
     private javax.swing.JScrollPane jscp_tabelaFinanceiro;
+    private javax.swing.JScrollPane jscp_tabelaPerformance;
     private javax.swing.JToolBar jtb_linhaBranca;
     private javax.swing.JTable jtbl_fluxoFinanceiro;
+    private javax.swing.JTable jtbl_fluxoFinanceiro1;
     private javax.swing.JTable jtbl_relatorioIntercorrencia;
     private javax.swing.JTabbedPane jtbp_financeiro;
+    private javax.swing.JTabbedPane jtbp_performance;
     private javax.swing.JTextField jtxtf_periodoFinalIntercorrencia;
     private javax.swing.JTextField jtxtf_periodoInicialIntercorrencia;
     // End of variables declaration//GEN-END:variables
