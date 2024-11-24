@@ -194,7 +194,18 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         
         // Criação de cliente
         nome = jtxtf_nomeCliente.getText().trim();
-        telefone = jtxtf_telefoneCliente.getText();
+        telefone = jtxtf_telefoneCliente.getText().trim();
+        StringBuilder newStr = new StringBuilder();
+
+        for (int i=0; i < telefone.length(); i++) {
+            char c = telefone.charAt(i);
+
+            if(Character.isDigit(c)) {
+                newStr.append(c);
+            }
+        }
+        telefone = newStr.toString();
+        
         if (clienteEncontrado == null) {
             try {
                 cliente = new Cliente(nome, telefone);
@@ -688,7 +699,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
 
         datePicker1.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));
         datePicker1.setDateToToday();
-
+        dateSettings.setDateRangeLimits(LocalDate.now(), LocalDate.now().plusYears(3));
         javax.swing.JButton datePickerButton = datePicker1.getComponentToggleCalendarButton();
         datePickerButton.setPreferredSize(new java.awt.Dimension(22, 22));
         datePickerButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -710,7 +721,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                 datePicker1MouseExited(evt);
             }
         });
-        jpnl_incluirPedido.add(datePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 110, -1));
+        jpnl_incluirPedido.add(datePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 120, -1));
 
         timePicker1.getComponentTimeTextField().setPreferredSize(new java.awt.Dimension(40, 20));
         javax.swing.JButton timePickerButton = timePicker1.getComponentToggleTimeMenuButton();
@@ -1733,6 +1744,16 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     private void autoPreencherPedido() {
         
         String conteudoTelefone = jtxtf_telefoneCliente.getText().trim();
+        StringBuilder newStr = new StringBuilder();
+
+        for (int i=0; i < conteudoTelefone.length(); i++) {
+            char c = conteudoTelefone.charAt(i);
+
+            if(Character.isDigit(c)) {
+                newStr.append(c);
+            }
+        }
+        conteudoTelefone = newStr.toString();
         if (! conteudoTelefone.isEmpty()) {
             if ( ! telefoneDigitado || telefoneDigitado && clienteEncontrado!= null && !conteudoTelefone.equals(clienteEncontrado.getTelefone()) ) {
                 if (conteudoTelefone.length() > 7) {
@@ -1743,7 +1764,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                         jtxtf_telefoneCliente.setText(encontrado.getTelefone());
                         jtxtf_nomeCliente.setEnabled(false);
                         jtxtf_nomeCliente.setText(encontrado.getNome());
-                        int preencher = JOptionPane.showConfirmDialog(this, "Um cliente foi encontrado com este número. Deseja carregar o último pedido?", "Auto-preenchimento de pedido", JOptionPane.YES_NO_OPTION);
+                        int preencher = JOptionPane.showConfirmDialog(this, "Um cliente foi encontrado com este número.\nDeseja carregar o último pedido?", "Auto-preenchimento de pedido", JOptionPane.YES_NO_OPTION);
                         if (preencher == JOptionPane.YES_OPTION) {
                             this.setFieldsInfo(BD.Pedido.selectLastByCliente(encontrado));
                         }

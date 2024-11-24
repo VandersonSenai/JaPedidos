@@ -140,6 +140,7 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         this.pedidoAlterar = (Pedido)pAlterar.clone();
         this.produtosNovos = pedidoAlterar.getProdutos();
         setFieldsInfo(this.pedidoAlterar);
+        this.datePicker1.getSettings().setDateRangeLimits(pedidoAlterar.getRegistroCriacao().DATA_HORA.toLocalDate(), LocalDate.now().plusYears(3));
     }
     
     private void setFieldsInfo(Pedido p) {
@@ -615,7 +616,6 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
 
         datePicker1.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));
         datePicker1.setDateToToday();
-
         javax.swing.JButton datePickerButton = datePicker1.getComponentToggleCalendarButton();
         datePickerButton.setPreferredSize(new java.awt.Dimension(22, 22));
         datePickerButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
