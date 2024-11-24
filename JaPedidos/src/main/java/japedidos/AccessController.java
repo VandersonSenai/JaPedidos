@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
  * @author thiago
  */
 public class AccessController {
-    private static boolean loginObrigatorio = false;
+    private static boolean loginObrigatorio = true;
     
     public static boolean isLoginObrigatorio() {
         return loginObrigatorio;

@@ -2,6 +2,7 @@
 package japedidos.relatorios;
 
 import com.github.lgooddatepicker.components.DatePickerSettings;
+import japedidos.AccessController;
 import japedidos.bd.BD;
 import static japedidos.bd.BD.Cliente.TABLE;
 import static japedidos.bd.BD.Pedido.parseView_pedido;
@@ -38,6 +39,11 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
      * Creates new form JFrame_relaorioIntercorrencia
      */
     public JFrame_Relatorios() {
+        if (BD.isAccessible()) {
+            AccessController.verificarLogin();
+        } else {
+            System.exit(0);
+        }
         initComponents();
     }
 
