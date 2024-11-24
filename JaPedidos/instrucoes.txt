@@ -1,0 +1,10 @@
+ importar dump em MariaDB ou MySQL 5.7 ou mais atual: 'JaPedidos/db/dump2-2024-11-24_japedidos.sql'
+ configurar conexao por arquivo: 'JaPedidos/JaPedidos/database.xml' ou depois do login
+ inicializar por classe japedidos.JaPedidos
+
+ login:
+ - admin: login "admin", senha "admin"
+ - atendente: login "admin", senha "senhaatendente"
+ - thiago: login "thiago", senha "thiago"
+ - vanderson: login "thiago", senha "thiago"
+ - adriana camargo: login "adriana", senha "adriana"
