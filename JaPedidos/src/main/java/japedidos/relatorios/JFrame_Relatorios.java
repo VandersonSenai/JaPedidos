@@ -278,7 +278,6 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         jpnl_relatorioIntercorrencia.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 720, 280));
 
         jlbl_filtroPeridoIntercorrencia.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jlbl_filtroPeridoIntercorrencia.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_filtroPeridoIntercorrencia.setText("FILTRAR PERÍODO:");
         jpnl_relatorioIntercorrencia.add(jlbl_filtroPeridoIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
@@ -294,7 +293,6 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         jpnl_relatorioIntercorrencia.add(jtxtf_periodoFinalIntercorrencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 90, 30));
 
         jlbl_filtroPeridoIntercorrenciaAte.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jlbl_filtroPeridoIntercorrenciaAte.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_filtroPeridoIntercorrenciaAte.setText(" -");
         jpnl_relatorioIntercorrencia.add(jlbl_filtroPeridoIntercorrenciaAte, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 20, -1));
 

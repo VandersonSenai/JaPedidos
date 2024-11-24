@@ -149,6 +149,7 @@ public final class BD {
     
     
     // SUBCLASSES ======================================================================================================================================
+    
     static public class Cliente {
         public static final String TABLE = "cliente";
         

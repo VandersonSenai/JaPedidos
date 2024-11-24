@@ -3,9 +3,6 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1024, 576]"/>
-    </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[1024, 576]"/>
     </Property>
@@ -203,7 +200,7 @@
         <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="270" y="60" width="750" height="450"/>
+              <AbsoluteConstraints x="270" y="60" width="750" height="490"/>
             </Constraint>
           </Constraints>
 
@@ -225,133 +222,15 @@
                 <Property name="useNullLayout" type="boolean" value="false"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="jBtt_novembro">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="NOVEMBRO"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="520" y="100" width="90" height="-1"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Component class="javax.swing.JButton" name="jBtt_junho">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="JUNHO"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="400" y="70" width="90" height="-1"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Component class="javax.swing.JButton" name="jBtt_outubro">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="OUTUBRO"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="400" y="100" width="90" height="-1"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane2">
-                  <AuxValues>
-                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                  </AuxValues>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="280" y="170" width="430" height="240"/>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                  <SubComponents>
-                    <Component class="javax.swing.JTable" name="jtl_anual">
-                      <Properties>
-                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="3" rowCount="4">
-                            <Column editable="true" title="PRODUTOS" type="java.lang.Object"/>
-                            <Column editable="true" title="MEDIA ANUAL" type="java.lang.Object"/>
-                            <Column editable="true" title="TOTAL ANUAL" type="java.lang.Object"/>
-                          </Table>
-                        </Property>
-                        <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                          <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
-                        </Property>
-                      </Properties>
-                    </Component>
-                  </SubComponents>
-                </Container>
-                <Component class="javax.swing.JButton" name="jBtt_abril">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="ABRIL"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="640" y="40" width="80" height="-1"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Component class="javax.swing.JButton" name="jBtt_dezembro">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="DEZEMBRO"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="640" y="100" width="80" height="-1"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Component class="javax.swing.JButton" name="jBtt_fevereiro">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="FEVEREIRO"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="400" y="40" width="90" height="-1"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Component class="javax.swing.JButton" name="jBtt_agosto">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="AGOSTO"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="640" y="70" width="80" height="-1"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Component class="javax.swing.JButton" name="jBtt_julho">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="JULHO"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="520" y="70" width="90" height="-1"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Component class="javax.swing.JButton" name="jBtt_marco">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="MAR&#xc7;O"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="520" y="40" width="90" height="-1"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="jCbox_ano">
+                <Component class="javax.swing.JComboBox" name="jcmb_tipoRelatorioFinanceiro">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="5">
-                        <StringItem index="0" value="2024"/>
-                        <StringItem index="1" value="2023"/>
-                        <StringItem index="2" value="2022"/>
-                        <StringItem index="3" value="2021"/>
-                        <StringItem index="4" value="2020"/>
+                        <StringItem index="0" value="Fluxo Di&#xe1;rio"/>
+                        <StringItem index="1" value="Fluxo Semanal"/>
+                        <StringItem index="2" value="Fluxo Mensal"/>
+                        <StringItem index="3" value="Fluxo Anual"/>
+                        <StringItem index="4" value="Fluxo Agregado"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -360,144 +239,196 @@
                   </AuxValues>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="630" y="10" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="10" y="40" width="140" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JButton" name="jBtt_janeiro">
+                <Component class="javax.swing.JLabel" name="jLabel1">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="JANEIRO"/>
+                    <Property name="text" type="java.lang.String" value="Tipo"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="280" y="40" width="90" height="-1"/>
+                      <AbsoluteConstraints x="10" y="20" width="70" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JButton" name="jBtt_maio">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="MAIO"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="280" y="70" width="90" height="-1"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Container class="javax.swing.JPanel" name="jpn_relatorio">
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="0" y="30" width="270" height="20"/>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="jLl_relatorio" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jlbl_mes" min="-2" pref="85" max="-2" attributes="0"/>
-                              <EmptySpace pref="39" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLl_relatorio" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Component id="jlbl_mes" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLl_relatorio">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="RELAT&#xd3;RIO M&#xca;S:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jlbl_mes">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="JANEIRO"/>
-                      </Properties>
-                    </Component>
-                  </SubComponents>
-                </Container>
-                <Component class="javax.swing.JButton" name="jBtt_setembro">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="SETEMBRO"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="280" y="100" width="90" height="-1"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+                <Component class="com.github.lgooddatepicker.components.DatePicker" name="dtp_fimFinanceiro">
                   <AuxValues>
-                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.github.lgooddatepicker.components.DatePicker(dateSettings1)"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="DatePickerSettings dateSettings1 = new DatePickerSettings();&#xa;dateSettings1.setFormatForDatesCommonEra(&quot;d MMM yyyy&quot;);&#xa;dateSettings1.setFormatForDatesBeforeCommonEra(&quot;d MMM uuuu&quot;);&#xa;dateSettings1.setAllowEmptyDates(false);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="dtp_fimFinanceiro.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));&#xa;&#xa;dateSettings1.setVisiblePreviousYearButton(false);&#xa;dateSettings1.setVisibleNextYearButton(false);&#xa;dtp_fimFinanceiro.setDateToToday();&#xa;dateSettings1.setDateRangeLimits(null, LocalDate.now());&#xa;&#xa;javax.swing.JButton datePickerButton1 = dtp_fimFinanceiro.getComponentToggleCalendarButton();&#xa;datePickerButton1.setPreferredSize(new java.awt.Dimension(22, 22));&#xa;datePickerButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));&#xa;datePickerButton1.setOpaque(false);&#xa;datePickerButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder());&#xa;datePickerButton1.setBackground(new java.awt.Color(0, 0, 0, 0));&#xa;datePickerButton1.setText(&quot;&quot;);&#xa;javax.swing.ImageIcon dateExampleIcon1 = new javax.swing.ImageIcon(getClass().getResource(&quot;/datepickerbutton1.png&quot;));&#xa;datePickerButton1.setIcon(dateExampleIcon1);&#xa;java.awt.Dimension newDateButtonSize1 = new java.awt.Dimension(dateExampleIcon1.getIconWidth() + 4, dateExampleIcon1.getIconHeight() + 4);&#xa;datePickerButton1.setPreferredSize(newDateButtonSize1);&#xa;&#xa;datePickerButton1.setContentAreaFilled(false);&#xa;datePickerButton1.setBorderPainted(false);&#xa;datePickerButton1.setFocusPainted(false);&#xa;dtp_fimFinanceiro.setBackground(new java.awt.Color(0,0,0,0));"/>
                   </AuxValues>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="0" y="120" width="270" height="290"/>
+                      <AbsoluteConstraints x="310" y="40" width="120" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="com.github.lgooddatepicker.components.DatePicker" name="dtp_inicioFinanceiro">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.github.lgooddatepicker.components.DatePicker(dateSettings2)"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="DatePickerSettings dateSettings2 = new DatePickerSettings();&#xa;dateSettings2.setFormatForDatesCommonEra(&quot;d MMM yyyy&quot;);&#xa;dateSettings2.setFormatForDatesBeforeCommonEra(&quot;d MMM uuuu&quot;);&#xa;dateSettings2.setAllowEmptyDates(false);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="dtp_inicioFinanceiro.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));&#xa;dtp_inicioFinanceiro.setDateToToday();&#xa;&#xa;dateSettings2.setDateRangeLimits(null, LocalDate.now());&#xa;&#xa;javax.swing.JButton datePickerButton2 = dtp_inicioFinanceiro.getComponentToggleCalendarButton();&#xa;datePickerButton2.setPreferredSize(new java.awt.Dimension(22, 22));&#xa;datePickerButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));&#xa;datePickerButton2.setOpaque(false);&#xa;datePickerButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder());&#xa;datePickerButton2.setBackground(new java.awt.Color(0, 0, 0, 0));&#xa;datePickerButton2.setText(&quot;&quot;);&#xa;javax.swing.ImageIcon dateExampleIcon2 = new javax.swing.ImageIcon(getClass().getResource(&quot;/datepickerbutton1.png&quot;));&#xa;datePickerButton2.setIcon(dateExampleIcon2);&#xa;java.awt.Dimension newDateButtonSize2 = new java.awt.Dimension(dateExampleIcon2.getIconWidth() + 4, dateExampleIcon2.getIconHeight() + 4);&#xa;datePickerButton2.setPreferredSize(newDateButtonSize2);&#xa;&#xa;datePickerButton2.setContentAreaFilled(false);&#xa;datePickerButton2.setBorderPainted(false);&#xa;datePickerButton2.setFocusPainted(false);&#xa;dtp_inicioFinanceiro.setBackground(new java.awt.Color(0,0,0,0));"/>
+                  </AuxValues>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="170" y="40" width="120" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel4">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Fim:"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="310" y="20" width="-1" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel5">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="In&#xed;cio:"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="170" y="20" width="-1" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton1">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Gerar relat&#xf3;rio"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                  </Events>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="590" y="40" width="130" height="30"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Container class="javax.swing.JTabbedPane" name="jtbp_financeiro">
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="0" y="70" width="720" height="390"/>
                     </Constraint>
                   </Constraints>
 
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jtl_produto_mes">
-                      <Properties>
-                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="3" rowCount="22">
-                            <Column editable="true" title="CODIGO" type="java.lang.Object">
-                              <Data value="1"/>
-                              <Data value="2"/>
-                              <Data value="3"/>
-                              <Data value="4"/>
-                              <Data value="5"/>
-                              <Data value="6"/>
-                              <Data value="7"/>
-                              <Data value="8"/>
-                              <Data value="9"/>
-                              <Data value="10"/>
-                              <Data value="11"/>
-                              <Data value="12"/>
-                              <Data value="13"/>
-                              <Data value="14"/>
-                              <Data value="15"/>
-                              <Data value="16"/>
-                              <Data value="17"/>
-                              <Data value="18"/>
-                              <Data value="19"/>
-                              <Data value="20"/>
-                              <Data value="21"/>
-                              <Data value="22"/>
-                            </Column>
-                            <Column editable="true" title="PRODUTOS" type="java.lang.Object"/>
-                            <Column editable="true" title="TOTAL" type="java.lang.Object"/>
-                          </Table>
-                        </Property>
-                        <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="99" type="rgb"/>
-                        </Property>
-                        <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="cc" red="66" type="rgb"/>
-                        </Property>
-                        <Property name="selectionForeground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="99" type="rgb"/>
-                        </Property>
-                        <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                          <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
-                        </Property>
-                      </Properties>
-                    </Component>
+                    <Container class="javax.swing.JScrollPane" name="jscp_graficoFinanceiro">
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                          <JTabbedPaneConstraints tabName="Gr&#xe1;fico">
+                            <Property name="tabTitle" type="java.lang.String" value="Gr&#xe1;fico"/>
+                          </JTabbedPaneConstraints>
+                        </Constraint>
+                      </Constraints>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Container class="javax.swing.JPanel" name="jpnl_graficoFinanceiro">
+                          <Properties>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[694, 304]"/>
+                            </Property>
+                          </Properties>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
+                        </Container>
+                      </SubComponents>
+                    </Container>
+                    <Container class="javax.swing.JScrollPane" name="jscp_tabelaFinanceiro">
+                      <AuxValues>
+                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                      </AuxValues>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                          <JTabbedPaneConstraints tabName="Tabela">
+                            <Property name="tabTitle" type="java.lang.String" value="Tabela"/>
+                          </JTabbedPaneConstraints>
+                        </Constraint>
+                      </Constraints>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JTable" name="jtbl_fluxoFinanceiro">
+                          <Properties>
+                            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                              <Table columnCount="4" rowCount="0">
+                                <Column editable="false" title="Data associada" type="java.lang.Object"/>
+                                <Column editable="false" title="Arrecadado" type="java.lang.Object"/>
+                                <Column editable="false" title="Custo" type="java.lang.Object"/>
+                                <Column editable="false" title="Lucro" type="java.lang.Object"/>
+                              </Table>
+                            </Property>
+                            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                              <TableColumnModel selectionModel="0">
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title value="Data associada"/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title value="Arrecadado"/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title value="Custo"/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title value="Lucro"/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                              </TableColumnModel>
+                            </Property>
+                            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                              <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
+                            </Property>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JLabel" name="jLabel6">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Formato:"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="450" y="20" width="-1" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jcmb_formato">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="2">
+                        <StringItem index="0" value="Gr&#xe1;fico"/>
+                        <StringItem index="1" value="Tabela"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jcmb_formatoItemStateChanged"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="450" y="40" width="120" height="30"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jpnl_relatorioPerfomanceGeral">
@@ -515,6 +446,148 @@
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
                 <Property name="useNullLayout" type="boolean" value="false"/>
               </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="jLabel2">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Tipo:"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="10" y="20" width="-1" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jcmb_tipoRelatorioPerformance">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="3">
+                        <StringItem index="0" value="Produtos"/>
+                        <StringItem index="1" value="Pedidos"/>
+                        <StringItem index="2" value="Atendentes"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="10" y="40" width="140" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="com.github.lgooddatepicker.components.DatePicker" name="dtp_fimPerformance">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.github.lgooddatepicker.components.DatePicker(dateSettings3)"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="DatePickerSettings dateSettings3 = new DatePickerSettings();&#xa;dateSettings3.setFormatForDatesCommonEra(&quot;d MMM yyyy&quot;);&#xa;dateSettings3.setFormatForDatesBeforeCommonEra(&quot;d MMM uuuu&quot;);&#xa;dateSettings3.setAllowEmptyDates(false);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="dtp_fimPerformance.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));&#xa;&#xa;dateSettings3.setVisiblePreviousYearButton(false);&#xa;dateSettings3.setVisibleNextYearButton(false);&#xa;dateSettings3.setDateRangeLimits(null, LocalDate.now());&#xa;&#xa;dtp_fimPerformance.setDateToToday();&#xa;&#xa;javax.swing.JButton datePickerButton3 = dtp_fimPerformance.getComponentToggleCalendarButton();&#xa;datePickerButton3.setPreferredSize(new java.awt.Dimension(22, 22));&#xa;datePickerButton3.setMargin(new java.awt.Insets(0, 0, 0, 0));&#xa;datePickerButton3.setOpaque(false);&#xa;datePickerButton3.setBorder(javax.swing.BorderFactory.createEmptyBorder());&#xa;datePickerButton3.setBackground(new java.awt.Color(0, 0, 0, 0));&#xa;datePickerButton3.setText(&quot;&quot;);&#xa;javax.swing.ImageIcon dateExampleIcon3 = new javax.swing.ImageIcon(getClass().getResource(&quot;/datepickerbutton1.png&quot;));&#xa;datePickerButton3.setIcon(dateExampleIcon3);&#xa;java.awt.Dimension newDateButtonSize3 = new java.awt.Dimension(dateExampleIcon3.getIconWidth() + 4, dateExampleIcon3.getIconHeight() + 4);&#xa;datePickerButton3.setPreferredSize(newDateButtonSize3);&#xa;&#xa;datePickerButton3.setContentAreaFilled(false);&#xa;datePickerButton3.setBorderPainted(false);&#xa;datePickerButton3.setFocusPainted(false);&#xa;dtp_fimPerformance.setBackground(new java.awt.Color(0,0,0,0));"/>
+                  </AuxValues>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="310" y="40" width="120" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="com.github.lgooddatepicker.components.DatePicker" name="dtp_inicioPerformance">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.github.lgooddatepicker.components.DatePicker(dateSettings)"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="DatePickerSettings dateSettings = new DatePickerSettings();&#xa;dateSettings.setFormatForDatesCommonEra(&quot;d MMM yyyy&quot;);&#xa;dateSettings.setFormatForDatesBeforeCommonEra(&quot;d MMM uuuu&quot;);&#xa;dateSettings.setAllowEmptyDates(false);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="dtp_inicioPerformance.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));&#xa;dtp_inicioPerformance.setDateToToday();&#xa;&#xa;javax.swing.JButton datePickerButton4 = dtp_inicioPerformance.getComponentToggleCalendarButton();&#xa;datePickerButton4.setPreferredSize(new java.awt.Dimension(22, 22));&#xa;datePickerButton4.setMargin(new java.awt.Insets(0, 0, 0, 0));&#xa;datePickerButton4.setOpaque(false);&#xa;datePickerButton4.setBorder(javax.swing.BorderFactory.createEmptyBorder());&#xa;datePickerButton4.setBackground(new java.awt.Color(0, 0, 0, 0));&#xa;datePickerButton4.setText(&quot;&quot;);&#xa;javax.swing.ImageIcon dateExampleIcon = new javax.swing.ImageIcon(getClass().getResource(&quot;/datepickerbutton1.png&quot;));&#xa;datePickerButton4.setIcon(dateExampleIcon);&#xa;java.awt.Dimension newDateButtonSize = new java.awt.Dimension(dateExampleIcon.getIconWidth() + 4, dateExampleIcon.getIconHeight() + 4);&#xa;datePickerButton4.setPreferredSize(newDateButtonSize);&#xa;&#xa;datePickerButton4.setContentAreaFilled(false);&#xa;datePickerButton4.setBorderPainted(false);&#xa;datePickerButton4.setFocusPainted(false);&#xa;dtp_inicioPerformance.setBackground(new java.awt.Color(0,0,0,0));"/>
+                  </AuxValues>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="170" y="40" width="120" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel7">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="In&#xed;cio:"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="170" y="20" width="-1" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel8">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Fim:"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="310" y="20" width="-1" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jcmb_limiteRelatorioPerformance">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="3">
+                        <StringItem index="0" value="10"/>
+                        <StringItem index="1" value="15"/>
+                        <StringItem index="2" value="25"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="550" y="40" width="50" height="30"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel3">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Limite"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="550" y="20" width="-1" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton2">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Gerar relat&#xf3;rio"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="610" y="40" width="120" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel9">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Formato:"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="440" y="20" width="-1" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jComboBox1">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="2">
+                        <StringItem index="0" value="Gr&#xe1;fico"/>
+                        <StringItem index="1" value="Tabela"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="440" y="40" width="90" height="30"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+              </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jpnl_relatorioIntercorrencia">
               <Properties>
