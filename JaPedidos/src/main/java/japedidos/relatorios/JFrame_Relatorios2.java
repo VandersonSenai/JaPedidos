@@ -6,6 +6,8 @@ import japedidos.bd.BD;
 import static japedidos.bd.BD.Cliente.TABLE;
 import static japedidos.bd.BD.Pedido.parseView_pedido;
 import java.awt.event.ItemEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -16,7 +18,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import org.knowm.xchart.*;
 import org.knowm.xchart.XYSeries.XYSeriesRenderStyle;
@@ -101,7 +105,7 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
         jscp_graficoFinanceiro1 = new javax.swing.JScrollPane();
         jpnl_graficoPerformance = new javax.swing.JPanel();
         jscp_tabelaPerformance = new javax.swing.JScrollPane();
-        jtbl_fluxoFinanceiro1 = new javax.swing.JTable();
+        jtbl_fluxoPerformance = new javax.swing.JTable();
         jpnl_relatorioIntercorrencia = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jtbl_relatorioIntercorrencia = new javax.swing.JTable();
@@ -382,7 +386,7 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
 
         jtbp_performance.addTab("Gráfico", jscp_graficoFinanceiro1);
 
-        jtbl_fluxoFinanceiro1.setModel(new javax.swing.table.DefaultTableModel(
+        jtbl_fluxoPerformance.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -398,13 +402,13 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jtbl_fluxoFinanceiro1.getTableHeader().setReorderingAllowed(false);
-        jscp_tabelaPerformance.setViewportView(jtbl_fluxoFinanceiro1);
-        if (jtbl_fluxoFinanceiro1.getColumnModel().getColumnCount() > 0) {
-            jtbl_fluxoFinanceiro1.getColumnModel().getColumn(0).setHeaderValue("Data associada");
-            jtbl_fluxoFinanceiro1.getColumnModel().getColumn(1).setHeaderValue("Arrecadado");
-            jtbl_fluxoFinanceiro1.getColumnModel().getColumn(2).setHeaderValue("Custo");
-            jtbl_fluxoFinanceiro1.getColumnModel().getColumn(3).setHeaderValue("Lucro");
+        jtbl_fluxoPerformance.getTableHeader().setReorderingAllowed(false);
+        jscp_tabelaPerformance.setViewportView(jtbl_fluxoPerformance);
+        if (jtbl_fluxoPerformance.getColumnModel().getColumnCount() > 0) {
+            jtbl_fluxoPerformance.getColumnModel().getColumn(0).setHeaderValue("Data associada");
+            jtbl_fluxoPerformance.getColumnModel().getColumn(1).setHeaderValue("Arrecadado");
+            jtbl_fluxoPerformance.getColumnModel().getColumn(2).setHeaderValue("Custo");
+            jtbl_fluxoPerformance.getColumnModel().getColumn(3).setHeaderValue("Lucro");
         }
 
         jtbp_performance.addTab("Tabela", jscp_tabelaPerformance);
@@ -495,6 +499,23 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtf_periodoInicialIntercorrenciaActionPerformed
 
+    private static class Maximizador extends MouseAdapter {
+        public JPanel painel;
+        
+        public Maximizador(JPanel root) {
+            super();
+            this.painel = root;
+        }
+        
+        @Override
+            public void mouseClicked(MouseEvent e) {
+                JFrame maximizado = new JFrame("Maximizado");
+                maximizado.setContentPane(this.painel);
+                maximizado.pack();
+                maximizado.setVisible(true);
+            }
+    }
+    
     private void jbtn_gerarRelatorioFinanceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_gerarRelatorioFinanceiroActionPerformed
         jpnl_graficoFinanceiro.removeAll();
         int escolha = jcmb_tipoRelatorioFinanceiro.getSelectedIndex();
@@ -564,7 +585,8 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
                             XChartPanel panel = new XChartPanel(xyChart);
 
                             jpnl_graficoFinanceiro.add(panel);
-
+                            jpnl_graficoFinanceiro.add(panel);
+                            panel.addMouseListener(new Maximizador(panel));
                             panel.setVisible(true);
                         }
                     } else {
@@ -656,7 +678,7 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
                             XChartPanel panel = new XChartPanel(xyChart);
 
                             jpnl_graficoFinanceiro.add(panel);
-
+                            panel.addMouseListener(new Maximizador(panel));
                             panel.setVisible(true);
                         }
                     } else {
@@ -753,7 +775,7 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
                             XChartPanel panel = new XChartPanel(xyChart);
 
                             jpnl_graficoFinanceiro.add(panel);
-
+                            panel.addMouseListener(new Maximizador(panel));
                             panel.setVisible(true);
                         }
                     } else {
@@ -845,7 +867,7 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
                             XChartPanel panel = new XChartPanel(xyChart);
 
                             jpnl_graficoFinanceiro.add(panel);
-
+                            panel.addMouseListener(new Maximizador(panel));
                             panel.setVisible(true);
                         }
                     } else {
@@ -919,7 +941,7 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
                 XChartPanel panel = new XChartPanel(categoryChart);
 
                 jpnl_graficoFinanceiro.add(panel);
-
+                panel.addMouseListener(new Maximizador(panel));
                 panel.setVisible(true);
             }
         }
@@ -954,27 +976,30 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
                 Connection conn = null;
                 CallableStatement cstmt = null;
                 ResultSet rs = null;
-                ArrayList<Date> datas = new ArrayList<>();
-                ArrayList<Double> arrecadado = new ArrayList<>();
-                ArrayList<Double> lucro = new ArrayList<>();
+                ArrayList<Integer> id_produto = new ArrayList<>();
+                ArrayList<String> produto = new ArrayList<>();
+                ArrayList<Double> quantidade = new ArrayList<>();
+                ArrayList<Double> venda = new ArrayList<>();
                 ArrayList<Double> custo = new ArrayList<>();
                 try {
                     conn = BD.getConnection();
                     cstmt = conn.prepareCall("call produtos_mais_vendidos(?, ?, ?)");
-                    cstmt.setDate(1, Date.valueOf(dtFim));
-                    cstmt.setDate(2, Date.valueOf(dtInicio));
+                    cstmt.setDate(1, Date.valueOf(dtInicio));
+                    cstmt.setDate(2, Date.valueOf(dtFim));
                     cstmt.setInt(3, limite);
                     rs = cstmt.executeQuery();
 
                     while(rs.next()) {
-                        datas.add(rs.getDate("dt_associada"));
-//                        System.out.println(rs.getDate("dt_associada"));
-                        arrecadado.add(rs.getDouble("arrecadado"));
-//                        System.out.println(rs.getDate("arrecadado"));
-                        custo.add(rs.getDouble("custo"));
-//                        System.out.println(rs.getDate("custo"));
-                        lucro.add(rs.getDouble("lucro"));
-//                        System.out.println(rs.getDate("lucro"));
+                        id_produto.add(rs.getInt("id_produto"));
+                        
+                        String nome, abreviacao;
+                        nome = rs.getString("nome_produto");
+                        abreviacao = rs.getString("abreviacao_unidade");
+                        produto.add(String.format("%s (%s)", nome, abreviacao));
+                        
+                        quantidade.add(Double.valueOf(rs.getInt("soma_quantidade")));
+                        venda.add(rs.getDouble("soma_venda"));
+                        custo.add(rs.getDouble("soma_custo"));
                     }
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
@@ -993,36 +1018,43 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
                 }
                 
 
-                    if (jcmb_formato.getSelectedIndex() == 0) {
-                        if (datas.size() > 0) {
-                            XYChart xyChart = new XYChartBuilder().width(694).height(340).title("Fluxo de caixa no período").xAxisTitle("Métrica").yAxisTitle("R$").build();
-                            xyChart.getStyler().setLegendPosition(LegendPosition.OutsideE);
-                            xyChart.getStyler().setDefaultSeriesRenderStyle(XYSeriesRenderStyle.Line);
-                            xyChart.getStyler().setLegendVisible(true);
-                            xyChart.getStyler().setPlotContentSize(0.8);
-                            xyChart.getStyler().setYAxisLabelAlignment(AxesChartStyler.TextAlignment.Right);
-                            xyChart.getStyler().setYAxisDecimalPattern("R$ #,###.##");
+                    if (jcmb_formatoPerformance.getSelectedIndex() == 0) {
+                        if ( ! id_produto.isEmpty() ) {
+                            CategoryChart categoryChart = new CategoryChartBuilder().width(694).title("Fluxo de caixa no período").xAxisTitle("Métrica").yAxisTitle("R$").build();
+//                            categoryChart.getStyler().setLegendPosition(LegendPosition.OutsideE);
+                            categoryChart.getStyler().setLegendVisible(false);
+                            categoryChart.getStyler().setXAxisLabelRotation(80);
+                            
+                            categoryChart.getStyler().setPlotContentSize(0.80);
+                            categoryChart.getStyler().setYAxisLabelAlignment(AxesChartStyler.TextAlignment.Right);
+//                            categoryChart.getStyler().setYAxisDecimalPattern("R$ #,###.##");
+                            
+//                            for (int j =0; j < id_produto.size(); j++) {
+                                categoryChart.addSeries("Produtos mais vendidos", Arrays.asList(produto.toArray(new String[1])), Arrays.asList(quantidade.toArray(new Double[1])));
+//                                categoryChart.addSeries("Produtos", produto.subList(0, produto.size()), Arrays.asList(quantidade.toArray(new Double[1])));
+//                            }
+                            XChartPanel panel = new XChartPanel(categoryChart);
 
-                            double[] lucros = new double[] {1};
-            //                xyChart.addSeries("Arrecadamento", );
-            //                xyChart.addSeries("Custo", );
-                            xyChart.addSeries("Arrecadamento", Arrays.asList(datas.toArray(new Date[1])), Arrays.asList(arrecadado.toArray(new Double[1])));
-                            xyChart.addSeries("Custo", Arrays.asList(datas.toArray(new Date[1])), Arrays.asList(custo.toArray(new Double[1])));
-                            xyChart.addSeries("Lucro", Arrays.asList(datas.toArray(new Date[1])), Arrays.asList(lucro.toArray(new Double[1])));
-
-                            XChartPanel panel = new XChartPanel(xyChart);
-
-                            jpnl_graficoFinanceiro.add(panel);
+                            jpnl_graficoPerformance.add(panel);
+                            panel.addMouseListener(new MouseAdapter() {
+                                @Override
+                                public void mouseClicked(MouseEvent e) {
+                                    JFrame maximizado = new JFrame("Maximizado");
+                                    maximizado.setContentPane(panel);
+                                    maximizado.pack();
+                                    maximizado.setVisible(true);
+                                }
+                            });
 
                             panel.setVisible(true);
                         }
                     } else {
-                        jtbl_fluxoFinanceiro.setModel(new javax.swing.table.DefaultTableModel(
+                        jtbl_fluxoPerformance.setModel(new javax.swing.table.DefaultTableModel(
                             new Object [][] {
 
                             },
                             new String [] {
-                                "Data associada", "Arrecadado", "Custo", "Lucro"
+                                "Cód. Produto", "Produto", "Qnt.", "Venda total", "Custo total"
                             }
                             ) {
                             boolean[] canEdit = new boolean [] {
@@ -1033,10 +1065,10 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
                                 return canEdit [columnIndex];
                             }
                         });
-                        for (int i = 0 ; i < datas.size(); i++) {
-                            ((DefaultTableModel)jtbl_fluxoFinanceiro.getModel()).addRow(new Object[] {datas.get(i), arrecadado.get(i), custo.get(i), lucro.get(i)});
+                        for (int i = 0 ; i < id_produto.size(); i++) {
+                            ((DefaultTableModel)jtbl_fluxoPerformance.getModel()).addRow(new Object[] {id_produto.get(i), produto.get(i), quantidade.get(i), venda.get(i), custo.get(i)});
                         }
-                        ((DefaultTableModel)jtbl_fluxoFinanceiro.getModel()).fireTableDataChanged();
+                        ((DefaultTableModel)jtbl_fluxoPerformance.getModel()).fireTableDataChanged();
                     }
             }
         }
@@ -1137,7 +1169,7 @@ public class JFrame_Relatorios2 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jscp_tabelaPerformance;
     private javax.swing.JToolBar jtb_linhaBranca;
     private javax.swing.JTable jtbl_fluxoFinanceiro;
-    private javax.swing.JTable jtbl_fluxoFinanceiro1;
+    private javax.swing.JTable jtbl_fluxoPerformance;
     private javax.swing.JTable jtbl_relatorioIntercorrencia;
     private javax.swing.JTabbedPane jtbp_financeiro;
     private javax.swing.JTabbedPane jtbp_performance;
