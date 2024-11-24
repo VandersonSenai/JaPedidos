@@ -513,11 +513,7 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         jlbl_btn_excluir = new javax.swing.JLabel();
         jlbl_alterarPedido = new javax.swing.JLabel();
         jlbl_btn_voltar = new javax.swing.JLabel();
-<<<<<<< HEAD
         jlbl_infoAdicionalCliente = new javax.swing.JLabel();
-        jpnl_background1 = new javax.swing.JLabel();
-=======
->>>>>>> 0074b4108de7ba2b7c5aeceb1677de3284b88033
 
         setOpaque(false);
 
@@ -899,7 +895,6 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         });
         jpnl_incluirPedido.add(jlbl_btn_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 390, 140, 33));
 
-<<<<<<< HEAD
         jlbl_infoAdicionalCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_info_adicional.png"))); // NOI18N
         jlbl_infoAdicionalCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -908,18 +903,6 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         });
         jpnl_incluirPedido.add(jlbl_infoAdicionalCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 380, -1, -1));
 
-        jpnl_background1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jpnl_background1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background_pedidos.png"))); // NOI18N
-        jpnl_background1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jpnl_background1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jpnl_background1.setMaximumSize(new java.awt.Dimension(1024, 576));
-        jpnl_background1.setMinimumSize(new java.awt.Dimension(1024, 576));
-        jpnl_background1.setPreferredSize(new java.awt.Dimension(1024, 576));
-        jpnl_background1.setToolTipText("");
-        jpnl_incluirPedido.add(jpnl_background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-270, -70, -1, 630));
-
-=======
->>>>>>> 0074b4108de7ba2b7c5aeceb1677de3284b88033
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -1125,13 +1108,13 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
     private void jlbl_btn_voltarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_voltarMousePressed
         // TODO add your handling code here:
 
-        jlbl_btn_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("//btn_voltar_pressionado.png")));
+        jlbl_btn_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_voltar_pressionado.png")));
 
     }//GEN-LAST:event_jlbl_btn_voltarMousePressed
 
     private void jlbl_btn_voltarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_voltarMouseReleased
         // TODO add your handling code here:
-        jlbl_btn_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("//btn_voltar_padrao")));
+        jlbl_btn_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_voltar_padrao.png")));
     }//GEN-LAST:event_jlbl_btn_voltarMouseReleased
 
 //    public static void main(String[] args) {

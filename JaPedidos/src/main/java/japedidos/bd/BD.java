@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 
 public final class BD {
     private static boolean connected = false;
@@ -31,6 +32,8 @@ public final class BD {
     public static String USER;
     public static String USER_PWD;
     public static String CONNECTION_STRING;
+    
+    private static Connection establishedConnection = null;
     
     public static final DatabaseConfigurationFile CONFIG_FILE = new DatabaseConfigurationFile("database.xml");
     
@@ -133,7 +136,11 @@ public final class BD {
     
     public final static Connection getConnection() {
         try {
-            return BD.getConnection(CONNECTION_STRING, BD.USER, BD.USER_PWD);
+//            if (establishedConnection == null || ! establishedConnection.isValid(2)) {
+                establishedConnection = BD.getConnection(CONNECTION_STRING, BD.USER, BD.USER_PWD);
+//                System.out.println("CONEXAO CAIU");
+//            }
+            return establishedConnection;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível conectar ao banco.\n\nMotivo: " + ex.getMessage() + "\n\nVerifique as configurações e tente novamente.", "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
             return null;
@@ -2880,6 +2887,8 @@ public final class BD {
         if (!AccessController.isLoginObrigatorio()) {
             if (isAccessible()) {
                 japedidos.usuario.Usuario.setAtual(BD.Usuario.selectLast());
+            } else {
+                System.exit(0);
             }
         }
     }

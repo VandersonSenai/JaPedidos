@@ -22,6 +22,7 @@ import javax.swing.table.TableColumn;
 public class JTable_Pedido_Resumido extends JPanel {
     private JTable table;
     private PedidoTableModel model;
+    
     public JTable_Pedido_Resumido() {
         super(new GridLayout(1, 0));
         PedidoTableModel model = new PedidoTableModel();
