@@ -1531,7 +1531,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             }
             
 //            pnl_alterarPedido.definirPedidoAlterar(jtbl_pedidos.getSelectedRows());
-            pnl_alterarPedido.definirPedidoAlterar(jTable_Pedido_Resumido1.getModel().getRow(rowSel));
+            pnl_alterarPedido.definirPedidoAlterar(jtbl_pedidos.getModel().getRow(rowSel));
             jTabbedPane1.setSelectedIndex(3);
             
         }        
