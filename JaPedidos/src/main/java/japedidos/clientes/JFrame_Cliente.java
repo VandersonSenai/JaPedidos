@@ -66,7 +66,7 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("JaPedidos");
+        setTitle("JaPedidos - Gerenciar Clientes");
         setMaximumSize(new java.awt.Dimension(1024, 576));
         setMinimumSize(new java.awt.Dimension(1024, 576));
         setPreferredSize(new java.awt.Dimension(1024, 576));
@@ -165,6 +165,9 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         jLbl_Relatorio.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jLbl_Relatorio.setText("RELATÓRIOS");
         jLbl_Relatorio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLbl_RelatorioMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLbl_RelatorioMouseEntered(evt);
             }
@@ -319,6 +322,16 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_jtbl_clientesMouseClicked
+
+    private void jLbl_RelatorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLbl_RelatorioMouseClicked
+        this.setVisible(false);
+        japedidos.relatorios.JFrame_Relatorios frame = new japedidos.relatorios.JFrame_Relatorios();
+        int x = this.getX() + this.getWidth() / 2 - frame.getWidth() / 2;
+        int y = this.getY() + this.getHeight()/ 2 - frame.getHeight() / 2;
+        frame.setLocation(x, y);
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLbl_RelatorioMouseClicked
 
     /**
      * @param args the command line arguments

@@ -575,6 +575,8 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
             }
         });
         jpnl_incluirPedido.add(jcmb_tipoEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, 90, -1));
+
+        jtxtf_nomeCliente.setEnabled(false);
         jpnl_incluirPedido.add(jtxtf_nomeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 30, 240, -1));
 
         jlbl_bairro.setText("BAIRRO:");
@@ -629,6 +631,11 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         datePickerButton.setBorderPainted(false);
         datePickerButton.setFocusPainted(false);
         datePicker1.setBackground(new java.awt.Color(0,0,0,0));
+        datePicker1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                datePicker1MouseExited(evt);
+            }
+        });
         jpnl_incluirPedido.add(datePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 120, -1));
 
         timePicker1.getComponentTimeTextField().setPreferredSize(new java.awt.Dimension(40, 20));
@@ -653,6 +660,8 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         jlbl_desconto.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_desconto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jpnl_incluirPedido.add(jlbl_desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 316, 60, -1));
+
+        jtxtf_telefoneCliente.setEnabled(false);
         jpnl_incluirPedido.add(jtxtf_telefoneCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 30, 110, -1));
 
         jlbl_telefoneCliente.setText("TELEFONE:");
@@ -1116,6 +1125,11 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         // TODO add your handling code here:
         jlbl_btn_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_voltar_padrao.png")));
     }//GEN-LAST:event_jlbl_btn_voltarMouseReleased
+
+    private void datePicker1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_datePicker1MouseExited
+        // TODO add your handling code here:
+        datePicker1.repaint();
+    }//GEN-LAST:event_datePicker1MouseExited
 
 //    public static void main(String[] args) {
 //        javax.swing.SwingUtilities.invokeLater(() -> {

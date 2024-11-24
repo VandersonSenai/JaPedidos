@@ -5,6 +5,7 @@ import com.github.lgooddatepicker.components.DatePickerSettings;
 import japedidos.bd.BD;
 import static japedidos.bd.BD.Cliente.TABLE;
 import static japedidos.bd.BD.Pedido.parseView_pedido;
+import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -117,6 +118,7 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         jpnl_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("JaPedidos - Gerenciar Relatórios");
         setMinimumSize(new java.awt.Dimension(1024, 576));
         setResizable(false);
         setSize(new java.awt.Dimension(1024, 576));
@@ -147,13 +149,18 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jlbl_clientesMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jlbl_clientesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jlbl_clientesMouseExited(evt);
+            }
         });
         jpnl_sideMenu.add(jlbl_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 210, -1, -1));
 
         jlbl_produtos.setText("PRODUTOS");
         jlbl_produtos.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_produtos.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_produtos.setForeground(new java.awt.Color(204, 204, 204));
         jlbl_produtos.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jlbl_produtosFocusGained(evt);
@@ -162,6 +169,12 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         jlbl_produtos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jlbl_produtosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jlbl_produtosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jlbl_produtosMouseExited(evt);
             }
         });
         jpnl_sideMenu.add(jlbl_produtos, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 250, -1, -1));
@@ -173,12 +186,19 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jlbl_pedidosMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jlbl_pedidosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jlbl_pedidosMouseExited(evt);
+            }
         });
         jpnl_sideMenu.add(jlbl_pedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 290, -1, -1));
 
+        jlbl_relatorios.setText("RELATÓRIOS");
         jlbl_relatorios.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_relatorios.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
-        jlbl_relatorios.setText("RELATÓRIOS");
+        jlbl_relatorios.setForeground(new java.awt.Color(255, 255, 255));
         jpnl_sideMenu.add(jlbl_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 330, -1, -1));
 
         jpnl_img_etiqueta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/painel_comandos_esquerda_05x.png"))); // NOI18N
@@ -1035,7 +1055,8 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
 
                     if (jcmb_formatoPerformance.getSelectedIndex() == 0) {
                         if ( ! id_produto.isEmpty() ) {
-                            CategoryChart categoryChart = new CategoryChartBuilder().width(694).title("Fluxo de caixa no período").xAxisTitle("Métrica").yAxisTitle("R$").build();
+                            int tamanho = id_produto.size() > 15 ? 694 + (60 * (id_produto.size() - 15)) : 694 ;
+                            CategoryChart categoryChart = new CategoryChartBuilder().width(tamanho).title("Fluxo de caixa no período").xAxisTitle("Métrica").yAxisTitle("R$").build();
 //                            categoryChart.getStyler().setLegendPosition(LegendPosition.OutsideE);
                             categoryChart.getStyler().setLegendVisible(false);
                             categoryChart.getStyler().setXAxisLabelRotation(80);
@@ -1118,6 +1139,35 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jlbl_pedidosMouseClicked
+
+    private void jlbl_clientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_clientesMouseEntered
+        jlbl_clientes.setForeground(new Color(187,187,187));
+    }//GEN-LAST:event_jlbl_clientesMouseEntered
+
+    private void jlbl_produtosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_produtosMouseEntered
+        // TODO add your handling code here:
+        jlbl_produtos.setForeground(new Color(187,187,187));
+    }//GEN-LAST:event_jlbl_produtosMouseEntered
+
+    private void jlbl_pedidosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_pedidosMouseEntered
+        // TODO add your handling code here:
+        jlbl_pedidos.setForeground(new Color(187,187,187));
+    }//GEN-LAST:event_jlbl_pedidosMouseEntered
+
+    private void jlbl_clientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_clientesMouseExited
+        // TODO add your handling code here:
+        jlbl_clientes.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jlbl_clientesMouseExited
+
+    private void jlbl_pedidosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_pedidosMouseExited
+        // TODO add your handling code here:
+        jlbl_pedidos.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jlbl_pedidosMouseExited
+
+    private void jlbl_produtosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_produtosMouseExited
+        // TODO add your handling code here:
+        jlbl_produtos.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jlbl_produtosMouseExited
 
     /**
      * @param args the command line arguments

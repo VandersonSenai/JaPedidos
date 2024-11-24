@@ -47,9 +47,10 @@ import javax.swing.event.TableModelEvent;
  */
 public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements InfoAdicionalReceiver {
     Cliente.InfoAdicional infoAdicionalCliente;
+    Cliente clienteEncontrado = null;
     JPanel_AlterarPedido pnl_alterarPedido;
     final Runnable onFinalizarAlteracao;
-
+    private boolean telefoneDigitado = false;
     /**
      * Creates new form CadastroPedido
      */
@@ -194,14 +195,17 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         // Criação de cliente
         nome = jtxtf_nomeCliente.getText().trim();
         telefone = jtxtf_telefoneCliente.getText();
-        
-        try {
-            cliente = new Cliente(nome, telefone);
-            cliente.setInfoAdicional(infoAdicionalCliente);
-//            cliente.setId(1); // RETIRAR quando tiver método de criar usuario
-        } catch (IllegalArgumentsException newExs) {
-            exs.addCause(newExs.getCauses());
-            cliente = null;
+        if (clienteEncontrado == null) {
+            try {
+                cliente = new Cliente(nome, telefone);
+                cliente.setInfoAdicional(infoAdicionalCliente);
+    //            cliente.setId(1); // RETIRAR quando tiver método de criar usuario
+            } catch (IllegalArgumentsException newExs) {
+                exs.addCause(newExs.getCauses());
+                cliente = null;
+            }
+        } else {
+            cliente = clienteEncontrado;
         }
         
         // Tipo de entrega
@@ -701,6 +705,11 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         datePickerButton.setBorderPainted(false);
         datePickerButton.setFocusPainted(false);
         datePicker1.setBackground(new java.awt.Color(0,0,0,0));
+        datePicker1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                datePicker1MouseExited(evt);
+            }
+        });
         jpnl_incluirPedido.add(datePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 110, -1));
 
         timePicker1.getComponentTimeTextField().setPreferredSize(new java.awt.Dimension(40, 20));
@@ -726,6 +735,17 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         jlbl_desconto.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_desconto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jpnl_incluirPedido.add(jlbl_desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 316, 90, -1));
+
+        jtxtf_telefoneCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtf_telefoneClienteFocusLost(evt);
+            }
+        });
+        jtxtf_telefoneCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtf_telefoneClienteActionPerformed(evt);
+            }
+        });
         jpnl_incluirPedido.add(jtxtf_telefoneCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 30, 110, -1));
 
         jlbl_telefoneCliente.setText("TELEFONE:");
@@ -1666,6 +1686,104 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jlbl_relatoriosMouseClicked
+
+    private void datePicker1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_datePicker1MouseExited
+        // TODO add your handling code here:
+        this.datePicker1.getComponentToggleCalendarButton().repaint();
+    }//GEN-LAST:event_datePicker1MouseExited
+
+    private void setFieldsInfo(Pedido p) {
+        clearFieldsInfo();
+        hideErrorLabels();
+        if (p == null) {
+            throw new NullPointerException("Pedido para alteração não pode ser nulo.");
+        }
+
+        // Cliente
+        Cliente cliente = p.getCliente();
+        jtxtf_telefoneCliente.setText(cliente.getTelefone());
+        jtxtf_nomeCliente.setText(cliente.getNome());
+        
+        // Entrega
+        InfoEntrega infoEntrega = p.getInfoEntrega();
+        jcmb_tipoEntrega.setSelectedItem(infoEntrega.getTipoEntrega());
+        datePicker1.setDate(infoEntrega.getDataHoraEntregar().toLocalDate());
+        timePicker1.setTime(infoEntrega.getDataHoraEntregar().toLocalTime());
+        
+        if (infoEntrega.getTipoEntrega() == TipoEntrega.ENVIO) {
+            Destino destino = infoEntrega.getDestino();
+            jtxtf_rua.setText(destino.getLogradouro());
+            jtxtf_numero.setText(destino.getNumero());
+            jtxtf_bairro.setText(destino.getBairro());
+            jtxtf_cidade.setText(destino.getBairro());
+            jcmb_uf.setSelectedItem(destino.getEstado());
+        }
+        
+        jtxta_observacoes.setText(infoEntrega.getDestinatario());
+        
+        jTable_ProdutoPedido.getModel().fillRows(p.getProdutos());
+        
+//        jspn_desconto.setValue((int)(p.getTaxaDesconto() * 100.0));
+        jspn_valorEntrega.setValue(infoEntrega.getPrecoFrete());
+        atualizarValoresPedido();
+//        jcmb_estadoInicial.setSelectedItem(p.getEstadoAtualPedido().ESTADO);
+        this.infoAdicionalCliente = cliente.getInfoAdicional();
+    }
+    
+    private void autoPreencherPedido() {
+        
+        String conteudoTelefone = jtxtf_telefoneCliente.getText().trim();
+        if (! conteudoTelefone.isEmpty()) {
+            if ( ! telefoneDigitado || telefoneDigitado && clienteEncontrado!= null && !conteudoTelefone.equals(clienteEncontrado.getTelefone()) ) {
+                if (conteudoTelefone.length() > 7) {
+                    telefoneDigitado= true;
+                    Cliente encontrado = BD.Cliente.selectByTelefone(conteudoTelefone);
+                    if (encontrado != null) {
+                        clienteEncontrado = encontrado;
+                        jtxtf_telefoneCliente.setText(encontrado.getTelefone());
+                        jtxtf_nomeCliente.setEnabled(false);
+                        jtxtf_nomeCliente.setText(encontrado.getNome());
+                        int preencher = JOptionPane.showConfirmDialog(this, "Um cliente foi encontrado com este número. Deseja carregar o último pedido?", "Auto-preenchimento de pedido", JOptionPane.YES_NO_OPTION);
+                        if (preencher == JOptionPane.YES_OPTION) {
+                            this.setFieldsInfo(BD.Pedido.selectLastByCliente(encontrado));
+                        }
+                    } else if (clienteEncontrado != null) {
+                        clienteEncontrado = null;
+                        jtxtf_nomeCliente.setEnabled(true);
+                        jtxtf_nomeCliente.setText(null);
+                        telefoneDigitado = false;
+                        int limpar = JOptionPane.showConfirmDialog(this, "Deseja limpar os campos do pedido?", "Descartar pedido", JOptionPane.YES_NO_OPTION);
+                        if (limpar == JOptionPane.YES_OPTION) {
+                            this.clearFieldsInfo();
+                        }
+                    } else {
+                        telefoneDigitado = false;
+                    }
+                }  else {
+                    telefoneDigitado = false;
+                }
+            }
+        } else if (telefoneDigitado) {
+            telefoneDigitado = false;
+            clienteEncontrado = null;
+            jtxtf_nomeCliente.setEnabled(true);
+            jtxtf_nomeCliente.setText(null);
+            int limpar = JOptionPane.showConfirmDialog(this, "Deseja limpar os campos do pedido?", "Descartar pedido", JOptionPane.YES_NO_OPTION);
+            if (limpar == JOptionPane.YES_OPTION) {
+                this.clearFieldsInfo();
+            }
+        }
+    }
+    
+    private void jtxtf_telefoneClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtf_telefoneClienteFocusLost
+        // TODO add your handling code here:
+        autoPreencherPedido();
+    }//GEN-LAST:event_jtxtf_telefoneClienteFocusLost
+
+    private void jtxtf_telefoneClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_telefoneClienteActionPerformed
+        // TODO add your handling code here:
+        autoPreencherPedido();
+    }//GEN-LAST:event_jtxtf_telefoneClienteActionPerformed
 
     /**
      * @param args the command line arguments

@@ -469,6 +469,9 @@
                       <Connection code="new java.awt.Color(0,0,0,0)" type="code"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="datePicker1MouseExited"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.github.lgooddatepicker.components.DatePicker(dateSettings)"/>
                     <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="DatePickerSettings dateSettings = new DatePickerSettings();&#xa;dateSettings.setFormatForDatesCommonEra(&quot;d MMM yyyy&quot;);&#xa;dateSettings.setFormatForDatesBeforeCommonEra(&quot;d MMM uuuu&quot;);&#xa;dateSettings.setAllowEmptyDates(false);"/>
@@ -540,6 +543,10 @@
                   </Constraints>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jtxtf_telefoneCliente">
+                  <Events>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtf_telefoneClienteFocusLost"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtxtf_telefoneClienteActionPerformed"/>
+                  </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                       <AbsoluteConstraints x="2" y="30" width="110" height="-1"/>

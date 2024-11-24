@@ -220,6 +220,28 @@ public final class BD {
             return null;
         }
         
+        public static japedidos.clientes.Cliente selectByTelefone(String pesquisar) {
+            try {
+                Connection conn = BD.getConnection();
+                PreparedStatement select = conn.prepareStatement(String.format("SELECT id, nome, telefone FROM %s WHERE telefone LIKE '%%%s%%'", TABLE, pesquisar));
+
+                ResultSet rs = select.executeQuery();
+                japedidos.clientes.Cliente[] clientes = parse(rs);
+
+                select.close();
+                conn.close();
+
+                if (clientes == null) {
+                    return null;
+                }
+
+                return clientes[0];
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+            }
+            return null;
+        }
+        
         public static japedidos.clientes.Cliente[] selectAllLike(String pesquisar) {
             try {
                 Connection conn = BD.getConnection();
@@ -931,6 +953,40 @@ public final class BD {
                     conn = BD.getConnection();
                     stmt = conn.prepareCall("SELECT * FROM vw_pedido WHERE id = ?");
                     stmt.setInt(1, id);
+                    rs = stmt.executeQuery();
+                    
+                    japedidos.pedidos.Pedido[] pArray = parseView_pedido(rs);
+                    p = pArray[0];
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                // Fechamento da conexão
+                try {
+                    if (conn != null) {
+                        conn.close();
+                        if (stmt != null) {
+                            stmt.close();
+                        }
+                    }
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            }
+            return p;
+        }
+        
+        public static japedidos.pedidos.Pedido selectLastByCliente(japedidos.clientes.Cliente cliente) {
+            japedidos.pedidos.Pedido p = null;
+            if ( ! cliente.isNew()) {
+                Connection conn = null;
+                PreparedStatement stmt = null;
+                ResultSet rs = null;
+                try {
+                    conn = BD.getConnection();
+                    stmt = conn.prepareCall("SELECT * FROM vw_pedido WHERE id_cliente = ? ORDER BY dthr_criacao DESC LIMIT 1");
+                    stmt.setInt(1, cliente.getId());
                     rs = stmt.executeQuery();
                     
                     japedidos.pedidos.Pedido[] pArray = parseView_pedido(rs);

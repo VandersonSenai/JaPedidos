@@ -94,7 +94,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtb_linhaBranca1 = new javax.swing.JToolBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("JaPedidos");
+        setTitle("JaPedidos - Gerenciar Produtos");
         setFocusCycleRoot(false);
         setIconImages(null);
         setResizable(false);
@@ -405,6 +405,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtbl_listaprodutos.setRowHeaderView(jtbl_lista_produtos);
         jtbl_listaprodutos.setViewportView(jtbl_lista_produtos);
 
+        jtbl_lista_produtos.setAutoCreateRowSorter(true);
         jtbl_lista_produtos.setBackground(new java.awt.Color(153, 204, 255));
         jtbl_lista_produtos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jtbl_lista_produtos.setForeground(new java.awt.Color(255, 255, 255));
@@ -436,9 +437,11 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtbl_lista_produtos.setMinimumSize(new java.awt.Dimension(90, 160));
         jtbl_lista_produtos.setName(""); // NOI18N
         jtbl_lista_produtos.setNextFocusableComponent(jlbl_codigo);
+        jtbl_lista_produtos.setRowSelectionAllowed(false);
         jtbl_lista_produtos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jtbl_lista_produtos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jtbl_lista_produtos.setShowGrid(false);
+        jtbl_lista_produtos.getTableHeader().setReorderingAllowed(false);
         jtbl_lista_produtos.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jtbl_lista_produtosFocusGained(evt);
