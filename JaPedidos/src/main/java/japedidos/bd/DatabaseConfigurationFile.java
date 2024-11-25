@@ -24,11 +24,11 @@ import org.xml.sax.SAXException;
 public class DatabaseConfigurationFile extends ConfigurationFile {
     public static final File CONFIG_DIRECTORY = new File(japedidos.JaPedidos.ROOT_DIRECTORY);
     
-    public final String DEFAULT_ADDRESS = "162.241.203.86";
+    public final String DEFAULT_ADDRESS = "localhost";
     public final String DEFAULT_PORT = "3306";
-    public final String DEFAULT_SCHEMA = "titanw25_japedidos_hml";
-    public final String DEFAULT_USER = "titanw25_japedidos_hml";
-    public final String DEFAULT_USER_PASSWORD = "seNai@2024proj";
+    public final String DEFAULT_SCHEMA = "japedidos";
+    public final String DEFAULT_USER = "japedidos";
+    public final String DEFAULT_USER_PASSWORD = "";
     
     private String address;
     private String port;
