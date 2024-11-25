@@ -543,7 +543,7 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         jpnl_incluirPedido.add(jscp_destinatario, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 260, 50));
 
         jcmb_estadoInicial.setEnabled(false);
-        jpnl_incluirPedido.add(jcmb_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 394, 140, -1));
+        jpnl_incluirPedido.add(jcmb_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, 130, -1));
 
         jlbl_horaEntrega.setText("HORA:");
         jlbl_horaEntrega.setBackground(new java.awt.Color(0, 0, 0));
@@ -604,10 +604,10 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         jlbl_cidade.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jpnl_incluirPedido.add(jlbl_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 140, -1, -1));
 
-        jlbl_estadoInicial.setText("ESTADO INICIAL:");
+        jlbl_estadoInicial.setText("EST. ATUAL:");
         jlbl_estadoInicial.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_estadoInicial.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jpnl_incluirPedido.add(jlbl_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 396, 120, 20));
+        jpnl_incluirPedido.add(jlbl_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 110, 30));
 
         jlbl_tipoEntrega.setText("ENTREGA:");
         jlbl_tipoEntrega.setBackground(new java.awt.Color(0, 0, 0));
@@ -721,13 +721,13 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         jlbl_erro_estadoInicial.setText("Info inválida!");
         jlbl_erro_estadoInicial.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jlbl_erro_estadoInicial.setForeground(new java.awt.Color(255, 0, 0));
-        jpnl_incluirPedido.add(jlbl_erro_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 418, 140, 20));
+        jpnl_incluirPedido.add(jlbl_erro_estadoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 200, 20));
 
         jlbl_erro_bairroEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_bairroEntrega.setText("Info inválida!");
         jlbl_erro_bairroEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jlbl_erro_bairroEntrega.setForeground(new java.awt.Color(255, 0, 0));
-        jpnl_incluirPedido.add(jlbl_erro_bairroEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 114, 180, 20));
+        jpnl_incluirPedido.add(jlbl_erro_bairroEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 114, 250, 20));
 
         jlbl_erro_desconto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_desconto.setText("Info inválida!");
@@ -738,20 +738,20 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         jlbl_erro_horaEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_horaEntrega.setText("Info inválida!");
         jlbl_erro_horaEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jlbl_erro_horaEntrega.setForeground(new java.awt.Color(255, 0, 0));
-        jpnl_incluirPedido.add(jlbl_erro_horaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 56, 90, 20));
+        jlbl_erro_horaEntrega.setForeground(new java.awt.Color(255, 255, 255));
+        jpnl_incluirPedido.add(jlbl_erro_horaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 60, 90, 20));
 
         jlbl_erro_observacoesEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_observacoesEntrega.setText("Info inválida!");
         jlbl_erro_observacoesEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jlbl_erro_observacoesEntrega.setForeground(new java.awt.Color(255, 255, 255));
-        jpnl_incluirPedido.add(jlbl_erro_observacoesEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 194, 260, 20));
+        jpnl_incluirPedido.add(jlbl_erro_observacoesEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 184, 280, 20));
 
         jlbl_erro_telefone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_telefone.setText("Info inválida!");
         jlbl_erro_telefone.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jlbl_erro_telefone.setForeground(new java.awt.Color(255, 0, 0));
-        jpnl_incluirPedido.add(jlbl_erro_telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 56, 110, 20));
+        jpnl_incluirPedido.add(jlbl_erro_telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 56, 130, 20));
 
         jlbl_erro_ruaEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_ruaEntrega.setText("Info inválida!");
@@ -762,21 +762,21 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         jlbl_erro_numeroEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_numeroEntrega.setText("Info inválida!");
         jlbl_erro_numeroEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jlbl_erro_numeroEntrega.setForeground(new java.awt.Color(255, 0, 0));
-        jpnl_incluirPedido.add(jlbl_erro_numeroEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, 50, 20));
+        jlbl_erro_numeroEntrega.setForeground(new java.awt.Color(255, 255, 255));
+        jpnl_incluirPedido.add(jlbl_erro_numeroEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 160, 30));
 
         jlbl_erro_cidadeEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_cidadeEntrega.setText("Info inválida!");
         jlbl_erro_cidadeEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jlbl_erro_cidadeEntrega.setForeground(new java.awt.Color(255, 0, 0));
-        jpnl_incluirPedido.add(jlbl_erro_cidadeEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 164, 120, 20));
+        jpnl_incluirPedido.add(jlbl_erro_cidadeEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 164, 200, 20));
 
         jlbl_erro_ufEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_ufEntrega.setText("Info inválida!");
         jlbl_erro_ufEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jlbl_erro_ufEntrega.setForeground(new java.awt.Color(255, 0, 0));
+        jlbl_erro_ufEntrega.setForeground(new java.awt.Color(255, 255, 255));
         jlbl_erro_ufEntrega.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jpnl_incluirPedido.add(jlbl_erro_ufEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 164, 80, 20));
+        jpnl_incluirPedido.add(jlbl_erro_ufEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 164, 160, 20));
 
         jlbl_erro_nome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_nome.setText("Info inválida!");
@@ -787,26 +787,26 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         jlbl_erro_tipoEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_tipoEntrega.setText("Info inválida!");
         jlbl_erro_tipoEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jlbl_erro_tipoEntrega.setForeground(new java.awt.Color(255, 0, 0));
-        jpnl_incluirPedido.add(jlbl_erro_tipoEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 56, 90, 20));
+        jlbl_erro_tipoEntrega.setForeground(new java.awt.Color(255, 255, 255));
+        jpnl_incluirPedido.add(jlbl_erro_tipoEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 56, 130, 20));
 
         jlbl_erro_dataEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_dataEntrega.setText("Info inválida!");
         jlbl_erro_dataEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jlbl_erro_dataEntrega.setForeground(new java.awt.Color(255, 0, 0));
-        jpnl_incluirPedido.add(jlbl_erro_dataEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 56, 120, 20));
+        jlbl_erro_dataEntrega.setForeground(new java.awt.Color(255, 255, 255));
+        jpnl_incluirPedido.add(jlbl_erro_dataEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 120, 20));
 
         jlbl_erro_produto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_produto.setText("Info inválida!");
         jlbl_erro_produto.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jlbl_erro_produto.setForeground(new java.awt.Color(255, 0, 0));
+        jlbl_erro_produto.setForeground(new java.awt.Color(255, 255, 255));
         jpnl_incluirPedido.add(jlbl_erro_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 242, 240, 20));
 
         jlbl_erro_quantidadeProduto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_quantidadeProduto.setText("Info inválida!");
         jlbl_erro_quantidadeProduto.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jlbl_erro_quantidadeProduto.setForeground(new java.awt.Color(255, 0, 0));
-        jpnl_incluirPedido.add(jlbl_erro_quantidadeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 242, 100, 20));
+        jlbl_erro_quantidadeProduto.setForeground(new java.awt.Color(255, 255, 255));
+        jpnl_incluirPedido.add(jlbl_erro_quantidadeProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 240, 190, 30));
 
         jlbl_erro_valorEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbl_erro_valorEntrega.setText("Info inválida!");
@@ -818,7 +818,7 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         jlbl_erro_valorTotal.setText("Info inválida!");
         jlbl_erro_valorTotal.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jlbl_erro_valorTotal.setForeground(new java.awt.Color(255, 0, 0));
-        jpnl_incluirPedido.add(jlbl_erro_valorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 418, 90, 20));
+        jpnl_incluirPedido.add(jlbl_erro_valorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 420, 90, 30));
 
         jspn_desconto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -886,10 +886,10 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
                 jlbl_alterarPedidoMouseReleased(evt);
             }
         });
-        jpnl_incluirPedido.add(jlbl_alterarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 390, 140, 33));
+        jpnl_incluirPedido.add(jlbl_alterarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 390, 140, 33));
 
         jlbl_btn_voltar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlbl_btn_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_voltar_padrao.png"))); // NOI18N
+        jlbl_btn_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_voltar_pequeno.png"))); // NOI18N
         jlbl_btn_voltar.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         jlbl_btn_voltar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -902,15 +902,15 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
                 jlbl_btn_voltarMouseReleased(evt);
             }
         });
-        jpnl_incluirPedido.add(jlbl_btn_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 390, 140, 33));
+        jpnl_incluirPedido.add(jlbl_btn_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 390, 80, 33));
 
-        jlbl_infoAdicionalCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_info_adicional.png"))); // NOI18N
+        jlbl_infoAdicionalCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_infor_adicional_menor.png"))); // NOI18N
         jlbl_infoAdicionalCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jlbl_infoAdicionalClienteMouseClicked(evt);
             }
         });
-        jpnl_incluirPedido.add(jlbl_infoAdicionalCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 380, -1, -1));
+        jpnl_incluirPedido.add(jlbl_infoAdicionalCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 390, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -1117,13 +1117,13 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
     private void jlbl_btn_voltarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_voltarMousePressed
         // TODO add your handling code here:
 
-        jlbl_btn_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_voltar_pressionado.png")));
+        jlbl_btn_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_voltar_pressionado_pequeno.png")));
 
     }//GEN-LAST:event_jlbl_btn_voltarMousePressed
 
     private void jlbl_btn_voltarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_voltarMouseReleased
         // TODO add your handling code here:
-        jlbl_btn_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_voltar_padrao.png")));
+        jlbl_btn_voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/btn_voltar_pequeno.png")));
     }//GEN-LAST:event_jlbl_btn_voltarMouseReleased
 
     private void datePicker1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_datePicker1MouseExited

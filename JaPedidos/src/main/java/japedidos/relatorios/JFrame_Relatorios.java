@@ -137,8 +137,8 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         jpnl_sideMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jpnl_sideMenu.setMaximumSize(new java.awt.Dimension(250, 576));
         jpnl_sideMenu.setMinimumSize(new java.awt.Dimension(250, 576));
-        jpnl_sideMenu.setPreferredSize(new java.awt.Dimension(250, 576));
         jpnl_sideMenu.setOpaque(false);
+        jpnl_sideMenu.setPreferredSize(new java.awt.Dimension(250, 576));
         jpnl_sideMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jtb_linhaBranca.setBackground(new java.awt.Color(255, 255, 255));
@@ -226,7 +226,8 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         });
         jpnl_relatorioFinanceiro.add(jcmb_tipoRelatorioFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 140, 30));
 
-        jLabel1.setText("Tipo");
+        jLabel1.setText("Tipo:");
+        jLabel1.setFont(jLabel1.getFont().deriveFont(jLabel1.getFont().getStyle() | java.awt.Font.BOLD, 14));
         jpnl_relatorioFinanceiro.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, -1));
 
         dtp_fimFinanceiro.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));
@@ -252,7 +253,7 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         datePickerButton1.setBorderPainted(false);
         datePickerButton1.setFocusPainted(false);
         dtp_fimFinanceiro.setBackground(new java.awt.Color(0,0,0,0));
-        jpnl_relatorioFinanceiro.add(dtp_fimFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, 120, 30));
+        jpnl_relatorioFinanceiro.add(dtp_fimFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 120, 30));
 
         dtp_inicioFinanceiro.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));
         dtp_inicioFinanceiro.setDate(LocalDate.now().minusMonths(1));
@@ -275,13 +276,15 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         datePickerButton2.setBorderPainted(false);
         datePickerButton2.setFocusPainted(false);
         dtp_inicioFinanceiro.setBackground(new java.awt.Color(0,0,0,0));
-        jpnl_relatorioFinanceiro.add(dtp_inicioFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 120, 30));
+        jpnl_relatorioFinanceiro.add(dtp_inicioFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 120, 30));
 
         jLabel4.setText("Fim:");
-        jpnl_relatorioFinanceiro.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
+        jLabel4.setFont(jLabel4.getFont().deriveFont(jLabel4.getFont().getStyle() | java.awt.Font.BOLD, 14));
+        jpnl_relatorioFinanceiro.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, -1, -1));
 
         jLabel5.setText("Início:");
-        jpnl_relatorioFinanceiro.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
+        jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getStyle() | java.awt.Font.BOLD, 14));
+        jpnl_relatorioFinanceiro.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
 
         jbtn_gerarRelatorioFinanceiro.setText("Gerar relatório");
         jbtn_gerarRelatorioFinanceiro.addActionListener(new java.awt.event.ActionListener() {
@@ -289,7 +292,7 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
                 jbtn_gerarRelatorioFinanceiroActionPerformed(evt);
             }
         });
-        jpnl_relatorioFinanceiro.add(jbtn_gerarRelatorioFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 30, 130, 30));
+        jpnl_relatorioFinanceiro.add(jbtn_gerarRelatorioFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, 170, 30));
 
         jpnl_graficoFinanceiro.setMinimumSize(new java.awt.Dimension(694, 304));
         jpnl_graficoFinanceiro.setLayout(new java.awt.GridBagLayout());
@@ -297,6 +300,7 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
 
         jtbp_financeiro.addTab("Gráfico", jscp_graficoFinanceiro);
 
+        jtbl_fluxoFinanceiro.setAutoCreateRowSorter(true);
         jtbl_fluxoFinanceiro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -315,19 +319,14 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         });
         jtbl_fluxoFinanceiro.getTableHeader().setReorderingAllowed(false);
         jscp_tabelaFinanceiro.setViewportView(jtbl_fluxoFinanceiro);
-        if (jtbl_fluxoFinanceiro.getColumnModel().getColumnCount() > 0) {
-            jtbl_fluxoFinanceiro.getColumnModel().getColumn(0).setHeaderValue("Data associada");
-            jtbl_fluxoFinanceiro.getColumnModel().getColumn(1).setHeaderValue("Arrecadado");
-            jtbl_fluxoFinanceiro.getColumnModel().getColumn(2).setHeaderValue("Custo");
-            jtbl_fluxoFinanceiro.getColumnModel().getColumn(3).setHeaderValue("Lucro");
-        }
 
         jtbp_financeiro.addTab("Tabela", jscp_tabelaFinanceiro);
 
         jpnl_relatorioFinanceiro.add(jtbp_financeiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 720, 390));
 
         jLabel6.setText("Formato:");
-        jpnl_relatorioFinanceiro.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, -1, -1));
+        jLabel6.setFont(jLabel6.getFont().deriveFont(jLabel6.getFont().getStyle() | java.awt.Font.BOLD, 14));
+        jpnl_relatorioFinanceiro.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, -1, -1));
 
         jcmb_formato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gráfico", "Tabela" }));
         jcmb_formato.addItemListener(new java.awt.event.ItemListener() {
@@ -335,7 +334,7 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
                 jcmb_formatoItemStateChanged(evt);
             }
         });
-        jpnl_relatorioFinanceiro.add(jcmb_formato, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 120, 30));
+        jpnl_relatorioFinanceiro.add(jcmb_formato, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 120, 30));
 
         jTabbedPane1.addTab("FINANCEIRO", jpnl_relatorioFinanceiro);
 
@@ -343,6 +342,7 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         jpnl_relatorioPerfomanceGeral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("Tipo:");
+        jLabel2.setFont(jLabel2.getFont().deriveFont(jLabel2.getFont().getStyle() | java.awt.Font.BOLD, 14));
         jpnl_relatorioPerfomanceGeral.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         jcmb_tipoRelatorioPerformance.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Produtos", "Pedidos", "Atendentes" }));
@@ -372,7 +372,7 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         datePickerButton3.setBorderPainted(false);
         datePickerButton3.setFocusPainted(false);
         dtp_fimPerformance.setBackground(new java.awt.Color(0,0,0,0));
-        jpnl_relatorioPerfomanceGeral.add(dtp_fimPerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, 120, 30));
+        jpnl_relatorioPerfomanceGeral.add(dtp_fimPerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 120, 30));
 
         dtp_inicioPerformance.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));
         dtp_inicioPerformance.setDate(LocalDate.now().minusMonths(1));
@@ -393,19 +393,22 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         datePickerButton4.setBorderPainted(false);
         datePickerButton4.setFocusPainted(false);
         dtp_inicioPerformance.setBackground(new java.awt.Color(0,0,0,0));
-        jpnl_relatorioPerfomanceGeral.add(dtp_inicioPerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 120, 30));
+        jpnl_relatorioPerfomanceGeral.add(dtp_inicioPerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 120, 30));
 
         jLabel7.setText("Início:");
-        jpnl_relatorioPerfomanceGeral.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
+        jLabel7.setFont(jLabel7.getFont().deriveFont(jLabel7.getFont().getStyle() | java.awt.Font.BOLD, 14));
+        jpnl_relatorioPerfomanceGeral.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
 
         jLabel8.setText("Fim:");
-        jpnl_relatorioPerfomanceGeral.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
+        jLabel8.setFont(jLabel8.getFont().deriveFont(jLabel8.getFont().getStyle() | java.awt.Font.BOLD, 14));
+        jpnl_relatorioPerfomanceGeral.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, -1, -1));
 
         jcmb_limitePerformance.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10", "15", "25", "50", "100" }));
-        jpnl_relatorioPerfomanceGeral.add(jcmb_limitePerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 30, 50, 30));
+        jpnl_relatorioPerfomanceGeral.add(jcmb_limitePerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, 60, 30));
 
-        jLabel3.setText("Limite");
-        jpnl_relatorioPerfomanceGeral.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 10, -1, -1));
+        jLabel3.setText("Limite:");
+        jLabel3.setFont(jLabel3.getFont().deriveFont(jLabel3.getFont().getStyle() | java.awt.Font.BOLD, 14));
+        jpnl_relatorioPerfomanceGeral.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, -1, -1));
 
         jbtn_gerarPerformance.setText("Gerar relatório");
         jbtn_gerarPerformance.addActionListener(new java.awt.event.ActionListener() {
@@ -413,13 +416,14 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
                 jbtn_gerarPerformanceActionPerformed(evt);
             }
         });
-        jpnl_relatorioPerfomanceGeral.add(jbtn_gerarPerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, 120, 30));
+        jpnl_relatorioPerfomanceGeral.add(jbtn_gerarPerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 30, 130, 30));
 
         jLabel9.setText("Formato:");
-        jpnl_relatorioPerfomanceGeral.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, -1, -1));
+        jLabel9.setFont(jLabel9.getFont().deriveFont(jLabel9.getFont().getStyle() | java.awt.Font.BOLD, 14));
+        jpnl_relatorioPerfomanceGeral.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, -1, -1));
 
         jcmb_formatoPerformance.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gráfico", "Tabela" }));
-        jpnl_relatorioPerfomanceGeral.add(jcmb_formatoPerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, 90, 30));
+        jpnl_relatorioPerfomanceGeral.add(jcmb_formatoPerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 90, 30));
 
         jpnl_graficoPerformance.setMinimumSize(new java.awt.Dimension(694, 304));
         jpnl_graficoPerformance.setLayout(new java.awt.GridBagLayout());
@@ -427,6 +431,7 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
 
         jtbp_performance.addTab("Gráfico", jscp_graficoFinanceiro1);
 
+        jtbl_fluxoPerformance.setAutoCreateRowSorter(true);
         jtbl_fluxoPerformance.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -446,10 +451,9 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         jtbl_fluxoPerformance.getTableHeader().setReorderingAllowed(false);
         jscp_tabelaPerformance.setViewportView(jtbl_fluxoPerformance);
         if (jtbl_fluxoPerformance.getColumnModel().getColumnCount() > 0) {
-            jtbl_fluxoPerformance.getColumnModel().getColumn(0).setHeaderValue("Data associada");
-            jtbl_fluxoPerformance.getColumnModel().getColumn(1).setHeaderValue("Arrecadado");
-            jtbl_fluxoPerformance.getColumnModel().getColumn(2).setHeaderValue("Custo");
-            jtbl_fluxoPerformance.getColumnModel().getColumn(3).setHeaderValue("Lucro");
+            jtbl_fluxoPerformance.getColumnModel().getColumn(0).setMinWidth(140);
+            jtbl_fluxoPerformance.getColumnModel().getColumn(0).setPreferredWidth(80);
+            jtbl_fluxoPerformance.getColumnModel().getColumn(0).setMaxWidth(220);
         }
 
         jtbp_performance.addTab("Tabela", jscp_tabelaPerformance);
@@ -1062,7 +1066,7 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
                     if (jcmb_formatoPerformance.getSelectedIndex() == 0) {
                         if ( ! id_produto.isEmpty() ) {
                             int tamanho = id_produto.size() > 15 ? 694 + (60 * (id_produto.size() - 15)) : 694 ;
-                            CategoryChart categoryChart = new CategoryChartBuilder().width(tamanho).title("Fluxo de caixa no período").xAxisTitle("Métrica").yAxisTitle("R$").build();
+                            CategoryChart categoryChart = new CategoryChartBuilder().width(tamanho).title("Performance de produtos").xAxisTitle("Métrica").yAxisTitle("Qnt.").build();
 //                            categoryChart.getStyler().setLegendPosition(LegendPosition.OutsideE);
                             categoryChart.getStyler().setLegendVisible(false);
                             categoryChart.getStyler().setXAxisLabelRotation(80);
