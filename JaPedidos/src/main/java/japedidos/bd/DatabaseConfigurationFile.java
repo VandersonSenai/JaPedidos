@@ -27,7 +27,7 @@ public class DatabaseConfigurationFile extends ConfigurationFile {
     public final String DEFAULT_ADDRESS = "localhost";
     public final String DEFAULT_PORT = "3306";
     public final String DEFAULT_SCHEMA = "japedidos";
-    public final String DEFAULT_USER = "japedidos";
+    public final String DEFAULT_USER = "root";
     public final String DEFAULT_USER_PASSWORD = "";
     
     private String address;

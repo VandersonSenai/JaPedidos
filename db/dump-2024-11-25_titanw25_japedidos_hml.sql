@@ -1,5 +1,5 @@
-CREATE DATABASE `japedidos`;
-USE `japedidos`;
+CREATE DATABASE `titanw25_japedidos_hml`;
+USE `titanw25_japedidos_hml`;
 
 --
 -- Table structure for table `categoria`
@@ -1158,7 +1158,7 @@ END//
 DELIMITER ;
 
 DELIMITER //
-CREATE PROCEDURE fluxo_caixa_anual(IN dt_final DATE, IN dt_inicio DATE)
+CREATE  PROCEDURE fluxo_caixa_anual(IN dt_final DATE, IN dt_inicio DATE)
 BEGIN
     SELECT 
         ano,

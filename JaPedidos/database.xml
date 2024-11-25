@@ -3,6 +3,6 @@
 	<address>localhost</address>
 	<port>3306</port>
 	<schema>japedidos</schema>
-	<user>japedidos</user>
+	<user>root</user>
 	<password></password>
 </japedidos>
