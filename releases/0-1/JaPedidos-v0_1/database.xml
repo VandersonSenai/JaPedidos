@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<japedidos version="0.1">
+	<address>162.241.203.86</address>
+	<port>3306</port>
+	<schema>titanw25_japedidos_hml</schema>
+	<user>titanw25_japedidos_hml</user>
+	<password>seNai@2024proj</password>
+</japedidos>

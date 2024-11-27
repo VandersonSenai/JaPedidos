@@ -60,7 +60,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         }
         
         initComponents();
-        
         fillEstadosComboBoxPedido();
         fillTipoEntregaComboBoxPedido();
         hideErrorLabels();
@@ -1229,7 +1228,9 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     }//GEN-LAST:event_jspn_quantidadeKeyPressed
 
     private void preencherHistoricoPedidos() {
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         jTable_Pedido_Resumido1.preencher((japedidos.pedidos.Estado)jcmb_filtro_pedidos_aberto.getSelectedItem());
+        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
     
     private void jpnl_pedidosAbertoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpnl_pedidosAbertoFocusGained
@@ -1285,6 +1286,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         if (jcmb_produto.getItemCount() == 0) {
             javax.swing.SwingUtilities.invokeLater(() -> {
                 // Preencher lista de produtos
+                setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 jlbl_erro_produto.setText("Recebendo produtos...");
                 jlbl_erro_produto.setEnabled(true);
                 Produto[] recebidos = BD.Produto.selectAll();
@@ -1300,6 +1302,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                 } else {
                     jlbl_erro_produto.setText("Nenhum produto recebido.");
                 }
+                setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             });
         }
     }//GEN-LAST:event_jpnl_incluirPedidoComponentShown
@@ -1458,7 +1461,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     }//GEN-LAST:event_jlbl_btn_excluirMouseReleased
 
     private void jlbl_btn_criarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_criarPedidoMouseClicked
-        
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         Pedido p = getFieldsInfo();
         if (p != null) {
             int r = BD.Pedido.insert(p);
@@ -1470,6 +1473,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             } else {
                 JOptionPane.showMessageDialog(null, "Cadastro do pedido falhou!", "Cadastro de pedido", JOptionPane.ERROR_MESSAGE);
             }
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             clienteEncontrado = null;
             telefoneDigitado = false;
         }

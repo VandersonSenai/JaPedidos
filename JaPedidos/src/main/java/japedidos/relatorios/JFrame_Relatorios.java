@@ -7,6 +7,7 @@ import japedidos.bd.BD;
 import static japedidos.bd.BD.Cliente.TABLE;
 import static japedidos.bd.BD.Pedido.parseView_pedido;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -577,6 +578,7 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
                 ArrayList<Double> lucro = new ArrayList<>();
                 ArrayList<Double> custo = new ArrayList<>();
                 try {
+                    setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     conn = BD.getConnection();
                     cstmt = conn.prepareCall("call fluxo_caixa_diario(?, ?)");
                     cstmt.setDate(1, Date.valueOf(dtFim));
@@ -990,6 +992,7 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
                 panel.setVisible(true);
             }
         }
+        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_jbtn_gerarRelatorioFinanceiroActionPerformed
 
     private void jcmb_formatoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcmb_formatoItemStateChanged

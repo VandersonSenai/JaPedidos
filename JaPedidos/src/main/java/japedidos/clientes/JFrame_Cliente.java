@@ -6,6 +6,7 @@ import japedidos.pedidos.JPanel_AlterarPedido;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import japedidos.produto.load_DB2_components;
+import java.awt.Cursor;
 import javax.swing.JOptionPane;
 
 /**
@@ -232,7 +233,9 @@ public class JFrame_Cliente extends javax.swing.JFrame {
     private void jTxtFpesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtFpesquisaActionPerformed
         // TODO add your handling code here:
 //        System.out.println("funcionou!!");
-        preencherClientes(BD.Cliente.selectAllLike(jTxtFpesquisa.getText()));
+            setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        preencherClientes(BD.Cliente.selectAllLike(jTxtFpesquisa.getText())); 
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_jTxtFpesquisaActionPerformed
 
     private final void preencherClientes(Cliente[] clientes) {
@@ -248,8 +251,10 @@ public class JFrame_Cliente extends javax.swing.JFrame {
     }
     
     private final void preencherClientes() {
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         Cliente[] recebidos = BD.Cliente.selectAll();
         preencherClientes(recebidos);
+        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
     
     private void jLbl_ProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLbl_ProdutoMouseClicked

@@ -640,6 +640,13 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         jtb_linhaBranca.setLocation(46, 330+30);
         jtb_linhaBranca.setSize(jlbl_relatorios.getWidth(), 4 );
         jlbl_relatorios.setForeground(new Color(255,255,255));
+        this.setVisible(false);
+        japedidos.relatorios.JFrame_Relatorios frame = new japedidos.relatorios.JFrame_Relatorios();
+        int x = this.getX() + this.getWidth() / 2 - frame.getWidth() / 2;
+        int y = this.getY() + this.getHeight()/ 2 - frame.getHeight() / 2;
+        frame.setLocation(x, y);
+        frame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jlbl_relatoriosMouseClicked
 
     private void jtbl_lista_produtosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbl_lista_produtosMouseClicked
@@ -802,7 +809,7 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             load_DB2_components.carregaComboBox(this,jcmb_unid, comboBox_unidades_Map, banco, sql_Unidade);
             load_DB2_components.carregaJTable(jtbl_lista_produtos, banco, sql_listaProdutos);
             banco.close();
-
+            
             setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             
        } catch (SQLException e) {

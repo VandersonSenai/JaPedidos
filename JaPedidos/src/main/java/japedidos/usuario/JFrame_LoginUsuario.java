@@ -6,6 +6,7 @@ package japedidos.usuario;
 
 import japedidos.AccessController;
 import japedidos.bd.BD;
+import java.awt.Cursor;
 import javax.swing.JOptionPane;
 
 /**
@@ -139,6 +140,7 @@ public class JFrame_LoginUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jlbl_btn_configMouseClicked
 
     private void entrar() {
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         if (BD.isAccessible()) {
             String login, senha;
             login = jtxtf_login.getText();
@@ -165,6 +167,7 @@ public class JFrame_LoginUsuario extends javax.swing.JFrame {
             frame.setLocation(x, y);
             frame.setVisible(true);
         }
+        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
     private void jlbl_btn_entrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_entrarMouseClicked
         // TODO add your handling code here:

@@ -4,6 +4,7 @@
  */
 package japedidos.bd;
 
+import java.awt.Cursor;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.swing.JFrame;
@@ -167,6 +168,7 @@ public class JFrame_ConfiguracaoBanco extends javax.swing.JFrame {
             
             if (ip && port) {
                 if (!ipStr.isEmpty() && !portStr.isEmpty() && !bdStr.isEmpty()) {
+                    setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     String connStr = BD.getConnectionString(ipStr, portStr, bdStr);
                     try {
                         BD.tryConnection(connStr, entradaLogin, entradaSenha);
@@ -194,6 +196,7 @@ public class JFrame_ConfiguracaoBanco extends javax.swing.JFrame {
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(null, "Não foi possível conectar ao banco.\n\nMotivo: " + ex.getMessage() + "\n\nVerifique as configurações e tente novamente.", "Conexão com o banco de dados falhou", JOptionPane.ERROR_MESSAGE);
                     }
+                    setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "O endereço do banco de dados mal-formatado.\nCorrija e tente novamente.", "String de conexão mal-formatada", JOptionPane.ERROR_MESSAGE);
