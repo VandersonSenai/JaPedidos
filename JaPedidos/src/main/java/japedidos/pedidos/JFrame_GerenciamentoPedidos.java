@@ -344,6 +344,8 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                     jlbl_erro_ufEntrega.setText(t.getMessage());
                 } else if (t instanceof IllegalPaisException) {
 
+                } else if (t instanceof IllegalDestinoException) {
+                    p = null;
                 } else if (t instanceof IllegalDestinatarioException) {
                     jlbl_erro_observacoesEntrega.setVisible(true);
                     jlbl_erro_observacoesEntrega.setText(t.getMessage());
