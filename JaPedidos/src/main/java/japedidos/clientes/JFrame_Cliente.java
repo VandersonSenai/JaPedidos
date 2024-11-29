@@ -25,7 +25,6 @@ public class JFrame_Cliente extends javax.swing.JFrame {
             System.exit(0);
         }
         initComponents();
-        this.preencherClientes();
     }
 
     /**
@@ -72,6 +71,11 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1024, 576));
         setPreferredSize(new java.awt.Dimension(1024, 576));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jpnl_principal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -337,6 +341,11 @@ public class JFrame_Cliente extends javax.swing.JFrame {
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLbl_RelatorioMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        this.preencherClientes();
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

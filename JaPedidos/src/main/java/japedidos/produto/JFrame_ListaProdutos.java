@@ -834,39 +834,38 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
             "JaPedidos",
             JOptionPane.WARNING_MESSAGE);                
         } else {
+            int  confirmaExclusao = JOptionPane.showConfirmDialog(this,
+                                            "\nConfirma a exclusão do item : \n\n" + 
+                                            "Código : " + jtxtf_codigo.getText() + "\n" + 
+                                            "Descrição : " + jtxtf_descricao.getText() + "\n",
+                                            "JaPedidos",
+                                            JOptionPane.YES_NO_OPTION,
+                                            JOptionPane.WARNING_MESSAGE);
+            if (confirmaExclusao==0){
+                // Inicia concexao com o Banco
+                setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
-                int  confirmaExclusao = JOptionPane.showConfirmDialog(this,
-                                                "\nConfirma a exclusão do item : \n\n" + 
-                                                "Código : " + jtxtf_codigo.getText() + "\n" + 
-                                                "Descrição : " + jtxtf_descricao.getText() + "\n",
-                                                "JaPedidos",
-                                                JOptionPane.YES_NO_OPTION,
-                                                JOptionPane.WARNING_MESSAGE);
-                if (confirmaExclusao==0){
-                    // Inicia concexao com o Banco
-                    setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                try (Connection banco = DriverManager.getConnection(db.getDB_Url(), db.getDB_User(), db.getDB_Pwd())) {
+                    String sqlQuery = "DELETE from produto where id = " + jtxtf_codigo.getText();
+                    load_DB2_components.excluirProduto(this, banco, sqlQuery);
 
-                    try (Connection banco = DriverManager.getConnection(db.getDB_Url(), db.getDB_User(), db.getDB_Pwd())) {
-                        String sqlQuery = "DELETE from produto where id = " + jtxtf_codigo.getText();
-                        load_DB2_components.excluirProduto(this, banco, sqlQuery);
-
-                        String sql_listaProdutos = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
-                        load_DB2_components.carregaJTable(jtbl_lista_produtos, banco, sql_listaProdutos);
-                    
-                        banco.close();
-                        limpaItensFormulario();
-                        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-                    } catch (SQLException ex) {
-                            Logger.getLogger(JFrame_ListaProdutos.class.getName()).log(Level.SEVERE, null, ex);
-                            JOptionPane.showMessageDialog(this, 
-                            "Erro ao acessar banco.\n", 
-                            "JaPedidos", 
-                            JOptionPane.INFORMATION_MESSAGE);
-                        }
+                    String sql_listaProdutos = "SELECT * FROM listaTodosProdutos ORDER BY nome ASC";
+                    load_DB2_components.carregaJTable(jtbl_lista_produtos, banco, sql_listaProdutos);
+                    limpaItensFormulario();
+                } catch (SQLException ex) {
+                    String strErro = switch (ex.getErrorCode()) {
+                        case 1216, 1451 -> "Não é possível excluir este produto.\nProduto já está em uso.";
+                        default -> "Erro ao excluir produto.\nTente novamente mais tarde.";
+                    };
+                    Logger.getLogger(JFrame_ListaProdutos.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, 
+                    String.format("%s\nErro cód.: %d", strErro, ex.getErrorCode()), 
+                    "JaPedidos", 
+                    JOptionPane.INFORMATION_MESSAGE);
                 }
-
-        }  
-        
+                setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            }
+        }
     }//GEN-LAST:event_jlbl_btn_excluirMouseClicked
 
     private void jlbl_btn_salvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_salvarMouseClicked
@@ -885,18 +884,19 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
         }
 
         dados[0]=jtxtf_codigo.getText();
-        dados[1]=jtxtf_descricao.getText().toUpperCase();
+        dados[1]=jtxtf_descricao.getText().trim().toUpperCase();
         dados[2]=Integer.toString(load_DB2_components.getSelectedID(jcmb_categoria, comboBox_categorias_Map));
         dados[3]=Integer.toString(load_DB2_components.getSelectedID(jcmb_unid, comboBox_unidades_Map));
-        dados[4]=jtxtf_valor_venda.getText();
-        dados[5]=jtxtf_valor_custo.getText();
+        dados[4]=jtxtf_valor_venda.getText().trim();
+        dados[5]=jtxtf_valor_custo.getText().trim();
         if (jchb_ativo.isSelected()){
              dados[6]="1";
          } else {
              dados[6]="0";
          }
         
-        if ( jtxtf_descricao.getText().length()<1 | jtxtf_valor_venda.getText().length()<1 | 
+        String nomeProduto = jtxtf_descricao.getText().trim();
+        if ( nomeProduto.isEmpty() | jtxtf_valor_venda.getText().length()<1 | 
                 jtxtf_valor_custo.getText().length()<1 | jcmb_categoria.getSelectedIndex()==0 |  jcmb_unid.getSelectedIndex()==0 ) {
             JOptionPane.showMessageDialog(jpnl_corpo, """
                                                        Para Salvar ou Atualizar um item, \u00e9 necessario
@@ -905,32 +905,44 @@ public class JFrame_ListaProdutos extends javax.swing.JFrame {
                                                        """,
                                                        "JaPedidos",
                                                        JOptionPane.WARNING_MESSAGE);                
-        } else if (jtxtf_descricao.getText().length()>1 | jtxtf_valor_venda.getText().length()>1 | 
-                jtxtf_valor_custo.getText().length()>1 | jcmb_categoria.getSelectedIndex()>0 |  jcmb_unid.getSelectedIndex()>0 ) {
+        } else if ( ! nomeProduto.isEmpty() | jtxtf_valor_venda.getText().length()>1 | 
+            jtxtf_valor_custo.getText().length()>1 | jcmb_categoria.getSelectedIndex()>0 |  jcmb_unid.getSelectedIndex()>0 ) {
 
-                setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
-                    try(Connection banco = DriverManager.getConnection(db.getDB_Url(), db.getDB_User(), db.getDB_Pwd())) {
+                try(Connection banco = DriverManager.getConnection(db.getDB_Url(), db.getDB_User(), db.getDB_Pwd())) {
 //                    Connection banco = DriverManager.getConnection(url, usuario, senha);
                     load_DB2_components.salvaProduto(this,  banco , sqlQuery, dados);      
-                    
+
                     String sql_listaProdutos = "SELECT * FROM listaTodosProdutos";
                     load_DB2_components.carregaJTable(jtbl_lista_produtos, banco, sql_listaProdutos);    
                     banco.close();
-    
-                    setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-
                     limpaItensFormulario();
-                    }
-                    catch (SQLException ex)
-                    {
+                }
+                catch (SQLException | NumberFormatException ex)
+                {
+                    String strErro = "Erro desconhecido";
+                    if (ex instanceof SQLException) {
+                        SQLException sqlEx = (SQLException)ex;
+                        strErro = switch (sqlEx.getErrorCode()) {
+                        case 1406 -> "Não é possível criar este produto.\nO nome do produto excede os limites estabelecidos.";
+                        case 1264, 1690 -> "Não é possível criar este produto.\nUm dos de preço valores excede os limites estabelecidos.";
+                        default -> "Erro ao cadastrar produto.\nTente novamente mais tarde.";
+                        };
+                        
+                        strErro = String.format("%s\nErro cód.: %d", strErro, sqlEx.getErrorCode());
                         //System.out.println("O erro foi : " +ex);
-                        JOptionPane.showMessageDialog(this, 
-                        "Erro ao acessar banco.\n" + ex, 
-                        "JaPedidos", 
-                        JOptionPane.INFORMATION_MESSAGE);
+                        
+                    } else if (ex instanceof NumberFormatException) {
+                        NumberFormatException numEx = (NumberFormatException)ex;
+                        strErro = "Uma ou mais informações inseridas são inválidas!\nVerifique formatação e tente novamente.";
                     }
-                } 
+                    JOptionPane.showMessageDialog(this, 
+                        strErro , "JaPedidos",
+                        JOptionPane.INFORMATION_MESSAGE);
+                }
+                setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            }
 
     }//GEN-LAST:event_jlbl_btn_salvarMouseClicked
 

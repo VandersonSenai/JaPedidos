@@ -16,6 +16,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import com.github.lgooddatepicker.components.*;
+import com.github.lgooddatepicker.components.TimePickerSettings.TimeIncrement;
+import com.github.lgooddatepicker.optionalusertools.PickerUtilities;
+import com.github.lgooddatepicker.optionalusertools.TimeVetoPolicy;
 import japedidos.AccessController;
 import japedidos.produto.ProdutoPedidoTableModel;
 import japedidos.produto.db_config;
@@ -51,6 +54,12 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     JPanel_AlterarPedido pnl_alterarPedido;
     final Runnable onFinalizarAlteracao;
     private boolean telefoneDigitado = false;
+    final TimeVetoPolicy vetoPolicy = new TimeVetoPolicy() {
+        public boolean isTimeAllowed(LocalTime time) {
+            return PickerUtilities.isLocalTimeInRange(time, LocalTime.now(), null, true);
+        }
+    };
+    
     /**
      * Creates new form CadastroPedido
      */
@@ -87,13 +96,13 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             }
         });
         javax.swing.SwingUtilities.invokeLater(() -> {
-            preencherHistoricoPedidos();
+            preencherPedidosPorEstado();
         });
         
         onFinalizarAlteracao = () -> {
             jTabbedPane1.setSelectedIndex(0);
             jTabbedPane1.remove(3);
-            preencherHistoricoPedidos();
+            preencherPedidosPorEstado();
             pnl_alterarPedido = null;
         };
         
@@ -101,6 +110,17 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             ProdutoPedidoTableModel model = (ProdutoPedidoTableModel)e.getSource();
             if (e.getColumn() == ProdutoPedidoTableModel.COL_QUANTIDADE && e.getType() == TableModelEvent.UPDATE) {
                 atualizarValoresPedido();
+            }
+        });
+        
+        datePicker1.addDateChangeListener((e) -> {
+            if (e.getNewDate().equals(LocalDate.now())) {
+                timePicker1.getSettings().setVetoPolicy(vetoPolicy);
+                timePicker1.getSettings().generatePotentialMenuTimes(TimeIncrement.FifteenMinutes, null, null);
+                timePicker1.setTime(LocalTime.of(java.time.LocalTime.now().plusHours(1).getHour(), 00));
+            } else {
+                timePicker1.getSettings().setVetoPolicy(null);
+                timePicker1.getSettings().generatePotentialMenuTimes(TimeIncrement.FifteenMinutes, null, null);
             }
         });
     }
@@ -312,7 +332,6 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         if (exs.size() > 0) {
             Throwable[] causes = exs.getCauses();
             for (Throwable t : causes) {
-                System.out.println(t.getMessage());
                 if (t instanceof IllegalNomeException) {
                     jlbl_erro_nome.setVisible(true);
                     jlbl_erro_nome.setText(t.getMessage());
@@ -724,6 +743,8 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         });
         jpnl_incluirPedido.add(datePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 120, -1));
 
+        timeSettings.setVetoPolicy(vetoPolicy);
+        timeSettings.generatePotentialMenuTimes(TimeIncrement.FifteenMinutes, null, null);
         timePicker1.getComponentTimeTextField().setPreferredSize(new java.awt.Dimension(40, 20));
         javax.swing.JButton timePickerButton = timePicker1.getComponentToggleTimeMenuButton();
         timePickerButton.setText("");
@@ -1210,6 +1231,20 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
 
     private void jtxtf_pesquisarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_pesquisarPedidosActionPerformed
         // TODO add your handling code here:
+        String sql_listaPedidos = "";
+        String encontrar = jtxtf_pesquisarPedidos.getText().trim();
+        Estado selecionado = (Estado)jcmb_filtro_pedidos_aberto.getSelectedItem();
+        
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        
+        // se a caixa de pesquisa estiver vazia quando pressionar o enter , traga todos os produtos na view.
+        if (encontrar.isEmpty() || encontrar.equals("Digite aqui que deseja encontrar...")){
+            preencherPedidosPorEstado();
+        } else {
+            // se a caixa de pesquisa tiver dado quando pressionar o enter , procue nas descriçoes ou categorias.
+            jTable_Pedido_Resumido1.getModel().fillRows(BD.Pedido.selectAllLike(encontrar, selecionado));
+        }
+        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_jtxtf_pesquisarPedidosActionPerformed
 
     private void jspn_valorEntregaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jspn_valorEntregaFocusLost
@@ -1229,7 +1264,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         
     }//GEN-LAST:event_jspn_quantidadeKeyPressed
 
-    private void preencherHistoricoPedidos() {
+    private void preencherPedidosPorEstado() {
         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         jTable_Pedido_Resumido1.preencher((japedidos.pedidos.Estado)jcmb_filtro_pedidos_aberto.getSelectedItem());
         setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -1252,7 +1287,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             if (!estadoAtual.equals(Estado.CANCELADO) && !estadoAtual.equals(Estado.CONCLUIDO)) {
                 JFrame frame = new JFrame("Atualizar estado do pedido");
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                frame.add(new JPanel_AtualizarEstado(pSelecionado, pSelecionado.getEstadoAtualPedido().ESTADO, Usuario.getAtual(), this::preencherHistoricoPedidos));
+                frame.add(new JPanel_AtualizarEstado(pSelecionado, pSelecionado.getEstadoAtualPedido().ESTADO, Usuario.getAtual(), this::preencherPedidosPorEstado));
                 frame.pack();
                 int x = this.getX() + this.getWidth() / 2 - frame.getWidth() / 2;
                 int y = this.getY() + this.getHeight()/ 2 - frame.getHeight() / 2;
@@ -1467,7 +1502,8 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         Pedido p = getFieldsInfo();
         if (p != null) {
             int r = BD.Pedido.insert(p);
-            preencherHistoricoPedidos();
+            preencherPedidosPorEstado();
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             if (r > 0) {
                 clearFieldsInfo();
                 atualizarValoresPedido();
@@ -1475,11 +1511,11 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             } else {
                 JOptionPane.showMessageDialog(null, "Cadastro do pedido falhou!", "Cadastro de pedido", JOptionPane.ERROR_MESSAGE);
             }
-            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             clienteEncontrado = null;
             telefoneDigitado = false;
+        } else {
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         }
-        
     }//GEN-LAST:event_jlbl_btn_criarPedidoMouseClicked
 
     private void jlbl_btn_criarPedidoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbl_btn_criarPedidoMousePressed
@@ -1539,16 +1575,14 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             }
             stm_listaJTable.close();
             banco.close();
-
-            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-            
        } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, 
-            "Nao foi possivel conectar ao banco  \n", 
-            "JaPedidos Z", 
+            "Nao foi possivel conectar ao banco\n", 
+            "JaPedidos", 
             JOptionPane.INFORMATION_MESSAGE);
         }
+        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_formWindowOpened
 
     private void jbtn_visualizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_visualizarPedidoActionPerformed
@@ -1626,17 +1660,17 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             }
             stm_listaJTable.close();
             banco.close();
-            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
         } catch (SQLException ex) {
-                //            e.printStackTrace();
-                Logger.getLogger(JFrame_GerenciamentoPedidos.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this,
-                    "Erro ao acessar banco.\n"+
-                    "Erro: "+ ex,
-                    "JaPedidos",
-                    JOptionPane.INFORMATION_MESSAGE);
-            }
+            //            e.printStackTrace();
+            Logger.getLogger(JFrame_GerenciamentoPedidos.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this,
+                "Erro ao acessar banco.\n"+
+                "Erro: "+ ex,
+                "JaPedidos",
+                JOptionPane.INFORMATION_MESSAGE);
+        }
+        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_jtxtf_pesquisarHistoricoPedidoActionPerformed
 
     private void jtxtf_pesquisarHistoricoPedidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtf_pesquisarHistoricoPedidoKeyTyped
@@ -1750,7 +1784,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
     }
     
     private void autoPreencherPedido() {
-        
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         String conteudoTelefone = jtxtf_telefoneCliente.getText().trim();
         StringBuilder newStr = new StringBuilder();
 
@@ -1772,17 +1806,21 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
                         jtxtf_telefoneCliente.setText(encontrado.getTelefone());
                         jtxtf_nomeCliente.setEnabled(false);
                         jtxtf_nomeCliente.setText(encontrado.getNome());
+                        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                         int preencher = JOptionPane.showConfirmDialog(this, "Um cliente foi encontrado com este número.\nDeseja carregar o último pedido?", "Auto-preenchimento de pedido", JOptionPane.YES_NO_OPTION);
                         if (preencher == JOptionPane.YES_OPTION) {
+                            setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                             Pedido ultimo = BD.Pedido.selectLastByCliente(encontrado);
                             this.setFieldsInfo(ultimo);
                             this.datePicker1.setDateToToday();
+                            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                         }
                     } else if (clienteEncontrado != null) {
                         clienteEncontrado = null;
                         jtxtf_nomeCliente.setEnabled(true);
                         jtxtf_nomeCliente.setText(null);
                         telefoneDigitado = false;
+                        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                         int limpar = JOptionPane.showConfirmDialog(this, "Deseja limpar os campos do pedido?", "Descartar pedido", JOptionPane.YES_NO_OPTION);
                         if (limpar == JOptionPane.YES_OPTION) {
                             this.clearFieldsInfo();
@@ -1799,11 +1837,13 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
             clienteEncontrado = null;
             jtxtf_nomeCliente.setEnabled(true);
             jtxtf_nomeCliente.setText(null);
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             int limpar = JOptionPane.showConfirmDialog(this, "Deseja limpar os campos do pedido?", "Descartar pedido", JOptionPane.YES_NO_OPTION);
             if (limpar == JOptionPane.YES_OPTION) {
                 this.clearFieldsInfo();
             }
         }
+        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
     
     private void jtxtf_telefoneClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtf_telefoneClienteFocusLost
@@ -1854,7 +1894,7 @@ public class JFrame_GerenciamentoPedidos extends javax.swing.JFrame implements I
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 JFrame_GerenciamentoPedidos frame = new JFrame_GerenciamentoPedidos();
-                frame.preencherHistoricoPedidos();
+                frame.preencherPedidosPorEstado();
                 frame.setVisible(true);
             }
         });

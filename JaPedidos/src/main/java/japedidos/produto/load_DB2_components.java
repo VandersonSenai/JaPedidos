@@ -135,14 +135,15 @@ public class load_DB2_components {
             catch (SQLException ex)
             {
 //                System.out.println("O erro foi : " +ex);
-                JOptionPane.showMessageDialog(jframe, 
-                "Erro ao acessar banco.\n", 
-                "JaPedidos", 
-                JOptionPane.INFORMATION_MESSAGE);
+//                JOptionPane.showMessageDialog(jframe, 
+//                "Erro ao acessar banco.\n", 
+//                "JaPedidos", 
+//                JOptionPane.INFORMATION_MESSAGE);
+                throw ex;
             }
     }
 
-    public static void salvaProduto(Component referencia,  Connection banco , String sqlQuery, String[] dados)  throws SQLException {
+    public static void salvaProduto(Component referencia,  Connection banco , String sqlQuery, String[] dados)  throws SQLException, NumberFormatException {
 
         try (PreparedStatement stm_tabela = banco.prepareStatement(sqlQuery)) {
             // se o dados[0]="" que se refere ao codigo estiver em branco significa que é um novo item 
@@ -185,13 +186,14 @@ public class load_DB2_components {
                 JOptionPane.INFORMATION_MESSAGE);
                 }
             }
-            catch (SQLException ex)
+            catch (SQLException | NumberFormatException ex)
             {
 //                System.out.println("O erro foi : " +ex);
-                JOptionPane.showMessageDialog(referencia, 
-                "Erro ao acessar banco.\n" + ex, 
-                "JaPedidos", 
-                JOptionPane.INFORMATION_MESSAGE);
+//                JOptionPane.showMessageDialog(referencia, 
+//                "Erro ao acessar banco.\n" + ex, 
+//                "JaPedidos", 
+//                JOptionPane.INFORMATION_MESSAGE);
+                throw ex;
             }
     }    
 

@@ -636,6 +636,7 @@ public final class BD {
     
     static public class Pedido {
         public static final String TABLE = "pedido";
+        public static final String VIEW = "vw_pedido";
         
         public static int insert(japedidos.pedidos.Pedido p) {
             int r;
@@ -1071,6 +1072,40 @@ public final class BD {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
             }
             return p;
+        }
+        
+        public static japedidos.pedidos.Pedido[] selectAllLike(String pesquisar, japedidos.pedidos.Estado estado) {
+            Connection conn = null;
+            PreparedStatement select = null;
+            japedidos.pedidos.Pedido[] pedidos = null;
+            try {
+                conn = BD.getConnection();
+                select = conn.prepareStatement(
+                        String.format(
+                                "SELECT * FROM %s WHERE id_ultimo_est = %d AND telefone_cliente LIKE '%%%s%%' OR nome_cliente LIKE '%%%s%%' OR dthr_entregar LIKE '%%%s%%'", 
+                                VIEW, estado.ID, pesquisar, pesquisar, pesquisar));
+
+                ResultSet rs = select.executeQuery();
+                pedidos = parseView_pedido(rs);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            if (conn != null) {
+                if (select != null) {
+                    try {
+                       select.close();
+                    } catch (SQLException ex) {
+                       System.out.println("Não foi possível fechar conexão com o banco.");
+                    }                        
+                }
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+
+                }
+            }
+            return pedidos;
         }
         
         public static int atualizarEstado(japedidos.pedidos.Pedido p, japedidos.pedidos.EstadoPedido e) {

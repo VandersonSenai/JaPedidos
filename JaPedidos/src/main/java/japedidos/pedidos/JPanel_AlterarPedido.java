@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import com.github.lgooddatepicker.components.*;
+import com.github.lgooddatepicker.optionalusertools.PickerUtilities;
+import com.github.lgooddatepicker.optionalusertools.TimeVetoPolicy;
 import japedidos.AccessController;
 import japedidos.produto.ProdutoPedidoTableModel;
 import japedidos.usuario.Usuario;
@@ -39,6 +41,11 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
     Pedido pedidoAlterar;
     Runnable runOnFinish;
     ProdutoPedido[] produtosNovos;
+    final TimeVetoPolicy vetoPolicy = new TimeVetoPolicy() {
+        public boolean isTimeAllowed(LocalTime time) {
+            return PickerUtilities.isLocalTimeInRange(time, LocalTime.now(), null, true);
+        }
+    };
     
     public JPanel_AlterarPedido() {
         initComponents();
@@ -81,6 +88,18 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         
         jspn_desconto.addChangeListener((e) -> {
             atualizarValoresPedido();
+        });
+        
+        datePicker1.addDateChangeListener((e) -> {
+            if (e.getNewDate().equals(LocalDate.now())) {
+                timePicker1.getSettings().setVetoPolicy(vetoPolicy);
+                timePicker1.getSettings().generatePotentialMenuTimes(TimePickerSettings.TimeIncrement.FifteenMinutes, null, null);
+                timePicker1.setTime(LocalTime.of(java.time.LocalTime.now().plusHours(1).getHour(), 00));
+            } else {
+                timePicker1.getSettings().setVetoPolicy(null);
+                timePicker1.getSettings().generatePotentialMenuTimes(TimePickerSettings.TimeIncrement.FifteenMinutes, null, null);
+                timePicker1.setTime(pedidoAlterar.getInfoEntrega().getDataHoraEntregar().toLocalTime());
+            }
         });
     }
     
@@ -140,7 +159,26 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         this.pedidoAlterar = (Pedido)pAlterar.clone();
         this.produtosNovos = pedidoAlterar.getProdutos();
         setFieldsInfo(this.pedidoAlterar);
-        this.datePicker1.getSettings().setDateRangeLimits(pedidoAlterar.getRegistroCriacao().DATA_HORA.toLocalDate(), LocalDate.now().plusYears(3));
+        
+        // Restrição dos campos de hora
+        LocalDateTime dthr_entregar = pAlterar.getInfoEntrega().getDataHoraEntregar();
+        LocalDate dt_entregar = dthr_entregar.toLocalDate();
+        
+        if (dthr_entregar.isBefore(LocalDateTime.now())) {
+            datePicker1.setEnabled(false);
+            timePicker1.setEnabled(false);
+        } else {
+            datePicker1.setEnabled(true);
+            timePicker1.setEnabled(true);
+            datePicker1.getSettings().setDateRangeLimits(LocalDate.now(), LocalDate.now().plusYears(4));
+            
+            if (dt_entregar.equals(LocalDate.now())) {
+                timePicker1.getSettings().setVetoPolicy(vetoPolicy);
+            } else {
+                timePicker1.getSettings().setVetoPolicy(null);
+            }
+            timePicker1.getSettings().generatePotentialMenuTimes(TimePickerSettings.TimeIncrement.FifteenMinutes, null, null);
+        }
     }
     
     private void setFieldsInfo(Pedido p) {
@@ -158,8 +196,10 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         // Entrega
         InfoEntrega infoEntrega = p.getInfoEntrega();
         jcmb_tipoEntrega.setSelectedItem(infoEntrega.getTipoEntrega());
-        datePicker1.setDate(infoEntrega.getDataHoraEntregar().toLocalDate());
-        timePicker1.setTime(infoEntrega.getDataHoraEntregar().toLocalTime());
+        LocalDateTime dthr_entregar = infoEntrega.getDataHoraEntregar();
+        LocalDate dt_entregar = dthr_entregar.toLocalDate();
+        datePicker1.setDate(dt_entregar);
+        timePicker1.setTime(dthr_entregar.toLocalTime());
         
         if (infoEntrega.getTipoEntrega() == TipoEntrega.ENVIO) {
             Destino destino = infoEntrega.getDestino();
@@ -229,7 +269,17 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         
         // Criação de cliente
         nome = jtxtf_nomeCliente.getText().trim();
-        telefone = jtxtf_telefoneCliente.getText();
+        telefone = jtxtf_telefoneCliente.getText().trim();
+        StringBuilder newStr = new StringBuilder();
+
+        for (int i=0; i < telefone.length(); i++) {
+            char c = telefone.charAt(i);
+
+            if(Character.isDigit(c)) {
+                newStr.append(c);
+            }
+        }
+        telefone = newStr.toString();
         
         try {
             cliente = new Cliente(nome, telefone);
@@ -334,7 +384,6 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
         if (exs.size() > 0) {
             Throwable[] causes = exs.getCauses();
             for (Throwable t : causes) {
-                System.out.println(t.getMessage());
                 if (t instanceof IllegalNomeException) {
                     jlbl_erro_nome.setVisible(true);
                     jlbl_erro_nome.setText(t.getMessage());
@@ -366,11 +415,13 @@ public final class JPanel_AlterarPedido extends javax.swing.JPanel implements In
                     jlbl_erro_ufEntrega.setText(t.getMessage());
                 } else if (t instanceof IllegalPaisException) {
 
+                } else if (t instanceof IllegalDestinoException) {
+                    p = null;
                 } else if (t instanceof IllegalDestinatarioException) {
                     jlbl_erro_observacoesEntrega.setVisible(true);
                     jlbl_erro_observacoesEntrega.setText(t.getMessage());
                 } if (t instanceof IllegalProdutoPedidoArrayException) {
-                    JOptionPane.showMessageDialog(null, "Insira ao menos um produto antes de completar o pedido.", "Falha ao cadastrar pedido", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Insira ao menos um produto antes de atualizar o pedido.", "Falha ao atualizar pedido", JOptionPane.INFORMATION_MESSAGE);
                 } else if (t instanceof IllegalTaxaDescontoException) {
                     jlbl_erro_desconto.setVisible(true);
                     jlbl_erro_desconto.setText(t.getMessage());

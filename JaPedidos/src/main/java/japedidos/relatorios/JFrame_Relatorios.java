@@ -46,6 +46,20 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
             System.exit(0);
         }
         initComponents();
+        
+        dtp_fimFinanceiro.addDateChangeListener((e) -> {
+            dtp_inicioFinanceiro.getSettings().setDateRangeLimits(LocalDate.now().minusYears(3), e.getNewDate());
+            if (dtp_inicioFinanceiro.getDate().isAfter(e.getNewDate())) {
+                dtp_inicioFinanceiro.setDate(e.getNewDate().minusMonths(1));
+            }
+        });
+        
+        dtp_fimPerformance.addDateChangeListener((e) -> {                                       
+            dtp_inicioPerformance.getSettings().setDateRangeLimits(LocalDate.now().minusYears(3), e.getNewDate());
+            if (dtp_inicioPerformance.getDate().isAfter(e.getNewDate())) {
+                dtp_inicioPerformance.setDate(e.getNewDate().minusMonths(1));
+            }
+        });
     }
 
     /**
@@ -254,6 +268,11 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         datePickerButton1.setBorderPainted(false);
         datePickerButton1.setFocusPainted(false);
         dtp_fimFinanceiro.setBackground(new java.awt.Color(0,0,0,0));
+        dtp_fimFinanceiro.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dtp_fimFinanceiroFocusLost(evt);
+            }
+        });
         jpnl_relatorioFinanceiro.add(dtp_fimFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 120, 30));
 
         dtp_inicioFinanceiro.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));
@@ -373,6 +392,11 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         datePickerButton3.setBorderPainted(false);
         datePickerButton3.setFocusPainted(false);
         dtp_fimPerformance.setBackground(new java.awt.Color(0,0,0,0));
+        dtp_fimPerformance.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dtp_fimPerformanceFocusLost(evt);
+            }
+        });
         jpnl_relatorioPerfomanceGeral.add(dtp_fimPerformance, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 120, 30));
 
         dtp_inicioPerformance.getComponentDateTextField().setPreferredSize(new java.awt.Dimension(80, 20));
@@ -1181,6 +1205,14 @@ public class JFrame_Relatorios extends javax.swing.JFrame {
         // TODO add your handling code here:
         jlbl_produtos.setForeground(Color.BLACK);
     }//GEN-LAST:event_jlbl_produtosMouseExited
+
+    private void dtp_fimFinanceiroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dtp_fimFinanceiroFocusLost
+        // TODO add your handling code here:       
+    }//GEN-LAST:event_dtp_fimFinanceiroFocusLost
+
+    private void dtp_fimPerformanceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dtp_fimPerformanceFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dtp_fimPerformanceFocusLost
 
     /**
      * @param args the command line arguments
