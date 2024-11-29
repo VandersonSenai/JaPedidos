@@ -1082,7 +1082,7 @@ public final class BD {
                 conn = BD.getConnection();
                 select = conn.prepareStatement(
                         String.format(
-                                "SELECT * FROM %s WHERE id_ultimo_est = %d AND telefone_cliente LIKE '%%%s%%' OR nome_cliente LIKE '%%%s%%' OR dthr_entregar LIKE '%%%s%%'", 
+                                "SELECT * FROM %s WHERE id_ultimo_est = %d AND (telefone_cliente LIKE '%%%s%%' OR nome_cliente LIKE '%%%s%%' OR dthr_entregar LIKE '%%%s%%')", 
                                 VIEW, estado.ID, pesquisar, pesquisar, pesquisar));
 
                 ResultSet rs = select.executeQuery();
